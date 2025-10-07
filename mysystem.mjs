@@ -1,0 +1,1 @@
+console.log("Mon système est chargé !");
