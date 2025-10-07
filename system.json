@@ -11,7 +11,7 @@
     "name": "me"
   }],
   "esmodules": ["mysystem.mjs"],
-  "styles": ["styles/system-styles.css"],
+  "styles": [],
   "packs": [],
   "languages": [],
   "url": "https://github.com/Mattha212/TestSystem-FoundryVTT",
