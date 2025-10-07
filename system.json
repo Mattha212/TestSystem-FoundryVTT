@@ -45,5 +45,8 @@
     "units": "ft"
   },
   "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.power"
+  "secondaryTokenAttribute": "resources.power",
+  "url": "https://github.com/Mattha212/TestSystem-FoundryVTT",
+  "manifest": "https://raw.githubusercontent.com/Mattha212/TestSystem-FoundryVTT/main/system.json",
+  "download": "https://github.com/Mattha212/TestSystem-FoundryVTT/archive/refs/heads/main.zip"
 }
