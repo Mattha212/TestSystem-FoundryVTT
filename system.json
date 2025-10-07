@@ -12,40 +12,8 @@
   }],
   "esmodules": ["mysystem.mjs"],
   "styles": ["styles/system-styles.css"],
-  "packs": [{
-    "name": "monsters",
-    "label": "My Monsters",
-    "type": "Actor"
-  },
-  {
-    "name": "items",
-    "label": "My Items",
-    "type": "Item"
-  }],
-  "languages": [{
-    "lang": "en",
-    "name": "English",
-    "path": "lang/en.json"
-  }],
-  "documentTypes": {
-    "Actor": {
-      "hero": { "htmlFields": ["background.biography"] },
-      "villain": { "htmlFields": ["background.biography"] },
-      "pawn": {}
-    },
-    "Item": {
-      "weapon": {},
-      "spell": {}
-    }
-  },
-  "socket": false,
-  "initiative": "1d20",
-  "grid": {
-    "distance": 10,
-    "units": "ft"
-  },
-  "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.power",
+  "packs": [],
+  "languages": [],
   "url": "https://github.com/Mattha212/TestSystem-FoundryVTT",
   "manifest": "https://raw.githubusercontent.com/Mattha212/TestSystem-FoundryVTT/main/system.json",
   "download": "https://github.com/Mattha212/TestSystem-FoundryVTT/archive/refs/heads/main.zip"
