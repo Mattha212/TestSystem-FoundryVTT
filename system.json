@@ -2,10 +2,10 @@
   "id": "testsystem",
   "title": "Test system foundry",
   "description": "A human-readable description of your system.",
-  "version": "12.0.0",
+  "version": "1.0.0",
   "compatibility": {
-    "minimum": 12,
-    "verified": 12
+    "minimum": 11,
+    "verified": 11
   },
   "authors": [{
     "name": "me"
