@@ -1,5 +1,5 @@
 {
-  "id": "testsystem",
+  "name": "testsystem",
   "title": "Test system foundry",
   "description": "A human-readable description of your system.",
   "version": "1.0.0",
@@ -11,7 +11,7 @@
     "name": "me"
   }],
   "esmodules": ["mysystem.mjs"],
-  "styles": [],
+  "styles": ["styles/system-styles.css"],
   "packs": [],
   "languages": [],
   "url": "https://github.com/Mattha212/TestSystem-FoundryVTT",
