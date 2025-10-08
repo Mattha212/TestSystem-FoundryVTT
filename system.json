@@ -11,6 +11,7 @@
     "name": "me"
   }],
   "documentTypes": {
+    "base": { "htmlFields": [] },
     "Actor": {
       "PJ": {
         "htmlFields": []
