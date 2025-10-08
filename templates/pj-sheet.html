@@ -1,12 +1,23 @@
 <form>
     <h2><input type="text" name = "name" value="{{actor.name}}"/></h2>
 
-<div>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="stats">Stats</a>
+        <a class="item" data-tab="inventory">Inventory</a>
+    </nav>
+ 
+<section class="sheet-body">
+<div class="tab" data-group="primary" data-tab="stats">
     <label>Health: </label>
     <input type="text" name= "system.health" value="{{system.health}}"/>
-</div>
-<div>
     <label>Stamina: </label>
     <input type="text" name="system.stamina" value = "{{system.stamina}}"/>
 </div>
+</section>
+
+<section class="sheet-body">
+<div class="tab" data-group="primary" data-tab="inventory">
+</div>
+</section>
+
 </form>

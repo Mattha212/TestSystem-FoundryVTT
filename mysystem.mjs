@@ -13,6 +13,16 @@ class PJSheet extends ActorSheet {
         const context = super.getData(options);
         return context;
     }
+    activateListeners(html){
+        super.activateListeners(html);
+        this._tabs = this._tabs || {};
+        this._tabs["primary"] = new Tabs({
+            navSelector: ".sheet-tabs",
+            contentSelector: ".sheet-body",
+            initial: "stats"
+        });
+        this._tabs["primary"].bind(html[0]);
+    }
 }
 Hooks.once("init", ()=>{
     console.log("Test System | Initialization...");
