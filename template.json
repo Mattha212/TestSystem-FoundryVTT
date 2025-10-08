@@ -3,6 +3,7 @@
     "types":["PJ"], 
     "PJ":{
       "name" : "",
+      "type": "PJ",
       "system":{
         "health": 0,
         "stamina":0
