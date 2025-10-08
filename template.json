@@ -1,5 +1,5 @@
 {
-  "actors": {
+  "Actor": {
     "types":["PJ"], 
     "PJ":{
       "name" : "",
