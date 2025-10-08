@@ -1,4 +1,13 @@
 {
-  "actors": {},
+  "actors": {
+    "types":["PJ"], 
+    "PJ":{
+      "name" : "",
+      "system":{
+        "health": 0,
+        "stamina":0
+      }
+    }
+  },
   "items": {}
 }
