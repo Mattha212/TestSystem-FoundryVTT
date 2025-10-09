@@ -11,10 +11,7 @@ class PJSheet extends ActorSheet {
     }
     getData(options){
         const context = super.getData(options);
-          context.system = foundry.utils.mergeObject(
-    { health: 0, stamina: 0 },
-    context.system
-  );
+        context.system = context.actor.system;
         return context;
     }
     activateListeners(html){
@@ -33,11 +30,6 @@ class PJSheet extends ActorSheet {
             const item = this.actor.items.get(li.data("itemId"));
             item.sheet.render(true);
         });
-        const x = html.find('form')
-        if(x){
-            console.log(x.name);
-        }
-      html.find('form').on('change', event => this._onSubmit(event));
 
     }
 }
