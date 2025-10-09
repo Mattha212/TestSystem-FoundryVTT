@@ -2,19 +2,15 @@
   "Actor": {
     "types":["PJ"], 
     "PJ":{
-      "system":{
-        "health": 0,
-        "stamina":0
-      }
+      "health": 0,
+      "stamina":0
     }
   },
   "Item": {
     "types":["Object"],
     "Object":{
-      "system":{
-        "description":"",
-        "weight":0
-      }
+      "description":"",
+      "weight":0
     }
   }
 }
