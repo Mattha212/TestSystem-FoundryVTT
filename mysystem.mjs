@@ -38,7 +38,9 @@ class PJSheet extends ActorSheet {
         const input = event.currentTarget;
         const name = input.name;
         const value = input.type === "number" ? parseFloat(input.value) : input.value;
-        this.actor.update({[name]: value});
+        const updateData = {};
+        foundry.utils.setProperty(updateData, name, value);
+        this.actor.update(updateData);
     }
 }
 
