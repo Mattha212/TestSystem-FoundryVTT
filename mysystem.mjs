@@ -34,7 +34,8 @@ class PJSheet extends ActorSheet {
             item.sheet.render(true);
         });
 
-        
+      html.find('form').on('change', event => this._onSubmit(event));
+
     }
 }
 
