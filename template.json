@@ -10,5 +10,15 @@
       }
     }
   },
-  "Items": {}
+  "Item": {
+    "types":["Object"],
+    "Object":{
+      "name": "",
+      "type": "Object",
+      "system":{
+        "description":"",
+        "weight":0
+      }
+    }
+  }
 }
