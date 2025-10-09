@@ -11,6 +11,10 @@ class PJSheet extends ActorSheet {
     }
     getData(options){
         const context = super.getData(options);
+          context.system = foundry.utils.mergeObject(
+    { health: 0, stamina: 0 },
+    context.system
+  );
         return context;
     }
     activateListeners(html){
