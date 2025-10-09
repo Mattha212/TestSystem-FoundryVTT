@@ -20,9 +20,7 @@ class PJSheet extends ActorSheet {
             navSelector: ".sheet-tabs",
             contentSelector: ".sheet-body",
             initial: "stats",
-            callback: (tabName, active, html) => {
-                console.log(`Onglet actif : ${tabName}`);
-            }
+            callback: () => {}
         });
         this._tabs["primary"].bind(html[0]);
 
@@ -31,6 +29,16 @@ class PJSheet extends ActorSheet {
             const item = this.actor.items.get(li.data("itemId"));
             item.sheet.render(true);
         });
+
+        html.find('input, textarea, select').change(ev=>this._onChangeInput(ev));
+    }
+
+    _onChangeInput(event){
+        event.preventDefault();
+        const input = event.currentTarget;
+        const name = input.name;
+        const value = input.type === "number" ? parseFloatinput.value : input.value;
+        this.actor.update({[name]: value});
     }
 }
 
