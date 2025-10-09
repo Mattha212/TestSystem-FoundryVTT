@@ -30,17 +30,7 @@ class PJSheet extends ActorSheet {
             item.sheet.render(true);
         });
 
-        html.find('input, textarea, select').change(ev=>this._onChangeInput(ev));
-    }
-
-    _onChangeInput(event){
-        event.preventDefault();
-        const input = event.currentTarget;
-        const name = input.name;
-        const value = input.type === "number" ? parseFloat(input.value) : input.value;
-        const updateData = {};
-        foundry.utils.setProperty(updateData, name, value);
-        this.actor.update(updateData);
+        
     }
 }
 
