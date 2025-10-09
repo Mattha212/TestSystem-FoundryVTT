@@ -2,8 +2,6 @@
   "Actor": {
     "types":["PJ"], 
     "PJ":{
-      "name" : "",
-      "type": "PJ",
       "system":{
         "health": 0,
         "stamina":0
@@ -13,8 +11,6 @@
   "Item": {
     "types":["Object"],
     "Object":{
-      "name": "",
-      "type": "Object",
       "system":{
         "description":"",
         "weight":0
