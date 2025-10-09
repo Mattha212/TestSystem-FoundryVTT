@@ -33,7 +33,10 @@ class PJSheet extends ActorSheet {
             const item = this.actor.items.get(li.data("itemId"));
             item.sheet.render(true);
         });
-
+        const x = html.find('form')
+        if(x){
+            console.log(x.name);
+        }
       html.find('form').on('change', event => this._onSubmit(event));
 
     }
