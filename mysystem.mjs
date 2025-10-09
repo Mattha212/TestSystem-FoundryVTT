@@ -37,7 +37,7 @@ class PJSheet extends ActorSheet {
         event.preventDefault();
         const input = event.currentTarget;
         const name = input.name;
-        const value = input.type === "number" ? parseFloatinput.value : input.value;
+        const value = input.type === "number" ? parseFloat(input.value) : input.value;
         this.actor.update({[name]: value});
     }
 }
