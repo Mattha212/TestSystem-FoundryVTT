@@ -46,7 +46,7 @@ class ObjectSheet extends ItemSheet{
 
   getData(options) {
     const context = super.getData(options);
-    context.system = context.actor.system;
+    context.system = context.item.system;
     return context;
   }
 }
