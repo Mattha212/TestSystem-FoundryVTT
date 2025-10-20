@@ -2,8 +2,11 @@
   "Actor": {
     "types":["PJ"], 
     "PJ":{
-      "health": 0,
-      "stamina":0
+      "playerName":"",
+      "characterGender":"",
+      "age": 0,
+      "culture": "",
+      "subculture":""
     }
   },
   "Item": {

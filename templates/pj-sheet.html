@@ -1,22 +1,27 @@
 <form class="actoor-sheet" autocomplete="off">
-    <h2><input type="text" name = "name" value="{{actor.name}}"/></h2>
+    <input type="text" name = "system.playerName" value="{{system.playerName}}"/>
+    <input type="text" name = "actor.name" value = "{{actor.name}}"/>
+    <input type="text" name= "system.characterGender" value = "{{system.characterGender}}"/>
+    <input type="number" name="system.age" value="{{system.age}}"/>
+    <input type="text" name="system.culture" value ="{{system.culture}}"/>
+    <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>
+
 
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="stats">Stats</a>
-        <a class="item" data-tab="inventory">Inventory</a>
+        <a class="item" data-tab="Skills">Skills</a>
+        <a class="item" data-tab="Fighting">Fighting</a>
+        <a class="item" data-tab="Inventory">Inventory</a>
     </nav>
  
 <section class="sheet-body">
-<div class="tab" data-group="primary" data-tab="stats">
-    <label>Health: </label>
-    <input type="number" name= "system.health" value="{{system.health}}"/>
-    <label>Stamina: </label>
-    <input type="number" name="system.stamina" value = "{{system.stamina}}"/>
+<div class="tab" data-group="primary" data-tab="Skills">
 </div>
 
-<div class="tab" data-group="primary" data-tab="inventory">
-    <h3>Inventory</h3>
-    <ol class="item-list">
+<div class="tab" data-group="primary" data-tab="Fighting">
+</div>
+
+<div class="tab" data-group ="primary" data-tab="Inventory">
+        <ol class="item-list">
         {{#each actor.items}}   
         <li class="item" data-item-id="{{this.id}}">
         <span class="item-name">{{this.name}}</span>
