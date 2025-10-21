@@ -23,7 +23,7 @@
       }}
   },
   "esmodules": ["mysystem.mjs"],
-  "styles": ["styles/system-styles.css"],
+  "styles": ["styles/system-styles.css", "systems/testsystem/styles/actor-sheet.css"],
   "packs": [],
   "languages": [],
   "url": "https://github.com/Mattha212/TestSystem-FoundryVTT",

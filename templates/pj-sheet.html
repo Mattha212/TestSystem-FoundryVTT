@@ -1,11 +1,17 @@
 <form class="actor-sheet" autocomplete="off">
+    <header class="sheet-header">
+        <div class="portrait">
+            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        </div>
+        <div class="char-info">
     <input type="text" name = "system.playerName" value="{{system.playerName}}"/>Player name
     <input type="text" name = "actor.name" value = "{{actor.name}}"/>Character name
     <input type="text" name= "system.characterGender" value = "{{system.characterGender}}"/>Gender
     <input type="number" name="system.age" value="{{system.age}}"/>Age
     <input type="text" name="system.culture" value ="{{system.culture}}"/>Culture
     <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
-
+    </div>
+</header>
 
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="Skills">Skills</a>
