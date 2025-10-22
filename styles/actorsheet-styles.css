@@ -30,6 +30,7 @@ border-radius: 8px;
 
 .testsystem.actor.sheet .char-info {
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr 1fr;
   gap: 6px 12px;
   align-items: center;
