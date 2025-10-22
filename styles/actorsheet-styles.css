@@ -4,7 +4,7 @@ border-radius: 8px;
 padding: 10x;
 }
 
-.testsystem.actor.sheet.sheet-header{
+.testsystem.actor.sheet .sheet-header{
 display: grid;
 grid-template-columns: 150px 1fr;
 gap: 15px;
@@ -12,7 +12,7 @@ padding: 10px;
 border-radius: 8px;
 }
 
-.testsystem.actor.sheet.portrait{
+.testsystem.actor.sheet .portrait{
   width: 150px;
   height: 150px;
   overflow: hidden;
@@ -21,21 +21,21 @@ border-radius: 8px;
   background: #2a2a2a;
 }
 
-.testsystem.actor.sheet.portrait img {
+.testsystem.actor.sheet .portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   cursor: pointer; 
 }
 
-.testsystem.actor.sheet.char-info {
+.testsystem.actor.sheet .char-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px 12px;
   align-items: center;
 }
 
-.testsystem.actor.sheet.char-info input {
+.testsystem.actor.sheet .char-info input {
   width: 100%;
   background: #2b2b2b;
   color: #fff;
