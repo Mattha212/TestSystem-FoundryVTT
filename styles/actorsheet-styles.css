@@ -47,7 +47,7 @@ border-radius: 8px;
 
 .testsystem.actor.sheet .char-stats {
 display: grid;
-grid-template-columns: 10px 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr 1fr;
 grid-template-rows: auto auto auto;
 gap: 10px;
 }
