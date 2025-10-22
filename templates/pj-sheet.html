@@ -11,18 +11,16 @@
             <input type="text" name="system.culture" value ="{{system.culture}}"/>Culture
             <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
         </div>
-        <section class ="sheet-stats">
-            {{#each system.stats as |stat key|}}
-            <div class = stat-block>
-                <label>{{stat.Label}}</label>
-                <input type="number" name="system.stats.{{key}}.MaxValue" value = {{stat.MaxValue}}/>
-                <span class="Current">{{stat.CurrentValue}}</span>
-            </div>        
-            {{/each}}
-        </section>
-
 </header>
-
+<section class ="sheet-stats">
+    {{#each system.stats as |stat key|}}
+    <div class = stat-block>
+        <label>{{stat.Label}}</label>
+        <input type="number" name="system.stats.{{key}}.MaxValue" value = {{stat.MaxValue}}/>
+        <span class="Current">{{stat.CurrentValue}}</span>
+    </div>        
+    {{/each}}
+</section>
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="Skills">Skills</a>
         <a class="item" data-tab="Fighting">Fighting</a>
