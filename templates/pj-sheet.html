@@ -11,7 +11,7 @@
             <input type="text" name="system.culture" value ="{{system.culture}}"/>Culture
             <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
         </div>
-        <div class="char-stats">
+        <section class ="sheet-stats">
             {{#each system.stats as |stat key|}}
             <div class = stat-block>
                 <label>{{stat.Label}}</label>
@@ -19,7 +19,7 @@
                 <span class="Current">{{stat.CurrentValue}}</span>
             </div>        
             {{/each}}
-        </div>
+        </section>
 
 </header>
 

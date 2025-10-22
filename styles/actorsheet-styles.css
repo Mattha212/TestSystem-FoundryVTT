@@ -36,6 +36,14 @@ border-radius: 8px;
   align-items: center;
 }
 
+.testsystem.actor.sheet .sheet-stats{
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: auto auto auto;
+gap: 10px;
+width: 100%;
+}
+
 .testsystem.actor.sheet .char-info input {
   width: 100%;
   background: #fff;
@@ -44,12 +52,4 @@ border-radius: 8px;
   border-radius: 4px;
   padding: 3px 6px;
   text-align: center;
-}
-
-.testsystem.actor.sheet .char-stats {
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: auto auto auto;
-gap: 10px;
-width: 100%;
 }
