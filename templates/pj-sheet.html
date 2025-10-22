@@ -12,7 +12,7 @@
             <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
         </div>
         <div class="char-stats">
-            {{each system.stats as |stat key|}}
+            {{#each system.stats as |stat key|}}
             <div class = stat-block>
                 <label>stat.Label</label>
                 <input type="number" name="system.stats.{{key}}.MaxValue" value = {{stat.MaxValue}}/>
