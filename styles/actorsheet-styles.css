@@ -6,7 +6,7 @@ padding: 10x;
 
 .testsystem.actor.sheet .sheet-header{
 display: grid;
-grid-template-columns: 150px 1fr;
+grid-template-columns: 150px 1fr 1fr;
 gap: 15px;
 padding: 10px;
 border-radius: 8px;
@@ -42,4 +42,12 @@ border-radius: 8px;
   border: 1px solid #555;
   border-radius: 4px;
   padding: 3px 6px;
+  text-align: center;
+}
+
+.testsystem.actor.sheet .char-stats {
+display: grid;
+grid-template-columns: 10px 1fr 1fr 1fr;
+grid-template-rows: auto auto auto;
+gap: 10px;
 }
