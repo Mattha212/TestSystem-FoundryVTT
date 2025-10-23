@@ -32,6 +32,23 @@ class PJSheet extends ActorSheet {
         });
 
     }
+
+    async _onChangeInput(event){
+        await super._onChangeInput(event);
+        const input = event.target;
+
+        if(input.name?.endsWith(".MaxValue")){
+            const statKey = input.name.split(".")[2];
+            const newValue = Number(input.value);
+            const currentValue = this.actor.system.stats[statKey].CurrentValue;
+            const maxValue = this.actor.system.stats[statKey].MaxValue;
+            const update = {[`system.stats.${statKey}.MaxValue`]:newValue};
+            if(maxValue === currentValue){
+                 update[`system.stats.${statKey}.CurrentValue`]= newValue;
+            }
+            await this.actor.update(update);
+        }
+    }
 }
 
 class ObjectSheet extends ItemSheet{
