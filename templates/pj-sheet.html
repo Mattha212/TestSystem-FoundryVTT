@@ -16,8 +16,11 @@
     {{#each system.stats as |stat key|}}
     <div class = stat-block>
         <label>{{stat.Label}}</label>
-        <input type="number" name="system.stats.{{key}}.MaxValue" value = {{stat.MaxValue}}/>
-        <span class="Current">{{stat.CurrentValue}}</span>
+        <div class="stats-values">
+            <input type="number" name="system.stats.{{key}}.MaxValue" value = {{stat.MaxValue}}/>
+            <span>/</span>
+            <span class="Current">{{stat.CurrentValue}}</span>
+        </div>
     </div>        
     {{/each}}
 </section>

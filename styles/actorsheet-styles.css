@@ -36,14 +36,6 @@ border-radius: 8px;
   align-items: center;
 }
 
-.testsystem.actor.sheet .sheet-stats{
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: auto auto auto;
-gap: 10px;
-width: 100%;
-}
-
 .testsystem.actor.sheet .char-info input {
   width: 100%;
   background: #fff;
@@ -52,4 +44,35 @@ width: 100%;
   border-radius: 4px;
   padding: 3px 6px;
   text-align: center;
+}
+
+.testsystem.actor.sheet .sheet-stats{
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: auto auto auto;
+gap: 10px;
+width: 100%;
+}
+
+.testsystem.actor.sheet .stat-block{
+display: flex;
+flex-direction: column;
+align-items: center;
+background: #ffffff;
+padding: 8px;
+border: 1px solid #555;
+border-radius: 8px;
+}
+
+.testsystem.actor.sheet .stat-block label{
+font-weight: bold;
+color: #1e1e1e;
+margin-bottom: 4px;
+}
+
+.testsystem.actor.sheet .stat-values{
+display:flex;
+align-items: center;
+justify-content: center;
+gap: 4px;
 }
