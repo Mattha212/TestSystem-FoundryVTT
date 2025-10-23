@@ -67,7 +67,7 @@ justify-content: center;
 .testsystem.actor.sheet .stat-block label{
 font-weight: italic;
 color: #1e1e1e;
-margin-bottom: 4px;
+margin-right: 4px;
 }
 
 .testsystem.actor.sheet .stat-values{
