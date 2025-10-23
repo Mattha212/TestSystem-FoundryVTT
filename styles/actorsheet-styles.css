@@ -61,6 +61,7 @@ align-items: center;
 padding: 8px;
 border: 1px solid #ffffff;
 border-radius: 8px;
+justify-content: space-between;
 }
 
 .testsystem.actor.sheet .stat-block label{
@@ -69,24 +70,19 @@ color: #1e1e1e;
 margin-right: 4px;
 margin-left: 4px;
 text-align: left;
-flex-shrink: 0;
 }
 
 .testsystem.actor.sheet .stat-values{
 display:flex;
 align-items: center;
-justify-content: space-between;
-flex-grow: 1;
 gap: 4px;
 }
 
 .testsystem.actor.sheet .CurrentValues{
 text-align: center;
 width: 50px;
-flex-shrink: 0;
 }
 
 .testsystem.actor.sheet .sheet-stats input{
 width: 50px;
-flex-shrink: 0;
 }
