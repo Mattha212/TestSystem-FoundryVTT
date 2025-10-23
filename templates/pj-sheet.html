@@ -16,7 +16,7 @@
     {{#each system.stats as |stat key|}}
     <div class = stat-block>
         <label>{{stat.Label}}</label>
-        <div class="stats-values">
+        <div class="stat-values">
             <input type="number" name="system.stats.{{key}}.MaxValue" value = {{stat.MaxValue}}/>
             <span>/</span>
             <span class="Current">{{stat.CurrentValue}}</span>
