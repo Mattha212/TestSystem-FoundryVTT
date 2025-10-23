@@ -64,7 +64,7 @@ border-radius: 8px;
 }
 
 .testsystem.actor.sheet .stat-block label{
-font-weight: bold;
+font-weight: italic;
 color: #1e1e1e;
 margin-bottom: 4px;
 }
@@ -77,9 +77,9 @@ gap: 4px;
 }
 
 .testsystem.actor.sheet .CurrentValues{
-width: 20px;
+width: 50px;
 }
 
 .testsystem.actor.sheet .sheet-stats input{
-width: 20px;
+width: 50px;
 }
