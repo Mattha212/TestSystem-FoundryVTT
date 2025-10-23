@@ -57,7 +57,7 @@ class PJSheet extends ActorSheet {
 
             }
             else{
-            update= {[`system.stats.${statKey}.MaxValue`]:newValue};
+            update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
             await this.actor.update(update);
