@@ -49,7 +49,7 @@ class PJSheet extends ActorSheet {
             const currentValue = this.actor.system.stats[statKey].CurrentValue;
             const maxValue = this.actor.system.stats[statKey].MaxValue;
             const update = {[`system.stats.${statKey}.MaxValue`]:newValue};
-            if(maxValue === currentValue){
+            if(maxValue === currentValue || maxValue === null){
                  update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
             await this.actor.update(update);
