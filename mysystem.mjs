@@ -52,12 +52,12 @@ class PJSheet extends ActorSheet {
             const currentValue = this.actor.system.stats[statKey].CurrentValue;
             const maxValue = this.actor.system.stats[statKey].MaxValue;
             const label = this.actor.system.stats[statKey].Label;
-
+            const update={};
             if(label === "Constitution"){
 
             }
             else{
-                const update = {[`system.stats.${statKey}.MaxValue`]:newValue};
+            update= {[`system.stats.${statKey}.MaxValue`]:newValue};
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
             await this.actor.update(update);
