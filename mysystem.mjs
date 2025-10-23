@@ -12,6 +12,12 @@ class PJSheet extends ActorSheet {
     getData(options){
         const context = super.getData(options);
         context.system = context.actor.system;
+        const stats = context.system.stats;
+        for (const key in stats) {
+        if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
+        if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
+        }
+
         return context;
     }
     activateListeners(html){
