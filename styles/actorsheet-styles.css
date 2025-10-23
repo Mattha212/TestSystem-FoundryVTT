@@ -56,17 +56,19 @@ width: 100%;
 
 .testsystem.actor.sheet .stat-block{
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
 padding: 8px;
 border: 1px solid #ffffff;
 border-radius: 8px;
+justify-content: center;
 }
 
 .testsystem.actor.sheet .stat-block label{
 font-weight: italic;
 color: #1e1e1e;
 margin-bottom: 4px;
+flex-shrink: 0;
 }
 
 .testsystem.actor.sheet .stat-values{
@@ -78,8 +80,10 @@ gap: 4px;
 
 .testsystem.actor.sheet .CurrentValues{
 width: 50px;
+flex-shrink: 0;
 }
 
 .testsystem.actor.sheet .sheet-stats input{
 width: 50px;
+flex-shrink: 0;
 }
