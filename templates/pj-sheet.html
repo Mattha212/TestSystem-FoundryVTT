@@ -19,7 +19,10 @@
         <div class="stat-values">
             <input type="number" name="system.stats.{{key}}.MaxValue" value = "{{stat.MaxValue}}"/>
             <span>/</span>
-            <span class="CurrentValues">{{stat.CurrentValue}}</span>
+        {{#if (or (eq key "Constitution") (eq key "Vigor"))}}
+          <input type="number" name="system.stats.{{key}}.CurrentValue" value="{{stat.CurrentValue}}" />
+        {{else}}
+          <span class="CurrentValues">{{stat.CurrentValue}}</span>
         </div>
     </div>        
     {{/each}}

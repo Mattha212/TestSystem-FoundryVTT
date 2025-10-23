@@ -2,6 +2,8 @@ console.log("Mon système est chargé !");
 
 class PJSheet extends ActorSheet {
     static get defaultOptions() {
+
+
         return mergeObject( super.defaultOptions, {
             classes: ["testsystem","sheet","actor"],
             template: "systems/testsystem/templates/pj-sheet.html",
@@ -46,10 +48,18 @@ class PJSheet extends ActorSheet {
         if(input.name?.endsWith(".MaxValue")){
             const statKey = input.name.split(".")[2];
             const newValue = Number(input.value);
+
             const currentValue = this.actor.system.stats[statKey].CurrentValue;
             const maxValue = this.actor.system.stats[statKey].MaxValue;
-            const update = {[`system.stats.${statKey}.MaxValue`]:newValue};
+            const label = this.actor.system.stats[statKey].Label;
+
+            if(label === "Constitution"){
+
+            }
+            else{
+                const update = {[`system.stats.${statKey}.MaxValue`]:newValue};
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
+            }
             await this.actor.update(update);
         }
     }
@@ -84,4 +94,7 @@ Hooks.once("init", ()=>{
         types:["Object"],
         makeDefault:true
     });
+    Handlebars.registerHelper("includes", function (array, value) {
+    return array.includes(value);
+  });
 });
