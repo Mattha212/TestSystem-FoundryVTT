@@ -68,6 +68,9 @@ justify-content: center;
 font-weight: italic;
 color: #1e1e1e;
 margin-right: 4px;
+margin-left: 4px;
+text-align: left;
+
 }
 
 .testsystem.actor.sheet .stat-values{
