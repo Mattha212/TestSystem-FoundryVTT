@@ -39,7 +39,7 @@ class PJSheet extends ActorSheet {
             item.sheet.render(true);
         });
 
-        html.find("stat-roll").click(this._onRollStat.bind(this));
+        html.find(".stat-roll").click(this._onRollStat.bind(this));
 
     }
 
