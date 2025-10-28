@@ -79,6 +79,8 @@ class PJSheet extends ActorSheet {
                 update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
                 update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -20;
             }
+            update[`system.stats.${statKey}.CurrentValue`]= newValue;
+
             }
         }
         await this.actor.update(update);
