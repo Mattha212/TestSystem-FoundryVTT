@@ -58,7 +58,7 @@ class PJSheet extends ActorSheet {
             const statKey = input.name.split(".")[2];
             const newValue = Number(input.value);
             const label = this.actor.system.stats[statKey].Label;
-            
+
             if(label === "Constitution"){
             const currentValue = this.actor.system.stats[statKey].CurrentValue;
             const maxValue = this.actor.system.stats[statKey].MaxValue;
@@ -66,14 +66,14 @@ class PJSheet extends ActorSheet {
             const currentValueAgility = this.actor.system.stats["Agility"].CurrentValue;
 
             if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
-                update[`system.stats.${Agility}.CurrentValue`] = currentValueAgility - 10;
+                update[`system.stats.${"Agility"}.CurrentValue`] = currentValueAgility - 10;
             }
             else if(newValue<=maxValue*0.5 && newValue>maxValue*0.25){
-                update[`system.stats.${Strength}.CurrentValue`] = currentValueStrength -10;
+                update[`system.stats.${"Strength"}.CurrentValue`] = currentValueStrength -10;
             }
             else if(newValue<=maxValue*0.25 && newValue>0){
-                update[`system.stats.${Agility}.CurrentValue`] = currentValueAgility - 10;
-                update[`system.stats.${Strength}.CurrentValue`] = currentValueStrength -10;
+                update[`system.stats.${"Agility"}.CurrentValue`] = currentValueAgility - 10;
+                update[`system.stats.${"Strength"}.CurrentValue`] = currentValueStrength -10;
             }
             }
         }
