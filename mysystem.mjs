@@ -94,7 +94,7 @@ class PJSheet extends ActorSheet {
     async _onRollStat(event){
         event.preventDefault();
         const button = event.currentTarget;
-        const statKey = event.dataset.stat;
+        const statKey = button.dataset.stat;
         const stat = this.actor.system.stats[statKey];
         const currentValueStat = stat.CurrentValue;
 
