@@ -65,8 +65,7 @@ class PJSheet extends ActorSheet {
             const MaxValueStrength = this.actor.system.stats["Strength"].MaxValue;
             const MaxValueAgility = this.actor.system.stats["Agility"].MaxValue;
 
-
-            if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
+            if(newValue>maxValue*0.75){
                 update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
                 update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength;
             }
