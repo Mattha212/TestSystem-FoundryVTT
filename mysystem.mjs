@@ -43,35 +43,39 @@ class PJSheet extends ActorSheet {
 
     async _onChangeInput(event){
         const input = event.target;
+        const update={};
 
         if(input.name?.endsWith(".MaxValue")){
             const statKey = input.name.split(".")[2];
             const newValue = Number(input.value);
+            
+            update[`system.stats.${statKey}.MaxValue`] = newValue;
+            update[`system.stats.${statKey}.CurrentValue`]= newValue;
+            
+            await this.actor.update(update);
+        }
+        if(input.name?.endsWith(".CurrentValue")){
+            const statKey = input.name.split(".")[2];
+            const newValue = Number(input.value);
 
+            if(label === "Constitution"){
             const currentValue = this.actor.system.stats[statKey].CurrentValue;
             const maxValue = this.actor.system.stats[statKey].MaxValue;
             const label = this.actor.system.stats[statKey].Label;
-            const update={};
+            const currentValueStrength = this.actor.system.stats["Strength"].CurrentValue;
+            const currentValueAgility = this.actor.system.stats["Agility"].CurrentValue;
 
-            if(label === "Constitution"){
-                const currentValueStrength = this.actor.system.stats["Strength"].CurrentValue;
-                const currentValueAgility = this.actor.system.stats["Agility"].CurrentValue;
-                if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
-                    update[`system.stats.${Agility}.CurrentValue`] = currentValueAgility - 10;
-                }
-                else if(newValue<=maxValue*0.5 && newValue>maxValue*0.25){
-                    update[`system.stats.${Strength}.CurrentValue`] = currentValueStrength -10;
-                }
-                else if(newValue<=maxValue*0.25 && newValue>0){
-                    update[`system.stats.${Agility}.CurrentValue`] = currentValueAgility - 10;
-                    update[`system.stats.${Strength}.CurrentValue`] = currentValueStrength -10;
-                }
+            if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
+                update[`system.stats.${Agility}.CurrentValue`] = currentValueAgility - 10;
             }
-            else{
-            update[`system.stats.${statKey}.MaxValue`] = newValue;
-            update[`system.stats.${statKey}.CurrentValue`]= newValue;
+            else if(newValue<=maxValue*0.5 && newValue>maxValue*0.25){
+                update[`system.stats.${Strength}.CurrentValue`] = currentValueStrength -10;
             }
-            await this.actor.update(update);
+            else if(newValue<=maxValue*0.25 && newValue>0){
+                update[`system.stats.${Agility}.CurrentValue`] = currentValueAgility - 10;
+                update[`system.stats.${Strength}.CurrentValue`] = currentValueStrength -10;
+            }
+            }
         }
         
         await super._onChangeInput(event);
