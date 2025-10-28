@@ -48,7 +48,7 @@ class PJSheet extends ActorSheet {
         if(input.name?.endsWith(".MaxValue")){
             const statKey = input.name.split(".")[2];
             const newValue = Number(input.value);
-            
+
             update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             
@@ -57,11 +57,11 @@ class PJSheet extends ActorSheet {
         if(input.name?.endsWith(".CurrentValue")){
             const statKey = input.name.split(".")[2];
             const newValue = Number(input.value);
-
+            const label = this.actor.system.stats[statKey].Label;
+            
             if(label === "Constitution"){
             const currentValue = this.actor.system.stats[statKey].CurrentValue;
             const maxValue = this.actor.system.stats[statKey].MaxValue;
-            const label = this.actor.system.stats[statKey].Label;
             const currentValueStrength = this.actor.system.stats["Strength"].CurrentValue;
             const currentValueAgility = this.actor.system.stats["Agility"].CurrentValue;
 
