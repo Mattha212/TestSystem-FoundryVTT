@@ -77,7 +77,8 @@ class PJSheet extends ActorSheet {
             }
             }
         }
-        
+        await this.actor.update(update);
+
         await super._onChangeInput(event);
 
     }
