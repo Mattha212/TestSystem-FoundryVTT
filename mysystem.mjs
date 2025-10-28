@@ -39,6 +39,8 @@ class PJSheet extends ActorSheet {
             item.sheet.render(true);
         });
 
+        html.find("stat-roll").click(this._onRollStat.bind(this));
+
     }
 
     async _onChangeInput(event){
@@ -86,6 +88,34 @@ class PJSheet extends ActorSheet {
         await this.actor.update(update);
 
         await super._onChangeInput(event);
+
+    }
+    
+    async _onRollStat(event){
+        event.preventDefault();
+        const button = event.currentTarget;
+        const statKey = event.dataset.stat;
+        const stat = this.actor.system.stats[statKey];
+        const currentValueStat = stat.CurrentValue;
+
+        if(!stat) return;
+
+        const formula = `1d100`;
+        const roll = new Roll(formula);
+        await roll.evaluate({async: true});
+        const valueRolled = roll.total;
+        const test = currentValueStat>=valueRolled;
+        const stringResponse = test ? "Success" : "Failure";
+        await roll.toMessage({
+            speaker: ChatMessage.getSpeaker({actor:this.actor}),
+            flavor: `${stringResponse}`
+        });
+        if(test){
+            ui.notifications.info(`il se passe des trucs`);
+        }
+        else{
+            ui.notifications.info(`il se passe rien`);
+        }
 
     }
 }

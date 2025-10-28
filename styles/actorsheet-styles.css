@@ -86,3 +86,15 @@ width: 50px;
 .testsystem.actor.sheet .sheet-stats input{
 width: 50px;
 }
+
+.testsystem.actor.sheet .stat-roll {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.testsystem.actor.sheet .stat-roll:hover {
+  color: var(--color-text-hyperlink);
+}
