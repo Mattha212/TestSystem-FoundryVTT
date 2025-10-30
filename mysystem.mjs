@@ -96,10 +96,37 @@ class PJSheet extends ActorSheet {
         const button = event.currentTarget;
         const statKey = button.dataset.stat;
         const stat = this.actor.system.stats[statKey];
-        const currentValueStat = stat.CurrentValue;
-
         if(!stat) return;
 
+        const content =`
+        <form class = "difficulty-Modifier-form">
+            <div class = "difficulty-Modifier-group" >
+                <label>Modifier</label>
+                <input type = number name = "Modifier" value="0">
+            </div>
+        </form>
+        `;
+
+        new Dialog({
+            title: `${statKey} roll`,
+            content,
+            buttons:{
+                roll:{
+                    label: "Roll",
+                    callback: html => this._onConfirmRollStat(html,statKey)
+                },
+                cancel:{
+                    label: "Cancel"
+                }
+            }
+
+        })
+
+    }
+
+    async _onConfirmRollStat(event, statKey){
+        const stat = this.actor.system.stats[statKey];
+        const currentValueStat = stat.CurrentValue;
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate({async: true});
@@ -107,6 +134,7 @@ class PJSheet extends ActorSheet {
         const test = currentValueStat>=valueRolled;
         const testDegree = (currentValueStat - valueRolled) /10;
         const stringResponse = test ? "Success" : "Failure";
+
         const message = `
         <div class= "custom-stat-roll">
         <h3>Stat Roll: ${statKey}</h3>
@@ -114,6 +142,7 @@ class PJSheet extends ActorSheet {
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
+
         await ChatMessage.create({
             speaker:ChatMessage.getSpeaker({actor:this.actor}),
             content:message,
@@ -127,7 +156,6 @@ class PJSheet extends ActorSheet {
         else{
             ui.notifications.info(`il se passe rien`);
         }
-
     }
 }
 
