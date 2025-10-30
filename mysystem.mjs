@@ -106,10 +106,19 @@ class PJSheet extends ActorSheet {
         const valueRolled = roll.total;
         const test = currentValueStat>=valueRolled;
         const stringResponse = test ? "Success" : "Failure";
-        await roll.toMessage({
-            speaker: ChatMessage.getSpeaker({actor:this.actor}),
-            flavor: `${valueRolled} / ${currentValueStat}: ${stringResponse}`
-        });
+        const message = `
+        <div class= "custom-stat-roll">
+        <h2>Stat Roll: ${statKey}</h2>
+        ${valueRolled} / ${currentValueStat}: ${stringResponse}
+        </div>
+        `;
+        await ChatMessage.create({
+            speaker:ChatMessage.getSpeaker({actor:this.actor}),
+            content:message,
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+            roll,
+        })
+
         if(test){
             ui.notifications.info(`il se passe des trucs`);
         }
