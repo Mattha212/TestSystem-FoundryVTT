@@ -102,7 +102,7 @@ class PJSheet extends ActorSheet {
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
                 <label>Modifier</label>
-                <input type = number name = "Modifier" value="0">
+                <input type = number name = "modifier" value="0">
             </div>
         </form>
         `;
@@ -124,21 +124,26 @@ class PJSheet extends ActorSheet {
 
     }
 
-    async _onConfirmRollStat(event, statKey){
+    async _onConfirmRollStat(html, statKey){
         const stat = this.actor.system.stats[statKey];
         const currentValueStat = stat.CurrentValue;
+
+        const form = html[0].querySelector("form");
+        const modifier = 10 * (Number(form.modifier.value) || 0);       
+        
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate({async: true});
         const valueRolled = roll.total;
-        const test = currentValueStat>=valueRolled;
+        const test = currentValueStat + modifier >=valueRolled;
         const testDegree = Math.floor((currentValueStat - valueRolled) /10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
         <div class= "custom-stat-roll">
-        <h3>${statKey} roll</h3>
+        <h3>Stat roll: ${statKey}</h3>
         <p>${valueRolled} / ${currentValueStat}: ${stringResponse}</p>
+        <p>${modifier}</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
