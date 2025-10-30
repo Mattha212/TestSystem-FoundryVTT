@@ -105,7 +105,7 @@ class PJSheet extends ActorSheet {
         await roll.evaluate({async: true});
         const valueRolled = roll.total;
         const test = currentValueStat>=valueRolled;
-        const testDegree = (valueRolled - currentValueStat) /10;
+        const testDegree = (currentValueStat - valueRolled) /10;
         const stringResponse = test ? "Success" : "Failure";
         const message = `
         <div class= "custom-stat-roll">
