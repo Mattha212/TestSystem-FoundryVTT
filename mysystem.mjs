@@ -118,9 +118,9 @@ class PJSheet extends ActorSheet {
                 cancel:{
                     label: "Cancel"
                 }
-            }
-
-        })
+            },
+                default: "roll"
+            }).render(true);
 
     }
 
