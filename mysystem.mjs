@@ -143,7 +143,7 @@ class PJSheet extends ActorSheet {
         const message = `
         <div class= "custom-stat-roll">
         <h3>Stat roll: ${statKey}</h3>
-        <p>${valueRolled} / ${currentValueStat}: ${valueTested}</p>
+        <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${modifier}</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
