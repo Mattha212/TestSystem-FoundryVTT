@@ -1,5 +1,9 @@
 console.log("Mon système est chargé !");
 
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
 class PJSheet extends ActorSheet {
     static get defaultOptions() {
 
@@ -135,7 +139,7 @@ class PJSheet extends ActorSheet {
         const roll = new Roll(formula);
         await roll.evaluate({async: true});
         const valueRolled = roll.total;
-        const valueTested = currentValueStat + modifier;
+        const valueTested = clamp(currentValueStat + modifier,5,95);
         const test = valueTested >=valueRolled;
         const testDegree = Math.floor((valueTested - valueRolled) /10);
         const stringResponse = test ? "Success" : "Failure";

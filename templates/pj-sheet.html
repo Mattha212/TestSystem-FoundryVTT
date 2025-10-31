@@ -11,45 +11,43 @@
             <input type="text" name="system.culture" value ="{{system.culture}}"/>Culture
             <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
         </div>
-</header>
-<section class ="sheet-stats">
-    {{#each system.stats as |stat key|}}
-    <div class = stat-block>
-        <button type="button" class = "stat-roll" data-stat="{{key}}">{{stat.Label}}</button>
-        <div class="stat-values">
-            <input type="number" name="system.stats.{{key}}.MaxValue" value = "{{stat.MaxValue}}"/>
-            <span>/</span>
-        {{#if (or (eq key "Constitution") (eq key "Vigor"))}}
-          <input type="number" name="system.stats.{{key}}.CurrentValue" value="{{stat.CurrentValue}}" />
-        {{else}}
-          <span class="CurrentValues">{{stat.CurrentValue}}</span>
-        {{/if}}
+        <div class="traits">
         </div>
-    </div>        
-    {{/each}}
-</section>
+    </header>
+    <section class ="sheet-stats">
+        {{#each system.stats as |stat key|}}
+        <div class = stat-block>
+            <button type="button" class = "stat-roll" data-stat="{{key}}">{{stat.Label}}</button>
+            <div class="stat-values">
+                <input type="number" name="system.stats.{{key}}.MaxValue" value = "{{stat.MaxValue}}"/>
+                <span>/</span>
+            {{#if (or (eq key "Constitution") (eq key "Vigor"))}}
+            <input type="number" name="system.stats.{{key}}.CurrentValue" value="{{stat.CurrentValue}}" />
+            {{else}}
+            <span class="CurrentValues">{{stat.CurrentValue}}</span>
+            {{/if}}
+            </div>
+        </div>        
+        {{/each}}
+    </section>
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="Skills">Skills</a>
         <a class="item" data-tab="Fighting">Fighting</a>
         <a class="item" data-tab="Inventory">Inventory</a>
     </nav>
  
-<section class="sheet-body">
-<div class="tab" data-group="primary" data-tab="Skills">
-</div>
-
-<div class="tab" data-group="primary" data-tab="Fighting">
-</div>
-
-<div class="tab" data-group ="primary" data-tab="Inventory">
-        <ol class="item-list">
-        {{#each actor.items}}   
-        <li class="item" data-item-id="{{this.id}}">
-        <span class="item-name">{{this.name}}</span>
-        <span class="item-weight">{{this.system.weight}} kg</span>
-        </li>
-        {{/each}}
-    </ol>
-</div>
-</section>
+    <section class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="Skills"></div>
+        <div class="tab" data-group="primary" data-tab="Fighting"></div>
+        <div class="tab" data-group ="primary" data-tab="Inventory">
+                <ol class="item-list">
+                {{#each actor.items}}   
+                <li class="item" data-item-id="{{this.id}}">
+                <span class="item-name">{{this.name}}</span>
+                <span class="item-weight">{{this.system.weight}} kg</span>
+                </li>
+                {{/each}}
+            </ol>
+        </div>
+    </section>
 </form>
