@@ -111,6 +111,7 @@ display: grid;
 grid-template-columns: 1fr 1fr;
 grid-template-rows: auto auto;
 margin-left: 4px;
+list-style-type: none;
 gap: 10px;
 width: 100%;
 }
