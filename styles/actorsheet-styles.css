@@ -46,6 +46,11 @@ border-radius: 8px;
   text-align: center;
 }
 
+.testsystem.actor.sheet .traits {
+  display: grid;
+  width: 100%;
+}
+
 .testsystem.actor.sheet .sheet-stats{
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
@@ -95,6 +100,7 @@ width: 50px;
   cursor: pointer;
   text-decoration: underline;
 }
+
 .testsystem.actor.sheet .stat-roll:hover {
   color: var(--color-text-hyperlink);
 }
