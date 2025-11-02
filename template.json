@@ -17,6 +17,16 @@
         "Perception":{"Label":"Perception","CurrentValue":0,"MaxValue":0},
         "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
         "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
+      },
+      "skills":{
+        "Social":{"Intimidation":{},"Seduction":{},"Psychology":{},"Representation":{},"Gambling":{},"Persuasion":{},
+      "Deceit":{},"Leadership":{},"Will":{}, "Trade":{}},
+        "Stealth":{},
+        "Craftmanship":{},
+        "Knowledge":{},
+        "Physical":{},
+        "Restricted":{}
+
       }
     }
   },
