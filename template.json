@@ -21,7 +21,7 @@
       "skills":{
         "Social":{"Intimidation":{},"Seduction":{},"Psychology":{},"Representation":{},"Gambling":{},"Persuasion":{},
       "Deceit":{},"Leadership":{},"Will":{}, "Trade":{}},
-        "Stealth":{},
+        "Stealth":{"Stealth":{},"Deguisment":{}, "Doigt de fee":{},"Picklocking":{}},
         "Craftmanship":{},
         "Knowledge":{},
         "Physical":{},
