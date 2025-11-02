@@ -110,6 +110,7 @@ width: 50px;
 display: grid;
 grid-template-columns: 1fr 1fr;
 grid-template-rows: auto auto;
+margin-left: 4px;
 gap: 10px;
 width: 100%;
 }
