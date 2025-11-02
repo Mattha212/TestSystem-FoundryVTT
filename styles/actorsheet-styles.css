@@ -105,3 +105,11 @@ width: 50px;
 .testsystem.actor.sheet .stat-roll:hover {
   color: var(--color-text-hyperlink);
 }
+
+.testsystem.actor.sheet .skills-social{
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-template-rows: auto auto;
+gap: 10px;
+width: 100%;
+}

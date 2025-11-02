@@ -44,10 +44,13 @@
     </nav>
  
     <section class="sheet-body">
-        <div class="tab" data-group="primary" data-tab="Skills"></div>
-        {{#each skills.social}}
-        <li class="skill">{{@key}}</li>
-        {{/each}}
+        <div class="tab" data-group="primary" data-tab="Skills">
+            <div class="skills-social">
+                {{#each skills.social}}
+                    <li class="skill">{{@key}}</li>
+                {{/each}}
+            </div>
+        </div>
         <div class="tab" data-group="primary" data-tab="Fighting"></div>
         <div class="tab" data-group ="primary" data-tab="Inventory">
                 <ol class="item-list">
