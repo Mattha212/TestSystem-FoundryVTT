@@ -49,6 +49,7 @@ border-radius: 8px;
 .testsystem.actor.sheet .traits {
   display: grid;
   width: 100%;
+  gap: 12px 0;
 }
 
 .testsystem.actor.sheet .sheet-stats{
