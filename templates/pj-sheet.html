@@ -12,6 +12,13 @@
             <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
         </div>
         <div class="traits">
+            <ol class="trait-list">
+                {{#each traits}}   
+                <li class="trait" data-item-id="{{this.id}}">
+                <span class="trait-name">{{this.name}}</span>
+                </li>
+                {{/each}}
+            </ol>
         </div>
     </header>
     <section class ="sheet-stats">
@@ -41,7 +48,7 @@
         <div class="tab" data-group="primary" data-tab="Fighting"></div>
         <div class="tab" data-group ="primary" data-tab="Inventory">
                 <ol class="item-list">
-                {{#each actor.items}}   
+                {{#each objects}}   
                 <li class="item" data-item-id="{{this.id}}">
                 <span class="item-name">{{this.name}}</span>
                 <span class="item-weight">{{this.system.weight}} kg</span>

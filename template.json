@@ -21,10 +21,14 @@
     }
   },
   "Item": {
-    "types":["Object"],
+    "types":["Object", "Trait"],
     "Object":{
       "description":"",
       "weight":0
+    },
+    "Trait":{
+      "system":"",
+      "type":""
     }
   }
 }

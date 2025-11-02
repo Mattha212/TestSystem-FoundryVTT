@@ -1,13 +1,9 @@
-console.log("Mon système est chargé !");
-
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
 class PJSheet extends ActorSheet {
     static get defaultOptions() {
-
-
         return mergeObject( super.defaultOptions, {
             classes: ["testsystem","sheet","actor"],
             template: "systems/testsystem/templates/pj-sheet.html",
@@ -15,10 +11,14 @@ class PJSheet extends ActorSheet {
             height: 300
         });
     }
+
     getData(options){
         const context = super.getData(options);
         context.system = context.actor.system;
         const stats = context.system.stats;
+        context.traits = context.actor.items.filter(i=>i.type === "Trait");
+        context.objects = context.actor.items.filter(i=>i.type === "Object");
+
         for (const key in stats) {
         if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
         if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
@@ -26,6 +26,7 @@ class PJSheet extends ActorSheet {
 
         return context;
     }
+
     activateListeners(html){
         super.activateListeners(html);
         this._tabs = this._tabs || {};
@@ -44,7 +45,6 @@ class PJSheet extends ActorSheet {
         });
 
         html.find(".stat-roll").click(this._onRollStat.bind(this));
-
     }
 
     async _onChangeInput(event){
@@ -125,7 +125,6 @@ class PJSheet extends ActorSheet {
             },
                 default: "roll"
             }).render(true);
-
     }
 
     async _onConfirmRollStat(html, statKey){
@@ -186,19 +185,39 @@ class ObjectSheet extends ItemSheet{
   }
 }
 
+class TraitSheet extends ItemSheet{
+    static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["testsystem", "sheet", "item"],
+      template: "systems/testsystem/templates/trait-sheet.html",
+      width: 400,
+      height: 300
+    });
+  }
+}
+
 Hooks.once("init", ()=>{
-    console.log("Test System | Initialization...");
+
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("testsystem", PJSheet, {
     types: ["PJ"],
     makeDefault: true
     });
+
     Items.unregisterSheet("core", ItemSheet);
+
     Items.registerSheet("testsystem", ObjectSheet, {
         types:["Object"],
         makeDefault:true
     });
+    Items.registerSheet("testsystem", TraitSheet, {
+        types:["Trait"],
+        makeDefault:true
+    });
+
     Handlebars.registerHelper("includes", function (array, value) {
     return array.includes(value);
   });
 });
+
+
