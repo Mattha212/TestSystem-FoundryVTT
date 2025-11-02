@@ -16,6 +16,7 @@ class PJSheet extends ActorSheet {
         const context = super.getData(options);
         context.system = context.actor.system;
         const stats = context.system.stats;
+        const skills = context.system.skills;
         context.stats = stats;
         context.skills = context.system.skills;
         context.skills = {
@@ -26,7 +27,7 @@ class PJSheet extends ActorSheet {
             physical: skills.Physical,
             restricted: skills.Restricted
         };
-        
+
         context.traits = context.actor.items.filter(i=>i.type === "Trait");
         context.objects = context.actor.items.filter(i=>i.type === "Object");
 
