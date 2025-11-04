@@ -1,4 +1,4 @@
-export const SKILLS = {
+export const CATEGORYSKILLS = {
   Social: ["Intimidation", "Seduction", "Psychology", "Representation", "Gambling", "Persuasion", "Deceit", "Leadership", "Will", "Trade"],
   Stealth: ["Stealth", "Deguisment", "Pickpocket", "Picklocking"],
   Craftmanship: ["Smithing", "Trapping", "Bowying", "Shoemaking", "Forgery", "Medecine"],
@@ -7,3 +7,6 @@ export const SKILLS = {
   Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "Words of Power"]
 }
 
+export const SKILLS = {
+Intimidation:[Charisme, Perception]
+}

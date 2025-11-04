@@ -1,4 +1,4 @@
-import {SKILLS} from "./data/Skills.js"
+import {CATEGORYSKILLS, SKILLS} from "./data/Skills.js"
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -220,10 +220,10 @@ export class PJActor extends Actor {
 
     if (!system.skills || Object.keys(system.skills).length === 0) {
       system.skills = {};
-      for (const [category, list] of Object.entries(SKILLS)) {
+      for (const [category, list] of Object.entries(CATEGORYSKILLS)) {
         system.skills[category] = {};
         for (const skill of list) {
-          system.skills[category][skill] = { stats: {} };
+          system.skills[category][skill] = { stats: SKILLS[skill] || [] };
         }
       }
     }
