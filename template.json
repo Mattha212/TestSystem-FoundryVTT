@@ -17,9 +17,6 @@
         "Perception":{"Label":"Perception","CurrentValue":0,"MaxValue":0},
         "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
         "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
-      },
-      "skills":{
-        
       }
     }
   },

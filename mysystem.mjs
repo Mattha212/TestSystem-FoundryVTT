@@ -1,4 +1,4 @@
-import { SKILLS } from "../data/skills.js";
+import { SKILLS } from "../data/Skills.js";
 
 
 function clamp(value, min, max) {
