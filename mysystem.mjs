@@ -233,6 +233,7 @@ class PJActor extends Actor{
 Hooks.once("init", ()=>{
 
   CONFIG.Actor.documentClass = PJActor;
+    CONFIG.Actor.typeLabels["PJ"] = "Player Character";
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("testsystem", PJSheet, {
