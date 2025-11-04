@@ -106,12 +106,16 @@ width: 50px;
   color: var(--color-text-hyperlink);
 }
 
+.testsystem.actor.sheet .skills-tab{
+  gap: 10px;
+}
+
 .testsystem.actor.sheet .skills-social{
 display: grid;
 grid-template-columns: 1fr 1fr;
 grid-template-rows: auto auto;
 margin-left: 4px;
 list-style-type: none;
-gap: 10px;
+gap: 5px;
 width: 100%;
 }
