@@ -18,6 +18,11 @@ class PJSheet extends ActorSheet {
     getData(options){
         const context = super.getData(options);
         context.system = context.actor.system;
+        for (const key in system.stats) {
+            const stat = system.stats[key];
+            stat.MaxValue ??= 0;
+            stat.CurrentValue ??= 0;
+        }
         const stats = context.system.stats;
         const skills = context.system.skills;
         context.stats = stats;
@@ -34,10 +39,10 @@ class PJSheet extends ActorSheet {
         context.traits = context.actor.items.filter(i=>i.type === "Trait");
         context.objects = context.actor.items.filter(i=>i.type === "Object");
 
-        for (const key in stats) {
-        if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
-        if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
-        }
+        // for (const key in stats) {
+        // if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
+        // if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
+        // }
 
         return context;
     }
