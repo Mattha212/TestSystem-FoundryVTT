@@ -8,5 +8,5 @@ export const CATEGORYSKILLS = {
 }
 
 export const STATSFORSKILLS = {
-Intimidation:[Charisme, Perception]
+Intimidation:["Charisme", "Perception"]
 }
