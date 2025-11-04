@@ -1,4 +1,4 @@
-import {CATEGORYSKILLS} from "./data/Skills.js"
+import {CATEGORYSKILLS, STATSFORSKILLS} from "./data/Skills.js"
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
@@ -225,7 +225,7 @@ console.log("🧠 prepareBaseData called for", this.name);
       for (const [category, list] of Object.entries(CATEGORYSKILLS)) {
         system.skills[category] = {};
         for (const skill of list) {
-          system.skills[category][skill] = { stats: {} };
+          system.skills[category][skill] = { stats: STATSFORSKILLS[skill] || [] };
         }
       }
     }
