@@ -1,4 +1,4 @@
-import { SKILLS } from "../data/Skills.js";
+import { SKILLS } from "../data/skills.js";
 
 
 function clamp(value, min, max) {
@@ -18,10 +18,10 @@ class PJSheet extends ActorSheet {
     getData(options){
         const context = super.getData(options);
         context.system = context.actor.system;
-        
         const stats = context.system.stats;
         const skills = context.system.skills;
         context.stats = stats;
+        context.skills = context.system.skills;
         context.skills = {
             social: skills.Social,
             stealth: skills.Stealth,
@@ -211,29 +211,7 @@ class TraitSheet extends ItemSheet{
   }
 }
 
-class PJActor extends Actor{
-    prepareBaseData(){
-    super.prepareBaseData();
-    const system = this.system;
-
-    if (!system.skills || Object.keys(system.skills).length === 0) {
-      system.skills = {};
-      for (const [category, skills] of Object.entries(SKILLS)) {
-        system.skills[category] = {};
-        for (const skill of skills) {
-          system.skills[category][skill] = {
-            stats: {},
-          };
-        }
-      }
-    }
-    }
-}
-
 Hooks.once("init", ()=>{
-
-  CONFIG.Actor.documentClass = PJActor;
-    CONFIG.Actor.typeLabels["PJ"] = "Player Character";
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("testsystem", PJSheet, {
