@@ -107,10 +107,19 @@ width: 50px;
 }
 
 .testsystem.actor.sheet .skills-tab{
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.testsystem.actor.sheet .skills-social{
+.testsystem.actor.sheet .CategoryTitle{
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.testsystem.actor.sheet .skills{
 display: grid;
 grid-template-columns: 1fr 1fr;
 grid-template-rows: auto auto;

@@ -45,36 +45,14 @@
  
     <section class="sheet-body">
         <div class="skills-tab" data-group="primary" data-tab="Skills">
-            <div class="skills-social">
-                {{#each skills.social}}
-                    <li class="skill">{{@key}}</li>
-                {{/each}}
-            </div>
-            <div class="skills-social">
-                {{#each skills.stealth}}
-                    <li class="skill">{{@key}}</li>
-                {{/each}}
-            </div>            
-            <div class="skills-social">
-                {{#each skills.craftmanship}}
-                    <li class="skill">{{@key}}</li>
-                {{/each}}
-            </div>
-            <div class="skills-social">
-                {{#each skills.knowledge}}
-                    <li class="skill">{{@key}}</li>
-                {{/each}}
-            </div>
-            <div class="skills-social">
-                {{#each skills.physical}}
-                    <li class="skill">{{@key}}</li>
-                {{/each}}
-            </div>
-            <div class="skills-social">
-                {{#each skills.restricted}}
-                    <li class="skill">{{@key}}</li>
-                {{/each}}
-            </div>
+            {{#each skill as |category categoryName|}}
+                <div class="CategoryTitle">{{categoryName}}</div>
+                <div class="skills">
+                    {{#each category}}
+                        <li class="skill-name">{{@key}}</li>
+                    {{/each}}
+                </div>
+            {{/each}}
         </div>
         <div class="tab" data-group="primary" data-tab="Fighting"></div>
         <div class="tab" data-group ="primary" data-tab="Inventory">
