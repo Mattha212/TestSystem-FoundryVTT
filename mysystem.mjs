@@ -18,11 +18,7 @@ class PJSheet extends ActorSheet {
     getData(options){
         const context = super.getData(options);
         context.system = context.actor.system;
-        for (const key in system.stats) {
-            const stat = system.stats[key];
-            stat.MaxValue ??= 0;
-            stat.CurrentValue ??= 0;
-        }
+        
         const stats = context.system.stats;
         const skills = context.system.skills;
         context.stats = stats;
@@ -39,30 +35,14 @@ class PJSheet extends ActorSheet {
         context.traits = context.actor.items.filter(i=>i.type === "Trait");
         context.objects = context.actor.items.filter(i=>i.type === "Object");
 
-        // for (const key in stats) {
-        // if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
-        // if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
-        // }
+        for (const key in stats) {
+        if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
+        if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
+        }
 
         return context;
     }
 
-    prepareBaseData(){
-        super.prepareBaseData();
-    const system = this.system;
-
-    if (!system.skills || Object.keys(system.skills).length === 0) {
-      system.skills = {};
-      for (const [category, skills] of Object.entries(SKILLS)) {
-        system.skills[category] = {};
-        for (const skill of skills) {
-          system.skills[category][skill] = {
-            stats: {},
-          };
-        }
-      }
-    }
-    }
     activateListeners(html){
         super.activateListeners(html);
         this._tabs = this._tabs || {};
@@ -230,6 +210,25 @@ class TraitSheet extends ItemSheet{
       height: 300
     });
   }
+}
+
+class PJActor extends Actor{
+    prepareBaseData(){
+    super.prepareBaseData();
+    const system = this.system;
+
+    if (!system.skills || Object.keys(system.skills).length === 0) {
+      system.skills = {};
+      for (const [category, skills] of Object.entries(SKILLS)) {
+        system.skills[category] = {};
+        for (const skill of skills) {
+          system.skills[category][skill] = {
+            stats: {},
+          };
+        }
+      }
+    }
+    }
 }
 
 Hooks.once("init", ()=>{
