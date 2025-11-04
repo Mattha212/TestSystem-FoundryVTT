@@ -231,6 +231,7 @@ export class PJActor extends Actor {
 }
 
 Hooks.once("init", ()=>{
+  console.log("✅ TestSystem Init Hook");
 
 CONFIG.Actor.documentClass = PJActor;
 
