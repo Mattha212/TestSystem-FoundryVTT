@@ -229,6 +229,8 @@ class TraitSheet extends ItemSheet{
 
 Hooks.once("init", ()=>{
 
+  CONFIG.Actor.documentClass = PJActor;
+
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("testsystem", PJSheet, {
     types: ["PJ"],
