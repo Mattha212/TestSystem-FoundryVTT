@@ -208,7 +208,29 @@ class TraitSheet extends ItemSheet{
   }
 }
 
+export class PJActor extends Actor {
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    const system = this.system;
+
+    if (this.type !== "PJ") return;
+
+    if (!system.skills || Object.keys(system.skills).length === 0) {
+      system.skills = {};
+      for (const [category, list] of Object.entries(SKILLS)) {
+        system.skills[category] = {};
+        for (const skill of list) {
+          system.skills[category][skill] = { stats: {} };
+        }
+      }
+    }
+  }
+}
+
 Hooks.once("init", ()=>{
+
+CONFIG.Actor.documentClass = PJActor;
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("testsystem", PJSheet, {
