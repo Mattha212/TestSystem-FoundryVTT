@@ -22,7 +22,6 @@ class PJSheet extends ActorSheet {
         const stats = context.system.stats;
         const skills = context.system.skills;
         context.stats = stats;
-        context.skills = context.system.skills;
         context.skills = {
             social: skills.Social,
             stealth: skills.Stealth,
