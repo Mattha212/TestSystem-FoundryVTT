@@ -213,6 +213,7 @@ class TraitSheet extends ItemSheet{
 export class PJActor extends Actor {
   prepareBaseData() {
     super.prepareBaseData();
+console.log("🧠 prepareBaseData called for", this.name);
 
     const system = this.system;
 
