@@ -1,3 +1,6 @@
+import { SKILLS } from "../data/skills.js";
+
+
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
@@ -39,6 +42,22 @@ class PJSheet extends ActorSheet {
         return context;
     }
 
+    prepareBaseData(){
+        super.prepareBaseData();
+    const system = this.system;
+
+    if (!system.skills || Object.keys(system.skills).length === 0) {
+      system.skills = {};
+      for (const [category, skills] of Object.entries(SKILLS)) {
+        system.skills[category] = {};
+        for (const skill of skills) {
+          system.skills[category][skill] = {
+            stats: {},
+          };
+        }
+      }
+    }
+    }
     activateListeners(html){
         super.activateListeners(html);
         this._tabs = this._tabs || {};
