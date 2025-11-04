@@ -109,7 +109,7 @@ width: 50px;
 .testsystem.actor.sheet .skills-tab{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .testsystem.actor.sheet .CategoryTitle{
