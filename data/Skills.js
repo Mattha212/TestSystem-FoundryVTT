@@ -7,6 +7,6 @@ export const CATEGORYSKILLS = {
   Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "Words of Power"]
 }
 
-export const SKILLS = {
+export const STATSFORSKILLS = {
 Intimidation:[Charisme, Perception]
 }
