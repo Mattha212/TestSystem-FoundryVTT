@@ -222,8 +222,6 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
         Knowledge, 
         Athletic
     }
-    if (this.type !== "PJ") return;
-
     if (!system.skills || Object.keys(system.skills).length === 0) {
       system.skills = {};
       for (const [category, list] of Object.entries(CATEGORYSKILLS)) {
