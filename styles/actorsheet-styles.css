@@ -132,7 +132,5 @@ width: 100%;
   background: none;
   border: none;
   color: var(--color-text);
-  font-weight: bold;
   cursor: pointer;
-  text-decoration: underline;
 }
