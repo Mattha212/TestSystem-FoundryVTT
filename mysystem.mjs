@@ -211,12 +211,11 @@ class TraitSheet extends ItemSheet{
   }
 }
 
-export class PJActor extends Actor {
-  prepareBaseData() {
-    super.prepareBaseData();
-    const system = this.system;
+Hooks.on("preCreateActor", (actor, data, options, userId) => {
+  if (data.type !== "PJ") return;
 
-    const categoryData = {
+  const system = data.system ?? {};
+  const categoryData = {
         Social, 
         Stealth, 
         Crafting, 
@@ -235,13 +234,13 @@ export class PJActor extends Actor {
         }
       }
     }
-  }
-}
+
+  actor.updateSource({ system });
+});
+
 
 Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
-
-CONFIG.Actor.documentClass = PJActor;
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("testsystem", PJSheet, {
