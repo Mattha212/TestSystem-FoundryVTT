@@ -127,3 +127,12 @@ list-style-type: none;
 gap: 5px;
 width: 100%;
 }
+
+.testsystem.actor.sheet .skill-roll {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+}

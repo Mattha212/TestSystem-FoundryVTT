@@ -1,4 +1,4 @@
-import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic } from "./data/Skills.js"
+import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted } from "./data/Skills.js"
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
@@ -220,7 +220,8 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
         Stealth, 
         Crafting, 
         Knowledge, 
-        Athletic
+        Athletic,
+        Restricted
     }
     if (!system.skills || Object.keys(system.skills).length === 0) {
       system.skills = {};

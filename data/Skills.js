@@ -60,3 +60,10 @@ Riding:["Agility","Perception"],
 Resistance:["Bravery", "Constitution"],
 Sailing:["Dexterity", "Agility"]
 }
+
+export const Restricted = {
+  Thaumaturgie:["Constitution", "Dexterity"], 
+  Forgerune:["Intelligence", "Perception"],
+  Catalysme:["Intelligence", "Perception"],
+  WordsOfPower:["Intelligence", "Perception"]
+}
