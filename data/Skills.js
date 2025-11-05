@@ -8,8 +8,8 @@ export const CATEGORYSKILLS = {
   Athletic: ["Running", "Swimming", "Resistance", "Climbing", "Riding", "Navigation"],
   Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "Words of Power"]
 }
-"Strength", "Agility", "Dexterity", "Constitution", "Charisme", "Intelligence", "Perception", "Bravery", "Vigor"
-export const SOCIALSKILLS = {
+
+export const Social = {
 Intimidation:["Constitution", "Charisme"],
 Seduction:["Charisme", "Perception"],
 Psychology:["Perception","Intelligence"],
@@ -22,14 +22,14 @@ ResistCoercion:["Bravery", "Intelligence"],
 Bargaining:["Charisme", "Intelligence"]
 };
 
-export const StealthSkill= {
+export const Stealth= {
 Stealth:["Agility", "Perception"],
 SleightOfHand:["Dexterity", "Intelligence"],
 Disguise:["Intelligence", "Dexterity"],
 Lockpicking:["Dexterity", "Perception"]
 }
 
-export const CrafingSkill = {
+export const Crafting = {
 Blacksmithing:["Strength", "Dexterity"],
 Leatherwork:["Dexterity", "Perception"],
 Forgery: ["Dexterity", "Perception"],

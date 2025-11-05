@@ -1,4 +1,4 @@
-import {CATEGORYSKILLS, STATSFORSKILLS} from "./data/Skills.js"
+import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic } from "./data/Skills.js"
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
@@ -214,18 +214,24 @@ class TraitSheet extends ItemSheet{
 export class PJActor extends Actor {
   prepareBaseData() {
     super.prepareBaseData();
-console.log("🧠 prepareBaseData called for", this.name);
-
     const system = this.system;
 
+    const categoryData = {
+        Social, 
+        Stealth, 
+        Crafting, 
+        Knowledge, 
+        Athletic
+    }
     if (this.type !== "PJ") return;
 
     if (!system.skills || Object.keys(system.skills).length === 0) {
       system.skills = {};
       for (const [category, list] of Object.entries(CATEGORYSKILLS)) {
+        const data = categoryData[category] || {};
         system.skills[category] = {};
         for (const skill of list) {
-          system.skills[category][skill] = { stats: STATSFORSKILLS[skill] || [] };
+          system.skills[category][skill] = { stats: data[skill] || [] };
         }
       }
     }
