@@ -60,7 +60,7 @@ class PJSheet extends ActorSheet {
         });
 
         html.find(".stat-roll").click(this._onRollStat.bind(this));
-        html.find("skill-roll").click(this._OnRollSkill.bind(this));
+        html.find(".skill-roll").click(this._OnRollSkill.bind(this));
     }
 
     async _onChangeInput(event){
