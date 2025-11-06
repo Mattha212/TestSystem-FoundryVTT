@@ -329,10 +329,11 @@ Hooks.once("init", ()=>{
         makeDefault:true
     });
 
-    Handlebars.registerHelper("capitalize", function (str) {
-    if (typeof str !== "string") return "";
-    return str.charAt(0).toUpperCase() + str.slice(1);
-    });
+Handlebars.registerHelper("handleNames", function(str) {
+  if (typeof str !== "string") return "";
+  const spaced = str.replace(/([A-Z])/g, " $1").trim();
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+});
     Handlebars.registerHelper("includes", function (array, value) {
     return array.includes(value);
   });

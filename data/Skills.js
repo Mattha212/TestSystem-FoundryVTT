@@ -6,7 +6,7 @@ export const CATEGORYSKILLS = {
   Knowledge: ["Survival", "Examinate", "Diplomacy", "Deduction", "History", "Language", "Tracking", "Strategy", "Geography",
      "Identify", "Religion"],
   Athletic: ["Running", "Swimming", "Resistance", "Climbing", "Riding", "Navigation"],
-  Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "Words of Power"]
+  Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "WordsOfPower"]
 }
 
 export const Social = {
