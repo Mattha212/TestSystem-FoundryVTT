@@ -237,7 +237,7 @@ class PJSheet extends ActorSheet {
         <div class= "custom-skill-roll">
         <h3>Skill roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
-        <p>{{statDetails}}</p>
+        <p>${statDetails}</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
