@@ -60,6 +60,7 @@ class PJSheet extends ActorSheet {
         });
 
         html.find(".stat-roll").click(this._onRollStat.bind(this));
+        html.find("skill-roll").click(this._OnRollSkill.bind(this));
     }
 
     async _onChangeInput(event){
@@ -161,6 +162,76 @@ class PJSheet extends ActorSheet {
         const message = `
         <div class= "custom-stat-roll">
         <h3>Stat roll: ${statKey}</h3>
+        <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
+        <p>${modifier}</p>
+        <p>Success Degree: ${testDegree} </p>
+        </div>
+        `;
+
+        await ChatMessage.create({
+            speaker:ChatMessage.getSpeaker({actor:this.actor}),
+            content:message,
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+            roll,
+        })
+
+        if(test){
+            ui.notifications.info(`il se passe des trucs`);
+        }
+        else{
+            ui.notifications.info(`il se passe rien`);
+        }
+    }
+
+    async _OnRollSkill(event){
+        event.preventDefault();
+        const button = event.currentTarget;
+        const skillKey = button.dataset.skill;
+        const skillCategory = button.dataset.category;
+
+        const content =`
+        <form class = "difficulty-Modifier-form">
+            <div class = "difficulty-Modifier-group" >
+                <label>Modifier</label>
+                <input type = number name = "modifier" value="0">
+            </div>
+        </form>
+        `;
+        new Dialog({
+            title: `${statKey} roll`,
+            content,
+            buttons:{
+                roll:{
+                    label: "Roll",
+                    callback: html => this._onConfirmRollSkill(html,skillKey, skillCategory)
+                },
+                cancel:{
+                    label: "Cancel"
+                }
+            },
+                default: "roll"
+            }).render(true);
+    }
+
+    async _onConfirmRollSkill(html, skillKey, skillCategory){
+        const skill = this.actor.system.skills[skillCategory][skillKey];
+        const values = skill.map(s=>this.actor.system.stats[s].CurrentValue || 0);
+        const average = values.reduce((a,b)=> a+b,0)/ values.length;
+        const form = html[0].querySelector("form");
+        const modifier = 10 * (Number(form.modifier.value) || 0);       
+        
+        const formula = `1d100`;
+        const roll = new Roll(formula);
+        await roll.evaluate({async: true});
+        const valueRolled = roll.total;
+        const valueTested = clamp(average + modifier,5,95);
+        const test = valueTested >=valueRolled;
+        const testDegree = Math.floor((valueTested - valueRolled) /10);
+        const stringResponse = test ? "Success" : "Failure";
+
+        const message = `
+        <div class= "custom-skill-roll">
+        <h3>Skill roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${modifier}</p>
         <p>Success Degree: ${testDegree} </p>
