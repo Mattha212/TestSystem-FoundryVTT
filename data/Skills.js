@@ -26,7 +26,7 @@ export const Stealth= {
 Stealth:["Agility", "Perception"],
 SleightOfHand:["Dexterity", "Intelligence"],
 Disguise:["Intelligence", "Dexterity"],
-Lockpicking:["Dexterity", "Perception"]
+Picklocking:["Dexterity", "Perception"]
 }
 
 export const Crafting = {
