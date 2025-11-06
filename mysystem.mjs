@@ -163,7 +163,6 @@ class PJSheet extends ActorSheet {
         <div class= "custom-stat-roll">
         <h3>Stat roll: ${statKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
-        <p>${modifier}</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
@@ -220,6 +219,11 @@ class PJSheet extends ActorSheet {
         const form = html[0].querySelector("form");
         const modifier = 10 * (Number(form.modifier.value) || 0);       
         
+        const statDetails = statsSkill.map(s => {
+        const val = this.actor.system.stats[s]?.CurrentValue ?? 0;
+        return `${s}: ${val}`;
+        }).join("|");
+
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate({async: true});
@@ -233,7 +237,7 @@ class PJSheet extends ActorSheet {
         <div class= "custom-skill-roll">
         <h3>Skill roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
-        <p>${modifier}</p>
+        <p>{{statDetails}}</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;

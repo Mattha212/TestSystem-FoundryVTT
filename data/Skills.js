@@ -1,4 +1,5 @@
 export const CATEGORYSKILLS = {
+  Fighting:[],
   Social: ["Intimidation", "Seduction", "Psychology", "Representation", "Gambling", "Persuasion", "Deceit", 
     "Leadership", "ResistCoercion", "Bargaining"],
   Stealth: ["Stealth", "Disguise", "SleightOfHand", "Picklocking"],
