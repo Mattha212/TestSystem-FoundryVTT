@@ -40,13 +40,13 @@ Medecine:["Intelligence", "Dexterity"]
 
 export const Knowledge = {
 Survival:["Intelligence"],
-Tracking:["Intelligence, Perception"],
-Examinate:["Intelligence, Perception"],
+Tracking:["Intelligence", "Perception"],
+Examinate:["Intelligence", "Perception"],
 Strategy:["Intelligence"],
 Diplomacy:["Intelligence", "Charisme"],
 Geography:["Intelligence"],
 Deduction:["Intelligence"],
-Identify:["Intelligence, Perception"],
+Identify:["Intelligence", "Perception"],
 History:["Intelligence"],
 Religion:["Intelligence"],
 Language:["Intelligence"]
