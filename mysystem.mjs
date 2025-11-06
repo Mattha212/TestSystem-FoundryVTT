@@ -198,7 +198,7 @@ class PJSheet extends ActorSheet {
         </form>
         `;
         new Dialog({
-            title: `${statKey} roll`,
+            title: `${skillKey} roll`,
             content,
             buttons:{
                 roll:{
