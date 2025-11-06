@@ -221,8 +221,8 @@ class PJSheet extends ActorSheet {
         
         const statDetails = statsSkill.map(s => {
         const val = this.actor.system.stats[s]?.CurrentValue ?? 0;
-        return `${s}: ${val}`;
-        }).join("|");
+        return `${s}(${val})`;
+        }).join("+");
 
         const formula = `1d100`;
         const roll = new Roll(formula);
