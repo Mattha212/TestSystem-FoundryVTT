@@ -214,9 +214,8 @@ class PJSheet extends ActorSheet {
     }
 
     async _onConfirmRollSkill(html, skillKey, skillCategory){
-        const skills = this.actor.system.skills[skillCategory];
-        const skill = this.actor.system.skills[skillCategory][skillKey];
-        const values = skill.map(s=>this.actor.system.stats[s].CurrentValue || 0);
+        const statsSkill = this.actor.system.skills[skillCategory][skillKey].stats;
+        const values = statsSkill.map(s=>this.actor.system.stats[s].CurrentValue || 0);
         const average = values.reduce((a,b)=> a+b,0)/ values.length;
         const form = html[0].querySelector("form");
         const modifier = 10 * (Number(form.modifier.value) || 0);       
