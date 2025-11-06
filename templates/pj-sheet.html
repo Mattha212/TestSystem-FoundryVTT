@@ -49,7 +49,7 @@
                 <div class="CategoryTitle">{{categoryName}}</div>
                 <div class="skills">
                     {{#each category as |skill skillname|}}
-                        <button type="button" class = "skill-roll" data-skill="{{skill}}" data-category ="{{categoryName}}">
+                        <button type="button" class = "skill-roll" data-skillkey="{{skillname}}" data-category ="{{categoryName}}">
                             {{skillname}}
                         </button>
                     {{/each}}

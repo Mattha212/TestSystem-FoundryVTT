@@ -186,7 +186,7 @@ class PJSheet extends ActorSheet {
     async _OnRollSkill(event){
         event.preventDefault();
         const button = event.currentTarget;
-        const skillKey = button.dataset.skill;
+        const skillKey = button.dataset.skillkey;
         const skillCategory = button.dataset.category;
 
         const content =`
