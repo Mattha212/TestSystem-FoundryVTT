@@ -128,6 +128,14 @@ gap: 5px;
 width: 100%;
 }
 
+.testsystem.actor.sheet skill-block{
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: auto auto auto;
+gap: 10px;
+width: 100%;
+}
+
 .testsystem.actor.sheet .skill-roll {
   background: none;
   border: none;

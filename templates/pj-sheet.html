@@ -49,11 +49,13 @@
                 <div class="CategoryTitle">{{handleNames categoryName}}</div>
                 <div class="skills">
                     {{#each category as |skill skillname|}}
-                        <button type="button" class = "skill-roll" data-skillkey="{{skillname}}" data-category ="{{handleNames categoryName}}">
-                            {{ handleNames skillname}}
-                        </button>
-                        <input type = "number" name = "system.skills.{{skillname}}.level value={{skill.level}}"/>
-                        <input type = "number" name = "system.skills.{{skillname}}.learningPoints value={{skill.learningPoints}}"/>
+                        <div class = "skill-block">
+                            <button type="button" class = "skill-roll" data-skillkey="{{skillname}}" data-category ="{{handleNames categoryName}}">
+                                {{ handleNames skillname}}
+                            </button>
+                            <input type = "number" name = "system.skills.{{skillname}}.level value={{skill.level}}"/>
+                            <input type = "number" name = "system.skills.{{skillname}}.learningPoints value={{skill.learningPoints}}"/>
+                        </div>
                     {{/each}}
                 </div>
             {{/each}}
