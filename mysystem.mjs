@@ -1,4 +1,4 @@
-import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted } from "./data/Skills.js"
+import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
@@ -291,6 +291,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 
   const system = data.system ?? {};
   const categoryData = {
+        Fighting,
         Social, 
         Stealth, 
         Crafting, 
