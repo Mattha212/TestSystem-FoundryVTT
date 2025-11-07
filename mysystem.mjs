@@ -97,7 +97,7 @@ class PJSheet extends ActorSheet {
             }
         }
         else if(input.name?.endsWith(".level")){
-            const skillKey = input.name.split(".")[2];
+            const skillKey = input.name.split(".")[3];
             const newValue = Number(input.value);
             update[`system.skills.${skillKey}.level`] = newValue;
         }
