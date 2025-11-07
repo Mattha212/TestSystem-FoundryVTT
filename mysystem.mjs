@@ -22,14 +22,6 @@ class PJSheet extends ActorSheet {
         const skills = context.system.skills;
         context.stats = stats;
         context.skills = context.system.skills;
-        context.skills = {
-            social: skills.Social,
-            stealth: skills.Stealth,
-            craftmanship: skills.Craftmanship,
-            knowledge: skills.Knowledge,
-            physical: skills.Physical,
-            restricted: skills.Restricted
-        };
 
         context.traits = context.actor.items.filter(i=>i.type === "Trait");
         context.objects = context.actor.items.filter(i=>i.type === "Object");
