@@ -53,8 +53,8 @@
                             <button type="button" class = "skill-roll" data-skillkey="{{skillname}}" data-category ="{{handleNames categoryName}}">
                                 {{ handleNames skillname}}
                             </button>
-                            <input type = "number" name = "system.skills.{{skillname}}.level" value="{{skill.level}}"/>
-                            <input type = "number" name = "system.skills.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
+                            <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
+                            <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
                         </div>
                     {{/each}}
                 </div>

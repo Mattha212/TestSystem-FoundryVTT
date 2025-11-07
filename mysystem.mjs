@@ -19,7 +19,6 @@ class PJSheet extends ActorSheet {
         const context = super.getData(options);
         context.system = context.actor.system;
         const stats = context.system.stats;
-        const skills = context.system.skills;
         context.stats = stats;
         context.skills = context.system.skills;
 
@@ -27,8 +26,8 @@ class PJSheet extends ActorSheet {
         context.objects = context.actor.items.filter(i=>i.type === "Object");
 
         for (const key in stats) {
-        if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
-        if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
+            if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
+            if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
         }
 
         return context;
@@ -101,7 +100,6 @@ class PJSheet extends ActorSheet {
             const skillKey = input.name.split(".")[2];
             const newValue = Number(input.value);
             update[`system.skills.${skillKey}.level`] = newValue;
-
         }
         await this.actor.update(update);
 
