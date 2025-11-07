@@ -76,7 +76,7 @@ class PJSheet extends ActorSheet {
             
             await this.actor.update(update);
         }
-        if(input.name?.endsWith(".CurrentValue")){
+        else if(input.name?.endsWith(".CurrentValue")){
             const statKey = input.name.split(".")[2];
             const newValue = Number(input.value);
             const label = this.actor.system.stats[statKey].Label;
@@ -104,6 +104,12 @@ class PJSheet extends ActorSheet {
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
 
             }
+        }
+        else if(input.name?.endsWith(".level")){
+            const skillKey = input.name.split(".")[2];
+            const newValue = Number(input.value);
+            update[`system.skills.${skillKey}.level`] = newValue;
+
         }
         await this.actor.update(update);
 
@@ -214,6 +220,7 @@ class PJSheet extends ActorSheet {
 
     async _onConfirmRollSkill(html, skillKey, skillCategory){
         const statsSkill = this.actor.system.skills[skillCategory][skillKey].stats;
+        const skillLevel = this.actor.system.skills[skillCategory][skillKey].level;
         const values = statsSkill.map(s=>this.actor.system.stats[s].CurrentValue || 0);
         const average = values.reduce((a,b)=> a+b,0)/ values.length;
         const form = html[0].querySelector("form");
@@ -228,7 +235,7 @@ class PJSheet extends ActorSheet {
         const roll = new Roll(formula);
         await roll.evaluate({async: true});
         const valueRolled = roll.total;
-        const valueTested = clamp(average + modifier,5,95);
+        const valueTested = clamp(average + modifier + skillLevel*5,5,95);
         const test = valueTested >=valueRolled;
         const testDegree = Math.floor((valueTested - valueRolled) /10);
         const stringResponse = test ? "Success" : "Failure";
@@ -304,7 +311,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
         const data = categoryData[category] || {};
         system.skills[category] = {};
         for (const skill of list) {
-          system.skills[category][skill] = { stats: data[skill] || [] };
+          system.skills[category][skill] = { stats: data[skill] || [], level: 0, learningPoints: 0 };
         }
       }
     }
