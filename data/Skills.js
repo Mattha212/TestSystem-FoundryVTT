@@ -1,5 +1,5 @@
 export const CATEGORYSKILLS = {
-  Fighting:[],
+  Fighting:["Brawling", "Swordsmanship", "Polearms", "Axes", "Maces", "SmallBlades", "Archery", "Crossbow", "Throwing"],
   Social: ["Intimidation", "Seduction", "Psychology", "Representation", "Gambling", "Persuasion", "Deceit", 
     "Leadership", "ResistCoercion", "Bargaining"],
   Stealth: ["Stealth", "Disguise", "SleightOfHand", "Picklocking"],
@@ -8,6 +8,18 @@ export const CATEGORYSKILLS = {
      "Identify", "Religion"],
   Athletic: ["Running", "Swimming", "Resistance", "Climbing", "Riding", "Navigation"],
   Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "WordsOfPower"]
+}
+
+export const Fighting = {
+Brawling: ["Strength", "Agility"],
+Swordmanship: ["Strength", "Agility"],
+Polearms: ["Strength", "Agility"],
+Axes: ["Strength", "Agility"],
+Maces: ["Strength", "Agility"],
+SmallBlades: ["Strength", "Agility"],
+Archery: ["Strength", "Perception"],
+Crossbow: ["Perception"],
+Throwing: ["Strength", "Perception"],
 }
 
 export const Social = {
