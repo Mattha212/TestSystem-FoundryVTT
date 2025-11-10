@@ -321,6 +321,12 @@ class SubcultureSheet extends ItemSheet{
       height: 300
     });
   }
+  getData(options){
+    const context = super.getData(options);
+    context.system = context.actor.system;
+    const allCultures = game.items.filter(i=>i.type === "Culture");
+    context.cultures = allCultures;
+  }
 }
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
@@ -355,7 +361,7 @@ Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
 
     Actors.unregisterSheet("core", ActorSheet);
-    
+
     Actors.registerSheet("testsystem", PJSheet, {
     types: ["PJ"],
     makeDefault: true
