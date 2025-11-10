@@ -301,6 +301,28 @@ class TraitSheet extends ItemSheet{
   }
 }
 
+class CultureSheet extends ItemSheet{
+        static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["testsystem", "sheet", "item"],
+      template: "systems/testsystem/templates/culture-sheet.html",
+      width: 400,
+      height: 300
+    });
+  }
+}
+
+class SubcultureSheet extends ItemSheet{
+        static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["testsystem", "sheet", "item"],
+      template: "systems/testsystem/templates/subculture-sheet.html",
+      width: 400,
+      height: 300
+    });
+  }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
@@ -333,6 +355,7 @@ Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
 
     Actors.unregisterSheet("core", ActorSheet);
+    
     Actors.registerSheet("testsystem", PJSheet, {
     types: ["PJ"],
     makeDefault: true
@@ -348,6 +371,14 @@ Hooks.once("init", ()=>{
         types:["Trait"],
         makeDefault:true
     });
+    Items.registerSheet("testsystem", CultureSheet, {
+        types:["Culture"],
+        makeDefault:true
+    });
+    Items.registerSheet("testsystem", SubcultureSheet, {
+        types:["Subculture"],
+        makeDefault: true
+    })
 
 Handlebars.registerHelper("handleNames", function(str) {
   if (typeof str !== "string") return "";
