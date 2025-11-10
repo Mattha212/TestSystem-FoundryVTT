@@ -7,7 +7,12 @@
         <textarea name="system.description">{{system.system}}</textarea>
     </div>
     <div>
-        <label>Parent culture</label>
-         <textarea name="system.description">{{system.parentCulture}}</textarea>
-    </div>
+        <select name="system.culture" id="culture">
+        <option value="">-- Sélectionne une culture --</option>
+        {{#each cultures}}
+            <option value="{{this.name}}" {{#if (eq ../system.culture this.name)}}selected{{/if}}>
+            {{this.name}}
+            </option>
+        {{/each}}
+        </select>
 </form>
