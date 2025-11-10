@@ -21,7 +21,7 @@
     }
   },
   "Item": {
-    "types":["Object", "Trait"],
+    "types":["Object", "Trait", "Culture", "Subculture"],
     "Object":{
       "description":"",
       "weight":0
@@ -29,6 +29,13 @@
     "Trait":{
       "system":"",
       "type":""
+    },
+    "Culture":{
+      "system":""
+    },
+    "Subculture":{
+      "system":"",
+      "parentCulture":""
     }
   }
 }

@@ -47,7 +47,7 @@ Blacksmithing:["Strength", "Dexterity"],
 Leatherwork:["Dexterity", "Perception"],
 Forgery: ["Dexterity", "Perception"],
 TrapMaking:["Dexterity", "Perception"],
-Bowyer:["Dexterity", "Perception"],
+Bowying:["Dexterity", "Perception"],
 Medecine:["Intelligence", "Dexterity"]
 }
 

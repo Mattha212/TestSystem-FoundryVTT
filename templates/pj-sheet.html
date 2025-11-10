@@ -8,8 +8,24 @@
             <input type="text" name = "name" value = "{{actor.name}}"/>Character name
             <input type="text" name= "system.characterGender" value = "{{system.characterGender}}"/>Gender
             <input type="number" name="system.age" value="{{system.age}}"/>Age
-            <input type="text" name="system.culture" value ="{{system.culture}}"/>Culture
-            <input type="text" name="system.subCulture" value="{{system.subCulture}}"/>Subculture
+            <label for="culture">Culture :</label>
+            <select name="system.culture" id="culture">
+            <option value="">-- Sélectionne une culture --</option>
+            {{#each cultures}}
+                <option value="{{this.name}}" {{#if (eq ../system.culture this.name)}}selected{{/if}}>
+                {{this.name}}
+                </option>
+            {{/each}}
+            </select>
+            <label for="subculture">Sous-culture :</label>
+            <select name="system.subculture" id="subculture">
+            <option value="">-- Sélectionne une sous-culture --</option>
+            {{#each subcultures}}
+                <option value="{{this.name}}" {{#if (eq ../system.subculture this.name)}}selected{{/if}}>
+                {{this.name}}
+                </option>
+            {{/each}}
+            </select>
         </div>
         <div class="traits">
             <ol class="trait-list">

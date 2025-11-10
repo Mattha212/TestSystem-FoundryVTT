@@ -24,6 +24,11 @@ class PJSheet extends ActorSheet {
 
         context.traits = context.actor.items.filter(i=>i.type === "Trait");
         context.objects = context.actor.items.filter(i=>i.type === "Object");
+        const allCultures = game.items.filter(i=>i.type === "Culture");
+        const allSubcultures = game.items.filter(i=>i.type === "Subculture");
+
+        context.cultures = allCultures;
+        context.allSubcultures.filter(i=> i.system.parentCulture === context.system.culture)
 
         for (const key in stats) {
             if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
@@ -52,6 +57,16 @@ class PJSheet extends ActorSheet {
 
         html.find(".stat-roll").click(this._onRollStat.bind(this));
         html.find(".skill-roll").click(this._OnRollSkill.bind(this));
+
+        html.find('select[name="system.culture"]').on('change', async event => {
+            const culture = event.currentTarget.value;
+            const allSubcultures = game.items.filter(i => i.type === "Subculture");
+            const subcultures = allSubcultures.filter(s => s.system.cultureParent === culture);
+            const subSelect = html.find('select[name="system.subculture"]');
+            subSelect.empty();
+            subSelect.append(`<option value="">-- Sélectionne une sous-culture --</option>`);
+            for (const s of subcultures) subSelect.append(`<option value="${s.name}">${s.name}</option>`);
+        });
     }
 
     async _onChangeInput(event){
@@ -342,6 +357,9 @@ Handlebars.registerHelper("handleNames", function(str) {
     Handlebars.registerHelper("includes", function (array, value) {
     return array.includes(value);
   });
+  Handlebars.registerHelper("eq", function(a, b) {
+  return a === b;
+});
 });
 
 
