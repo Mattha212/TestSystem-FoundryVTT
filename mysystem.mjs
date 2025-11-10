@@ -61,7 +61,7 @@ class PJSheet extends ActorSheet {
         html.find('select[name="system.culture"]').on('change', async event => {
             const culture = event.currentTarget.value;
             const allSubcultures = game.items.filter(i => i.type === "Subculture");
-            const subcultures = allSubcultures.filter(s => s.system.cultureParent === culture);
+            const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
             const subSelect = html.find('select[name="system.subculture"]');
             subSelect.empty();
             subSelect.append(`<option value="">-- Sélectionne une sous-culture --</option>`);
