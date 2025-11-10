@@ -326,6 +326,7 @@ class SubcultureSheet extends ItemSheet{
     context.system = context.item.system;
     const allCultures = game.items.filter(i=>i.type === "Culture");
     context.cultures = allCultures;
+    return context;
   }
 }
 
