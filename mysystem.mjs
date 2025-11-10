@@ -28,7 +28,7 @@ class PJSheet extends ActorSheet {
         const allSubcultures = game.items.filter(i=>i.type === "Subculture");
 
         context.cultures = allCultures;
-        context.allSubcultures.filter(i=> i.system.parentCulture === context.system.culture)
+        context.allSubcultures = allSubcultures.filter(i=> i.system.parentCulture === context.system.culture)
 
         for (const key in stats) {
             if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
