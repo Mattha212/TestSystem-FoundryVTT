@@ -20,7 +20,7 @@
             <label for="subculture">Sous-culture :</label>
             <select name="system.subculture" id="subculture">
             <option value="">-- Sélectionne une sous-culture --</option>
-            {{#each Subcultures}}
+            {{#each subcultures}}
                 <option value="{{this.name}}" {{#if (eq ../system.subculture this.name)}}selected{{/if}}>
                 {{this.name}}
                 </option>
