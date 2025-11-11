@@ -17,7 +17,7 @@
     <div>
         <label>Effects</label>
         <button type="button" class="add-effect">Add effect</button>
-        {{#each item.effects.content}}
+        {{#each item.effects}}
         <li>
             <span>{{this.name}}</span>
             <button type="button" class="edit-effect" data-effect-id="{{this.id}}">Edit effect</button>
