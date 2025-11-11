@@ -20,8 +20,8 @@
         {{#each item.effects.content}}
         <li>
             <span>{{this.name}}</span>
-            <button type="button" class="edit-effect">Edit effect</button>
-            <button type="button" class="remove-effect">Remove effect</button>
+            <button type="button" class="edit-effect" data-effect-id="{{this.id}}">Edit effect</button>
+            <button type="button" class="remove-effect" data-effect-id="{{this.id}}">Remove effect</button>
         </li>
         {{/each}}
     </div>
