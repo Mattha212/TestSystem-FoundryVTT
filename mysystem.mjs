@@ -60,6 +60,7 @@ class PJSheet extends ActorSheet {
 
         html.find('select[name="system.culture"]').on('change', async event => {
             const culture = event.currentTarget.value;
+            this.actor.system.culture = culture;
             const allSubcultures = game.items.filter(i => i.type === "Subculture");
             const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
             const subSelect = html.find('select[name="system.subculture"]');
@@ -117,6 +118,12 @@ class PJSheet extends ActorSheet {
             const newValue = Number(input.value);
             update[`system.skills.${categoryKey}.${skillKey}.level`] = newValue;
         }
+        else if(input.name?.endsWith(".Culture")){
+            const value = String(input.value);
+            update[`system.culture`] = value;
+        }
+
+
         await this.actor.update(update);
 
         await super._onChangeInput(event);
