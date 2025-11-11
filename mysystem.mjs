@@ -333,7 +333,38 @@ class SubcultureSheet extends ItemSheet{
     context.system = context.item.system;
     const allCultures = game.items.filter(i=>i.type === "Culture");
     context.cultures = allCultures;
+    context.effect = this.item.effects.content;
     return context;
+  }
+  activateListeners(html){
+    super.activateListeners(html);
+
+    html.find(".add-effect").click(this._OnAddEffect.bind(this))
+    html.find(".edit-effect").click(this._OnEditEffect.bind(this))
+    html.find(".remove-effect").click(this._OnRemoveEffect.bind(this))
+
+  }
+
+  async _OnAddEffect(event){
+    event.preventDefault();
+    const effectData = {
+      label: "Nouvel effet",
+      changes: [],
+      icon: "icons/svg/aura.svg",
+      origin: this.item.uuid,
+    };
+    await this.item.createEmbeddedDocuments("ActiveEffect", [effectData]);
+
+  }
+  
+  async _OnEditEffect(event){
+
+  }
+  
+  async _OnRemoveEffect(event){
+    event.preventDefault();
+    const effectId = event.currentTarget.dataset.effectId;
+    await this.item.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
   }
 }
 

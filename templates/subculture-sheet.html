@@ -6,13 +6,23 @@
         <label>System</label>
         <textarea name="system.description">{{system.system}}</textarea>
     </div>
-    <div>
-        <select name="system.parentCulture" id="parentCulture">
+    <select name="system.parentCulture" id="parentCulture">
         <option value="">-- Sélectionne une culture --</option>
         {{#each cultures}}
             <option value="{{this.name}}" {{#if (eq ../system.parentCulture this.name)}}selected{{/if}}>
             {{this.name}}
             </option>
         {{/each}}
-        </select>
+    </select>
+    <div>
+        <label>Effects</label>
+        <button type="button" class="add-effect">Add effect</button>
+        {{#each item.effects.content}}
+        <li>
+            <span>{{this.name}}</span>
+            <button type="button" class="edit-effect">Edit effect</button>
+            <button type="button" class="remove-effect">Remove effect</button>
+        </li>
+        {{/each}}
+    </div>
 </form>
