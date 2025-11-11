@@ -8,7 +8,7 @@
     </div>
     <div>
         <select name="system.parentCulture" id="parentCulture">
-        <option value="">-- Sélectionne une culture --</option>
+        <option value="{{this.name}}">-- Sélectionne une culture --</option>
         {{#each cultures}}
             <option value="{{this.name}}" {{#if (eq ../system.culture this.name)}}selected{{/if}}>
             {{this.name}}
