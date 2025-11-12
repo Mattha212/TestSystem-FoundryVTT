@@ -358,7 +358,10 @@ class SubcultureSheet extends ItemSheet{
   }
   
   async _OnEditEffect(event){
-
+    event.preventDefault();
+    const effectId = event.currentTarget.dataset.effectId;
+    const effect = this.item.effects.find(e => e.id === effectId);
+    if (effect) effect.sheet.render(true); 
   }
   
   async _OnRemoveEffect(event){
