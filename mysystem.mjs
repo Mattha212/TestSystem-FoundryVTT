@@ -60,6 +60,15 @@ class PJSheet extends ActorSheet {
 
         html.find('select[name="system.culture"]').on('change', async event => {
             const culture = event.currentTarget.value;
+            const cultureItem = game.items.getName(culture).toObject();
+            
+            const existingCultures = this.actor.items.filter(i=> i.type === "culture");
+            if(existingCultures.length>0) {
+               await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+            }
+            
+            await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
+
             this.actor.system.culture = culture;
             const allSubcultures = game.items.filter(i => i.type === "Subculture");
             const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
@@ -67,6 +76,8 @@ class PJSheet extends ActorSheet {
             subSelect.empty();
             subSelect.append(`<option value="">-- Sélectionne une sous-culture --</option>`);
             for (const s of subcultures) subSelect.append(`<option value="${s.name}">${s.name}</option>`);
+
+
         });
     }
 
