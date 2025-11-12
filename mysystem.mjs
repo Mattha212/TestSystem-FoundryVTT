@@ -60,7 +60,7 @@ class PJSheet extends ActorSheet {
 
         html.find('select[name="system.culture"]').on('change', async event => {
             const culture = event.currentTarget.value;
-            const existingCultures = this.actor.items.filter(i=> i.type === "culture");
+            const existingCultures = this.actor.items.filter(i=> i.type === "Culture");
             if(existingCultures.length>0) {
                 await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
             }
