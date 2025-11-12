@@ -60,15 +60,16 @@ class PJSheet extends ActorSheet {
 
         html.find('select[name="system.culture"]').on('change', async event => {
             const culture = event.currentTarget.value;
-            const cultureItem = game.items.getName(culture).toObject();
-            
             const existingCultures = this.actor.items.filter(i=> i.type === "culture");
             if(existingCultures.length>0) {
-               await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+                await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+            }
+
+            if(culture.length>0){
+                const cultureItem = game.items.getName(culture).toObject();
+                await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
             }
             
-            await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
-
             this.actor.system.culture = culture;
             const allSubcultures = game.items.filter(i => i.type === "Subculture");
             const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
