@@ -350,26 +350,7 @@ class CultureSheet extends ItemSheet{
       height: 300
     });
   }
-}
-
-class SubcultureSheet extends ItemSheet{
-        static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["testsystem", "sheet", "item"],
-      template: "systems/testsystem/templates/subculture-sheet.html",
-      width: 400,
-      height: 300
-    });
-  }
-  getData(options){
-    const context = super.getData(options);
-    context.system = context.item.system;
-    const allCultures = game.items.filter(i=>i.type === "Culture");
-    context.cultures = allCultures;
-    context.effect = this.item.effects.content;
-    return context;
-  }
-  activateListeners(html){
+activateListeners(html){
     super.activateListeners(html);
 
     html.find(".add-effect").click(this._OnAddEffect.bind(this))
@@ -377,7 +358,6 @@ class SubcultureSheet extends ItemSheet{
     html.find(".remove-effect").click(this._OnRemoveEffect.bind(this))
 
   }
-
   async _OnAddEffect(event){
     event.preventDefault();
     const effectData = {
@@ -401,6 +381,25 @@ class SubcultureSheet extends ItemSheet{
     event.preventDefault();
     const effectId = event.currentTarget.dataset.effectId;
     await this.item.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
+  }
+}
+
+class SubcultureSheet extends CultureSheet{
+        static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["testsystem", "sheet", "item"],
+      template: "systems/testsystem/templates/subculture-sheet.html",
+      width: 400,
+      height: 300
+    });
+  }
+  getData(options){
+    const context = super.getData(options);
+    context.system = context.item.system;
+    const allCultures = game.items.filter(i=>i.type === "Culture");
+    context.cultures = allCultures;
+    context.effect = this.item.effects.content;
+    return context;
   }
 }
 
