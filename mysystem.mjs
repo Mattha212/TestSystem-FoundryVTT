@@ -151,6 +151,10 @@ class PJSheet extends ActorSheet {
             const value = String(input.value);
             update[`system.culture`] = value;
         }
+        else if(input.name?.endsWith(".Subculture")){
+            const value = String(input.value);
+            update[`system.subculture`] = value;
+        }
 
 
         await this.actor.update(update);
