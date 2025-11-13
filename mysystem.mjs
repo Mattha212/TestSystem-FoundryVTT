@@ -61,8 +61,12 @@ class PJSheet extends ActorSheet {
         html.find('select[name="system.culture"]').on('change', async event => {
             const culture = event.currentTarget.value;
             const existingCultures = this.actor.items.filter(i=> i.type === "Culture");
+            const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
             if(existingCultures.length>0) {
                 await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+            }
+            if(existingSubCulture.length>0){
+                await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
             }
 
             if(culture.length>0){
@@ -80,6 +84,19 @@ class PJSheet extends ActorSheet {
 
 
         });
+
+        html.find('select[name="system.subculture"]').on('change', async event =>{
+            const subCulture = event.currentTarget.value;
+            const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
+            if(existingSubCulture.length>0){
+                await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+            }
+            if(subCulture.length>0){
+                const cultureItem = game.items.getName(subCulture).toObject();
+                await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
+            }           
+             
+        })
     }
 
     async _onChangeInput(event){
