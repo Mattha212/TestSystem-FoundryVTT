@@ -473,4 +473,25 @@ Handlebars.registerHelper("handleNames", function(str) {
 });
 });
 
+Hooks.once("applyActiveEffect", async (actor, effect, change) => {
+    if(change.key?.includes(".MaxValue")){
+        const basePath = key.split(".").slice(0, -1).join("."); 
+        const path = `${basePath}.CurrentValue`;
+        const base = getProperty(actor, path);
+        const result = applyChangeMode(change.mode, base, Number(change.value));
+        actor.update({[path]: result});
+    }
+});
+
+function applyChangeMode(mode, base, value) {
+  switch (mode) {
+    case CONST.ACTIVE_EFFECT_MODES.ADD: return base + value;
+    case CONST.ACTIVE_EFFECT_MODES.MULTIPLY: return base * value;
+    case CONST.ACTIVE_EFFECT_MODES.OVERRIDE: return value;
+    case CONST.ACTIVE_EFFECT_MODES.UPGRADE: return Math.max(base, value);
+    case CONST.ACTIVE_EFFECT_MODES.DOWNGRADE: return Math.min(base, value);
+    default: return base;
+  }
+}
+
 
