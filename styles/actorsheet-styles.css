@@ -3,7 +3,13 @@ background: #1e1e1e;
 border-radius: 8px;
 padding: 10x;
 }
+.sheet-body .tab {
+    display: none;
+}
 
+.sheet-body .tab.active {
+    display: block;
+}
 .testsystem.actor.sheet .sheet-header{
 display: grid;
 grid-template-columns: 150px 1fr 1fr;
