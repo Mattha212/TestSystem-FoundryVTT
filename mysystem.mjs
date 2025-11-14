@@ -475,7 +475,7 @@ Handlebars.registerHelper("handleNames", function(str) {
 
 Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{
 if(!changed.changes) return;
-const update = [];
+const updates = [];
 for (const change of effect.changes) {
     if (change.key.endsWith(".MaxValue")) {
 
@@ -491,8 +491,8 @@ for (const change of effect.changes) {
         updates.push(mirrorChange);
       }
     }
-  }
    if (updates.length === 0) return;
+  }
 
   await effect.update({
     changes: [...effect.changes, ...updates]
