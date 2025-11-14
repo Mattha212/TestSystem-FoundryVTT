@@ -143,26 +143,15 @@ width: 100%;
   cursor: pointer;
 }
 
-.testsystem.actor.sheet .skills input {
-  display: block;
+.testsystem.actor.sheet .skill-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Label pour le champ Level */
-.testsystem.actor.sheet input[name$=".level"]::before {
-  content: "Level";
-}
-
-/* Label pour le champ Learning Points */
-.testsystem.actor.sheet input[name$=".learningPoints"]::before {
-  content: "Learning Points";
-}
-
-/* Style commun des labels */
-.testsystem.actor.sheet input::before {
-  display: block;
-  font-size: 0.7rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2px;
-  color: var(--color-text);
+.testsystem.actor.sheet .skill-input label {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 2px;
 }
