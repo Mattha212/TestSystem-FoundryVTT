@@ -113,9 +113,12 @@ width: 50px;
 }
 
 .testsystem.actor.sheet .skills-tab{
-  display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.testsystem.actor.sheet .skills-tab.active {
+  display: flex;
 }
 
 .testsystem.actor.sheet .CategoryTitle{
