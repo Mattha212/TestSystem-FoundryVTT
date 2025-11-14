@@ -361,7 +361,7 @@ activateListeners(html){
   async _OnAddEffect(event){
     event.preventDefault();
     const effectData = {
-      label: "Nouvel effet",
+      label: "new Effect",
       changes: [],
       icon: "icons/svg/aura.svg",
       origin: this.item.uuid,
@@ -471,6 +471,32 @@ Handlebars.registerHelper("handleNames", function(str) {
   Handlebars.registerHelper("eq", function(a, b) {
   return a === b;
 });
+});
+
+Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{
+if(!changed.changes) return;
+const update = [];
+for (const change of effect.changes) {
+    if (change.key.endsWith(".MaxValue")) {
+
+      const basePath = change.key.split(".").slice(0, -1).join(".");
+      const currentKey = `${basePath}.CurrentValue`;
+
+      const exists = effect.changes.some(c => c.key === currentKey);
+
+      if (!exists) {
+        const mirrorChange = foundry.utils.duplicate(change);
+        mirrorChange.key = currentKey;
+
+        updates.push(mirrorChange);
+      }
+    }
+  }
+   if (updates.length === 0) return;
+
+  await effect.update({
+    changes: [...effect.changes, ...updates]
+  });
 });
 
 
