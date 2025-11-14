@@ -491,8 +491,8 @@ for (const change of effect.changes) {
         updates.push(mirrorChange);
       }
     }
-   if (updates.length === 0) return;
   }
+   if (updates.length === 0) return;
 
   await effect.update({
     changes: [...effect.changes, ...updates]
