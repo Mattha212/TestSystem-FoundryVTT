@@ -143,6 +143,10 @@ width: 100%;
   cursor: pointer;
 }
 
+.testsystem.actor.sheet .skills input {
+  display: block;
+}
+
 /* Label pour le champ Level */
 .testsystem.actor.sheet input[name$=".level"]::before {
   content: "Level";
