@@ -142,3 +142,11 @@ width: 100%;
   color: var(--color-text);
   cursor: pointer;
 }
+
+.testsystem.actor.sheet .skill-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}

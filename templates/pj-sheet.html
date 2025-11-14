@@ -65,6 +65,11 @@
             {{#each skills as |category categoryName|}}
                 <div class="CategoryTitle">{{handleNames categoryName}}</div>
                 <div class="skills">
+                    <div class="skill-header">
+                        <span></span>
+                        <span>Level</span>
+                        <span>Learning Points</span>
+                    </div>
                     {{#each category as |skill skillname|}}
                         <div class = "skill-block">
                             <button type="button" class = "skill-roll" data-skillkey="{{skillname}}" data-category ="{{handleNames categoryName}}">
