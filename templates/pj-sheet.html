@@ -40,7 +40,7 @@
     </header>
     <section class ="sheet-stats">
         {{#each system.stats as |stat key|}}
-        <div class = stat-block>
+        <div class = "stat-block">
             <button type="button" class = "stat-roll" data-stat="{{key}}">{{stat.Label}}</button>
             <div class="stat-values">
                 <input type="number" name="system.stats.{{key}}.MaxValue" value = "{{stat.MaxValue}}"/>
