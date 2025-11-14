@@ -63,7 +63,7 @@ width: 100%;
 .testsystem.actor.sheet .stat-block{
 display: flex;
 flex-direction: row;
-align-items: center;
+align-items: start;
 padding: 8px;
 border: 1px solid #ffffff;
 border-radius: 8px;
