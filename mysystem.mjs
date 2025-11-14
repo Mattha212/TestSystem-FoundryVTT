@@ -55,6 +55,8 @@ class PJSheet extends ActorSheet {
             item.sheet.render(true);
         });
 
+        html.find(".delete-trait").click(this._onRemoveTrait.bind(this))
+
         html.find(".stat-roll").click(this._onRollStat.bind(this));
         html.find(".skill-roll").click(this._OnRollSkill.bind(this));
 
@@ -310,6 +312,13 @@ class PJSheet extends ActorSheet {
         else{
             ui.notifications.info(`il se passe rien`);
         }
+    }
+
+    async _onRemoveTrait(event){
+        const traits = this.actor.items.filter(i => i.type ==="Trait");
+        const button = event.currentTarget;
+        const traitToRemoveId = button.dataset.traitId;
+        await this.actor.deleteEmbeddedDocuments("Item", traitToRemoveId );
     }
 }
 

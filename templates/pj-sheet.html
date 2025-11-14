@@ -32,6 +32,7 @@
                 {{#each traits}}   
                 <li class="trait" data-item-id="{{this.id}}">
                 <span class="trait-name">{{this.name}}</span>
+                <button type="button" class="delete-trait" data-traitId="{{this.id}}">Remove trait</button>
                 </li>
                 {{/each}}
             </ol>
