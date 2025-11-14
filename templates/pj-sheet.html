@@ -65,26 +65,20 @@
             {{#each skills as |category categoryName|}}
                 <div class="CategoryTitle">{{handleNames categoryName}}</div>
                 <div class="skills">
-                    <div class="skill-header">
-                        <div class="col-header">
-                            <span></span>
-                            <span>Level</span>
-                            <span>Learning Points</span>
-                        </div>
-
-                        <div class="col-header">
-                            <span></span>
-                            <span>Level</span>
-                            <span>Learning Points</span>
-                        </div>
                     </div>                    
                     {{#each category as |skill skillname|}}
                         <div class = "skill-block">
                             <button type="button" class = "skill-roll" data-skillkey="{{skillname}}" data-category ="{{handleNames categoryName}}">
                                 {{ handleNames skillname}}
                             </button>
-                            <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
-                            <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
+                            <div class="field">
+                                <label class="field-label">Level</label>
+                                <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
+                            </div>
+                            <div class="field">
+                                <label class="field-label">Learning Points</label>                            
+                                <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
+                            </div>
                         </div>
                     {{/each}}
                 </div>

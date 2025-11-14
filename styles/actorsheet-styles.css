@@ -143,17 +143,15 @@ width: 100%;
   cursor: pointer;
 }
 
-.testsystem.actor.sheet .skill-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 10px;
-  margin-bottom: 6px;
+.testsystem.actor.sheet .field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.testsystem.actor.sheet .col-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
+.testsystem.actor.sheet .field-label {
+  font-size: 0.75rem;
   font-weight: bold;
   text-align: center;
+  opacity: 0.8;
 }
