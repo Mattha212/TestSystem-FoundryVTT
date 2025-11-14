@@ -63,7 +63,7 @@ width: 100%;
 .testsystem.actor.sheet .stat-block{
 display: flex;
 flex-direction: row;
-align-items: start;
+align-items: center;
 padding: 8px;
 border: 1px solid #ffffff;
 border-radius: 8px;
@@ -143,15 +143,22 @@ width: 100%;
   cursor: pointer;
 }
 
-.testsystem.actor.sheet .field {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+/* Label pour le champ Level */
+.testsystem.actor.sheet input[name$=".level"]::before {
+  content: "Level";
 }
 
-.testsystem.actor.sheet .field-label {
-  font-size: 0.75rem;
+/* Label pour le champ Learning Points */
+.testsystem.actor.sheet input[name$=".learningPoints"]::before {
+  content: "Learning Points";
+}
+
+/* Style commun des labels */
+.testsystem.actor.sheet input::before {
+  display: block;
+  font-size: 0.7rem;
   font-weight: bold;
   text-align: center;
-  opacity: 0.8;
+  margin-bottom: 2px;
+  color: var(--color-text);
 }
