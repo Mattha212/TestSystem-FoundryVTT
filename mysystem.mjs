@@ -46,8 +46,8 @@ class PJSheet extends ActorSheet {
         this._tabs["primary"] = new Tabs({
             navSelector: ".sheet-tabs",
             contentSelector: ".sheet-body",
-            initial: "Skills",
-            callback: () => {}
+            initial: this._activeTab || "Skills",
+            callback: (tab) => {this._activeTab = tab;}
         });
         this._tabs["primary"].bind(html[0]);
 
