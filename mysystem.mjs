@@ -317,7 +317,7 @@ class PJSheet extends ActorSheet {
     async _onRemoveTrait(event){
         const traits = this.actor.items.filter(i => i.type ==="Trait");
         const button = event.currentTarget;
-        const traitToRemoveId = button.dataset.traitid;
+        const traitToRemoveId = button.dataset.traitId;
         await this.actor.deleteEmbeddedDocuments("Item", traitToRemoveId );
     }
 }
