@@ -394,38 +394,6 @@ class CultureSheet extends InfoObjectSheet{
       height: 300
     });
   }
-activateListeners(html){
-    super.activateListeners(html);
-
-    html.find(".add-effect").click(this._OnAddEffect.bind(this))
-    html.find(".edit-effect").click(this._OnEditEffect.bind(this))
-    html.find(".remove-effect").click(this._OnRemoveEffect.bind(this))
-
-  }
-  async _OnAddEffect(event){
-    event.preventDefault();
-    const effectData = {
-      label: "new Effect",
-      changes: [],
-      icon: "icons/svg/aura.svg",
-      origin: this.item.uuid,
-    };
-    await this.item.createEmbeddedDocuments("ActiveEffect", [effectData]);
-
-  }
-  
-  async _OnEditEffect(event){
-    event.preventDefault();
-    const effectId = event.currentTarget.dataset.effectId;
-    const effect = this.item.effects.find(e => e.id === effectId);
-    if (effect) effect.sheet.render(true); 
-  }
-  
-  async _OnRemoveEffect(event){
-    event.preventDefault();
-    const effectId = event.currentTarget.dataset.effectId;
-    await this.item.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
-  }
 }
 
 class SubcultureSheet extends CultureSheet{
