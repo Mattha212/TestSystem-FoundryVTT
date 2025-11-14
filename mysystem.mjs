@@ -11,7 +11,9 @@ class PJSheet extends ActorSheet {
             classes: ["testsystem","sheet","actor"],
             template: "systems/testsystem/templates/pj-sheet.html",
             width: 500,
-            height: 300
+            height: 300,
+            resizable: true
+
         });
     }
 
