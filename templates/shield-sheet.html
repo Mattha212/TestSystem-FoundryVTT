@@ -1,0 +1,32 @@
+<form class="shield-sheet">
+    <h2>
+        <input type="text" name="name" value="{{item.name}}" />
+    </h2>
+    <div>
+        <label>Protection</label>
+        <input type ="number" name="system.protection" value="{{system.protection}}"/>
+    </div>
+    <div>
+        <label>Bulk</label>
+        <input type ="number" name="system.bulk" value="{{system.bulk}}"/>
+    </div>
+    <div>
+        <label>Traits</label>
+        <ol class="trait-list">
+            {{#each traits}}   
+                <li class="trait" data-item-id="{{this.id}}">
+                <span class="trait-name">{{this.name}}</span>
+                <button type="button" class="delete-trait" data-trait-id="{{this.id}}">Remove trait</button>
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+    <div>
+        <label>Cost</label>
+        <input type = "number" name="system.cost" value="{{system.cost}}"/>
+    </div>
+    <div>
+        <label>Weight</label>
+        <input type="number" name="system.weight" value="{{system.weight}}"/>
+    </div>
+</form>

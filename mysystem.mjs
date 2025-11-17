@@ -26,6 +26,8 @@ class PJSheet extends ActorSheet {
 
         context.traits = context.actor.items.filter(i=>i.type === "Trait");
         context.objects = context.actor.items.filter(i=>i.type === "Object");
+        context.shields = context.actor.items.filter(i=>i.type === "Shield");
+        context.armor = context.actor.items.filter(i=>i.type === "Armor");
         const allCultures = game.items.filter(i=>i.type === "Culture");
         const allSubcultures = game.items.filter(i=>i.type === "Subculture");
 
@@ -417,6 +419,28 @@ class SubcultureSheet extends CultureSheet{
   }
 }
 
+class ShieldSheet extends InfoObjectSheet{
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+        classes: ["testsystem", "sheet", "item"],
+        template: "systems/testsystem/templates/shield-sheet.html",
+        width: 400,
+        height: 300
+        });
+  }
+}
+
+class ArmorSheet extends InfoObjectSheet{
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+        classes: ["testsystem", "sheet", "item"],
+        template: "systems/testsystem/templates/armor-sheet.html",
+        width: 400,
+        height: 300
+        });
+  }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
@@ -444,7 +468,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
   actor.updateSource({ system });
 });
 
-
+ 
 Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
 
@@ -472,7 +496,15 @@ Hooks.once("init", ()=>{
     Items.registerSheet("testsystem", SubcultureSheet, {
         types:["Subculture"],
         makeDefault: true
-    })
+    });
+    Items.registerSheet("testsystem",ShieldSheet, {
+        types:["Shield"],
+        makeDefault:true
+    });
+    Items.registerSheet("testsystem", ArmorSheet, {
+        types:["Armor"],
+        makeDefault: true
+    });
 
 Handlebars.registerHelper("handleNames", function(str) {
   if (typeof str !== "string") return "";

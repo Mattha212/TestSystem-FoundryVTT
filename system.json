@@ -12,7 +12,6 @@
   }],
   "documentTypes": {
     "Actor": {
-      "base": { "htmlFields": [] },
       "PJ": {
         "htmlFields": []
       }
