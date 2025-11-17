@@ -10,17 +10,6 @@
   "authors": [{
     "name": "me"
   }],
-  "documentTypes": {
-    "Actor": {
-      "PJ": {
-        "htmlFields": []
-      }
-    },
-    "Item": {      
-      "Object":{
-        "htmlFields":[]
-      }}
-  },
   "esmodules": ["mysystem.mjs"],
   "styles": ["styles/system-styles.css", "styles/actorsheet-styles.css"],
   "packs": [],
