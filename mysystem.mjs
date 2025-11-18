@@ -7,7 +7,7 @@ function clamp(value, min, max) {
 
 class PJSheet extends ActorSheet {
     static get defaultOptions() {
-        return mergeObject( super.defaultOptions, {
+        return foundry.utils.mergeObject( super.defaultOptions, {
             classes: ["testsystem","sheet","actor"],
             template: "systems/testsystem/templates/pj-sheet.html",
             width: 500,
@@ -328,7 +328,7 @@ class PJSheet extends ActorSheet {
 
 class ObjectSheet extends ItemSheet{
     static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["testsystem", "sheet", "item"],
       template: "systems/testsystem/templates/object-sheet.html",
       width: 400,
@@ -391,7 +391,7 @@ class TraitSheet extends InfoObjectSheet{
 
 class CultureSheet extends InfoObjectSheet{
         static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["testsystem", "sheet", "item"],
       template: "systems/testsystem/templates/culture-sheet.html",
       width: 400,
@@ -402,7 +402,7 @@ class CultureSheet extends InfoObjectSheet{
 
 class SubcultureSheet extends CultureSheet{
         static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["testsystem", "sheet", "item"],
       template: "systems/testsystem/templates/subculture-sheet.html",
       width: 400,
@@ -421,7 +421,7 @@ class SubcultureSheet extends CultureSheet{
 
 class ShieldSheet extends InfoObjectSheet{
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
         classes: ["testsystem", "sheet", "item"],
         template: "systems/testsystem/templates/shield-sheet.html",
         width: 400,
@@ -432,7 +432,7 @@ class ShieldSheet extends InfoObjectSheet{
 
 class ArmorSheet extends InfoObjectSheet{
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
         classes: ["testsystem", "sheet", "item"],
         template: "systems/testsystem/templates/armor-sheet.html",
         width: 400,
