@@ -218,7 +218,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             buttons:{
                 roll:{
                     label: "Roll",
-                    callback: html => sheet._onConfirmRollStat(html,statKey)
+                    callback: html => this._onConfirmRollStat(html,statKey)
                 },
                 cancel:{
                     label: "Cancel"
@@ -287,7 +287,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             buttons:{
                 roll:{
                     label: "Roll",
-                    callback: html => sheet._onConfirmRollSkill(html,skillKey, skillCategory)
+                    callback: html => this._onConfirmRollSkill(html,skillKey, skillCategory)
                 },
                 cancel:{
                     label: "Cancel"
