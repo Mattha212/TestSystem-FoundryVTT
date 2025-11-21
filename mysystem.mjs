@@ -1,5 +1,4 @@
 import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
-import { HandlebarsApplicationMixin } from "foundry.js";
 
 console.log("mysystem.mjs loaded");
 
@@ -7,7 +6,7 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-class PJSheet extends HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2) {
+class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2) {
     static DEFAULT_OPTIONS = {
         id:"pj-sheet",
         classes: ["testsystem","sheet","actor"],
