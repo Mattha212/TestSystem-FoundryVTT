@@ -5,7 +5,7 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-class PJSheet extends foundry.applications.api.DocumentSheetV2 {
+class PJSheet extends HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2) {
     static DEFAULT_OPTIONS = {
         id:"pj-sheet",
         classes: ["testsystem","sheet","actor"],
