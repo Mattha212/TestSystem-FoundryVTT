@@ -1,7 +1,7 @@
 {
   "Actor": {
     "types":["PJ"], 
-    "templates": {
+    "models": {
       "PJ":{
         "playerName":"",
         "characterGender":"",
@@ -26,7 +26,7 @@
   },
   "Item": {
     "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor"],
-    "templates": {
+    "models": {
       "Object":{
       "description":"",
       "weight":0
