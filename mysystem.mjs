@@ -498,14 +498,12 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
 
-    CONFIG.Actor.sheetClasses["PJ"] ||= {};
-    CONFIG.Actor.sheetClasses["PJ"]["pj-sheet"] = {
-        id: "pj-sheet",
-        label: "PJ Sheet",
-        type: "primary",     
-        sheetClass: PJSheet,  
-        default: true
-    };
+    foundry.documents.collections.Actors.unregisterSheet("core", ActorSheet);
+
+    foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
+    types: ["PJ"],
+    makeDefault: true
+    });
 
     Items.unregisterSheet("core", ItemSheet);
 
