@@ -5,7 +5,7 @@
   "Item":{
     "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor"]
   },
-  "model":{
+  "models":{
     "Actor": {
       "PJ":{
         "playerName":"",
