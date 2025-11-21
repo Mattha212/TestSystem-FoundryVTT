@@ -54,7 +54,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.system = this.document.system;
         const stats = context.system.stats;
         context.stats = stats;
-        context.skills = this.system.skills;
+        context.skills = this.document.system.skills;
 
         context.traits = this.actor.items.filter(i=>i.type === "Trait");
         context.objects = this.actor.items.filter(i=>i.type === "Object");
