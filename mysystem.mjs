@@ -497,7 +497,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
 
-    CONFIG.Actor.sheetClasses["PJ"] = {};
+    CONFIG.Actor.sheetClasses["PJ"] ||= {};
     CONFIG.Actor.sheetClasses["PJ"]["pj-sheet"] = {
         id: "pj-sheet",
         label: "PJ Sheet",
