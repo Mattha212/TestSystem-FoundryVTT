@@ -35,7 +35,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     // }
     static DEFAULT_OPTIONS() {
     return {
-        ...super.DEFAULT_OPTIONS(),
         id: "pj-sheet",
         classes: ["testsystem", "sheet", "actor"],
         position: { width: 500, height: 300 },
