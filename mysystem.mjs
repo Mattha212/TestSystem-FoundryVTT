@@ -7,24 +7,49 @@ function clamp(value, min, max) {
 }
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2) {
-    static DEFAULT_OPTIONS = {
-        id:"pj-sheet",
-        classes: ["testsystem","sheet","actor"],
-        position:{
-            width: 500,
-            height: 300,
-        },
-        window:{
+    // static DEFAULT_OPTIONS = {
+    //     id:"pj-sheet",
+    //     classes: ["testsystem","sheet","actor"],
+    //     position:{
+    //         width: 500,
+    //         height: 300,
+    //     },
+    //     window:{
+    //         title: "Character sheet",
+    //         resizable: true,
+    //     },
+    //     actions:{
+    //         deleteTrait: this.#_onRemoveTrait,
+    //         statRoll: this.#_onRollStat,
+    //         skillRoll: this.#_OnRollSkill,
+    //         itemName: this.#_OnPrintItem
+    //     }, 
+    //     events:{
+    //         'change select[name="system.culture"]': this.#_OnCultureChange,
+    //         'change select[name="system.subculture"]': this.#_OnSubCultureChange,
+    //         'change input[name^="system.stats"]': this.#_OnChangeStat,
+    //         'change input[name^="system.skills"]': this.#_OnChangeSkills,
+    //         'change input[name^="system.culture"]': this.#_OnChangeCulture,
+    //         'change input[name^="system.subculture"]': this.#_OnChangeSubCulture
+    //     }
+    // }
+    static DEFAULT_OPTIONS() {
+    return {
+        ...super.DEFAULT_OPTIONS(),
+        id: "pj-sheet",
+        classes: ["testsystem", "sheet", "actor"],
+        position: { width: 500, height: 300 },
+        window: {
             title: "Character sheet",
             resizable: true,
         },
-        actions:{
+        actions: {
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
             skillRoll: this.#_OnRollSkill,
             itemName: this.#_OnPrintItem
-        }, 
-        events:{
+        },
+        events: {
             'change select[name="system.culture"]': this.#_OnCultureChange,
             'change select[name="system.subculture"]': this.#_OnSubCultureChange,
             'change input[name^="system.stats"]': this.#_OnChangeStat,
@@ -33,6 +58,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             'change input[name^="system.subculture"]': this.#_OnChangeSubCulture
         }
     }
+}
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html"
@@ -75,11 +101,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     async _attachListeners(html) {
-    await super._attachListeners(html);
+        await super._attachListeners(html);
 
-    this._activateTabControllers(html, this.options);
+        this._activateTabControllers(html, this.options);
     }
-    
+
     static async #_OnChangeStat(event, target, sheet){
         const input = target;
         const statKey = input.name.split(".")[2];
