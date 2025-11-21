@@ -1,12 +1,6 @@
 {
   "Actor":{
-    "types":["PJ"]
-  },
-  "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor"]
-  },
-  "models":{
-    "Actor": {
+    "types":["PJ"],
       "PJ":{
         "playerName":"",
         "characterGender":"",
@@ -24,9 +18,9 @@
           "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
           "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
         }
-      }
-    },
-  "Item": {
+  },
+  "Item":{
+    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor"],
       "Object":{
         "description":"",
         "weight":0
