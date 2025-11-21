@@ -5,29 +5,60 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-class PJSheet extends ActorSheet {
-    static get defaultOptions() {
-        return foundry.utils.mergeObject( super.defaultOptions, {
-            classes: ["testsystem","sheet","actor"],
-            template: "systems/testsystem/templates/pj-sheet.html",
+class PJSheet extends foundry.applications.api.DocumentSheetV2 {
+    static DEFAULT_OPTIONS = {
+        id:"pj-sheet",
+        classes: ["testsystem","sheet","actor"],
+        position:{
             width: 500,
             height: 300,
-            resizable: true
-
-        });
+        },
+        window:{
+            title: "Character sheet",
+            resizable: true,
+        },
+        actions:{
+            deleteTrait: this.#_onRemoveTrait,
+            statRoll: this.#_onRollStat,
+            skillRoll: this.#_OnRollSkill,
+            itemName: this.#_OnPrintItem
+        }, 
+        events:{
+            'change select[name="system.culture"]': this.#_OnCultureChange,
+            'change select[name="system.subculture"]': this.#_OnSubCultureChange,
+            'change input[name^="system.stats"]': this.#_OnChangeStat,
+            'change input[name^="system.skills"]': this.#_OnChangeSkills,
+            'change input[name^="system.culture"]': this.#_OnChangeCulture,
+            'change input[name^="system.subculture"]': this.#_OnChangeSubCulture
+        }
+    }
+    static PARTS = {
+        form : {
+            template : "systems/testsystem/templates/pj-sheet.html"
+        }
+    }
+    static TABS = {
+        sheet:{
+            tabs:[
+                {id: 'Skills', group: 'sheet', label: 'DCC.Skills'},
+                {id:'Fighting', group: 'sheet', label: 'DCC.Fighting'},
+                {id: 'Inventory', group: 'sheet', label: 'DCC.Inventory'}
+            ],
+            initial: 'Skills'
+        }
     }
 
-    getData(options){
-        const context = super.getData(options);
-        context.system = context.actor.system;
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);
+        context.system = this.actor.system;
         const stats = context.system.stats;
         context.stats = stats;
-        context.skills = context.system.skills;
+        context.skills = this.system.skills;
 
-        context.traits = context.actor.items.filter(i=>i.type === "Trait");
-        context.objects = context.actor.items.filter(i=>i.type === "Object");
-        context.shields = context.actor.items.filter(i=>i.type === "Shield");
-        context.armor = context.actor.items.filter(i=>i.type === "Armor");
+        context.traits = this.actor.items.filter(i=>i.type === "Trait");
+        context.objects = this.actor.items.filter(i=>i.type === "Object");
+        context.shields = this.actor.items.filter(i=>i.type === "Shield");
+        context.armor = this.actor.items.filter(i=>i.type === "Armor");
         const allCultures = game.items.filter(i=>i.type === "Culture");
         const allSubcultures = game.items.filter(i=>i.type === "Subculture");
 
@@ -42,92 +73,26 @@ class PJSheet extends ActorSheet {
         return context;
     }
 
-    activateListeners(html){
-        super.activateListeners(html);
-        this._tabs = this._tabs || {};
-        this._tabs["primary"] = new Tabs({
-            navSelector: ".sheet-tabs",
-            contentSelector: ".sheet-body",
-            initial: this._activeTab || "Skills",
-            callback: (tab) => {this._activeTab = tab;}
-        });
-        this._tabs["primary"].bind(html[0]);
-
-        html.find(".item-name").click(ev => {
-            const li = $(ev.currentTarget).closest(".item");
-            const item = this.actor.items.get(li.data("itemId"));
-            item.sheet.render(true);
-        });
-
-        html.find(".delete-trait").click(this._onRemoveTrait.bind(this))
-
-        html.find(".stat-roll").click(this._onRollStat.bind(this));
-        html.find(".skill-roll").click(this._OnRollSkill.bind(this));
-
-        html.find('select[name="system.culture"]').on('change', async event => {
-            const culture = event.currentTarget.value;
-            const existingCultures = this.actor.items.filter(i=> i.type === "Culture");
-            const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
-            if(existingCultures.length>0) {
-                await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
-            }
-            if(existingSubCulture.length>0){
-                await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
-            }
-
-            if(culture.length>0){
-                const cultureItem = game.items.getName(culture).toObject();
-                await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
-            }
-            
-            this.actor.system.culture = culture;
-            const allSubcultures = game.items.filter(i => i.type === "Subculture");
-            const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
-            const subSelect = html.find('select[name="system.subculture"]');
-            subSelect.empty();
-            subSelect.append(`<option value="">-- Sélectionne une sous-culture --</option>`);
-            for (const s of subcultures) subSelect.append(`<option value="${s.name}">${s.name}</option>`);
-
-
-        });
-
-        html.find('select[name="system.subculture"]').on('change', async event =>{
-            const subCulture = event.currentTarget.value;
-            const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
-            if(existingSubCulture.length>0){
-                await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
-            }
-            if(subCulture.length>0){
-                const cultureItem = game.items.getName(subCulture).toObject();
-                await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
-            }           
-             
-        })
-    }
-
-    async _onChangeInput(event){
-        const input = event.target;
+    static async #_OnChangeStat(event, target, sheet){
+        const input = target;
+        const statKey = input.name.split(".")[2];
+        const newValue = Number(input.value);
         const update={};
 
         if(input.name?.endsWith(".MaxValue")){
-            const statKey = input.name.split(".")[2];
-            const newValue = Number(input.value);
-
             update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             
-            await this.actor.update(update);
+            await sheet.actor.update(update);
         }
         else if(input.name?.endsWith(".CurrentValue")){
-            const statKey = input.name.split(".")[2];
-            const newValue = Number(input.value);
-            const label = this.actor.system.stats[statKey].Label;
+            const label = sheet.actor.system.stats[statKey].Label;
 
             if(label === "Constitution"){
-            const currentValue = this.actor.system.stats[statKey].CurrentValue;
-            const maxValue = this.actor.system.stats[statKey].MaxValue;
-            const MaxValueStrength = this.actor.system.stats["Strength"].MaxValue;
-            const MaxValueAgility = this.actor.system.stats["Agility"].MaxValue;
+            const currentValue = sheet.actor.system.stats[statKey].CurrentValue;
+            const maxValue = sheet.actor.system.stats[statKey].MaxValue;
+            const MaxValueStrength = sheet.actor.system.stats["Strength"].MaxValue;
+            const MaxValueAgility = sheet.actor.system.stats["Agility"].MaxValue;
 
             if(newValue>maxValue*0.75){
                 update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
@@ -144,36 +109,97 @@ class PJSheet extends ActorSheet {
                 update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -20;
             }
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
-
             }
         }
-        else if(input.name?.endsWith(".level")){
+        await sheet.actor.update(update);
+    }
+
+    static async #_OnChangeSkills(event, target, sheet){
+        const input = target;
+        const update={};
+        if(input.name?.endsWith(".level")){
             const categoryKey = input.name.split(".")[2];
             const skillKey = input.name.split(".")[3];
             const newValue = Number(input.value);
             update[`system.skills.${categoryKey}.${skillKey}.level`] = newValue;
         }
-        else if(input.name?.endsWith(".Culture")){
+        await sheet.actor.update(update);
+    } 
+
+    static async #_OnChangeCulture(event, target, sheet){
+        const input = target;
+        const update={};
+        if(input.name?.endsWith(".Culture")){
             const value = String(input.value);
             update[`system.culture`] = value;
         }
-        else if(input.name?.endsWith(".Subculture")){
+        await sheet.actor.update(update);
+    }
+
+    static async #_OnChangeSubCulture(event, target, sheet){
+        const input = target;
+        const update={};
+        if(input.name?.endsWith(".Subculture")){
             const value = String(input.value);
             update[`system.subculture`] = value;
         }
-
-
-        await this.actor.update(update);
-
-        await super._onChangeInput(event);
-
+        await sheet.actor.update(update);
     }
-    
-    async _onRollStat(event){
+
+    static async #_OnSubCultureChange(event, sheet){
+        const subCulture = event.target.value;
+        const existingSubCulture = sheet.actor.items.filter(i=> i.type === "Subculture");
+        if(existingSubCulture.length>0){
+            await sheet.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+        }
+        if(subCulture.length>0){
+            const cultureItem = game.items.find(i=> i.name === subCulture).toObject();
+            await sheet.actor.createEmbeddedDocuments("Item", [cultureItem]);
+        }
+    }
+
+    static async #_OnCultureChange(event, sheet){
+        const culture = event.target.value;
+        const existingCultures = sheet.actor.items.filter(i=> i.type === "Culture");
+        const existingSubCulture = sheet.actor.items.filter(i=> i.type === "Subculture");
+        if(existingCultures.length>0) {
+            await sheet.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+        }
+        if(existingSubCulture.length>0){
+            await sheet.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+        }
+
+        if(culture.length>0){
+            const cultureItem = game.items.find(i=> i.name === culture).toObject();
+            await sheet.actor.createEmbeddedDocuments("Item", [cultureItem]);
+        }
+
+        await sheet.actor.update({ "system.culture": culture });
+        const root = sheet.element;
+        const subSelect = root.querySelector('select[name="system.subculture"]');
+
+        const allSubcultures = game.items.filter(i => i.type === "Subculture");
+        const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
+        subSelect.innerHTML = `<option value="">-- Sélectionne une sous-culture --</option>`;
+
+        for (const s of subcultures){
+            const opt = document.createElement("option");
+            opt.value = s.name;
+            opt.textContent = s.name;
+            subSelect.appendChild(opt);
+        } 
+    }
+
+    static async #_OnPrintItem(event, target, sheet){
+        const li = $(target).closest(".item");
+        const item = sheet.actor.items.get(li.data("itemId"));
+        item.sheet.render(true);
+    }
+
+    static async #_onRollStat(event, target, sheet){
         event.preventDefault();
-        const button = event.currentTarget;
-        const statKey = button.dataset.stat;
-        const stat = this.actor.system.stats[statKey];
+        const statKey = target.dataset.stat;
+        const stat = sheet.actor.system.stats[statKey];
         if(!stat) return;
 
         const content =`
@@ -191,7 +217,7 @@ class PJSheet extends ActorSheet {
             buttons:{
                 roll:{
                     label: "Roll",
-                    callback: html => this._onConfirmRollStat(html,statKey)
+                    callback: html => sheet._onConfirmRollStat(html,statKey)
                 },
                 cancel:{
                     label: "Cancel"
@@ -240,7 +266,7 @@ class PJSheet extends ActorSheet {
         }
     }
 
-    async _OnRollSkill(event){
+    static async #_OnRollSkill(event, sheet){
         event.preventDefault();
         const button = event.currentTarget;
         const skillKey = button.dataset.skillkey;
@@ -260,7 +286,7 @@ class PJSheet extends ActorSheet {
             buttons:{
                 roll:{
                     label: "Roll",
-                    callback: html => this._onConfirmRollSkill(html,skillKey, skillCategory)
+                    callback: html => sheet._onConfirmRollSkill(html,skillKey, skillCategory)
                 },
                 cancel:{
                     label: "Cancel"
@@ -318,11 +344,10 @@ class PJSheet extends ActorSheet {
         }
     }
 
-    async _onRemoveTrait(event){
-        const traits = this.actor.items.filter(i => i.type ==="Trait");
-        const button = event.currentTarget;
-        const traitToRemoveId = button.dataset.traitId;
-        await this.actor.deleteEmbeddedDocuments("Item", [traitToRemoveId] );
+    static async #_onRemoveTrait(event, target, sheet){
+        event.preventDefault();
+        const traitToRemoveId = target.dataset.traitId;
+        await sheet.actor.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
     }
 }
 
