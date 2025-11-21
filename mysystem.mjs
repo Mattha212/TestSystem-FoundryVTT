@@ -1,4 +1,6 @@
 import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
+import { HandlebarsApplicationMixin } from "foundry.js";
+
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
