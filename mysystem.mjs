@@ -498,7 +498,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
     }
 
     actor.updateSource({
-    "system.skills": skills
+    "system.skills": system.skills
   });
 });
 
