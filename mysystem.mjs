@@ -74,6 +74,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return context;
     }
 
+    async _attachListeners(html) {
+    await super._attachListeners(html);
+
+    this._activateTabControllers(html, this.options);
+    }
+    
     static async #_OnChangeStat(event, target, sheet){
         const input = target;
         const statKey = input.name.split(".")[2];
