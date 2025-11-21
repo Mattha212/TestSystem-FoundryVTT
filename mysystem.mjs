@@ -497,12 +497,14 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 Hooks.once("init", ()=>{
   console.log("✅ TestSystem Init Hook");
 
-    Actors.unregisterSheet("core", ActorSheet);
-
-    Actors.registerSheet("testsystem", PJSheet, {
-    types: ["PJ"],
-    makeDefault: true
-    });
+    CONFIG.Actor.sheetClasses["PJ"] = {};
+    CONFIG.Actor.sheetClasses["PJ"]["pj-sheet"] = {
+        id: "pj-sheet",
+        label: "PJ Sheet",
+        type: "primary",     
+        sheetClass: PJSheet,  
+        default: true
+    };
 
     Items.unregisterSheet("core", ItemSheet);
 
