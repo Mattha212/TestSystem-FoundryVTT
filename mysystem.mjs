@@ -140,17 +140,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     Handlebars.registerPartial("inventoryTab", await (await fetch(templates[2])).text());
     }
 
-    async _preparePartContext(partId, context) {
-        context.tab = PJSheet.TABS.sheet.tabs.find(t => t.id === partId);
-        switch (partId) {
-            case "skillsTab":
-            case "fightingTab":
-            case "inventoryTab":
-                break;
-        }
-        return context;
-    }   
-
     static async #_OnChangeSkills(event, target, sheet){
         const input = target;
         const update={};
