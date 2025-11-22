@@ -18,6 +18,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             title: "Character sheet",
             resizable: true,
         },
+            tabs: [{
+        navSelector: ".sheet-tabs",
+        contentSelector: ".sheet-body",
+        initial: "Skills"
+    }],
         actions:{
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
@@ -72,18 +77,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
 
         return context;
-    }
-
-    activateListeners(html) {
-    super.activateListeners(html);
-
-    // Si tu veux que "Skills" soit actif par défaut
-    const tabs = html.find(".sheet-tabs");
-    this._activateTabControllers(tabs);
-
-    // Forcer "Skills" comme actif si nécessaire
-    const tabLinks = tabs.find("a.item[data-tab='Skills']");
-    tabLinks.first().click(); // simule le clic pour activer le tab
     }
 
     static async #_OnChangeStat(event, target, sheet){
