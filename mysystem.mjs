@@ -85,16 +85,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return context;
     }
 
-    async _preparePartContext(partId, context) {
-        switch (partId) {
-            case 'skillsTab':
-            case 'fightingTab':
-            case 'inventoryTab':
-            context.tab = context.tabs[partId];
-            default:
-        }
-        return context;
-    }
 
     static async #_OnChangeStat(event, target, sheet){
         const input = target;
@@ -145,11 +135,21 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     ];
     await loadTemplates(templates);
 
-    // Enregistre les partials avec le nom exact
     Handlebars.registerPartial("skillsTab", await (await fetch(templates[0])).text());
     Handlebars.registerPartial("fightingTab", await (await fetch(templates[1])).text());
     Handlebars.registerPartial("inventoryTab", await (await fetch(templates[2])).text());
     }
+
+    async _preparePartContext(partId, context) {
+        context.tab = PJSheet.TABS.sheet.tabs.find(t => t.id === partId);
+        switch (partId) {
+            case "skillsTab":
+            case "fightingTab":
+            case "inventoryTab":
+                break;
+        }
+        return context;
+    }   
 
     static async #_OnChangeSkills(event, target, sheet){
         const input = target;
