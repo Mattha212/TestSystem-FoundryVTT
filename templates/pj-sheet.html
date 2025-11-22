@@ -54,14 +54,14 @@
         </div>        
         {{/each}}
     </section>
-    <nav class="tabs sheet-tabs" data-group="sheet">
-        <a class="item" data-tab="Skills">Skills</a>
-        <a class="item" data-tab="Fighting">Fighting</a>
-        <a class="item" data-tab="Inventory">Inventory</a>
+    <nav class="tabs sheet-tabs" data-group="{{tabs.tabs.group}}">
+        <a class="item {{tabs.tabs.cssClass 'Skills'}}" data-tab="Skills">Skills</a>
+        <a class="item {{tabs.tabs.cssClass 'Fighting'}}" data-tab="Fighting">Fighting</a>
+        <a class="item {{tabs.tabs.cssClass 'Inventory'}}" data-tab="Inventory">Inventory</a>
     </nav>
  
-    <section class="sheet-body">
-        <div class="tab skills-tab" data-group="sheet" data-tab="Skills">
+    <section class="sheet-body" data-group="{{tabs.tabs.group}}">
+        <div class="tab skills-tab {{tabs.tabs.cssClass 'Skills'}}" data-tab="Skills" data-group="{{tabs.tabs.group}}" >
             {{#each skills as |category categoryName|}}
                 <div class="CategoryTitle">{{handleNames categoryName}}</div>
                 <div class="skills">
@@ -84,7 +84,7 @@
                 </div>
             {{/each}}
         </div>
-        <div class="tab fighting-tab" data-group="sheet" data-tab="Fighting">
+        <div class="tab fighting-tab {{tabs.tabs.cssClass 'Fighting'}}" data-tab="Fighting" data-group="{{tabs.tabs.group}}">
             <div class ="fighting-defense">
                 <div class ="shield">
 
@@ -98,7 +98,7 @@
 
             </div>
         </div>
-        <div class="tab inventory-tab" data-group ="sheet" data-tab="Inventory">
+        <div class="tab inventory-tab {{tabs.tabs.cssClass 'Inventory'}}" data-tab="Inventory" data-group ="{{tabs.tabs.group}}">
                 <ol class="item-list">
                 {{#each objects}}   
                 <li class="item" data-item-id="{{this.id}}">
