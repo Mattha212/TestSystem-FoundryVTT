@@ -127,6 +127,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await sheet.actor.update(update);
     }
 
+    async _render(force = false, options = {}) {
+        await super._render(force, options);
+        this._activateTabs();
+    }
+
     static async _preloadTemplates() {
     const templates = [
         "systems/testsystem/templates/skillsTab.hbs",
