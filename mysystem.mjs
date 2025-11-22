@@ -45,7 +45,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             template:"systems/testsystem/templates/fighting.hbs"
         },
         inventoryTab:{
-            template:"systems/testsystem/templates/invetory.hbs"
+            template:"systems/testsystem/templates/inventory.hbs"
         }
 
     }
