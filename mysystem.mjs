@@ -43,16 +43,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             template : "systems/testsystem/templates/pj-sheet.html"
         }
     }
-    static TABS = {
-        sheet:{
-            tabs:[
-                {id: 'Skills', group: 'sheet', label: 'DCC.Skills'},
-                {id:'Fighting', group: 'sheet', label: 'DCC.Fighting'},
-                {id: 'Inventory', group: 'sheet', label: 'DCC.Inventory'}
-            ],
-            initial: 'Skills'
-        }
-    }
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);
@@ -78,6 +68,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         return context;
     }
+
+    async _render(force=false, options={}) {
+        await super._render(force, options);
+        // Active le tab initial du groupe 'sheet'
+        this._activateTab("sheet", "Skills");
+}
 
     static async #_OnChangeStat(event, target, sheet){
         const input = target;
