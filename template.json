@@ -1,56 +1,56 @@
 {
   "Actor":{
     "types":["PJ"],
-      "PJ":{
-        "playerName":"",
-        "characterGender":"",
-        "age": 0,
-        "culture": "",
-        "subculture":"",
-        "stats":{
-          "Strength":{"Label":"Strength","CurrentValue":0,"MaxValue":0},
-          "Agility":{"Label":"Agility","CurrentValue":0,"MaxValue":0},
-          "Dexterity":{"Label":"Dexterity","CurrentValue":0,"MaxValue":0},
-          "Constitution":{"Label":"Constitution","CurrentValue":0,"MaxValue":0},
-          "Charisme":{"Label":"Charisme","CurrentValue":0,"MaxValue":0},
-          "Intelligence":{"Label":"Intelligence","CurrentValue":0,"MaxValue":0},
-          "Perception":{"Label":"Perception","CurrentValue":0,"MaxValue":0},
-          "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
-          "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
-        }
-  },
+    "PJ":{
+      "playerName":"",
+      "characterGender":"",
+      "age": 0,
+      "culture": "",
+      "subculture":"",
+      "stats":{
+        "Strength":{"Label":"Strength","CurrentValue":0,"MaxValue":0},
+        "Agility":{"Label":"Agility","CurrentValue":0,"MaxValue":0},
+        "Dexterity":{"Label":"Dexterity","CurrentValue":0,"MaxValue":0},
+        "Constitution":{"Label":"Constitution","CurrentValue":0,"MaxValue":0},
+        "Charisme":{"Label":"Charisme","CurrentValue":0,"MaxValue":0},
+        "Intelligence":{"Label":"Intelligence","CurrentValue":0,"MaxValue":0},
+        "Perception":{"Label":"Perception","CurrentValue":0,"MaxValue":0},
+        "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
+        "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
+      }
+  }
+},
   "Item":{
     "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor"],
-      "Object":{
-        "description":"",
-        "weight":0
-      },
-      "Trait":{
-        "system":"",
-        "type":""
-      },
-      "Culture":{
-        "system":""
-      },
-      "Subculture":{
-        "system":"",
-        "parentCulture":""
-      },
-      "Shield":{
-        "traits": [""],
-        "protection":0,
-        "weight": 0,
-        "bulk":0,
-        "cost":0
-      },
-      "Armor":{
-        "traits": [""],
-        "protection": 0,
-        "weight": 0,
-        "bulk":0,
-        "type": "",
-        "cost":0
-      }
+    "Object":{
+      "description":"",
+      "weight":0
+    },
+    "Trait":{
+      "system":"",
+      "type":""
+    },
+    "Culture":{
+      "system":""
+    },
+    "Subculture":{
+      "system":"",
+      "parentCulture":""
+    },
+    "Shield":{
+      "traits": [""],
+      "protection":0,
+      "weight": 0,
+      "bulk":0,
+      "cost":0
+    },
+    "Armor":{
+      "traits": [""],
+      "protection": 0,
+      "weight": 0,
+      "bulk":0,
+      "type": "",
+      "cost":0
     }
   }
 }
