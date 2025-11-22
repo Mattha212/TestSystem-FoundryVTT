@@ -136,14 +136,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         await sheet.actor.update(update);
     }
+
     static async _preloadTemplates() {
         console.log("load template done");
         return loadTemplates([
-            "./templates/skills.hbs",
-            "./templates/fighting.hbs",
-            "./templates/inventory.hbs"
+            "systems/testsystem/templates/skills.hbs",
+            "systems/testsystem/templates/fighting.hbs",
+            "systems/testsystem/templates/inventory.hbs"
         ]);
     }
+
     static async #_OnChangeSkills(event, target, sheet){
         const input = target;
         const update={};
