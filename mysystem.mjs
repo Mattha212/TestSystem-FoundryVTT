@@ -38,14 +38,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             template : "systems/testsystem/templates/pj-sheet.html",
         },
         skillsTab:{
-            template: "systems/testsystem/templates/skills.hbs",
+            template: "systems/testsystem/templates/skillsTab.hbs",
             scrollable: ['']
         },
         fightingTab:{
-            template:"systems/testsystem/templates/fighting.hbs"
+            template:"systems/testsystem/templates/fightingTab.hbs"
         },
         inventoryTab:{
-            template:"systems/testsystem/templates/inventory.hbs"
+            template:"systems/testsystem/templates/inventoryTab.hbs"
         }
 
     }
@@ -140,9 +140,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static async _preloadTemplates() {
         console.log("load template done");
         return loadTemplates([
-            "systems/testsystem/templates/skills.hbs",
-            "systems/testsystem/templates/fighting.hbs",
-            "systems/testsystem/templates/inventory.hbs"
+            "systems/testsystem/templates/skillsTab.hbs",
+            "systems/testsystem/templates/fightingTab.hbs",
+            "systems/testsystem/templates/inventoryTab.hbs"
         ]);
     }
 
