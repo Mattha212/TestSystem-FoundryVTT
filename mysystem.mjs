@@ -74,9 +74,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return context;
     }
 
-    async _attachListeners(html) {
-        await super._attachListeners(html);
-        this._activateTabControllers(this.element, this.options);
+    activateListeners(html) {
+    super.activateListeners(html);
+
+    // Si tu veux que "Skills" soit actif par défaut
+    const tabs = html.find(".sheet-tabs");
+    this._activateTabControllers(tabs);
+
+    // Forcer "Skills" comme actif si nécessaire
+    const tabLinks = tabs.find("a.item[data-tab='Skills']");
+    tabLinks.first().click(); // simule le clic pour activer le tab
     }
 
     static async #_OnChangeStat(event, target, sheet){
