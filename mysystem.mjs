@@ -40,11 +40,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
     static TABS = {
         sheet:{
-            tabs:[
-                {id: 'Skills', group: 'sheet', label: 'DCC.Skills'},
-                {id:'Fighting', group: 'sheet', label: 'DCC.Fighting'},
-                {id: 'Inventory', group: 'sheet', label: 'DCC.Inventory'}
-            ],
             initial: 'Skills'
         }
     }
