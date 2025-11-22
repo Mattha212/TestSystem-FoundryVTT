@@ -138,12 +138,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     static async _preloadTemplates() {
-        console.log("load template done");
-        return loadTemplates([
-            "systems/testsystem/templates/skillsTab.hbs",
-            "systems/testsystem/templates/fightingTab.hbs",
-            "systems/testsystem/templates/inventoryTab.hbs"
-        ]);
+    const templates = [
+        "systems/testsystem/templates/skillsTab.hbs",
+        "systems/testsystem/templates/fightingTab.hbs",
+        "systems/testsystem/templates/inventoryTab.hbs"
+    ];
+    await loadTemplates(templates);
+
+    // Enregistre les partials avec le nom exact
+    Handlebars.registerPartial("skillsTab", await (await fetch(templates[0])).text());
+    Handlebars.registerPartial("fightingTab", await (await fetch(templates[1])).text());
+    Handlebars.registerPartial("inventoryTab", await (await fetch(templates[2])).text());
     }
 
     static async #_OnChangeSkills(event, target, sheet){
