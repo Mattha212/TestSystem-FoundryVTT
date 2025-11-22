@@ -76,12 +76,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _attachListeners(html) {
         await super._attachListeners(html);
-        console.log("attached done");
-        this._activateTabControllers(html, this.options);
-    }
-
-    async _attachPartListeners(html, partOptions) {
-        await super._attachPartListeners(html, partOptions);
         this._activateTabControllers(this.element, this.options);
     }
 
