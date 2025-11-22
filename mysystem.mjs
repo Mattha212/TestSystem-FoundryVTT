@@ -526,9 +526,10 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 });
 
  
-Hooks.once("init", ()=>{
+Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
 
+    await PJSheet._preloadTemplates();
     foundry.documents.collections.Actors.unregisterSheet("core", ActorSheet);
 
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
