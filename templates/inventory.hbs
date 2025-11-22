@@ -1,0 +1,10 @@
+<div class="tab inventoryTab {{tab.cssClass}}" data-tab="inventoryTab" data-group ="sheet">
+        <ol class="item-list">
+        {{#each objects}}   
+        <li class="item" data-item-id="{{this.id}}">
+        <span class="itemName">{{this.name}}</span>
+        <span class="item-weight">{{this.system.weight}} kg</span>
+        </li>
+        {{/each}}
+    </ol>
+</div>

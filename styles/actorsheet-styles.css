@@ -112,12 +112,12 @@ width: 50px;
   color: var(--color-text-hyperlink);
 }
 
-.testsystem.actor.sheet .skills-tab{
+.testsystem.actor.sheet .skillsTab{
   flex-direction: column;
   gap: 15px;
 }
 
-.testsystem.actor.sheet .skills-tab.active {
+.testsystem.actor.sheet .skillsTab.active {
   display: flex;
 }
 

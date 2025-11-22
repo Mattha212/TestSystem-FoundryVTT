@@ -18,11 +18,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             title: "Character sheet",
             resizable: true,
         },
-            tabs: [{
-        navSelector: ".sheet-tabs",
-        contentSelector: ".sheet-body",
-        initial: "Skills"
-    }],
         actions:{
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
@@ -41,20 +36,29 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
-            scrollable: [''],
+        },
+        skillsTab:{
+            template: "systems/testsystem/templates/skills.hbs",
+            scrollable: ['']
+        },
+        fightingTab:{
+            template:"systems/testsystem/templates/fighting.hbs"
+        },
+        inventoryTab:{
+            template:"systems/testsystem/templates/invetory.hbs"
         }
+
     }
     static TABS = {
         sheet:{
             tabs:[
-                {id: 'Skills', group: 'sheet', label: 'DCC.Skills'},
-                {id:'Fighting', group: 'sheet', label: 'DCC.Fighting'},
-                {id: 'Inventory', group: 'sheet', label: 'DCC.Inventory'}
+                {id: 'skillsTab', label:"skills"},
+                {id:'fightingTab', label:"fighting"},
+                {id: 'inventoryTab', label:"inventory"}
             ],
-            initial: 'Skills'
+            initial: 'skillsTab'
         }
-    }
-
+    };
     async _prepareContext(options){
         const context = await super._prepareContext(options);
         context.tabs = this._prepareTabs("sheet");
@@ -78,6 +82,20 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
         }
 
+        return context;
+    }
+
+    async _preparePartContext(partId, context) {
+        switch (partId) {
+            case 'skills':
+            case 'fighting':
+                context.tab = context.tabs[partId];
+                break;
+            case 'inventory':
+                context.tab = context.tabs[partId];
+                break;
+            default:
+        }
         return context;
     }
 
@@ -121,7 +139,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         await sheet.actor.update(update);
     }
-
+    static async _preloadTemplates() {
+        console.log("load template done");
+        return loadTemplates([
+            "./templates/skills-tab.hbs",
+            "./templates/fighting-tab.hbs",
+            "./templates/inventory-tab.hbs"
+        ]);
+    }
     static async #_OnChangeSkills(event, target, sheet){
         const input = target;
         const update={};
