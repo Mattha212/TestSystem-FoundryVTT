@@ -87,13 +87,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _preparePartContext(partId, context) {
         switch (partId) {
-            case 'skills':
-            case 'fighting':
-                context.tab = context.tabs[partId];
-                break;
-            case 'inventory':
-                context.tab = context.tabs[partId];
-                break;
+            case 'skillsTab':
+            case 'fightingTab':
+            case 'inventoryTab':
+            context.tab = context.tabs[partId];
             default:
         }
         return context;
