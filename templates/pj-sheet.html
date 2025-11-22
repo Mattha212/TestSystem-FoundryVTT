@@ -54,14 +54,14 @@
         </div>        
         {{/each}}
     </section>
-    <nav class="tabs sheet-tabs" data-group="{{tabs.tabs.group}}">
-        <a class="item {{tabs.tabs.cssClass 'Skills'}}" data-tab="Skills">Skills</a>
-        <a class="item {{tabs.tabs.cssClass 'Fighting'}}" data-tab="Fighting">Fighting</a>
-        <a class="item {{tabs.tabs.cssClass 'Inventory'}}" data-tab="Inventory">Inventory</a>
+    <nav class="tabs sheet-tabs" data-group="{{tabs.sheet.group}}">
+        <a class="item {{tabs.sheet.cssClass 'Skills'}}" data-tab="Skills">Skills</a>
+        <a class="item {{tabs.sheet.cssClass 'Fighting'}}" data-tab="Fighting">Fighting</a>
+        <a class="item {{tabs.sheet.cssClass 'Inventory'}}" data-tab="Inventory">Inventory</a>
     </nav>
  
-    <section class="sheet-body" data-group="{{tabs.tabs.group}}">
-        <div class="tab skills-tab {{tabs.tabs.cssClass 'Skills'}}" data-tab="Skills" data-group="{{tabs.tabs.group}}" >
+    <section class="sheet-body" data-group="{{tabs.sheet.group}}">
+        <div class="tab skills-tab {{tabs.sheet.cssClass 'Skills'}}" data-tab="Skills" data-group="{{tabs.sheet.group}}" >
             {{#each skills as |category categoryName|}}
                 <div class="CategoryTitle">{{handleNames categoryName}}</div>
                 <div class="skills">
@@ -84,7 +84,7 @@
                 </div>
             {{/each}}
         </div>
-        <div class="tab fighting-tab {{tabs.tabs.cssClass 'Fighting'}}" data-tab="Fighting" data-group="{{tabs.tabs.group}}">
+        <div class="tab fighting-tab {{tabs.sheet.cssClass 'Fighting'}}" data-tab="Fighting" data-group="{{tabs.sheet.group}}">
             <div class ="fighting-defense">
                 <div class ="shield">
 
@@ -98,7 +98,7 @@
 
             </div>
         </div>
-        <div class="tab inventory-tab {{tabs.tabs.cssClass 'Inventory'}}" data-tab="Inventory" data-group ="{{tabs.tabs.group}}">
+        <div class="tab inventory-tab {{tabs.sheet.cssClass 'Inventory'}}" data-tab="Inventory" data-group ="{{tabs.sheet.group}}">
                 <ol class="item-list">
                 {{#each objects}}   
                 <li class="item" data-item-id="{{this.id}}">
