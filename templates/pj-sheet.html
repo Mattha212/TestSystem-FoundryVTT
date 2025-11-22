@@ -61,18 +61,8 @@
     </nav>
  
     <section class="sheet-body">
-        {{#each tabs.sheet.tabs as |t|}}
-        {{#if (eq t.id "skillsTab")}}
-            {{> skillsTab tab=t}}
-        {{/if}}
-
-        {{#if (eq t.id "fightingTab")}}
-            {{> fightingTab tab=t}}
-        {{/if}}
-
-        {{#if (eq t.id "inventoryTab")}}
-            {{> inventoryTab tab=t}}
-        {{/if}}
-        {{/each}}
+        <div class="tab" data-tab="skillsTab" data-group="sheet" data-part="skillsTab"></div>
+        <div class="tab" data-tab="fightingTab" data-group="sheet" data-part="fightingTab"></div>
+        <div class="tab" data-tab="inventoryTab" data-group="sheet" data-part="inventoryTab"></div>
     </section>
 </form>
