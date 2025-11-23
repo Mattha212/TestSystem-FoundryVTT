@@ -59,6 +59,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             initial: 'skillsTab'
         }
     };
+
+    async _preparePartContext(partId, context) {
+        context.tab = context.tabs[partId] ?? null;
+        return context;
+    }
+
     async _prepareContext(options){
         const context = await super._prepareContext(options);
         context.tabs = this._prepareTabs("sheet");
@@ -126,12 +132,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         await sheet.actor.update(update);
     }
-
-    async _render(force = false, options = {}) {
-        await super._render(force, options);
-        this._activateTabs();
-    }
-
+    
     static async _preloadTemplates() {
     const templates = [
         "systems/testsystem/templates/skillsTab.hbs",
