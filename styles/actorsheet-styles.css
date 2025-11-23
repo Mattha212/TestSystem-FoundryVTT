@@ -1,3 +1,10 @@
+.window-app .window-content form.actor-sheet {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;           /* critical */
+}
+
 .testsystem.actor.sheet{
 background: #1e1e1e;
 border-radius: 8px;
