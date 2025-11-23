@@ -61,8 +61,52 @@
     </nav>
  
     <section class="sheet-body" data-application-part="body">
-        <div class="tab" data-tab="skillsTab" data-group="sheet" data-part="skillsTab"></div>
-        <div class="tab" data-tab="fightingTab" data-group="sheet" data-part="fightingTab"></div>
-        <div class="tab" data-tab="inventoryTab" data-group="sheet" data-part="inventoryTab"></div>
+        <div class="tab" data-tab="skillsTab" data-group="sheet" data-part="skillsTab">
+                {{#each skills as |category categoryName|}}
+        <div class="CategoryTitle">{{handleNames categoryName}}</div>
+        <div class="skills">
+            {{#each category as |skill skillname|}}
+                <div class = "skill-block">
+                    <button type="button" class = "skill-roll" data-action="skillRoll" data-skillkey="{{skillname}}" data-category ="{{handleNames categoryName}}">
+                        {{ handleNames skillname}}
+                    </button>
+                    <div class="skill-input">
+                        <label>Level</label>
+                        <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
+                    </div>
+
+                    <div class="skill-input">
+                        <label>Learning Points</label>
+                        <input type = "number" name = "system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
+        </div>
+        <div class="tab" data-tab="fightingTab" data-group="sheet" data-part="fightingTab">
+                <div class ="fighting-defense">
+        <div class ="shield">
+
+        </div>
+        <div class ="encombrement">
+            
+        </div>
+        <div class ="armor">
+
+        </div>
+
+    </div>
+        </div>
+        <div class="tab" data-tab="inventoryTab" data-group="sheet" data-part="inventoryTab">
+                    <ol class="item-list">
+        {{#each objects}}   
+        <li class="item" data-item-id="{{this.id}}">
+        <span class="itemName">{{this.name}}</span>
+        <span class="item-weight">{{this.system.weight}} kg</span>
+        </li>
+        {{/each}}
+    </ol>
+        </div>
     </section>
 </form>

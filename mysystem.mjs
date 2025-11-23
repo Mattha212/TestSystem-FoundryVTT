@@ -36,29 +36,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
-        },
-        skillsTab:{
-            template: "systems/testsystem/templates/skillsTab.hbs",
-            scrollable: ['']
-        },
-        fightingTab:{
-            template:"systems/testsystem/templates/fightingTab.hbs"
-        },
-        inventoryTab:{
-            template:"systems/testsystem/templates/inventoryTab.hbs"
         }
-
     }
-    static TABS = {
-        sheet:{
-            tabs:[
-                {id: 'skillsTab', label:"skills"},
-                {id:'fightingTab', label:"fighting"},
-                {id: 'inventoryTab', label:"inventory"}
-            ],
-            initial: 'skillsTab'
-        }
-    };
+
     tabGroups = {
 		primary: 'skillsTab'
 	}
