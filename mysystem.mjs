@@ -22,7 +22,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
             skillRoll: this.#_OnRollSkill,
-            itemName: this.#_OnPrintItem
+            itemName: this.#_OnPrintItem,
+            changeTab: this._onClickTab,
+
         }, 
         events:{
             'change select[name="system.culture"]': this.#_OnCultureChange,
@@ -68,6 +70,23 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		return tabs
 	}
 
+    static _onClickTab(event) {
+        event.preventDefault();
+
+        // On récupère l’instance réelle du sheet
+        const app = event.currentTarget.closest(".application")?.app;
+        if (!app) return;
+
+        const tab = event.currentTarget.dataset.tab;
+        const group = event.currentTarget.closest(".tabs").dataset.group;
+
+        // Mise à jour du tab actif
+        app.tabGroups[group] = tab;
+
+        // Relance du rendu
+        app.render();
+    }
+
     async _prepareContext(options){
         const context = await super._prepareContext(options);
         context.tabs = this.getTabs();
@@ -93,6 +112,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         return context;
     }
+
 
 
     static async #_OnChangeStat(event, target, sheet){
