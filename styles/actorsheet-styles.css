@@ -116,6 +116,11 @@ width: 50px;
   flex-direction: column;
   gap: 15px;
 }
+.testsystem.actor.sheet .sheet-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
 
 .testsystem.actor.sheet .skillsTab.active {
   display: flex;
