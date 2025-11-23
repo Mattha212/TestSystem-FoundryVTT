@@ -21,7 +21,7 @@ padding: 10x;
     display: none;
 }
 
-.testsystem.actor.sheet .sheet-body .tab.active {
+.testsystem.actor.sheet .sheet-body .tab.item.active {
     display: block;
     height: 100%;
     overflow-y: auto;
