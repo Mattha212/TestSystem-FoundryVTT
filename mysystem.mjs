@@ -60,10 +60,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             group: 'primary'
         }
     }
-    async _preparePartContext(partId, context) {
-        context.tab = context.tabs[partId] ?? null;
-        return context;
-    }
 
 	getTabs () {
 		const tabs = this.tabs
@@ -75,10 +71,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 		return tabs
 	}
-
-async _onRenderPart(html, part) {
-    console.log('render part');
-}
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);
@@ -544,7 +536,6 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
 
-    await PJSheet._preloadTemplates();
     foundry.documents.collections.Actors.unregisterSheet("core", ActorSheet);
 
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
