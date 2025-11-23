@@ -36,11 +36,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
-                tabs: [
-        { id: "skillsTab", group: "primary", html: `<div data-group="primary" data-tab="skillsTab"></div>` },
-        { id: "fightingTab", group: "primary", html: `<div data-group="primary" data-tab="fightingTab"></div>` },
-        { id: "inventoryTab", group: "primary", html: `<div data-group="primary" data-tab="inventoryTab"></div>` }
-    ]
         },
         skillsTab:{
             template: "systems/testsystem/templates/skillsTab.hbs",
@@ -64,15 +59,42 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             initial: 'skillsTab'
         }
     };
-
+    tabGroups = {
+		primary: 'skillsTab'
+	}
+    tabs = {
+        skillsTab:{
+            id:'skillsTab',
+            group: 'primary'
+        },
+        fightingTab:{
+            id: 'fightingTab',
+            group: 'primary'
+        },
+        inventoryTab:{
+            id: 'inventoryTab',
+            group: 'primary'
+        }
+    }
     async _preparePartContext(partId, context) {
         context.tab = context.tabs[partId] ?? null;
         return context;
     }
 
+	getTabs () {
+		const tabs = this.tabs
+
+		for (const tab of Object.values(tabs)) {
+			tab.active = this.tabGroups[tab.group] === tab.id
+			tab.cssClass = tab.active ? 'item active' : 'item';
+		}
+
+		return tabs
+	}
+
     async _prepareContext(options){
         const context = await super._prepareContext(options);
-        context.tabs = this._prepareTabs("sheet");
+        context.tabs = getTabs();
         context.system = this.document.system;
         const stats = context.system.stats;
         context.stats = stats;
