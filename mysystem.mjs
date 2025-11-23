@@ -36,10 +36,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
-                    classes: ["sheet-body"],
-        actions: {},     // nécessaire même vide
-        events: {},      // nécessaire même vide
-        interactive: true
         }
     }
 
@@ -138,19 +134,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             }
         }
         await sheet.actor.update(update);
-    }
-
-    static async _preloadTemplates() {
-    const templates = [
-        "systems/testsystem/templates/skillsTab.hbs",
-        "systems/testsystem/templates/fightingTab.hbs",
-        "systems/testsystem/templates/inventoryTab.hbs"
-    ];
-    await loadTemplates(templates);
-
-    Handlebars.registerPartial("skillsTab", await (await fetch(templates[0])).text());
-    Handlebars.registerPartial("fightingTab", await (await fetch(templates[1])).text());
-    Handlebars.registerPartial("inventoryTab", await (await fetch(templates[2])).text());
     }
 
     static async #_OnChangeSkills(event, target, sheet){
