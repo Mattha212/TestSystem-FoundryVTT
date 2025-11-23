@@ -18,7 +18,7 @@ form.actor-sheet {
 .testsystem.actor.sheet {
     display: flex;
     flex-direction: column;
-    overflow: visible; 
+    overflow-y: visible; 
     min-height: 0;
 }
 
