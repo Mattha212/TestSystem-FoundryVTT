@@ -2,6 +2,7 @@
 background: #1e1e1e;
 border-radius: 8px;
 padding: 10x;
+height: 100%;
 }
 .sheet-body .tab {
     display: none;
