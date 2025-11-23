@@ -31,8 +31,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             'change select[name="system.subculture"]': this.#_OnSubCultureChange,
             'change input[name^="system.stats"]': this.#_OnChangeStat,
             'change input[name^="system.skills"]': this.#_OnChangeSkills,
-            'change input[name^="system.culture"]': this.#_OnChangeCulture,
-            'change input[name^="system.subculture"]': this.#_OnChangeSubCulture
+
         }
     }
     static PARTS = {
@@ -70,17 +69,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		return tabs
 	}
 
-    _onClickTab(event, target) {
+    static _onClickTab(event, app) {
         event.preventDefault();
-
+        const target = event.target;
         const tab = target.dataset.tab;
         const group = target.closest(".tabs").dataset.group;
 
         // Mise à jour du tab actif
-        this.tabGroups[group] = tab;
+        app.tabGroups[group] = tab;
 
         // Relance du rendu
-        this.render();
+        app.render();
     }
 
     async _prepareContext(options){
