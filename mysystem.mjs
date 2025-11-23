@@ -72,7 +72,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static _onClickTab(event) {
            event.preventDefault();
 
-    const target = event.currentTarget;
+    const target = event.target;
     const tab = target.dataset.tab;
     const group = target.closest(".tabs").dataset.group;
 
