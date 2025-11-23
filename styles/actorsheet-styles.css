@@ -5,6 +5,7 @@ padding: 10x;
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: auto;
   }
 
 .testsystem.actor.sheet .sheet-body {
