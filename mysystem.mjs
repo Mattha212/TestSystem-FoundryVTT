@@ -76,9 +76,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		return tabs
 	}
 
-async _renderInner(...args) {
-    const html = await super._renderInner(...args); // récupère le DOM rendu
-    return html;
+async _render(force=false, options={}) {
+    console.log('render');
 }
 
     async _prepareContext(options){
