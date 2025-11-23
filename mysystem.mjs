@@ -70,21 +70,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		return tabs
 	}
 
-    static _onClickTab(event) {
+    static _onClickTab(event, target,sheet) {
         event.preventDefault();
 
-        // On récupère l’instance réelle du sheet
-        const app = event.currentTarget.closest(".application")?.app;
-        if (!app) return;
-
-        const tab = event.currentTarget.dataset.tab;
-        const group = event.currentTarget.closest(".tabs").dataset.group;
+        const tab = target.dataset.tab;
+        const group = target.closest(".tabs").dataset.group;
 
         // Mise à jour du tab actif
-        app.tabGroups[group] = tab;
+        sheet.tabGroups[group] = tab;
 
         // Relance du rendu
-        app.render();
+        sheet.render();
     }
 
     async _prepareContext(options){
