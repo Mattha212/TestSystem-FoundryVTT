@@ -94,7 +94,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);
-        context.tabs = getTabs();
+        context.tabs = this.getTabs();
         context.system = this.document.system;
         const stats = context.system.stats;
         context.stats = stats;
