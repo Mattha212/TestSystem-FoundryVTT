@@ -76,21 +76,21 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		return tabs
 	}
 
-    activateListeners(html) {
-    super.activateListeners(html);
+    _activateCoreListeners(html) {
+        super._activateCoreListeners(html);
 
-    // Activer le système de tabs
-    const tabs = html.find('.sheet-tabs');
-    new foundry.applications.api.TabGroup({
-        navElement: tabs[0],
-        contentSelector: '.sheet-body',
-        initial: this.tabGroups.primary,
-        callback: tab => {
-            this.tabGroups.primary = tab;
-            this.render();
-        }
-    });
-}
+        // Ton code pour TabGroup
+        const nav = html[0].querySelector('.sheet-tabs');
+        new foundry.applications.api.TabGroup({
+            navElement: nav,
+            contentSelector: '.sheet-body',
+            initial: this.tabGroups.primary,
+            callback: tab => {
+                this.tabGroups.primary = tab;
+            }
+        });
+
+    }
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);
