@@ -36,6 +36,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
+                tabs: [
+        { id: "skillsTab", group: "primary", html: `<div data-group="primary" data-tab="skillsTab"></div>` },
+        { id: "fightingTab", group: "primary", html: `<div data-group="primary" data-tab="fightingTab"></div>` },
+        { id: "inventoryTab", group: "primary", html: `<div data-group="primary" data-tab="inventoryTab"></div>` }
+    ]
         },
         skillsTab:{
             template: "systems/testsystem/templates/skillsTab.hbs",
@@ -132,7 +137,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         await sheet.actor.update(update);
     }
-    
+
     static async _preloadTemplates() {
     const templates = [
         "systems/testsystem/templates/skillsTab.hbs",
