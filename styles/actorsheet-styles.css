@@ -154,11 +154,7 @@ width: 50px;
   display: flex;
 }
 
-.testsystem.actor.sheet .skill-category {
-  margin-bottom: 16px;
-}
-
-.testsystem.actor.sheet .skill-category .CategoryTitle {
+.testsystem.actor.sheet .CategoryTitle {
     text-align: center;
     font-size: 1.3em;
     margin: 10px 0;
