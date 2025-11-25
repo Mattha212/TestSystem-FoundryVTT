@@ -170,10 +170,10 @@ width: 50px;
 .testsystem.actor.sheet .skills-header {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    text-align: center;
+    grid-template-columns: 250px 60px 150px;
     font-weight: bold;
     margin-bottom: 5px;
+    gap: 25px;
 }
 
 .testsystem.actor.sheet .skills-header .header-name { text-align: left; }
