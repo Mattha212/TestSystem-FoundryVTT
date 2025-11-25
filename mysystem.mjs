@@ -27,10 +27,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         }, 
         events:{
-            'change select[name="system.culture"]': "_OnChangeCulture",
-            'change select[name="system.subculture"]': "_OnChangeSubCulture",
-            'change input[name*="system.stats"]': "_OnChangeStat",
-            'change input[name*="system.skills"]': "_OnChangeSkills",
+            'change select[name="system.culture"]': "_onChangeCulture",
+            'change select[name="system.subculture"]': "_onChangeSubCulture",
+            'change input[name*="system.stats"]': "_onChangeStat",
+            'change input[name*="system.skills"]': "_onChangeSkills",
 
         }
     }
@@ -110,7 +110,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 
 
-    async _OnChangeStat(event){
+    async _onChangeStat(event){
         const input = event.target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
@@ -151,7 +151,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.actor.update(update);
     }
 
-    async _OnChangeSkills(event){
+    async _onChangeSkills(event){
         const input = event.target;
         const update={};
         if(input.name?.endsWith(".level")){
@@ -163,7 +163,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.actor.update(update);
     } 
 
-    async _OnChangeCulture(event){
+    async _onChangeCulture(event){
         const input = event.target;
         const update={};
         if(input.name?.endsWith(".Culture")){
@@ -173,7 +173,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await sheet.actor.update(update);
     }
 
-    async _OnChangeSubCulture(event){
+    async _onChangeSubCulture(event){
         const input = event.target;
         const update={};
         if(input.name?.endsWith(".Subculture")){
