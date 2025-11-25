@@ -105,13 +105,28 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return context;
     }
 
-    activateListeners(html){
-        super.activateListeners(html);
+    addEventListeners(html) {
+        super.addEventListeners(html);
 
-        html.find('input[name*="system.stats"]').change(this._onChangeStat.bind(this));
-        html.find('input[name*="system.skills]').change(this._onChangeSkills.bind(this));
-        html.find('select[name="system.culture"]').change(this._onChangeCulture.bind(this));
-        html.find('select[name="system.subculture"]').change(this._onChangeSubCulture.bind(this));
+        html.querySelectorAll('select[name="system.culture"]').forEach(sel =>
+            sel.addEventListener("change", this._onChangeCulture.bind(this))
+        );
+
+        html.querySelectorAll('select[name="system.subculture"]').forEach(sel =>
+            sel.addEventListener("change", this._onChangeSubCulture.bind(this))
+        );
+
+        html.querySelectorAll('input[name*="system.stats"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangeStat.bind(this))
+        );
+
+        html.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangeSkills.bind(this))
+        );
+
+        html.querySelectorAll('[data-action="changeTab"]').forEach(btn =>
+            btn.addEventListener("click", this._onClickTab.bind(this))
+        );
     }
 
 
