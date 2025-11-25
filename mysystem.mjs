@@ -27,10 +27,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         }, 
         events:{
-            'change select[name="system.culture"]': this.#_OnCultureChange,
-            'change select[name="system.subculture"]': this.#_OnSubCultureChange,
-            'change input[name^="system.stats"]': this.#_OnChangeStat,
-            'change input[name^="system.skills"]': this.#_OnChangeSkills,
+            'change select[name="system.culture"]': this._OnCultureChange,
+            'change select[name="system.subculture"]': this._OnSubCultureChange,
+            'change input[name^="system.stats"]': this._OnChangeStat,
+            'change input[name^="system.skills"]': this._OnChangeSkills,
 
         }
     }
@@ -110,7 +110,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 
 
-    static async #_OnChangeStat(event, target, sheet){
+    static async _OnChangeStat(event, target, sheet){
         const input = target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
@@ -151,7 +151,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await sheet.actor.update(update);
     }
 
-    static async #_OnChangeSkills(event, target, sheet){
+    static async _OnChangeSkills(event, target, sheet){
         const input = target;
         const update={};
         if(input.name?.endsWith(".level")){
@@ -163,7 +163,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await sheet.actor.update(update);
     } 
 
-    static async #_OnChangeCulture(event, target, sheet){
+    static async _OnChangeCulture(event, target, sheet){
         const input = target;
         const update={};
         if(input.name?.endsWith(".Culture")){
@@ -173,7 +173,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await sheet.actor.update(update);
     }
 
-    static async #_OnChangeSubCulture(event, target, sheet){
+    static async _OnChangeSubCulture(event, target, sheet){
         const input = target;
         const update={};
         if(input.name?.endsWith(".Subculture")){
@@ -233,10 +233,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         item.sheet.render(true);
     }
 
-    static async #_onRollStat(event, target, sheet){
+    static async #_onRollStat(event, target){
         event.preventDefault();
         const statKey = target.dataset.stat;
-        const stat = sheet.actor.system.stats[statKey];
+        const stat = this.document.system.stats[statKey];
         if(!stat) return;
 
         const content =`
@@ -265,7 +265,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     async _onConfirmRollStat(html, statKey){
-        const stat = this.actor.system.stats[statKey];
+        const stat = this.document.system.stats[statKey];
         const currentValueStat = stat.CurrentValue;
 
         const form = html[0].querySelector("form");
@@ -334,16 +334,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     async _onConfirmRollSkill(html, skillKey, skillCategory){
-        const statsSkill = this.actor.system.skills[skillCategory][skillKey].stats;
-        const skillLevel = this.actor.system.skills[skillCategory][skillKey].level;
-        const values = statsSkill.map(s=>this.actor.system.stats[s].CurrentValue || 0);
+        const statsSkill = this.document.system.skills[skillCategory][skillKey].stats;
+        const skillLevel = this.document.system.skills[skillCategory][skillKey].level;
+        const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
         const average = values.reduce((a,b)=> a+b,0)/ values.length;
         const form = html[0].querySelector("form");
         const levelModifierValue = skillLevel *5;
         const modifier = 10 * (Number(form.modifier.value) || 0);       
         
         const statDetails = statsSkill.map(s => {
-        const val = this.actor.system.stats[s]?.CurrentValue ?? 0;
+        const val = this.document.system.stats[s]?.CurrentValue ?? 0;
         return `${s}(${val})`;
         }).join(" + ");
 
