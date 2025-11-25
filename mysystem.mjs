@@ -27,10 +27,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         }, 
         events:{
-            'change select[name="system.culture"]': "_OnCultureChange",
-            'change select[name="system.subculture"]': "_OnSubCultureChange",
-            'change input[name^="system.stats"]': "_OnChangeStat",
-            'change input[name^="system.skills"]': "_OnChangeSkills",
+            'change select[name="system.culture"]': "_OnChangeCulture",
+            'change select[name="system.subculture"]': "_OnChangeSubCulture",
+            'change input[name*="system.stats"]': "_OnChangeStat",
+            'change input[name*="system.skills"]': "_OnChangeSkills",
 
         }
     }
