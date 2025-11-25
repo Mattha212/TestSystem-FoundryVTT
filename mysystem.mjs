@@ -110,7 +110,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 
 
-    static async _OnChangeStat(event, target, sheet){
+    async _OnChangeStat(event, target, sheet){
         const input = target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
