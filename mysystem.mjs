@@ -27,10 +27,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         }, 
         events:{
-            'change select[name="system.culture"]': "_onChangeCulture",
             'change select[name="system.subculture"]': "_onChangeSubCulture",
-            'change input[name*="system.stats"]': "_onChangeStat",
-            'change input[name*="system.skills"]': "_onChangeSkills",
 
         }
     }
@@ -108,6 +105,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return context;
     }
 
+    activateListeners(html){
+        super.activateListeners(html);
+
+        html.find('input[name*="system.stats"]').change(this._onChangeStat.bind(this));
+        html.find('input[name*="system.skills]').change(this._onChangeSkills.bind(this));
+        html.find('select[name="system.culture"]').change(this._onChangeCulture.bind(this));
+        html.find('select[name="system.subculture"]').change(this._onChangeSubCulture.bind(this));
+    }
 
 
     async _onChangeStat(event){
@@ -164,55 +169,24 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     } 
 
     async _onChangeCulture(event){
-        const input = event.target;
-        const update={};
-        if(input.name?.endsWith(".Culture")){
-            const value = String(input.value);
-            update[`system.culture`] = value;
-        }
-        await sheet.actor.update(update);
-    }
-
-    async _onChangeSubCulture(event){
-        const input = event.target;
-        const update={};
-        if(input.name?.endsWith(".Subculture")){
-            const value = String(input.value);
-            update[`system.subculture`] = value;
-        }
-        await sheet.actor.update(update);
-    }
-
-    static async #_OnSubCultureChange(event, sheet){
-        const subCulture = event.target.value;
-        const existingSubCulture = sheet.actor.items.filter(i=> i.type === "Subculture");
-        if(existingSubCulture.length>0){
-            await sheet.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
-        }
-        if(subCulture.length>0){
-            const cultureItem = game.items.find(i=> i.name === subCulture).toObject();
-            await sheet.actor.createEmbeddedDocuments("Item", [cultureItem]);
-        }
-    }
-
-    static async #_OnCultureChange(event, sheet){
         const culture = event.target.value;
-        const existingCultures = sheet.actor.items.filter(i=> i.type === "Culture");
-        const existingSubCulture = sheet.actor.items.filter(i=> i.type === "Subculture");
+        const existingCultures = this.actor.items.filter(i=> i.type === "Culture");
+        const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
         if(existingCultures.length>0) {
-            await sheet.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+            await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
         }
         if(existingSubCulture.length>0){
-            await sheet.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+            await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
         }
 
         if(culture.length>0){
             const cultureItem = game.items.find(i=> i.name === culture).toObject();
-            await sheet.actor.createEmbeddedDocuments("Item", [cultureItem]);
+            await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
         }
 
-        await sheet.actor.update({ "system.culture": culture });
-        const root = sheet.element;
+        await this.actor.update({ "system.culture": culture });
+
+        const root = this.element;
         const subSelect = root.querySelector('select[name="system.subculture"]');
 
         const allSubcultures = game.items.filter(i => i.type === "Subculture");
@@ -225,6 +199,25 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             opt.textContent = s.name;
             subSelect.appendChild(opt);
         } 
+    }
+
+    async _onChangeSubCulture(event){
+        const subCulture = event.target.value;
+        const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
+        if(existingSubCulture.length>0){
+            await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+        }
+        if(subCulture.length>0){
+            const cultureItem = game.items.find(i=> i.name === subCulture).toObject();
+            await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
+        }
+        await this.actor.update({ "system.subculture": subCulture });
+
+    }
+
+
+    static async #_OnCultureChange(event, sheet){
+
     }
 
     static async #_OnPrintItem(event, target, sheet){
