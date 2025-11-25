@@ -63,43 +63,27 @@
 <section class="sheet-body" data-application-part="body">
   <div class="tab {{tabs.skillsTab.cssClass}}" data-tab="{{tabs.skillsTab.id}}" data-group="{{tabs.skillsTab.group}}" data-part="{{tabs.skillsTab.id}}">
     {{#each skills as |category categoryName|}}
-      <div class="skill-category" data-category-name="{{categoryName}}">
-        <div class="CategoryTitle">{{handleNames categoryName}}</div>
-
-        <div class="skills"> 
-          <div class="skills-header">
-            <span class="header-name"></span>
-            <span class="header-level">Level</span>
-            <span class="header-lp">Learning Points</span>
-          </div>
-
-          {{#each category as |skill skillname|}}
-            <div class="skill-block" data-skillkey="{{skillname}}">
-              <button type="button"
-                      class="skill-roll"
-                      data-action="skillRoll"
-                      data-skillkey="{{skillname}}"
-                      data-category="{{handleNames categoryName}}">
-                {{handleNames skillname}}
-              </button>
-
-              <div class="skill-input">
-                <label class="visually-hidden">Level</label>
-                <input type="number"
-                      name="system.skills.{{categoryName}}.{{skillname}}.level"
-                      value="{{skill.level}}"/>
-              </div>
-
-              <div class="skill-input">
-                <label class="visually-hidden">Learning Points</label>
-                <input type="number"
-                      name="system.skills.{{categoryName}}.{{skillname}}.learningPoints"
-                      value="{{skill.learningPoints}}"/>
-              </div>
-            </div>
-          {{/each}}
+      <div class="CategoryTitle">{{handleNames categoryName}}</div>
+      <div class="skills">
+        <div class="skills-header">
+          <span></span>  
+          <span>Level</span>
+          <span>Learning Points</span>
         </div>
-      </div> 
+        {{#each category as |skill skillname|}}
+          <div class="skill-block">
+            <button type="button" class="skill-roll" data-action="skillRoll" data-skillkey="{{skillname}}" data-category="{{handleNames categoryName}}">
+              {{handleNames skillname}}
+            </button>
+            <div class="skill-input">
+              <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
+            </div>
+            <div class="skill-input">
+              <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
+            </div>
+          </div>
+        {{/each}}
+      </div>
     {{/each}}
   </div>
 
