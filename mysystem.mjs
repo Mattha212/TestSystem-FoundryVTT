@@ -69,14 +69,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 	}
 
     static _onClickTab(event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const target = event.target;
-    const tab = target.dataset.tab;
-    const group = target.closest(".tabs").dataset.group;
+        const target = event.target;
+        const tab = target.dataset.tab;
+        const group = target.closest(".tabs").dataset.group;
 
-    this.tabGroups[group] = tab;
-    this.render();
+        this.tabGroups[group] = tab;
+        this.render();
     }
 
     async _prepareContext(options){
@@ -104,10 +104,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         return context;
     }
-
-    addEventListeners(html) {
-        super.addEventListeners(html);
-
+    _onRender(context, options){
         html.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCulture.bind(this))
         );
@@ -122,10 +119,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         html.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkills.bind(this))
-        );
-
-        html.querySelectorAll('[data-action="changeTab"]').forEach(btn =>
-            btn.addEventListener("click", this._onClickTab.bind(this))
         );
     }
 
