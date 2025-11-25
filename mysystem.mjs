@@ -110,8 +110,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 
 
-    async _OnChangeStat(event, target, sheet){
-        const input = target;
+    async _OnChangeStat(event){
+        const input = event.target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
         const update={};
@@ -123,13 +123,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             await sheet.actor.update(update);
         }
         else if(input.name?.endsWith(".CurrentValue")){
-            const label = sheet.actor.system.stats[statKey].Label;
+            const label = this.actor.system.stats[statKey].Label;
 
             if(label === "Constitution"){
-            const currentValue = sheet.actor.system.stats[statKey].CurrentValue;
-            const maxValue = sheet.actor.system.stats[statKey].MaxValue;
-            const MaxValueStrength = sheet.actor.system.stats["Strength"].MaxValue;
-            const MaxValueAgility = sheet.actor.system.stats["Agility"].MaxValue;
+            const currentValue = this.actor.system.stats[statKey].CurrentValue;
+            const maxValue = this.actor.system.stats[statKey].MaxValue;
+            const MaxValueStrength = this.actor.system.stats["Strength"].MaxValue;
+            const MaxValueAgility = this.actor.system.stats["Agility"].MaxValue;
 
             if(newValue>maxValue*0.75){
                 update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
@@ -148,11 +148,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
         }
-        await sheet.actor.update(update);
+        await this.actor.update(update);
     }
 
-    async _OnChangeSkills(event, target, sheet){
-        const input = target;
+    async _OnChangeSkills(event){
+        const input = event.target;
         const update={};
         if(input.name?.endsWith(".level")){
             const categoryKey = input.name.split(".")[2];
@@ -160,7 +160,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             const newValue = Number(input.value);
             update[`system.skills.${categoryKey}.${skillKey}.level`] = newValue;
         }
-        await sheet.actor.update(update);
+        await this.actor.update(update);
     } 
 
     static async _OnChangeCulture(event, target, sheet){
