@@ -29,8 +29,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         events:{
             'change select[name="system.culture"]': this._OnCultureChange,
             'change select[name="system.subculture"]': this._OnSubCultureChange,
-            'change input[name^="system.stats"]': this._OnChangeStat,
-            'change input[name^="system.skills"]': this._OnChangeSkills,
+            'change input[name^="system.stats"]': _OnChangeStat,
+            'change input[name^="system.skills"]': _OnChangeSkills,
 
         }
     }
@@ -151,7 +151,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await sheet.actor.update(update);
     }
 
-    static async _OnChangeSkills(event, target, sheet){
+    async _OnChangeSkills(event, target, sheet){
         const input = target;
         const update={};
         if(input.name?.endsWith(".level")){
