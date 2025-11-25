@@ -297,11 +297,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
     }
 
-    static async #_OnRollSkill(event, sheet){
+    static async #_OnRollSkill(event, target){
         event.preventDefault();
-        const button = event.currentTarget;
-        const skillKey = button.dataset.skillkey;
-        const skillCategory = button.dataset.category;
+        const skillKey = target.dataset.skillkey;
+        const skillCategory = target.dataset.category;
 
         const content =`
         <form class = "difficulty-Modifier-form">
