@@ -1,11 +1,11 @@
 .window-app .window-content {
     display: flex;
     flex-direction: column;
-    min-height: 0;  /* ESSENTIEL sinon le scroll interne est bloqué */
+    min-height: 0;  
 }
 
 .window-app .window-content > * {
-    min-height: 0;  /* nécessaire pour les enfants flex (DocumentSheetV2 les utilise) */
+    min-height: 0;  
 }
 
 form.actor-sheet {
@@ -20,6 +20,7 @@ form.actor-sheet {
     flex-direction: column;
     overflow-y: visible; 
     min-height: 0;
+    color: #2b2b2b;
 }
 
 .testsystem.actor.sheet .sheet-body {
