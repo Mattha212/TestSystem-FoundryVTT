@@ -105,19 +105,19 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return context;
     }
     _onRender(context, options){
-        html.querySelectorAll('select[name="system.culture"]').forEach(sel =>
+        this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCulture.bind(this))
         );
 
-        html.querySelectorAll('select[name="system.subculture"]').forEach(sel =>
+        this.element.querySelectorAll('select[name="system.subculture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSubCulture.bind(this))
         );
 
-        html.querySelectorAll('input[name*="system.stats"]').forEach(inp =>
+        this.element.querySelectorAll('input[name*="system.stats"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeStat.bind(this))
         );
 
-        html.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
+        this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkills.bind(this))
         );
     }
@@ -132,17 +132,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if(input.name?.endsWith(".MaxValue")){
             update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
-            
-            await sheet.actor.update(update);
-        }
+                    }
         else if(input.name?.endsWith(".CurrentValue")){
-            const label = this.actor.system.stats[statKey].Label;
+            const label = this.document.system.stats[statKey].Label;
 
             if(label === "Constitution"){
-            const currentValue = this.actor.system.stats[statKey].CurrentValue;
-            const maxValue = this.actor.system.stats[statKey].MaxValue;
-            const MaxValueStrength = this.actor.system.stats["Strength"].MaxValue;
-            const MaxValueAgility = this.actor.system.stats["Agility"].MaxValue;
+            const currentValue = this.document.system.stats[statKey].CurrentValue;
+            const maxValue = this.document.system.stats[statKey].MaxValue;
+            const MaxValueStrength = this.document.system.stats["Strength"].MaxValue;
+            const MaxValueAgility = this.document.system.stats["Agility"].MaxValue;
 
             if(newValue>maxValue*0.75){
                 update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
@@ -161,7 +159,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
         }
-        await this.actor.update(update);
+        await this.document.update(update);
     }
 
     async _onChangeSkills(event){
@@ -178,21 +176,21 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onChangeCulture(event){
         const culture = event.target.value;
-        const existingCultures = this.actor.items.filter(i=> i.type === "Culture");
-        const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
+        const existingCultures = this.document.items.filter(i=> i.type === "Culture");
+        const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
         if(existingCultures.length>0) {
-            await this.actor.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+            await this.document.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
         }
         if(existingSubCulture.length>0){
-            await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+            await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
         }
 
         if(culture.length>0){
             const cultureItem = game.items.find(i=> i.name === culture).toObject();
-            await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
+            await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
 
-        await this.actor.update({ "system.culture": culture });
+        await this.document.update({ "system.culture": culture });
 
         const root = this.element;
         const subSelect = root.querySelector('select[name="system.subculture"]');
@@ -211,20 +209,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onChangeSubCulture(event){
         const subCulture = event.target.value;
-        const existingSubCulture = this.actor.items.filter(i=> i.type === "Subculture");
+        const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
         if(existingSubCulture.length>0){
-            await this.actor.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+            await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
         }
         if(subCulture.length>0){
             const cultureItem = game.items.find(i=> i.name === subCulture).toObject();
-            await this.actor.createEmbeddedDocuments("Item", [cultureItem]);
+            await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
-        await this.actor.update({ "system.subculture": subCulture });
-
-    }
-
-
-    static async #_OnCultureChange(event, sheet){
+        await this.document.update({ "system.subculture": subCulture });
 
     }
 
