@@ -66,22 +66,28 @@
     {{#each skills as |category categoryName|}}
       <div class="CategoryTitle">{{handleNames categoryName}}</div>
       <div class="skills">
-        {{#each category as |skill skillname|}}
-          <div class="skill-block">
+    <div class="skill-block header">
+        <span></span> 
+        <span class="header-label">Level</span>
+        <span class="header-label">Learning Points</span>
+    </div>
+
+    {{#each category as |skill skillname|}}
+        <div class="skill-block">
             <button type="button" class="skill-roll" data-action="skillRoll" data-skillkey="{{skillname}}" data-category="{{handleNames categoryName}}">
-              {{handleNames skillname}}
+                {{handleNames skillname}}
             </button>
+
             <div class="skill-input">
-              <label>Level</label>
               <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
             </div>
+
             <div class="skill-input">
-              <label>Learning Points</label>
               <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
             </div>
-          </div>
-        {{/each}}
-      </div>
+        </div>
+    {{/each}}
+</div>
     {{/each}}
   </div>
 
