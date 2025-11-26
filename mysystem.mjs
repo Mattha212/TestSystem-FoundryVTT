@@ -107,24 +107,36 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
     _onRender(context, options){
 
+         if (!this._cultureListenersBound) {
         this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCulture.bind(this))
         );
-
         this.element.querySelectorAll('select[name="system.subculture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSubCulture.bind(this))
         );
+        this._cultureListenersBound = true;
+    }
 
+    if (!this._statsListenersBound) {
         this.element.querySelectorAll('input[name*="system.stats"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeStat.bind(this))
         );
+        this._statsListenersBound = true;
+    }
 
+    if (!this._skillsListenersBound) {
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkills.bind(this))
         );
+        this._skillsListenersBound = true;
+    }
 
-        this.element.addEventListener("drop", this._onDropItems.bind(this));
+    if (!this._dropListenerBound) {
+        this._boundDropHandler = this._onDropItems.bind(this);
+        this.element.addEventListener("drop", this._boundDropHandler);
         this.element.addEventListener("dragover", event => event.preventDefault());
+        this._dropListenerBound = true;
+    }
     }
 
     async _onDropItems(event) {
@@ -135,24 +147,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if (!dataString) return;
 
         let itemData;
-        try {
-            const parsed = JSON.parse(dataString);
-	        const item = await fromUuid(parsed.uuid);
-            if (item.type) {
-                itemData = {
-                    name: item.name || "Unnamed Item",
-                    type: item.type,
-                    system: item.system || {}
-                };
-            }
-			else {
-                return; 
-            }
-        } catch (err) {
-            console.error("Impossible de parser le drag & drop :", err);
-            return;
-        }
 
+        const parsed = JSON.parse(dataString);
+        const item = await fromUuid(parsed.uuid);
+        if(!item) return;
+        itemData = {
+            name: item.name || "Unnamed Item",
+            type: item.type,
+            system: item.system || {}
+        };
+        
         await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
 
