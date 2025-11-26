@@ -12,7 +12,7 @@
   }],
    "template": "template.json",
   "esmodules": ["mysystem.mjs"],
-  "styles": ["styles/system-styles.css", "styles/actorsheet-styles.css"],
+  "styles": ["styles/system-styles.css", "styles/actorsheet-styles.css", "styles/itemsheets-styles.css"],
   "packs": [],
   "languages": [],
   "url": "https://github.com/Mattha212/TestSystem-FoundryVTT",

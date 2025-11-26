@@ -496,10 +496,10 @@ class SubcultureSheet extends InfoObjectSheet{
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
-        context.system = context.item.system;
+        context.system = context.document.system;
         const allCultures = game.items.filter(i=>i.type === "Culture");
         context.cultures = allCultures;
-        context.effects = this.item.effects.contents;
+        context.effects = this.document.effects.contents;
         return context;
     }
 }
