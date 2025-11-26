@@ -25,10 +25,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             itemName: this.#_OnPrintItem,
             changeTab: this._onClickTab,
 
-        }, 
-        events:{
-            'change select[name="system.subculture"]': "_onChangeSubCulture",
-
         }
     }
     static PARTS = {
