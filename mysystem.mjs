@@ -135,20 +135,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         let itemData;
         try {
             const parsed = JSON.parse(dataString);
-        
-            if (parsed.type && parsed.type !== "Item") {
+	        const item = await fromUuid(parsed.uuid);
+            if (item.type) {
                 itemData = {
-                    name: parsed.name || "Unnamed Item",
-                    type: parsed.type,
-                    system: parsed.system || {}
+                    name: item.name || "Unnamed Item",
+                    type: item.type,
+                    system: item.system || {}
                 };
-            } else if (parsed.data?.type && parsed.data.type !== "Item") {
-                itemData = {
-                    name: parsed.data.name || "Unnamed Item",
-                    type: parsed.data.type,
-                    system: parsed.data.system || {}
-                };
-            } else {
+            }
+			else {
                 return; 
             }
         } catch (err) {
