@@ -125,9 +125,37 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.addEventListener("dragover", event => event.preventDefault());
     }
 
-    async _onDropItem(event, data) {
-        event.preventDefault();
-        const itemData = await foundry.applications.api.ItemSheetV2.getDragEventData(event);
+    async _onDropItem(event, item) {
+    event.preventDefault();
+        const dataTransfer = event.dataTransfer;
+        if (!dataTransfer) return;
+        const dataString = dataTransfer.getData("text/plain");
+        if (!dataString) return;
+
+        let itemData;
+        try {
+            const parsed = JSON.parse(dataString);
+        
+            if (parsed.type && parsed.type !== "Item") {
+                itemData = {
+                    name: parsed.name || "Unnamed Item",
+                    type: parsed.type,
+                    system: parsed.system || {}
+                };
+            } else if (parsed.data?.type && parsed.data.type !== "Item") {
+                itemData = {
+                    name: parsed.data.name || "Unnamed Item",
+                    type: parsed.data.type,
+                    system: parsed.data.system || {}
+                };
+            } else {
+                return; 
+            }
+        } catch (err) {
+            console.error("Impossible de parser le drag & drop :", err);
+            return;
+        }
+
         await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
 
