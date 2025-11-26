@@ -403,7 +403,7 @@ class ObjectSheet extends foundry.applications.sheets.ItemSheetV2{
     }
 }
 
-class InfoObjectSheet extends foundry.applications.sheet.ItemSheetV2{
+class InfoObjectSheet extends foundry.applications.sheets.ItemSheetV2{
 
     static DEFAULT_SUBJECT = "item";
 
