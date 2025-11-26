@@ -381,7 +381,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 }
 
-class ObjectSheet extends foundry.applications.sheets.ItemSheetV2{
+class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
 
     static DEFAULT_OPTIONS = {
         id:"object-sheet",
@@ -403,7 +403,7 @@ class ObjectSheet extends foundry.applications.sheets.ItemSheetV2{
     }
 }
 
-class InfoObjectSheet extends foundry.applications.sheets.ItemSheetV2{
+class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
 
     static DEFAULT_SUBJECT = "item";
 
