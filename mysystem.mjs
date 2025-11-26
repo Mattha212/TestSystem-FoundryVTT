@@ -405,10 +405,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
     }
 
-    static async #_onRemoveTrait(event, target, sheet){
+    static async #_onRemoveTrait(event, target){
         event.preventDefault();
         const traitToRemoveId = target.dataset.traitId;
-        await sheet.actor.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
+        await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
     }
 }
 
@@ -429,7 +429,7 @@ class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(fo
     }
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
-        context.system = context.item.system;
+        context.system = context.document.system;
         return context;
     }
 }
@@ -439,13 +439,13 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
     static DEFAULT_SUBJECT = "item";
 
     _onRender(context, options){
-        this.element.querySelectorAll.find(".add-effect").forEach(inp =>
+        this.element.querySelectorAll(".add-effect").forEach(inp =>
             inp.addEventListener("click", this._OnAddEffect.bind(this))
         );
-        this.element.querySelectorAll.find(".edit-effect").forEach(inp =>
+        this.element.querySelectorAll(".edit-effect").forEach(inp =>
             inp.addEventListener("click", this._OnEditEffect.bind(this))
         );
-        this.element.querySelectorAll.find(".remove-effect").forEach(inp =>
+        this.element.querySelectorAll(".remove-effect").forEach(inp =>
             inp.addEventListener("click", this._OnRemoveEffect.bind(this))
         );
     }
