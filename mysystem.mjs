@@ -65,7 +65,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 			tab.cssClass = tab.active ? 'item active' : 'item';
 		}
 
-		return tabs
+		return tabs;
 	}
 
     static _onClickTab(event) {
@@ -126,13 +126,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     async _onDropItem(event, item) {
 	    event.preventDefault();
 	
+	    // Foundry V13 envoie déjà un objet data
 	    if (!data || !data.uuid) return;
 	
+	    // Récupère l’item via le UUID
 	    const item = await fromUuid(data.uuid);
 	    if (!item) return;
 	
 	    const itemData = item.toObject();
-	    delete itemData._id; 
+	    delete itemData._id;  // Très important pour éviter les duplications ou conflits
 	
 	    await this.document.createEmbeddedDocuments("Item", [ itemData ]);
     }
