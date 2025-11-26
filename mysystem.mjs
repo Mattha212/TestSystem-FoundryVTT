@@ -6,7 +6,7 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2) {
+class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
     static DEFAULT_OPTIONS = {
         id:"pj-sheet",
         classes: ["testsystem","sheet","actor"],
@@ -126,13 +126,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     async _onDropItem(event, data) {
-    event.preventDefault();
-
-    // Transforme la data du drag en itemData
-    const itemData = await ItemSheetV2.getDragEventData(event);
-
-    // Crée l’item sur ton actor
-    await this.document.createEmbeddedDocuments("Item", [itemData]);
+        event.preventDefault();
+        const itemData = await foundry.applications.api.ItemSheetV2.getDragEventData(event);
+        await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
 
     async _onChangeStat(event){
