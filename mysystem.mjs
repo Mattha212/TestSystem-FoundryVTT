@@ -381,32 +381,44 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 }
 
-class ObjectSheet extends ItemSheet{
-    static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["testsystem", "sheet", "item"],
-      template: "systems/testsystem/templates/object-sheet.html",
-      width: 400,
-      height: 300
-    });
-  }
+class ObjectSheet extends foundry.applications.sheets.ItemSheetV2{
 
-  getData(options) {
-    const context = super.getData(options);
-    context.system = context.item.system;
-    return context;
-  }
+    static DEFAULT_OPTIONS = {
+        id:"object-sheet",
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/object-sheet.html",
+            scrollable: ["", ".tab"],
+
+        }
+    }
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        context.system = context.item.system;
+        return context;
+    }
 }
 
-class InfoObjectSheet extends ItemSheet{
-activateListeners(html){
-    super.activateListeners(html);
+class InfoObjectSheet extends foundry.applications.sheet.ItemSheetV2{
 
-    html.find(".add-effect").click(this._OnAddEffect.bind(this))
-    html.find(".edit-effect").click(this._OnEditEffect.bind(this))
-    html.find(".remove-effect").click(this._OnRemoveEffect.bind(this))
+    static DEFAULT_SUBJECT = "item";
 
-  }
+    _onRender(context, options){
+        this.element.querySelectorAll.find(".add-effect").forEach(inp =>
+            inp.addEventListener("click", this._OnAddEffect.bind(this))
+        );
+        this.element.querySelectorAll.find(".edit-effect").forEach(inp =>
+            inp.addEventListener("click", this._OnEditEffect.bind(this))
+        );
+        this.element.querySelectorAll.find(".remove-effect").forEach(inp =>
+            inp.addEventListener("click", this._OnRemoveEffect.bind(this))
+        );
+    }
+
   async _OnAddEffect(event){
     event.preventDefault();
     const effectData = {
@@ -422,7 +434,7 @@ activateListeners(html){
   async _OnEditEffect(event){
     event.preventDefault();
     const effectId = event.currentTarget.dataset.effectId;
-    const effect = this.item.effects.find(e => e.id === effectId);
+    const effect = this.item.effects.get(effectId);
     if (effect) effect.sheet.render(true); 
   }
   
@@ -434,66 +446,96 @@ activateListeners(html){
 }
 
 class TraitSheet extends InfoObjectSheet{
-    static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["testsystem", "sheet", "item"],
-      template: "systems/testsystem/templates/trait-sheet.html",
-      width: 400,
-      height: 300
-    });
-  }
+    static DEFAULT_OPTIONS = {
+        id:"trait-sheet",
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/trait-sheet.html",
+            scrollable: ["", ".tab"],
+
+        }
+    }
 }
+
 
 class CultureSheet extends InfoObjectSheet{
-        static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["testsystem", "sheet", "item"],
-      template: "systems/testsystem/templates/culture-sheet.html",
-      width: 400,
-      height: 300
-    });
-  }
+    static DEFAULT_OPTIONS = {
+        id:"culture-sheet",
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/culture-sheet.html",
+            scrollable: ["", ".tab"],
+
+        }
+    }
 }
 
-class SubcultureSheet extends CultureSheet{
-        static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["testsystem", "sheet", "item"],
-      template: "systems/testsystem/templates/subculture-sheet.html",
-      width: 400,
-      height: 300
-    });
-  }
-  getData(options){
-    const context = super.getData(options);
-    context.system = context.item.system;
-    const allCultures = game.items.filter(i=>i.type === "Culture");
-    context.cultures = allCultures;
-    context.effect = this.item.effects.content;
-    return context;
-  }
+class SubcultureSheet extends InfoObjectSheet{
+    static DEFAULT_OPTIONS = {
+        id:"subculture-sheet",
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/subculture-sheet.html",
+            scrollable: ["", ".tab"],
+
+        }
+    }
+
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        context.system = context.item.system;
+        const allCultures = game.items.filter(i=>i.type === "Culture");
+        context.cultures = allCultures;
+        context.effects = this.item.effects.contents;
+        return context;
+    }
 }
 
 class ShieldSheet extends InfoObjectSheet{
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
+    static DEFAULT_OPTIONS = {
+        id:"shield-sheet",
         classes: ["testsystem", "sheet", "item"],
-        template: "systems/testsystem/templates/shield-sheet.html",
         width: 400,
         height: 300
-        });
-  }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/shield-sheet.html",
+            scrollable: ["", ".tab"],
+
+        }
+    }
 }
 
 class ArmorSheet extends InfoObjectSheet{
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
+    static DEFAULT_OPTIONS = {
+        id:"armor-sheet",
         classes: ["testsystem", "sheet", "item"],
-        template: "systems/testsystem/templates/armor-sheet.html",
         width: 400,
         height: 300
-        });
-  }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/armor-sheet.html",
+            scrollable: ["", ".tab"],
+
+        }
+    }
 }
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {

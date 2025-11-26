@@ -4,16 +4,16 @@
     </h2>
     <div>
         <label>System</label>
-        <textarea name="system.description">{{system.system}}</textarea>
+        <textarea name="system.system">{{system.system}}</textarea>
     </div>
     <div>
         <label>Type</label>
-         <textarea name="system.description"></textarea>
+         <textarea name="system.type"></textarea>
     </div>
     <div>
         <label>Effects</label>
         <button type="button" class="add-effect">Add effect</button>
-        {{#each item.effects}}
+        {{#each item.effects.contents}}
         <li>
             <span>{{this.name}}</span>
             <button type="button" class="edit-effect" data-effect-id="{{this.id}}">Edit effect</button>
