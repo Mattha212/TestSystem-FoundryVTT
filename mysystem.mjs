@@ -122,11 +122,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             inp.addEventListener("change", this._onChangeSkills.bind(this))
         );
 
-        this.element.addEventListener("drop", this._onDropItem.bind(this));
+        this.element.addEventListener("drop", this._onDropItems.bind(this));
         this.element.addEventListener("dragover", event => event.preventDefault());
     }
 
-    async _onDrop(event) {
+    async _onDropItems(event) {
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
         if (!dataTransfer) return;
