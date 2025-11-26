@@ -569,37 +569,38 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
 
-    foundry.documents.collections.Actors.unregisterSheet("core", ActorSheet);
-
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
-    types: ["PJ"],
-    makeDefault: true
-    });
-
-    Items.unregisterSheet("core", ItemSheet);
-
-    Items.registerSheet("testsystem", ObjectSheet, {
-        types:["Object"],
-        makeDefault:true
-    });
-    Items.registerSheet("testsystem", TraitSheet, {
-        types:["Trait"],
-        makeDefault:true
-    });
-    Items.registerSheet("testsystem", CultureSheet, {
-        types:["Culture"],
-        makeDefault:true
-    });
-    Items.registerSheet("testsystem", SubcultureSheet, {
-        types:["Subculture"],
+        types: ["PJ"],
         makeDefault: true
     });
-    Items.registerSheet("testsystem",ShieldSheet, {
-        types:["Shield"],
-        makeDefault:true
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ObjectSheet, {
+        types: ["Object"],
+        makeDefault: true
     });
-    Items.registerSheet("testsystem", ArmorSheet, {
-        types:["Armor"],
+
+    foundry.documents.collections.Items.registerSheet("testsystem", TraitSheet, {
+        types: ["Trait"],
+        makeDefault: true
+    });
+ 
+    foundry.documents.collections.Items.registerSheet("testsystem", CultureSheet, {
+        types: ["Culture"],
+        makeDefault: true
+    });    
+
+    foundry.documents.collections.Items.registerSheet("testsystem", SubcultureSheet, {
+        types: ["Subculture"],
+        makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ShieldSheet, {
+        types: ["Shield"],
+        makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ArmorSheet, {
+        types: ["Armor"],
         makeDefault: true
     });
 
