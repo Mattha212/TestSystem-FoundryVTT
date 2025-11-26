@@ -24,14 +24,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             skillRoll: this.#_OnRollSkill,
             itemName: this.#_OnPrintItem,
             changeTab: this._onClickTab,
-
         }
     }
     static PARTS = {
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
 
@@ -116,23 +114,37 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkills.bind(this))
         );
+
         this.element.addEventListener("dragover", event => event.preventDefault());
     }
 
     async _onDropItem(event, item) {
-	    event.preventDefault();
-	
-	    // Foundry V13 envoie déjà un objet data
-	    if (!data || !data.uuid) return;
-	
-	    // Récupère l’item via le UUID
-	    const item = await fromUuid(data.uuid);
-	    if (!item) return;
-	
-	    const itemData = item.toObject();
-	    delete itemData._id;  // Très important pour éviter les duplications ou conflits
-	
-	    await this.document.createEmbeddedDocuments("Item", [ itemData ]);
+        event.preventDefault();
+        const dataTransfer = event.dataTransfer;
+        if (!dataTransfer) return;
+        const dataString = dataTransfer.getData("text/plain");
+        if (!dataString) return;
+
+        let itemData;
+        try {
+            const parsed = JSON.parse(dataString);
+	        const item = await fromUuid(parsed.uuid);
+            if (item.type) {
+                itemData = {
+                    name: item.name || "Unnamed Item",
+                    type: item.type,
+                    system: item.system || {}
+                };
+            }
+			else {
+                return; 
+            }
+        } catch (err) {
+            console.error("Impossible de parser le drag & drop :", err);
+            return;
+        }
+
+        await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
 
     async _onChangeStat(event){
@@ -386,7 +398,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
     }
 
-    static async #_onRemoveTrait(event, target){
+    static async #_onRemoveTrait(event, target, sheet){
         event.preventDefault();
         const traitToRemoveId = target.dataset.traitId;
         await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
@@ -405,7 +417,6 @@ class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(fo
         main : {
             template : "systems/testsystem/templates/object-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
     async _prepareContext(options){
@@ -431,17 +442,16 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         );
     }
 
-  async _OnAddEffect(event){
-    event.preventDefault();
-    const effectData = {
-      label: "new Effect",
-      changes: [],
-      icon: "icons/svg/aura.svg",
-      origin: this.item.uuid,
-    };
-    await this.item.createEmbeddedDocuments("ActiveEffect", [effectData]);
-
-  }
+    async _OnAddEffect(event){
+        event.preventDefault();
+        const effectData = {
+        label: "new Effect",
+        changes: [],
+        icon: "icons/svg/aura.svg",
+        origin: this.item.uuid,
+        };
+        await this.item.createEmbeddedDocuments("ActiveEffect", [effectData]);
+    }
   
   async _OnEditEffect(event){
     event.preventDefault();
@@ -468,7 +478,6 @@ class TraitSheet extends InfoObjectSheet{
         main : {
             template : "systems/testsystem/templates/trait-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
 }
@@ -485,7 +494,6 @@ class CultureSheet extends InfoObjectSheet{
         main : {
             template : "systems/testsystem/templates/culture-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
 }
@@ -502,7 +510,6 @@ class SubcultureSheet extends InfoObjectSheet{
         main : {
             template : "systems/testsystem/templates/subculture-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
 
@@ -528,7 +535,6 @@ class ShieldSheet extends InfoObjectSheet{
         main : {
             template : "systems/testsystem/templates/shield-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
 }
@@ -545,7 +551,6 @@ class ArmorSheet extends InfoObjectSheet{
         main : {
             template : "systems/testsystem/templates/armor-sheet.html",
             scrollable: ["", ".tab"],
-
         }
     }
 }
