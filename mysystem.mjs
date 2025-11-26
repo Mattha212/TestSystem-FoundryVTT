@@ -105,7 +105,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         return context;
     }
-    _onRender(context, options){
+    _onFirstRender(context, options){
+
         this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCulture.bind(this))
         );
