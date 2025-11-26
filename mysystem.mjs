@@ -120,38 +120,21 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkills.bind(this))
         );
-
-        this.element.addEventListener("drop", this._onDropItem.bind(this));
         this.element.addEventListener("dragover", event => event.preventDefault());
     }
 
     async _onDropItem(event, item) {
-    event.preventDefault();
-        const dataTransfer = event.dataTransfer;
-        if (!dataTransfer) return;
-        const dataString = dataTransfer.getData("text/plain");
-        if (!dataString) return;
-
-        let itemData;
-        try {
-            const parsed = JSON.parse(dataString);
-	        const item = await fromUuid(parsed.uuid);
-            if (item.type) {
-                itemData = {
-                    name: item.name || "Unnamed Item",
-                    type: item.type,
-                    system: item.system || {}
-                };
-            }
-			else {
-                return; 
-            }
-        } catch (err) {
-            console.error("Impossible de parser le drag & drop :", err);
-            return;
-        }
-
-        await this.document.createEmbeddedDocuments("Item", [itemData]);
+	    event.preventDefault();
+	
+	    if (!data || !data.uuid) return;
+	
+	    const item = await fromUuid(data.uuid);
+	    if (!item) return;
+	
+	    const itemData = item.toObject();
+	    delete itemData._id; 
+	
+	    await this.document.createEmbeddedDocuments("Item", [ itemData ]);
     }
 
     async _onChangeStat(event){
