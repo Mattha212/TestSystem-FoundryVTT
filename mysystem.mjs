@@ -120,8 +120,20 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkills.bind(this))
         );
+
+        this.element.addEventListener("drop", this._onDropItem.bind(this));
+        this.element.addEventListener("dragover", event => event.preventDefault());
     }
 
+    async _onDropItem(event, data) {
+    event.preventDefault();
+
+    // Transforme la data du drag en itemData
+    const itemData = await ItemSheetV2.getDragEventData(event);
+
+    // Crée l’item sur ton actor
+    await this.document.createEmbeddedDocuments("Item", [itemData]);
+    }
 
     async _onChangeStat(event){
         const input = event.target;
