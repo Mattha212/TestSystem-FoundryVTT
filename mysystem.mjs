@@ -125,7 +125,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.addEventListener("dragover", event => event.preventDefault());
     }
 
-    async _onDropItem(event, item) {
+    async _onDrop(event) {
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
         if (!dataTransfer) return;
