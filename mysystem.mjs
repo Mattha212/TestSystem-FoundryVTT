@@ -100,6 +100,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     async _prepareContext(options){
         const context = await super._prepareContext(options);
         context.tabs = this.getTabs();
+        context.actor = this.document;
         context.system = this.document.system;
         const stats = context.system.stats;
         context.stats = stats;
@@ -151,8 +152,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     static async #onSubmitForm(event, form, formData) {
-		event.preventDefault()
-        await this.actor.update(formData.object);
+        event.preventDefault();
+        const itemType = target.dataset.itemType;
+        const itemId = target.dataset.itemId;
+        const update = {};
+        update[`system.equipment.${itemType}`] = this.document.items.filter(i=> i.id === itemId);
+        _OnUpdateEquipment();
+        await this.document.update(update);
     }
 
     async _onDropItems(event) {
@@ -210,6 +216,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onChangeStat(event){
         event.preventDefault();
+		event.stopPropagation();
+
         const input = event.target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
@@ -250,6 +258,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onChangeSkills(event){   
         event.preventDefault();
+		event.stopPropagation();
+
         const input = event.target;
         const update={};
         if(input.name?.endsWith(".level")){
@@ -263,6 +273,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onChangeCulture(event){
         event.preventDefault();
+		event.stopPropagation();
+
         const culture = event.target.value;
         const existingCultures = this.document.items.filter(i=> i.type === "Culture");
         const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
@@ -297,6 +309,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onChangeSubCulture(event){
         event.preventDefault();
+		event.stopPropagation();
+
         const subCulture = event.target.value;
         const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
         if(existingSubCulture.length>0){
