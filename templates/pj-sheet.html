@@ -101,10 +101,18 @@
             <span class="shield-bulk">{{this.system.bulk}}</span>
             <span class="shield-cost">{{this.system.cost}}</span>
             <button type = "button" class="delete-item" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+            <button type = "button" class = "equipped-item" data-action="equipItem" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
           </li>
         {{/each}}
       </div>
-      <div class="bulk">Bulk</div>
+      <div class="bulk">
+        <span>Bulk</span>
+        {{bulk}}
+      </div>
+      <div class="protection">
+        <span>Protection</span>
+        {{protection}}
+      </div>
       <div class="armor">
         <span>Armors</span>
         {{#each armors}}
@@ -116,6 +124,7 @@
             <span class="armor-type">{{this.system.type}}</span>
             <span class="armor-cost">{{this.system.cost}}</span>
             <button type = "button" class="delete-item" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+            <button type = "button" class = "equipped-item" data-action="equipItem" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
           </li>
         {{/each}}
       </div>

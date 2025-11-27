@@ -30,7 +30,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             skillRoll: this.#_OnRollSkill,
             itemName: this.#_OnPrintItem,
             changeTab: this._onClickTab,
-            deleteItem: function (event, target) { this._onDeleteItem(event, target);}
+            deleteItem: function (event, target) { this._onDeleteItem(event, target);},
+            equipItem: function(event, target){ this._onEquipItem(event, target);}
         }
     }
     static PARTS = {
@@ -102,6 +103,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.objects = this.document.items.filter(i=>i.type === "Object");
         context.shields = this.document.items.filter(i=>i.type === "Shield");
         context.armors = this.document.items.filter(i=>i.type === "Armor");
+        context.protection = this.document.system.protection;
+        context.bulk = this.document.system.bulk;
+
         const allCultures = game.items.filter(i=>i.type === "Culture");
         const allSubcultures = game.items.filter(i=>i.type === "Subculture");
 
@@ -120,26 +124,24 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCultureBound)
         );
+
         this.element.querySelectorAll('select[name="system.subculture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSubCultureBound)
         );
-
 
         this.element.querySelectorAll('input[name*="system.stats"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeStatBound)
         );
 
-
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkillsBound)
         );
 
-
-    if (!this._dropListenerBound) {
-        this.element.addEventListener("drop", this._onDropBound);
-        this.element.addEventListener("dragover", event => event.preventDefault());
-        this._dropListenerBound = true;
-    }
+        if (!this._dropListenerBound) {
+            this.element.addEventListener("drop", this._onDropBound);
+            this.element.addEventListener("dragover", event => event.preventDefault());
+            this._dropListenerBound = true;
+        }
     }
 
     async _onDropItems(event) {
@@ -164,7 +166,18 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     async _onDeleteItem(event,target){
-
+        event.preventDefault();
+        const itemToRemoveId = target.dataset.itemId;
+        await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
+    }
+    
+    async _onEquipItem(event, target){
+        event.preventDefault();
+        const itemType = target.dataset.itemType;
+        const itemId = target.dataset.itemId;
+        const update = {};
+        update[`equipment.${itemType}`] = await fromUuid(itemId);
+        this.document.update(update);
     }
 
     async _onChangeStat(event){
