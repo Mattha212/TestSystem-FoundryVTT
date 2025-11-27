@@ -656,19 +656,18 @@ Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{
 if(!changed.changes) return;
 const updates = [];
 for (const change of effect.changes) {
-    if (change.key.endsWith(".MaxValue")) {
-
-      const basePath = change.key.split(".").slice(0, -1).join(".");
-      const currentKey = `${basePath}.CurrentValue`;
-
-      const exists = effect.changes.some(c => c.key === currentKey);
-
-      if (!exists) {
-        const mirrorChange = foundry.utils.duplicate(change);
-        mirrorChange.key = currentKey;
-
-        updates.push(mirrorChange);
-      }
+    if (change.key.endsWith(".MaxValue") ) {
+	    const basePath = change.key.split(".").slice(0, -1).join(".");
+		if(basePath == "Constitution") return;
+		const currentKey = `${basePath}.CurrentValue`;
+		
+		const exists = effect.changes.some(c => c.key === currentKey);
+		
+		if (!exists) {
+			const mirrorChange = foundry.utils.duplicate(change);
+			mirrorChange.key = currentKey;
+			updates.push(mirrorChange);
+	    }
     }
   }
    if (updates.length === 0) return;
