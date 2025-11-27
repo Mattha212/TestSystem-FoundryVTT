@@ -163,7 +163,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
 
-    static async _onDeleteItem(event){
+    static async _onDeleteItem(event,target){
 
     }
 
