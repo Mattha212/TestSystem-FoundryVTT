@@ -38,6 +38,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         form : {
             template : "systems/testsystem/templates/pj-sheet.html",
             scrollable: ["", ".tab"],
+            submitOnChange: true
         }
     }
 
