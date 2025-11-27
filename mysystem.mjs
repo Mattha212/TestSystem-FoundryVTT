@@ -307,7 +307,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         
         const formula = `1d100`;
         const roll = new Roll(formula);
-        await roll.evaluate({async: true});
+        await roll.evaluate();
         const valueRolled = roll.total;
         const valueTested = clamp(currentValueStat + modifier,5,95);
         const test = valueTested >=valueRolled;
@@ -325,8 +325,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await ChatMessage.create({
             speaker:ChatMessage.getSpeaker({actor:this.actor}),
             content:message,
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-            roll,
+            rolls: [roll],
         })
 
         if(test){
@@ -382,7 +381,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const formula = `1d100`;
         const roll = new Roll(formula);
-        await roll.evaluate({async: true});
+        await roll.evaluate();
         const valueRolled = roll.total;
         const valueTested = clamp(average + modifier + levelModifierValue,5,95);
         const test = valueTested >=valueRolled;
@@ -402,8 +401,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await ChatMessage.create({
             speaker:ChatMessage.getSpeaker({actor:this.actor}),
             content:message,
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-            roll,
+            rolls: [roll],
         })
 
         if(test){
