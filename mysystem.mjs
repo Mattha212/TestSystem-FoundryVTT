@@ -459,26 +459,26 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
     async _OnAddEffect(event){
         event.preventDefault();
         const effectData = {
-        label: "new Effect",
+        name: "new Effect",
         changes: [],
         icon: "icons/svg/aura.svg",
-        origin: this.item.uuid,
+        origin: this.document.uuid,
         };
-        await this.item.createEmbeddedDocuments("ActiveEffect", [effectData]);
+        await this.document.createEmbeddedDocuments("ActiveEffect", [effectData]);
     }
   
-  async _OnEditEffect(event){
-    event.preventDefault();
-    const effectId = event.currentTarget.dataset.effectId;
-    const effect = this.item.effects.get(effectId);
-    if (effect) effect.sheet.render(true); 
-  }
+    async _OnEditEffect(event){
+        event.preventDefault();
+        const effectId = event.currentTarget.dataset.effectId;
+        const effect = this.document.effects.get(effectId);
+        if (effect) effect.sheet.render(true); 
+    }
   
-  async _OnRemoveEffect(event){
-    event.preventDefault();
-    const effectId = event.currentTarget.dataset.effectId;
-    await this.item.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
-  }
+    async _OnRemoveEffect(event){
+        event.preventDefault();
+        const effectId = event.currentTarget.dataset.effectId;
+        await this.document.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
+    }
 }
 
 class TraitSheet extends InfoObjectSheet{
