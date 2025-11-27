@@ -8,7 +8,7 @@ function clamp(value, min, max) {
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
     static DEFAULT_OPTIONS = {
-        id:"pj-sheet",
+        id: actor => `pj-sheet-${actor.id}`,
         classes: ["testsystem","sheet","actor"],
         position:{
             width: 500,
@@ -31,6 +31,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             skillRoll: this.#_OnRollSkill,
             itemName: this.#_OnPrintItem,
             changeTab: this._onClickTab,
+            deleteItem: function (event, target) { this._onDeleteItem(event, target);}
         }
     }
     static PARTS = {
@@ -161,6 +162,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         };
         
         await this.document.createEmbeddedDocuments("Item", [itemData]);
+    }
+
+    static async _onDeleteItem(event){
+
     }
 
     async _onChangeStat(event){

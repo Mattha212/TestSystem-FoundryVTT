@@ -100,6 +100,7 @@
             <span class="shield-protection">{{this.system.protection}}</span>
             <span class="shield-bulk">{{this.system.bulk}}</span>
             <span class="shield-cost">{{this.system.cost}}</span>
+            <button type = "button" class="delete-item" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
           </li>
         {{/each}}
       </div>
@@ -114,6 +115,7 @@
             <span class="armor-bulk">{{this.system.bulk}}</span>
             <span class="armor-type">{{this.system.type}}</span>
             <span class="armor-cost">{{this.system.cost}}</span>
+            <button type = "button" class="delete-item" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
           </li>
         {{/each}}
       </div>
