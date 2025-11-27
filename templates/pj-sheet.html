@@ -1,11 +1,12 @@
+<form class="actor-sheet" autocomplete="off" form data-sheet-part="form" method="POST">
     <header class="sheet-header">
         <div class="portrait">
             <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
         </div>
         <div class="char-info">
-            <input type="text" name = "system.playerName" value="{{system.playerName}}"/>Player name
-            <input type="text" name = "name" value = "{{actor.name}}"/>Character name
-            <input type="text" name= "system.characterGender" value = "{{system.characterGender}}"/>Gender
+            <input type="text" name="system.playerName" value="{{system.playerName}}"/>Player name
+            <input type="text" name="name" value="{{actor.name}}"/>Character name
+            <input type="text" name="system.characterGender" value="{{system.characterGender}}"/>Gender
             <input type="number" name="system.age" value="{{system.age}}"/>Age
             <label for="culture">Culture :</label>
             <select name="system.culture" id="culture">
@@ -142,3 +143,4 @@
     </ol>
   </div>
 </section>
+</form>
