@@ -479,6 +479,11 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         const effectId = event.currentTarget.dataset.effectId;
         await this.document.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
     }
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        context.effects = this.document.effects.contents;
+        return context;
+    }
 }
 
 class TraitSheet extends InfoObjectSheet{
@@ -532,7 +537,6 @@ class SubcultureSheet extends InfoObjectSheet{
         context.system = context.document.system;
         const allCultures = game.items.filter(i=>i.type === "Culture");
         context.cultures = allCultures;
-        context.effects = this.document.effects.contents;
         return context;
     }
 }
