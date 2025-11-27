@@ -8,7 +8,6 @@ function clamp(value, min, max) {
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
     static DEFAULT_OPTIONS = {
-        id: actor => `pj-sheet-${actor.id}`,
         classes: ["testsystem","sheet","actor"],
         position:{
             width: 500,
