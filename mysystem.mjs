@@ -144,6 +144,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
     }
 
+    async _updateObject(event, formData) {
+        await this.actor.update(formData);
+    }
+
     async _onDropItems(event) {
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
@@ -184,7 +188,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.${itemType}`.bulk] = currentBulk;
         await this.document.update(update);
     }
-    
+
     async _onEquipItem(event, target){
         event.preventDefault();
         const itemType = target.dataset.itemType;
@@ -198,6 +202,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 
     async _onChangeStat(event){
+        event.preventDefault();
+        event.stopPropagation();
         const input = event.target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
@@ -236,7 +242,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.document.update(update);
     }
 
-    async _onChangeSkills(event){
+    async _onChangeSkills(event){   
+
+        event.preventDefault();
+        event.stopPropagation();
         const input = event.target;
         const update={};
         if(input.name?.endsWith(".level")){
@@ -249,6 +258,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     } 
 
     async _onChangeCulture(event){
+        event.preventDefault();
+        event.stopPropagation();    
         const culture = event.target.value;
         const existingCultures = this.document.items.filter(i=> i.type === "Culture");
         const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
