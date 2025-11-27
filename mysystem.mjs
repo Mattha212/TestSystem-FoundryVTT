@@ -69,6 +69,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		return tabs;
 	}
 
+    constructor(...args) {
+        super(...args);
+
+        this._onChangeCultureBound = this._onChangeCulture.bind(this);
+        this._onChangeSubCultureBound = this._onChangeSubCulture.bind(this);
+        this._onChangeStatBound = this._onChangeStat.bind(this);
+        this._onChangeSkillsBound = this._onChangeSkills.bind(this);
+        this._onDropBound = this._onDropItems.bind(this);
+    }
+
     static _onClickTab(event) {
         event.preventDefault();
 
@@ -107,33 +117,26 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
     _onRender(context, options){
 
-         if (!this._cultureListenersBound) {
         this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
-            sel.addEventListener("change", this._onChangeCulture.bind(this))
+            sel.addEventListener("change", this._onChangeCultureBound)
         );
         this.element.querySelectorAll('select[name="system.subculture"]').forEach(sel =>
-            sel.addEventListener("change", this._onChangeSubCulture.bind(this))
+            sel.addEventListener("change", this._onChangeSubCultureBound)
         );
-        this._cultureListenersBound = true;
-    }
 
-    if (!this._statsListenersBound) {
+
         this.element.querySelectorAll('input[name*="system.stats"]').forEach(inp =>
-            inp.addEventListener("change", this._onChangeStat.bind(this))
+            inp.addEventListener("change", this._onChangeStatBound)
         );
-        this._statsListenersBound = true;
-    }
 
-    if (!this._skillsListenersBound) {
+
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
-            inp.addEventListener("change", this._onChangeSkills.bind(this))
+            inp.addEventListener("change", this._onChangeSkillsBound)
         );
-        this._skillsListenersBound = true;
-    }
+
 
     if (!this._dropListenerBound) {
-        this._boundDropHandler = this._onDropItems.bind(this);
-        this.element.addEventListener("drop", this._boundDropHandler);
+        this.element.addEventListener("drop", this._onDropBound);
         this.element.addEventListener("dragover", event => event.preventDefault());
         this._dropListenerBound = true;
     }
