@@ -152,12 +152,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     static async #onSubmitForm(event, form, formData) {
-        event.preventDefault();
-        const itemType = target.dataset.itemType;
-        const itemId = target.dataset.itemId;
+		event.preventDefault()
+        const name = event.target.name;
+        const value = event.target.value;
         const update = {};
-        update[`system.equipment.${itemType}`] = this.document.items.filter(i=> i.id === itemId);
-        _OnUpdateEquipment();
+		update[name] = value;
         await this.document.update(update);
     }
 
