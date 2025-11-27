@@ -170,13 +170,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemToRemoveId = target.dataset.itemId;
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
     }
-    
+
     async _onEquipItem(event, target){
         event.preventDefault();
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const update = {};
-        update[`equipment.${itemType}`] = await fromUuid(itemId);
+        update[`system.equipment.${itemType}`] = this.document.items.filter(i=> i.id === itemId);
         this.document.update(update);
     }
 
