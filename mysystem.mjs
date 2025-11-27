@@ -170,17 +170,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemToRemoveId = target.dataset.itemId;
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
     }
-
-    async _onEquipItem(event, target){
-        event.preventDefault();
-        const itemType = target.dataset.itemType;
-        const itemId = target.dataset.itemId;
-        const update = {};
-        update[`system.equipment.${itemType}`] = this.document.items.filter(i=> i.id === itemId);
-        _OnUpdateEquipment();
-        await this.document.update(update);
-    }
-
     async _OnUpdateEquipment(){
         const update = {};
         const currentBulk =0;
@@ -195,6 +184,18 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.${itemType}`.bulk] = currentBulk;
         await this.document.update(update);
     }
+    
+    async _onEquipItem(event, target){
+        event.preventDefault();
+        const itemType = target.dataset.itemType;
+        const itemId = target.dataset.itemId;
+        const update = {};
+        update[`system.equipment.${itemType}`] = this.document.items.filter(i=> i.id === itemId);
+        _OnUpdateEquipment();
+        await this.document.update(update);
+    }
+
+
 
     async _onChangeStat(event){
         const input = event.target;
