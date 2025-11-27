@@ -91,9 +91,32 @@
   {{!-- Fighting Tab --}}
   <div class=" tab {{tabs.fightingTab.cssClass}}" data-tab="{{tabs.fightingTab.id}}" data-group="{{tabs.fightingTab.group}}" data-part="{{tabs.fightingTab.id}}">
     <div class="fighting-defense">
-      <div class="shield"></div>
-      <div class="encombrement"></div>
-      <div class="armor"></div>
+      <div class="shield">
+        <span>Shields</span>
+        {{#each shields}}
+            <li class="shield item" data-item-id="{{this.id}}">
+            <span class="shield-name">{{this.name}}</span>
+            <span class="shield-weight">{{this.system.weight}} kg</span>
+            <span class="shield-protection">{{this.system.protection}}</span>
+            <span class="shield-bulk">{{this.system.bulk}}</span>
+            <span class="shield-cost">{{this.system.cost}}</span>
+          </li>
+        {{/each}}
+      </div>
+      <div class="bulk">Bulk</div>
+      <div class="armor">
+        <span>Armors</span>
+        {{#each armors}}
+            <li class="armor item" data-item-id="{{this.id}}">
+            <span class="armor-name">{{this.name}}</span>
+            <span class="armor-weight">{{this.system.weight}} kg</span>
+            <span class="armor-protection">{{this.system.protection}}</span>
+            <span class="armor-bulk">{{this.system.bulk}}</span>
+            <span class="armor-type">{{this.system.type}}</span>
+            <span class="armor-cost">{{this.system.cost}}</span>
+          </li>
+        {{/each}}
+      </div>
     </div>
   </div>
 
