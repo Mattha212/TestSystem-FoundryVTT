@@ -657,9 +657,12 @@ if(!changed.changes) return;
 const updates = [];
 for (const change of effect.changes) {
     if (change.key.endsWith(".MaxValue") ) {
-	    const basePath = change.key.split(".").slice(0, -1).join(".");
-		if(basePath == "Constitution") return;
-		const currentKey = `${basePath}.CurrentValue`;
+      const parts = change.key.split("."); 
+      const statName = parts[2];       
+      const basePath = parts.slice(0, -1).join(".");
+      const currentKey = `${basePath}.CurrentValue`;
+		
+      if (statName === "Constitution") return;
 		
 		const exists = effect.changes.some(c => c.key === currentKey);
 		
