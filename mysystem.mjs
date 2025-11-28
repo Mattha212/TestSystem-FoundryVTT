@@ -202,9 +202,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
-        update[`system.equipment.${itemType}`.protection] =  object.protection;
-        update[`system.equipment.${itemType}`.bulk] =  object.bulk;
-        update[`system.equipment.${itemType}`.type] =  object.type;
+        update[`system.equipment.${itemType}.protection`] =  object.system.protection;
+        update[`system.equipment.${itemType}.bulk`] =  object.system.bulk;
+        update[`system.equipment.${itemType}.type`] =  object.system.type;
         await this.document.update(update);
 	    this._OnUpdateEquipment();
     }
