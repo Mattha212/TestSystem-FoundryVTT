@@ -184,34 +184,35 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     async _onDeleteItem(event,target){
         event.preventDefault();
         const itemToRemoveId = target.dataset.itemId;
-        await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
+        await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);	    
+        this._OnUpdateEquipment();
     }
-    async _OnUpdateEquipment(){
-        const update = {};
-        let currentBulk =0;
-        let currentProtection = 0;
-        for(const key in this.document.system.equipment){
-            currentBulk += key.bulk;
-            if(key.protection){
-                currentProtection+= key.protection;
-            } 
-        }
-        update[`system.protection`] = currentProtection;
-        update[`system.bulk`] = currentBulk;
-        await this.document.update(update);
-    }
-
-    async _onEquipItem(event, target){
+        async _onEquipItem(event, target){
         event.preventDefault();
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const update = {};
         update[`system.equipment.${itemType}`] = this.document.items.get(itemId).toObject();
-        _OnUpdateEquipment();
+        await this.document.update(update);
+	    this._OnUpdateEquipment();
+    }
+        async _OnUpdateEquipment(){
+		const update = {};
+        let currentBulk =0;
+        let currentProtection = 0;
+        for(const value of Object.values(this.document.system.equipment)){
+			if(value.system){
+			    currentBulk += Number(value.system.bulk);
+			
+            if(Object.keys(value.system.protection).length>0){
+                currentProtection+= Number(value.system.protection);
+            } 
+			}
+        }
+        update[`system.protection`] = currentProtection;
+        update[`system.bulk`] = currentBulk;
         await this.document.update(update);
     }
-
-
 
     async _onChangeStat(event){
         event.preventDefault();
@@ -270,6 +271,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.actor.update(update);
     } 
 
+    static async #_onRemoveTrait(event, target, sheet){
+        event.preventDefault();
+        const traitToRemoveId = target.dataset.traitId;
+        await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
+    }
+    
     async _onChangeCulture(event){
         event.preventDefault();
 		event.stopPropagation();
@@ -472,12 +479,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         else{
             ui.notifications.info(`il se passe rien`);
         }
-    }
-
-    static async #_onRemoveTrait(event, target, sheet){
-        event.preventDefault();
-        const traitToRemoveId = target.dataset.traitId;
-        await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
     }
 }
 
