@@ -546,6 +546,15 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         context.effects = this.document.effects.contents;
         return context;
     }
+    async onSubmitForm(event, form, formData) {
+		event.preventDefault()
+        const name = event.target.name;
+        const value = event.target.value;
+        const update = {};
+		update[name] = value;
+        await this.document.update(update);
+    }
+
 }
 
 class TraitSheet extends InfoObjectSheet{
@@ -569,7 +578,13 @@ class CultureSheet extends InfoObjectSheet{
         id:"culture-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
     }
     static PARTS = {
         main : {
@@ -577,6 +592,8 @@ class CultureSheet extends InfoObjectSheet{
             scrollable: ["", ".tab"],
         }
     }
+
+
 }
 
 class SubcultureSheet extends InfoObjectSheet{
