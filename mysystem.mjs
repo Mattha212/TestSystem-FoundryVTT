@@ -213,13 +213,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         let currentBulk =0;
         let currentProtection = 0;
         for(const value of Object.values(this.document.system.equipment)){
-			if(value.system){
-			    currentBulk += Number(value.system.bulk);
-			
-            if(Object.keys(value.system.protection).length>0){
-                currentProtection+= Number(value.system.protection);
-            } 
-			}
+			currentBulk += Number(value?.bulk ?? 0);
+	        currentProtection += Number(value?.protection ?? 0);
         }
         update[`system.protection`] = currentProtection;
         update[`system.bulk`] = currentBulk;
