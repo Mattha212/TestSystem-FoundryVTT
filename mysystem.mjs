@@ -498,6 +498,7 @@ class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(fo
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         context.system = context.document.system;
+        context.item = this.document;
         return context;
     }
 }
@@ -544,6 +545,8 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         context.effects = this.document.effects.contents;
+		context.system = this.document.system;
+        context.item = this.document;
         return context;
     }
     static async onSubmitForm(event, form, formData) {
@@ -625,6 +628,7 @@ class SubcultureSheet extends InfoObjectSheet{
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
+        context.actor = this
         context.system = context.document.system;
         const allCultures = game.items.filter(i=>i.type === "Culture");
         context.cultures = allCultures;
