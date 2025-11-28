@@ -37,7 +37,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             itemName: this.#_OnPrintItem,
             changeTab: this._onClickTab,
             deleteItem: function (event, target) { this._onDeleteItem(event, target);},
-            equipItem: function(event, target){ this._onEquipItem(event, target);}
+            equipArmor: function(event, target){ this._onEquipArmor(event, target);},
+            unequipArmor: function(event, target){ this._onUnEquipArmor(event, target);}
         }
     }
     static PARTS = {
@@ -185,30 +186,35 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const itemToRemoveId = target.dataset.itemId;
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
-		this._onUnEquipItem(target);
+        if(this.document.system.equipment.get(itemToRemoveId)){
+		    this._onUnEquipArmor(event, target);
+        }
     }
 
-	async _onUnEquipItem(target){
-		const itemType = target.dataset.itemType;
+	async _onUnEquipArmor(event, target){
+        const itemType = target.dataset.itemType;
         const update = {};
-        update[`system.equipment.${itemType}`] = {};
+        update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
 	    await this.document.update(update);
         console.log("update =", update);
 	    this._OnUpdateEquipment();
 	}
-        async _onEquipItem(event, target){
+
+    async _onEquipArmor(event, target){
         event.preventDefault();
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
+        update[`system.equipment.${itemType}.protection`] = itemId.id;
         update[`system.equipment.${itemType}.protection`] =  object.system.protection;
         update[`system.equipment.${itemType}.bulk`] =  object.system.bulk;
         update[`system.equipment.${itemType}.type`] =  object.system.type;
         await this.document.update(update);
 	    this._OnUpdateEquipment();
     }
-        async _OnUpdateEquipment(){
+
+    async _OnUpdateEquipment(){
 		const update = {};
         let currentBulk =0;
         let currentProtection = 0;

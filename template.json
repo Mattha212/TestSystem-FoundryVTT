@@ -20,7 +20,7 @@
       },
       "protection":0,
       "bulk":0,
-      "equipment":{"Armor":{"protection":0, "bulk":0, "type":""}, "Shield":{"protection":0, "bulk":0, "type":""},"Weapon":{"bulk":0}}
+      "equipment":{"Armor":{"id":"","protection":0, "bulk":0, "type":""}, "Shield":{"id":"","protection":0, "bulk":0, "type":""},"Weapon":{"id":"","bulk":0}}
   }
 },
   "Item":{
