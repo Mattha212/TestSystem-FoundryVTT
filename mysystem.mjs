@@ -546,7 +546,7 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         context.effects = this.document.effects.contents;
         return context;
     }
-    async onSubmitForm(event, form, formData) {
+    static async onSubmitForm(event, form, formData) {
 		event.preventDefault()
         const name = event.target.name;
         const value = event.target.value;
@@ -562,7 +562,13 @@ class TraitSheet extends InfoObjectSheet{
         id:"trait-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
     }
     static PARTS = {
         main : {
@@ -584,7 +590,7 @@ class CultureSheet extends InfoObjectSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
-        },
+        }
     }
     static PARTS = {
         main : {
@@ -601,7 +607,13 @@ class SubcultureSheet extends InfoObjectSheet{
         id:"subculture-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
     }
 
     static PARTS = {
@@ -625,7 +637,13 @@ class ShieldSheet extends InfoObjectSheet{
         id:"shield-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
     }
 
     static PARTS = {
@@ -641,7 +659,13 @@ class ArmorSheet extends InfoObjectSheet{
         id:"armor-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
     }
 
     static PARTS = {
