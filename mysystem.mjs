@@ -487,6 +487,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             ui.notifications.info(`il se passe rien`);
         }
     }
+
+    _onClose(options){
+        this._dropListenerBound = false;
+    }
 }
 
 class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
