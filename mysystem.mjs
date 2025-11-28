@@ -188,16 +188,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
     async _OnUpdateEquipment(){
         const update = {};
-        const currentBulk =0;
-        const currentProtection = 0;
-        for(key in this.document.system.equipment){
+        let currentBulk =0;
+        let currentProtection = 0;
+        for(const key in this.document.system.equipment){
             currentBulk += key.bulk;
             if(key.protection){
                 currentProtection+= key.protection;
             } 
         }
-        update[`system.equipment.${itemType}`.protection] = currentProtection;
-        update[`system.equipment.${itemType}`.bulk] = currentBulk;
+        update[`system.protection`] = currentProtection;
+        update[`system.bulk`] = currentBulk;
         await this.document.update(update);
     }
 
@@ -206,7 +206,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const update = {};
-        update[`system.equipment.${itemType}`] = this.document.items.filter(i=> i.id === itemId);
+        update[`system.equipment.${itemType}`] = this.document.items.get(itemId).toObject();
         _OnUpdateEquipment();
         await this.document.update(update);
     }
