@@ -186,7 +186,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const itemToRemoveId = target.dataset.itemId;
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
-        if(this.document.system.equipment.get(itemToRemoveId)){
+        const equipment = this.document.system.equipment;
+        let typeOfItem = null;
+        let isInEquipment = false;
+        for(const [type, equip] of Object.entries(equipment)){
+            if(equip === itemToRemoveId){
+                typeOfItem = type
+                isInEquipment = true;
+            }
+        }
+        if(isInEquipment && (type === "Armor" || type === "Shield")){
 		    this._onUnEquipArmor(event, target);
         }
     }
