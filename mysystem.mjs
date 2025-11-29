@@ -190,12 +190,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         let typeOfItem = null;
         let isInEquipment = false;
         for(const [type, equip] of Object.entries(equipment)){
-            if(equip === itemToRemoveId){
+            if(equip.id === itemToRemoveId){
                 typeOfItem = type
                 isInEquipment = true;
             }
         }
-        if(isInEquipment && (type === "Armor" || type === "Shield")){
+        if(isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")){
 		    this._onUnEquipArmor(event, target);
         }
     }
@@ -205,7 +205,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const update = {};
         update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
 	    await this.document.update(update);
-        console.log("update =", update);
 	    this._OnUpdateEquipment();
 	}
 
@@ -215,7 +214,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
-        update[`system.equipment.${itemType}.protection`] = itemId.id;
+        update[`system.equipment.${itemType}.id`] = itemId;
         update[`system.equipment.${itemType}.protection`] =  object.system.protection;
         update[`system.equipment.${itemType}.bulk`] =  object.system.bulk;
         update[`system.equipment.${itemType}.type`] =  object.system.type;
