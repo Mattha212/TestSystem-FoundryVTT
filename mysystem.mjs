@@ -607,7 +607,6 @@ class TraitSheet extends InfoObjectSheet{
     }
 }
 
-
 class CultureSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
         id:"culture-sheet",
@@ -706,6 +705,28 @@ class ArmorSheet extends InfoObjectSheet{
     }
 }
 
+class WeaponSheet extends InfoObjectSheet{
+    static DEFAULT_OPTIONS = {
+        id:"weapon-sheet",
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/weapon-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
@@ -769,6 +790,10 @@ Hooks.once("init", async ()=>{
 
     foundry.documents.collections.Items.registerSheet("testsystem", ArmorSheet, {
         types: ["Armor"],
+        makeDefault: true
+    });
+    foundry.documents.collections.Items.registerSheet("testsystem", WeaponSheet, {
+        types: ["Weapon"],
         makeDefault: true
     });
 

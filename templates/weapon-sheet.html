@@ -1,0 +1,31 @@
+<form class="armor-sheet">
+    <h2>
+        <input type="text" name="name" value="{{item.name}}" />
+    </h2>
+    <div>
+        <label>Efficiency</label>
+        {{#each system.efficiency as |efficiency key|}}
+            <input type ="number" name="system.protection.{{key}}" value="{{efficiency}}"/>
+        {{/each}}
+    </div>
+    <div>
+        <label>Bulk</label>
+        <input type ="number" name="system.bulk" value="{{system.bulk}}"/>
+    </div>
+    <div>
+        <label>Cost</label>
+        <input type = "number" name="system.cost" value="{{system.cost}}"/>
+    </div>
+    <div>
+        <label>Hands</label>
+        <input type = "number" name="system.hands" value="{{system.hands}}"/>
+    </div>
+    <div>
+        <label>Reach</label>
+        <input type = "number" name="system.reach" value="{{system.reach}}"/>
+    </div>
+    <div>
+        <label>Weight</label>
+        <input type="number" name="system.weight" value="{{system.weight}}"/>
+    </div>
+</form>

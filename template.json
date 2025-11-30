@@ -54,6 +54,15 @@
       "bulk":0,
       "type": "",
       "cost":0
+    },
+    "Weapon":{
+      "traits":[""],
+      "efficiency":{"textile":0,"fluide":0,"solid":0},
+      "weigth":0,
+      "bulk":0,
+      "hands":1,
+      "reach":0,
+      "cost":0
     }
   }
 }
