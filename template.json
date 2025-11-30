@@ -24,7 +24,7 @@
   }
 },
   "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor"],
+    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon"],
     "Object":{
       "description":"",
       "weight":0
