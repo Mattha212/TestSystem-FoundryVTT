@@ -763,7 +763,7 @@ class WeaponSheet extends InfoObjectSheet{
     constructor(...args) {
         super(...args);
 
-        this._onChangeSkillBound = this._onChangeCulture.bind(this);
+        this._onChangeSkillBound = this._onChangeSkill.bind(this);
     }
 
     async _onChangeSkill(event){

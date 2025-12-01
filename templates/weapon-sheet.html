@@ -33,7 +33,7 @@
         <label>Skill related</label>
         <select name="system.skill" id="skill">
             {{#each system.skills as |skill|}}
-                <option value="{{skill}}" {{#if (eq ../system.skill this.name)}}selected{{/if}}>
+                <option value="{{skill}}" {{#if (eq ../system.skill {{skill}} )}}selected{{/if}}>
                 {{skill}}
                 </option>
             {{/each}}
