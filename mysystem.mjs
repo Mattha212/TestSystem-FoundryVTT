@@ -233,11 +233,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
-        update[`system.equipment.weapon.id`] = itemId;
-        update[`system.equipment.weapon.efficiency`] =  object.system.effiency;
-        update[`system.equipment.weapon.bulk`] =  object.system.bulk;
-        update[`system.equipment.weapon.type`] =  object.system.type;
-        update[`system.equipment.weapon.reach`] = object.system.reach;
+        update[`system.equipment.Weapon.id`] = itemId;
+        update[`system.equipment.Weapon.efficiency`] =  object.system.efficiency;
+        update[`system.equipment.Weapon.bulk`] =  object.system.bulk;
+        update[`system.equipment.Weapon.type`] =  object.system.type;
+        update[`system.equipment.Weapon.reach`] = object.system.reach;
         await this.document.update(update);
 	    this._OnUpdateEquipment();
     }
@@ -245,7 +245,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     async _onUnequipWeapon(event, target){
         const itemType = target.dataset.itemType;
         const update = {};
-        update[`system.equipment.weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
+        update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
 	    await this.document.update(update);
 	    this._OnUpdateEquipment();
     }
