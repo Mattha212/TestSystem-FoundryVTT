@@ -31,11 +31,12 @@
     </div>
     <div>
         <label>Skill related</label>
-        <select name="system.skill" id="skill"></select>
-        {{#each skills}}
-            <option value="{{this.name}}" {{#if (eq ../system.skill this.name)}}selected{{/if}}>
-            {{this.name}}
-            </option>
-        {{/each}}
+        <select name="system.skill" id="skill">
+            {{#each skills}}
+                <option value="{{this.name}}" {{#if (eq ../system.skill this.name)}}selected{{/if}}>
+                {{this.name}}
+                </option>
+            {{/each}}
+        </select>
     </div>
 </form>
