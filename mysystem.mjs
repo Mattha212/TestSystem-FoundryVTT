@@ -752,6 +752,29 @@ class WeaponSheet extends InfoObjectSheet{
             scrollable: ["", ".tab"],
         }
     }
+
+     _onRender(context, options){
+
+        this.element.querySelectorAll('select[name="system.skill"]').forEach(sel =>
+            sel.addEventListener("change", this._onChangeSkillBound)
+        );
+    }
+
+    constructor(...args) {
+        super(...args);
+
+        this._onChangeSkillBound = this._onChangeCulture.bind(this);
+    }
+
+    async _onChangeSkill(event){
+
+        event.preventDefault();
+		event.stopPropagation();
+
+        const skill = event.target.value;
+        await this.document.update({ "system.skill": skill });
+        
+    }
 }
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
@@ -781,7 +804,20 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
   actor.updateSource({ system });
 });
 
- 
+Hooks.on("preCreateItem", (item, data, options, userId)=>{
+if(data.type == "Weapon"){
+    const system = data.system ?? {};
+    system.skills = [];
+    for(const [skill,list] of Object.entries(Fighting)){
+        if (!system.skills.includes(skillName)) {
+            system.skills.push(skillName);
+        }
+    }
+    item.updateSource({ system });
+}
+
+}); 
+
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
 

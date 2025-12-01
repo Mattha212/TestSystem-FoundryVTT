@@ -21,7 +21,7 @@
       "protection":0,
       "bulk":0,
       "equipment":{"Armor":{"id":"","protection":0, "bulk":0, "type":""}, "Shield":{"id":"","protection":0, "bulk":0, "type":""},
-      "Weapon":{"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0}}
+      "Weapon":{"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0, "skill":""}}
   }
 },
   "Item":{
@@ -63,7 +63,8 @@
       "bulk":0,
       "hands":1,
       "reach":0,
-      "cost":0
+      "cost":0,
+      "skill":""
     }
   }
 }

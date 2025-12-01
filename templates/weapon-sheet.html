@@ -29,4 +29,13 @@
         <label>Weight</label>
         <input type="number" name="system.weight" value="{{system.weight}}"/>
     </div>
+    <div>
+        <label>Skill related</label>
+        <select name="system.skill" id="skill"></select>
+        {{#each skills}}
+            <option value="{{this.name}}" {{#if (eq ../system.skill this.name)}}selected{{/if}}>
+            {{this.name}}
+            </option>
+        {{/each}}
+    </div>
 </form>
