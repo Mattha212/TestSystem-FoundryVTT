@@ -38,7 +38,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             changeTab: this._onClickTab,
             deleteItem: function (event, target) { this._onDeleteItem(event, target);},
             equipArmor: function(event, target){ this._onEquipArmor(event, target);},
-            unequipArmor: function(event, target){ this._onUnEquipArmor(event, target);}
+            unequipArmor: function(event, target){ this._onUnEquipArmor(event, target);},
+            equipWeapon: function(event, target){this._onEquipWeapon(event, target) ;},
+            unequipWeapon: function(event, target){this._onUnequipWeapon(event, target) ;}
+
         }
     }
     static PARTS = {
@@ -112,7 +115,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.shields = this.document.items.filter(i=>i.type === "Shield");
         context.armors = this.document.items.filter(i=>i.type === "Armor");
         context.weapons = this.document.items.filter(i=>i.type === "Weapon");
-        
+
         context.protection = this.document.system.protection;
         context.bulk = this.document.system.bulk;
 
@@ -224,6 +227,28 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 	    this._OnUpdateEquipment();
     }
 
+    async _onEquipWeapon(event, target){
+        event.preventDefault();
+        const itemType = target.dataset.itemType;
+        const itemId = target.dataset.itemId;
+        const object = this.document.items.get(itemId).toObject();
+        const update = {};
+        update[`system.equipment.weapon.id`] = itemId;
+        update[`system.equipment.weapon.efficiency`] =  object.system.effiency;
+        update[`system.equipment.weapon.bulk`] =  object.system.bulk;
+        update[`system.equipment.weapon.type`] =  object.system.type;
+        update[`system.equipment.weapon.reach`] = object.system.reach;
+        await this.document.update(update);
+	    this._OnUpdateEquipment();
+    }
+
+    async _onUnequipWeapon(event, target){
+        const itemType = target.dataset.itemType;
+        const update = {};
+        update[`system.equipment.weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
+	    await this.document.update(update);
+	    this._OnUpdateEquipment();
+    }
     async _OnUpdateEquipment(){
 		const update = {};
         let currentBulk =0;
