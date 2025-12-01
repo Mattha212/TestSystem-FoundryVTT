@@ -138,7 +138,7 @@
       <li class="armor item" data-item-id="{{this.id}}">
             <span class="weapon-name">{{this.name}}</span>
             <span class="weapon-weight">{{this.system.weight}} kg</span>
-            {{#each this.system.efficiency |value key|}}
+            {{#each this.system.efficiency as |value key|}}
             <span class="weapon-efficiency-{{key}}">{{value}}</span>
             {{/each}}
             <span class="weapon-bulk">{{this.system.bulk}}</span>
