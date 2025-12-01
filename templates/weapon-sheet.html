@@ -4,8 +4,9 @@
     </h2>
     <div>
         <label>Efficiency</label>
-        {{#each system.efficiency as |efficiency key|}}
-            <input type ="number" name="system.protection.{{key}}" value="{{efficiency.value}}"/>
+        {{#each system.efficiency as |value key|}}
+            <label>{{key}}</label>
+            <input type ="number" name="system.protection.{{key}}" value="{{value}}"/>
         {{/each}}
     </div>
     <div>
