@@ -40,8 +40,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             equipArmor: function(event, target){ this._onEquipArmor(event, target);},
             unequipArmor: function(event, target){ this._onUnEquipArmor(event, target);},
             equipWeapon: function(event, target){this._onEquipWeapon(event, target) ;},
-            unequipWeapon: function(event, target){this._onUnequipWeapon(event, target) ;}
-
+            unequipWeapon: function(event, target){this._onUnequipWeapon(event, target) ;},
+            attack: function(event, target){this._onAttack(event, target);}
         }
     }
     static PARTS = {
@@ -249,6 +249,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 	    await this.document.update(update);
 	    this._OnUpdateEquipment();
     }
+
     async _OnUpdateEquipment(){
 		const update = {};
         let currentBulk =0;
@@ -260,6 +261,74 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.protection`] = currentProtection;
         update[`system.bulk`] = currentBulk;
         await this.document.update(update);
+    }
+
+    _onAttack(event, target){
+        event.preventDefault();
+        const skillKey = target.dataset.skillkey;
+
+        const content =`
+        <form class = "difficulty-Modifier-form">
+            <div class = "difficulty-Modifier-group" >
+                <label>Modifier</label>
+                <input type = number name = "modifier" value="0">
+            </div>
+        </form>
+        `;
+        new Dialog({
+            title: `${skillKey} roll`,
+            content,
+            buttons:{
+                textile:{
+                    label: "Textile",
+                    callback: html => this._onConfirmAttack(html,skillKey)
+                },
+                cancel:{
+                    label: "Cancel"
+                }
+            },
+                default: "roll"
+            }).render(true);
+    }
+
+    async _onConfirmAttack(html,skillKey){
+        const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
+        const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
+        const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
+        const average = values.reduce((a,b)=> a+b,0)/ values.length;
+        const form = html[0].querySelector("form");
+        const levelModifierValue = skillLevel *5;
+        const modifier = 10 * (Number(form.modifier.value) || 0);       
+        
+        const statDetails = statsSkill.map(s => {
+        const val = this.document.system.stats[s]?.CurrentValue ?? 0;
+        return `${s}(${val})`;
+        }).join(" + ");
+
+        const formula = `1d100`;
+        const roll = new Roll(formula);
+        await roll.evaluate();
+        const valueRolled = roll.total;
+        const valueTested = clamp(average + modifier + levelModifierValue,5,95);
+        const test = valueTested >=valueRolled;
+        const testDegree = Math.floor((valueTested - valueRolled) /10);
+        const stringResponse = test ? "Success" : "Failure";
+
+        const message = `
+        <div class= "custom-skill-roll">
+        <h3>Attack roll: ${skillKey}</h3>
+        <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
+        <p>${statDetails}</p>
+        <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
+        <p>Success Degree: ${testDegree} </p>
+        </div>
+        `;
+
+        await ChatMessage.create({
+            speaker:ChatMessage.getSpeaker({actor:this.actor}),
+            content:message,
+            rolls: [roll],
+        })
     }
 
     async _onChangeStat(event){

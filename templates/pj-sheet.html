@@ -141,10 +141,11 @@
             {{#each this.system.efficiency as |value key|}}
             <span class="weapon-efficiency-{{key}}">{{value}}</span>
             {{/each}}
+            <span class="weapon-skill">{{this.system.skill}}</span>
             <span class="weapon-bulk">{{this.system.bulk}}</span>
             <span class="weapon-type">{{this.system.type}}</span>
             <span class="weapon-cost">{{this.system.cost}}</span>
-            <button type="button" class = "attack" data-action="attack" data-item-skill = "{{this.skill}}"></button>
+            <button type="button" class = "attack" data-action="attack" data-item-skillkey = "{{this.skill}}">Attack</button>
             <button type = "button" class = "equip-weapon" data-action="equipWeapon" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
             <button type = "button" class="unequip-weapon" data-action="unequipWeapon">Unequip</button>
             <button type = "button" class="delete-item" data-action="deleteItem" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Remove</button>
