@@ -123,7 +123,6 @@
             <span class="armor-weight">{{this.system.weight}} kg</span>
             <span class="armor-protection">{{this.system.protection}}</span>
             <span class="armor-bulk">{{this.system.bulk}}</span>
-            <span class="armor-type">{{this.system.type}}</span>
             <span class="armor-cost">{{this.system.cost}}</span>
             <button type = "button" class = "equip-armor" data-action="equipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
             <button type = "button" class="unequip-armor" data-action="unequipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
@@ -135,7 +134,7 @@
     <div class = "fighting-weapons">
       <span>Weapons</span>
       {{#each weapons}}
-      <li class="armor item" data-item-id="{{this.id}}">
+      <li class="weapon item" data-item-id="{{this.id}}">
             <span class="weapon-name">{{this.name}}</span>
             <span class="weapon-weight">{{this.system.weight}} kg</span>
             {{#each this.system.efficiency as |value key|}}
@@ -145,7 +144,7 @@
             <span class="weapon-bulk">{{this.system.bulk}}</span>
             <span class="weapon-type">{{this.system.type}}</span>
             <span class="weapon-cost">{{this.system.cost}}</span>
-            <button type="button" class = "attack" data-action="attack" data-item-skillkey = "{{this.skill}}">Attack</button>
+            <button type="button" class = "attack" data-action="attack" data-item-skillkey = "{{this.system.skill}}">Attack</button>
             <button type = "button" class = "equip-weapon" data-action="equipWeapon" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
             <button type = "button" class="unequip-weapon" data-action="unequipWeapon">Unequip</button>
             <button type = "button" class="delete-item" data-action="deleteItem" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Remove</button>
