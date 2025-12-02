@@ -238,6 +238,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.Weapon.bulk`] =  object.system.bulk;
         update[`system.equipment.Weapon.type`] =  object.system.type;
         update[`system.equipment.Weapon.reach`] = object.system.reach;
+        update[`system.equipment.Weapon.skill`] = object.system.skill;
         await this.document.update(update);
 	    this._OnUpdateEquipment();
     }
@@ -265,7 +266,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     _onAttack(event, target){
         event.preventDefault();
-        const skillKey = target.dataset.skillkey;
+        const skillKey = target.dataset.itemSkillkey;
 
         const content =`
         <form class = "difficulty-Modifier-form">
