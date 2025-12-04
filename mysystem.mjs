@@ -395,8 +395,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         let protectionBaseValue = Number(this.document.system.equipment.Armor.protection);
         const attackType = form.attackType.value;
+        const attackTypeNumber = Number(attackType);
         let attackTypeLabel="";
-        switch(attackType){
+        switch(attackTypeNumber){
             case AttackTypes.INNEFICIENT:
                 protectionBaseValue *= 2;
                 attackTypeLabel= "Inneficient";
