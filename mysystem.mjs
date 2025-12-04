@@ -395,16 +395,21 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         let protectionBaseValue = this.document.system.equipment.Armor.protection;
         const attackType = form.attackType.value;
+        let attackTypeLabel="";
         switch(attackType){
             case AttackTypes.INNEFICIENT:
                 protectionBaseValue *= 2;
+                attackTypeLabel= "Inneficient";
                 break;
             case AttackTypes.CLASSIC:
+                attackTypeLabel= "Classic";
                 break;
             case AttackTypes.EFFICIENT:
+                attackTypeLabel= "Efficient";
                 protectionBaseValue /= 2;
                 break;
             case AttackTypes.VERY_EFFICIENT:
+                attackTypeLabel= "Very efficient";
                 protectionBaseValue = 0;
                 break;
             
@@ -420,10 +425,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const message = `
         <div class= "custom-skill-roll">
-        <h3>Attack roll: ${skillKey}</h3>
+        <h3>Defense roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
+        <p>Protection:${protectionBaseValue} ( ${attackTypeLabel} )
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
