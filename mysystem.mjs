@@ -400,17 +400,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         switch(attackTypeNumber){
             case AttackTypes.INNEFICIENT:
                 protectionBaseValue *= 2;
-                attackTypeLabel= "Inneficient";
+                attackTypeLabel= "Inneficient attack";
                 break;
             case AttackTypes.CLASSIC:
-                attackTypeLabel= "Classic";
+                attackTypeLabel= "Classic attack";
                 break;
             case AttackTypes.EFFICIENT:
-                attackTypeLabel= "Efficient";
+                attackTypeLabel= "Efficient attack";
                 protectionBaseValue /= 2;
                 break;
             case AttackTypes.VERY_EFFICIENT:
-                attackTypeLabel= "Very efficient";
+                attackTypeLabel= "Very efficient attack";
                 protectionBaseValue = 0;
                 break;
             
