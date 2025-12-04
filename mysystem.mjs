@@ -1,9 +1,15 @@
 import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
-
+import {AttackTypes} from "./data/Actions.js"
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+function enumToLabel(str) {
+    return str
+        .toLowerCase()
+        .replace(/_/g, " ")
+        .replace(/(^\w|\s\w)/g, m => m.toUpperCase());
 }
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
@@ -41,7 +47,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             unequipArmor: function(event, target){ this._onUnEquipArmor(event, target);},
             equipWeapon: function(event, target){this._onEquipWeapon(event, target) ;},
             unequipWeapon: function(event, target){this._onUnequipWeapon(event, target) ;},
-            attack: function(event, target){this._onAttack(event, target);}
+            attack: function(event, target){this._onAttack(event, target);},
+            defense: function(event, target){ this._onDefense(event, target);}
         }
     }
     static PARTS = {
@@ -280,8 +287,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             title: `${skillKey} roll`,
             content,
             buttons:{
-                textile:{
-                    label: "Textile",
+                roll:{
+                    label: "Roll",
                     callback: html => this._onConfirmAttack(html,skillKey)
                 },
                 cancel:{
@@ -310,6 +317,102 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const roll = new Roll(formula);
         await roll.evaluate();
         const valueRolled = roll.total;
+        const valueTested = clamp(average + modifier + levelModifierValue,5,95);
+        const test = valueTested >=valueRolled;
+        const testDegree = Math.floor((valueTested - valueRolled) /10);
+        const stringResponse = test ? "Success" : "Failure";
+
+        const message = `
+        <div class= "custom-skill-roll">
+        <h3>Attack roll: ${skillKey}</h3>
+        <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
+        <p>${statDetails}</p>
+        <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
+        <p>Success Degree: ${testDegree} </p>
+        </div>
+        `;
+
+        await ChatMessage.create({
+            speaker:ChatMessage.getSpeaker({actor:this.actor}),
+            content:message,
+            rolls: [roll],
+        })
+    }
+
+        _onDefense(event, target){
+                event.preventDefault();
+        const skillKey = target.dataset.itemSkillkey;
+        const options =
+            Object.entries(AttackTypes)
+                .map(([key, value]) =>
+                    `<option value="${value}">${enumToLabel(key)}</option>`
+                )
+                join("");
+        const content =
+        `<form>
+            <form class="form-group">
+                <div class = "difficulty-Modifier-group" >
+                    <label>Modifier</label>
+                    <input type = number name = "modifier" value="0">
+                </div>
+                <div class = "attack-type">
+                    <label>Attack Type</label>
+                    <select id="attack-select" name="attackType">
+                        ${options}
+                    </select>
+                </div>
+            </form>
+        </form>`;
+        new Dialog({
+            title: `${skillKey} defense roll`,
+            content,
+            buttons:{
+                roll:{
+                    label: "Roll",
+                    callback: html => this._onConfirmDefense(html,skillKey)
+                },
+                cancel:{
+                    label: "Cancel"
+                }
+            },
+                default: "roll"
+            }).render(true);
+    }
+
+    async _onConfirmDefense(html, skillKey){
+        const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
+        const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
+        const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
+        const average = values.reduce((a,b)=> a+b,0)/ values.length;
+        const form = html[0].querySelector("form");
+        const levelModifierValue = skillLevel *5;
+        const modifier = 10 * (Number(form.modifier.value) || 0);       
+        
+        const statDetails = statsSkill.map(s => {
+        const val = this.document.system.stats[s]?.CurrentValue ?? 0;
+        return `${s}(${val})`;
+        }).join(" + ");
+
+        let protectionBaseValue = this.document.system.equipment.Armor.protection;
+        const attackType = form.attackType.value;
+        switch(attackType){
+            case AttackTypes.INNEFICIENT:
+                protectionBaseValue *= 2;
+                break;
+            case AttackTypes.CLASSIC:
+                break;
+            case AttackTypes.EFFICIENT:
+                protectionBaseValue /= 2;
+                break;
+            case AttackTypes.VERY_EFFICIENT:
+                protectionBaseValue = 0;
+                break;
+            
+        }
+        const formula = `1d100`;
+        const roll = new Roll(formula);
+        await roll.evaluate();
+        const valueRolled = roll.total - protectionBaseValue;
         const valueTested = clamp(average + modifier + levelModifierValue,5,95);
         const test = valueTested >=valueRolled;
         const testDegree = Math.floor((valueTested - valueRolled) /10);
