@@ -393,7 +393,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         return `${s}(${val})`;
         }).join(" + ");
 
-        let protectionBaseValue = this.document.system.equipment.Armor.protection;
+        let protectionBaseValue = Number(this.document.system.equipment.Armor.protection);
         const attackType = form.attackType.value;
         let attackTypeLabel="";
         switch(attackType){
