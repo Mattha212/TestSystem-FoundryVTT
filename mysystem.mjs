@@ -986,17 +986,18 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 });
 
 Hooks.on("preCreateItem", (item, data, options, userId)=>{
-if(data.type == "Weapon"){
-    const system = data.system ?? {};
-    system.skills = [];
-    for(const [skill,list] of Object.entries(Fighting)){
-        if (!system.skills.includes(skillName)) {
-            system.skills.push(skillName);
-        }
-    }
-    item.updateSource({ system });
-}
-
+	if(!options.fromDragDrop){
+		if(data.type == "Weapon"){
+		    const system = data.system ?? {};
+		    system.skills = [];
+		    for(const [skill,list] of Object.entries(Fighting)){
+		        if (!system.skills.includes(skillName)) {
+		            system.skills.push(skillName);
+		        }
+		    }
+		    item.updateSource({ system });
+		}		
+	}
 }); 
 
 Hooks.once("init", async ()=>{
