@@ -781,13 +781,13 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         context.effects = this.document.effects.contents;
 		context.system = this.document.system;
         context.item = this.document;
-        // context.weapontraits = Object.keys(WeaponTraits).map(
-        //     k => k.replace(/([A-Z])/g, " $1").trim());
-        // context.armortraits = Object.keys(ArmorTraits).map(
-        //     k => k.replace(/([A-Z])/g, " $1").trim());
-        // context.shieldntraits = Object.keys(ShieldTraits).map(
-        //     k => k.replace(/([A-Z])/g, " $1").trim());
-        // return context;
+        context.weapontraits = Object.keys(WeaponTraits).map(
+            k => k.replace(/([A-Z])/g, " $1").trim());
+        context.armortraits = Object.keys(ArmorTraits).map(
+            k => k.replace(/([A-Z])/g, " $1").trim());
+        context.shieldntraits = Object.keys(ShieldTraits).map(
+            k => k.replace(/([A-Z])/g, " $1").trim());
+        return context;
     }
     static async onSubmitForm(event, form, formData) {
 		event.preventDefault()

@@ -1,7 +1,4 @@
 export const WeaponTraits = {
-Vifacier,
-Bloody,
-Balanced
 }
 
 export const ArmorTraits = {
