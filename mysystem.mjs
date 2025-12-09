@@ -718,7 +718,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
 
     static DEFAULT_OPTIONS = {
-        id:"object-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300
@@ -803,7 +802,6 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
 
 class TraitSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
-        id:"trait-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
@@ -824,7 +822,6 @@ class TraitSheet extends InfoObjectSheet{
 
 class CultureSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
-        id:"culture-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
@@ -847,7 +844,6 @@ class CultureSheet extends InfoObjectSheet{
 
 class SubcultureSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
-        id:"subculture-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
@@ -878,7 +874,6 @@ class SubcultureSheet extends InfoObjectSheet{
 
 class ShieldSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
-        id:"shield-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
@@ -900,7 +895,6 @@ class ShieldSheet extends InfoObjectSheet{
 
 class ArmorSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
-        id:"armor-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
@@ -922,7 +916,6 @@ class ArmorSheet extends InfoObjectSheet{
 
 class WeaponSheet extends InfoObjectSheet{
     static DEFAULT_OPTIONS = {
-        id:"weapon-sheet",
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
