@@ -742,6 +742,7 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
     static DEFAULT_SUBJECT = "item";
 
     _onRender(context, options){
+        super._onRender(context, options);
         this.element.querySelectorAll(".add-effect").forEach(inp =>
             inp.addEventListener("click", this._OnAddEffect.bind(this))
         );
