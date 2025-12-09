@@ -95,7 +95,7 @@
         <span>Shields</span>
         {{#each shields}}
             <li class="shield item" data-item-id="{{this.id}}">
-            <span class="shield-name">{{this.name}}</span>
+            <span class="shield-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
             <span class="shield-weight">{{this.system.weight}} kg</span>
             <span class="shield-protection">{{this.system.protection}}</span>
             <span class="weapon-traits">{{this.system.traits}}</span>
@@ -120,7 +120,7 @@
         <span>Armors</span>
         {{#each armors}}
             <li class="armor item" data-item-id="{{this.id}}">
-            <span class="armor-name">{{this.name}}</span>
+            <span class="armor-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
             <span class="armor-weight">{{this.system.weight}} kg</span>
             <span class="armor-protection">{{this.system.protection}}</span>
             <span class="weapon-traits">{{this.system.traits}}</span>
@@ -137,7 +137,7 @@
       <span>Weapons</span>
       {{#each weapons}}
       <li class="weapon item" data-item-id="{{this.id}}">
-            <span class="weapon-name">{{this.name}}</span>
+            <span class="weapon-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
             <span class="weapon-weight">{{this.system.weight}} kg</span>
             {{#each this.system.efficiency as |value key|}}
             <span class="weapon-efficiency-{{key}}">{{value}}</span>

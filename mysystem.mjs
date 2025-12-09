@@ -41,7 +41,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
             skillRoll: this.#_OnRollSkill,
-            itemName: this.#_OnPrintItem,
+            printItem: this.#_OnPrintItem,
             changeTab: this._onClickTab,
             deleteItem: function (event, target) { this._onDeleteItem(event, target);},
             equipArmor: function(event, target){ this._onEquipArmor(event, target);},
@@ -558,10 +558,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     }
 
-    static async #_OnPrintItem(event, target, sheet){
-        const li = $(target).closest(".item");
-        const item = sheet.actor.items.get(li.data("itemId"));
-        item.sheet.render(true);
+    static async #_OnPrintItem(event, target){
+        event.preventDefault();
+
+        const itemId= target.dataset.itemId;
+        const itemDoc = this.document.items.get(itemId);
+        itemDoc.sheet.render(true);
     }
 
     static async #_onRollStat(event, target){
@@ -986,19 +988,16 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 });
 
 Hooks.on("preCreateItem", (item, data, options, userId)=>{
-	if(!options.fromDragDrop){
-        console.log("not dragdrop item ")
-		if(data.type == "Weapon"){
-		    const system = data.system ?? {};
-		    system.skills = [];
-		    for(const [skill,list] of Object.entries(Fighting)){
-		        if (!system.skills.includes(skill)) {
-		            system.skills.push(skill);
-		        }
-		    }
-		    item.updateSource({ system });
-		}		
-	}
+    if(data.type == "Weapon"){
+        const system = data.system ?? {};
+        system.skills = [];
+        for(const [skill,list] of Object.entries(Fighting)){
+            if (!system.skills.includes(skill)) {
+                system.skills.push(skill);
+            }
+        }
+        item.updateSource({ system });
+    }		
 }); 
 
 Hooks.once("init", async ()=>{
