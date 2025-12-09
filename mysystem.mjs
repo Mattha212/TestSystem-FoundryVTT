@@ -1,5 +1,6 @@
 import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
 import {AttackTypes} from "./data/Actions.js"
+import { WeaponTraits, ArmorTraits, ShieldTraits } from "./data/Traits.js";
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
@@ -780,6 +781,12 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         context.effects = this.document.effects.contents;
 		context.system = this.document.system;
         context.item = this.document;
+        context.weapontraits = Object.keys(WeaponTraits).map(
+            k => k.replace(/([A-Z])/g, " $1").trim());
+        context.armortraits = Object.keys(ArmorTraits).map(
+            k => k.replace(/([A-Z])/g, " $1").trim());
+        context.shieldntraits = Object.keys(ShieldTraits).map(
+            k => k.replace(/([A-Z])/g, " $1").trim());
         return context;
     }
     static async onSubmitForm(event, form, formData) {
@@ -938,6 +945,10 @@ class WeaponSheet extends InfoObjectSheet{
         this.element.querySelectorAll('select[name="system.skill"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSkillBound)
         );
+    }
+
+    async _prepareContext(event){
+
     }
 
     constructor(...args) {
