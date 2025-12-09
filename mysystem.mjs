@@ -992,8 +992,8 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 		    const system = data.system ?? {};
 		    system.skills = [];
 		    for(const [skill,list] of Object.entries(Fighting)){
-		        if (!system.skills.includes(skillName)) {
-		            system.skills.push(skillName);
+		        if (!system.skills.includes(skill)) {
+		            system.skills.push(skill);
 		        }
 		    }
 		    item.updateSource({ system });
