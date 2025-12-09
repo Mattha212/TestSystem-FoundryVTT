@@ -942,10 +942,6 @@ class WeaponSheet extends InfoObjectSheet{
         );
     }
 
-    async _prepareContext(event){
-
-    }
-
     constructor(...args) {
         super(...args);
 
