@@ -12,14 +12,7 @@
     </div>
     <div>
         <label>Traits</label>
-        <ol class="trait-list">
-            {{#each traits}}   
-                <li class="trait" data-item-id="{{this.id}}">
-                <span class="trait-name">{{this.name}}</span>
-                <button type="button" class="delete-trait" data-trait-id="{{this.id}}">Remove trait</button>
-                </li>
-            {{/each}}
-        </ol>
+         <textarea name="system.traits">{{system.traits}}</textarea>
     </div>
     <div>
         <label>Cost</label>

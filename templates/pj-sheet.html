@@ -98,6 +98,7 @@
             <span class="shield-name">{{this.name}}</span>
             <span class="shield-weight">{{this.system.weight}} kg</span>
             <span class="shield-protection">{{this.system.protection}}</span>
+            <span class="weapon-traits">{{this.system.traits}}</span>
             <span class="shield-bulk">{{this.system.bulk}}</span>
             <span class="shield-cost">{{this.system.cost}}</span>
             <button type = "button" class = "equip-armor" data-action="equipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
@@ -122,6 +123,7 @@
             <span class="armor-name">{{this.name}}</span>
             <span class="armor-weight">{{this.system.weight}} kg</span>
             <span class="armor-protection">{{this.system.protection}}</span>
+            <span class="weapon-traits">{{this.system.traits}}</span>
             <span class="armor-bulk">{{this.system.bulk}}</span>
             <span class="armor-cost">{{this.system.cost}}</span>
             <button type = "button" class = "equip-armor" data-action="equipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
@@ -140,6 +142,7 @@
             {{#each this.system.efficiency as |value key|}}
             <span class="weapon-efficiency-{{key}}">{{value}}</span>
             {{/each}}
+            <span class="weapon-traits">{{this.system.traits}}</span>
             <span class="weapon-skill">{{this.system.skill}}</span>
             <span class="weapon-bulk">{{this.system.bulk}}</span>
             <span class="weapon-type">{{this.system.type}}</span>
