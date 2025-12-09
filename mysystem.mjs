@@ -987,6 +987,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 
 Hooks.on("preCreateItem", (item, data, options, userId)=>{
 	if(!options.fromDragDrop){
+        console.log("not dragdrop item ")
 		if(data.type == "Weapon"){
 		    const system = data.system ?? {};
 		    system.skills = [];
