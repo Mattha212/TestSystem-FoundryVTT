@@ -88,75 +88,87 @@
     {{/each}}
   </div>
 
-  {{!-- Fighting Tab --}}
-  <div class=" tab {{tabs.fightingTab.cssClass}}" data-tab="{{tabs.fightingTab.id}}" data-group="{{tabs.fightingTab.group}}" data-part="{{tabs.fightingTab.id}}">
-    <div class="fighting-defense">
-      <div class="shield">
-        <span>Shields</span>
-        {{#each shields}}
-            <li class="shield item" data-item-id="{{this.id}}">
-            <span class="shield-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-            <span class="shield-weight">{{this.system.weight}} kg</span>
-            <span class="shield-protection">{{this.system.protection}}</span>
-            <span class="weapon-traits">{{this.system.traits}}</span>
-            <span class="shield-bulk">{{this.system.bulk}}</span>
-            <span class="shield-cost">{{this.system.cost}}</span>
-            <button type = "button" class = "equip-armor" data-action="equipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
-            <button type = "button" class="unequip-armor" data-action="unequipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
-            <button type = "button" class="delete-item" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+<div class="tab fighting {{tabs.fightingTab.cssClass}}" 
+     data-tab="{{tabs.fightingTab.id}}" 
+     data-group="{{tabs.fightingTab.group}}" 
+     data-part="{{tabs.fightingTab.id}}">
+    <div class="fighting-grid">
+        <div class="fighting-header">
+            <div class="shields-block">
+                <h3>Shields</h3>
+                <ul>
+                {{#each shields}}
+                    <li class="item" data-item-id="{{this.id}}">
+                        <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                        <span>{{this.system.weight}} kg</span>
+                        <span>{{this.system.protection}}</span>
+                        <span>{{this.system.bulk}}</span>
+                        <span>{{this.system.cost}}</span>
+                        <button data-action="equipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Equip</button>
+                        <button data-action="unequipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
+                        <button data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                    </li>
+                {{/each}}
+                </ul>
+            </div>
 
-          </li>
-        {{/each}}
-      </div>
-      <div class="bulk">
-        <span>Bulk</span>
-        {{bulk}}
-      </div>
-      <div class="protection">
-        <span>Protection</span>
-        {{protection}}
-      </div>
-      <div class="armor">
-        <span>Armors</span>
-        {{#each armors}}
-            <li class="armor item" data-item-id="{{this.id}}">
-            <span class="armor-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-            <span class="armor-weight">{{this.system.weight}} kg</span>
-            <span class="armor-protection">{{this.system.protection}}</span>
-            <span class="weapon-traits">{{this.system.traits}}</span>
-            <span class="armor-bulk">{{this.system.bulk}}</span>
-            <span class="armor-cost">{{this.system.cost}}</span>
-            <button type = "button" class = "equip-armor" data-action="equipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
-            <button type = "button" class="unequip-armor" data-action="unequipArmor" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
-            <button type = "button" class="delete-item" data-action="deleteItem" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Remove</button>
-          </li>
-        {{/each}}
-      </div>
-    </div>
-    <div class = "fighting-weapons">
-      <span>Weapons</span>
-      {{#each weapons}}
-      <li class="weapon item" data-item-id="{{this.id}}">
-            <span class="weapon-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-            <span class="weapon-weight">{{this.system.weight}} kg</span>
-            {{#each this.system.efficiency as |value key|}}
-            <span class="weapon-efficiency-{{key}}">{{value}}</span>
+            <div class="bulk-block">
+                <h3>Bulk</h3>
+                <span>{{bulk}}</span>
+            </div>
+
+            <div class="protection-block">
+                <h3>Protection</h3>
+                <span>{{protection}}</span>
+            </div>
+        </div>
+        <div class="armor-block">
+            <h3>Armors</h3>
+            <ul>
+            {{#each armors}}
+                <li class="item" data-item-id="{{this.id}}">
+                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span>{{this.system.weight}} kg</span>
+                    <span>{{this.system.protection}}</span>
+                    <span>{{this.system.bulk}}</span>
+                    <span>{{this.system.cost}}</span>
+
+                    <button data-action="equipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Equip</button>
+                    <button data-action="unequipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
+                    <button data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                </li>
             {{/each}}
-            <span class="weapon-traits">{{this.system.traits}}</span>
-            <span class="weapon-skill">{{this.system.skill}}</span>
-            <span class="weapon-bulk">{{this.system.bulk}}</span>
-            <span class="weapon-type">{{this.system.type}}</span>
-            <span class="weapon-cost">{{this.system.cost}}</span>
-            <button type="button" class = "attack" data-action="attack" data-item-skillkey = "{{this.system.skill}}">Attack</button>
-            <button type="button" class = "defense" data-action="defense" data-item-skillkey = "{{this.system.skill}}">Defense</button>
-            <button type = "button" class = "equip-weapon" data-action="equipWeapon" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Equip</button>
-            <button type = "button" class="unequip-weapon" data-action="unequipWeapon">Unequip</button>
-            <button type = "button" class="delete-item" data-action="deleteItem" data-item-type = "{{this.type}}" data-item-id="{{this.id}}">Remove</button>
-            
-          </li>
-      {{/each}}
+            </ul>
+        </div>
+        <div class="weapon-block">
+            <h3>Weapons</h3>
+            <ul>
+            {{#each weapons}}
+                <li class="item" data-item-id="{{this.id}}">
+                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span>{{this.system.weight}} kg</span>
+
+                    {{#each this.system.efficiency as |value key|}}
+                        <span>{{key}}: {{value}}</span>
+                    {{/each}}
+
+                    <span>{{this.system.traits}}</span>
+                    <span>{{this.system.skill}}</span>
+                    <span>{{this.system.bulk}}</span>
+                    <span>{{this.system.cost}}</span>
+
+                    <button data-action="attack" data-item-skillkey="{{this.system.skill}}">Attack</button>
+                    <button data-action="defense" data-item-skillkey="{{this.system.skill}}">Defense</button>
+                    <button data-action="equipWeapon" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Equip</button>
+                    <button data-action="unequipWeapon">Unequip</button>
+                    <button data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+
     </div>
-  </div>
+</div>
 
   {{!-- Inventory Tab --}}
   <div class="tab {{tabs.inventoryTab.cssClass}}" data-tab="{{tabs.inventoryTab.id}}" data-group="{{tabs.inventoryTab.group}}" data-part="{{tabs.inventoryTab.id}}">
