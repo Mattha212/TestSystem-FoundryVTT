@@ -208,7 +208,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             }
         }
         if(isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")){
-		    this._onUnEquipArmor(event, target);
+		    await this._onUnEquipArmor(event, target);
+        }
+        if(isInEquipment &&(typeOfItem === "Weapon")){
+            await this._onUnequipWeapon(event, target);
         }
     }
 
