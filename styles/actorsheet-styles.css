@@ -267,3 +267,12 @@ width: 50px;
 .fighting-grid li span {
     text-align: left;
 }
+
+.row-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto auto auto;
+    font-weight: bold;
+    padding: 4px 0;
+    border-bottom: 2px solid #666;
+    margin-bottom: 4px;
+}
