@@ -105,7 +105,7 @@
                         <span>{{this.system.bulk}}</span>
                         <span>{{this.system.cost}}</span>
                         <button data-action="equipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Equip</button>
-                        <button data-action="unequipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
+                        <button data-action="unequipArmor" data-item-type="{{this.type}}">Unequip</button>
                         <button data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                     </li>
                 {{/each}}
@@ -134,7 +134,7 @@
                     <span>{{this.system.cost}}</span>
 
                     <button data-action="equipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Equip</button>
-                    <button data-action="unequipArmor" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Unequip</button>
+                    <button data-action="unequipArmor" data-item-type="{{this.type}}">Unequip</button>
                     <button data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                 </li>
             {{/each}}
@@ -159,7 +159,7 @@
 
                     <button data-action="attack" data-item-skillkey="{{this.system.skill}}">Attack</button>
                     <button data-action="defense" data-item-skillkey="{{this.system.skill}}">Defense</button>
-                    <button data-action="equipWeapon" data-item-type="{{this.type}}" data-item-id="{{this.id}}">Equip</button>
+                    <button data-action="equipWeapon" data-item-id="{{this.id}}">Equip</button>
                     <button data-action="unequipWeapon">Unequip</button>
                     <button data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                 </li>

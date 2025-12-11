@@ -239,7 +239,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onEquipWeapon(event, target){
         event.preventDefault();
-        const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
@@ -254,7 +253,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     async _onUnequipWeapon(event, target){
-        const itemType = target.dataset.itemType;
         const update = {};
         update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
 	    await this.document.update(update);
