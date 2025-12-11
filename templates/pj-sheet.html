@@ -172,51 +172,46 @@
             </ul>
         </div>
 
-        <!-- WEAPONS -->
-        <div class="weapon-block">
-            <h3>Weapons</h3>
+      <div class="weapon-block">
+        <h3>Weapons</h3>
 
-            <!-- HEADER DES COLONNES -->
-            <div class="row-header">
-                <span>Name</span>
-                <span>Weight</span>
-                {{!-- les colonnes pour efficiency --}}
-                <span>Eff 1</span>
-                <span>Eff 2</span>
-                <span>Eff 3</span>
-                <span>Traits</span>
-                <span>Skill</span>
-                <span>Bulk</span>
-                <span>Cost</span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <ul>
-            {{#each weapons}}
-                <li class="item" data-item-id="{{this.id}}">
-                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                    <span>{{this.system.weight}} kg</span>
-
-                    {{#each this.system.efficiency}}
-                        <span>{{this}}</span>
-                    {{/each}}
-
-                    <span>{{this.system.traits}}</span>
-                    <span>{{this.system.skill}}</span>
-                    <span>{{this.system.bulk}}</span>
-                    <span>{{this.system.cost}}</span>
-
-                    <button type="button" data-action="attack" data-item-skillkey="{{this.system.skill}}">Attack</button>
-                    <button type="button" data-action="defense" data-item-skillkey="{{this.system.skill}}">Defense</button>
-                    <button type="button" data-action="equipWeapon" data-item-id="{{this.id}}">Equip</button>
-                    <button type="button" data-action="unequipWeapon">Unequip</button>
-                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
-                </li>
-            {{/each}}
-            </ul>
+        <div class="row-header">
+          <span>Name</span>
+          <span>Wgt</span>
+          <span>Eff A</span>
+          <span>Eff B</span>
+          <span>Eff C</span>
+          <span>Traits</span>
+          <span>Skill</span>
+          <span>Bulk</span>
+          <span>Cost</span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+
+        <ul>
+          {{#each weapons}}
+            <li class="item" data-item-id="{{this.id}}">
+              <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+              <span>{{this.system.weight}}</span>
+
+              {{#each this.system.efficiency as |value key|}}
+                <span class="eff">{{value}}</span>
+              {{/each}}
+
+              <span>{{this.system.traits}}</span>
+              <span>{{this.system.skill}}</span>
+              <span>{{this.system.bulk}}</span>
+              <span>{{this.system.cost}}</span>
+
+              <button type="button" data-action="attack" data-item-skillkey="{{this.system.skill}}">Atk</button>
+              <button type="button" data-action="defense" data-item-skillkey="{{this.system.skill}}">Def</button>
+              <button type="button" data-action="equipWeapon" data-item-id="{{this.id}}">Eq</button>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
 
     </div>
 </div>
