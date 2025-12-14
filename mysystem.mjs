@@ -1066,7 +1066,7 @@ Hooks.once("init", async ()=>{
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FightingManeuverSheet, {
-        types:["FightingManeuver"],
+        types:["Fighting Maneuver"],
         makeDefault:true
     });
 
