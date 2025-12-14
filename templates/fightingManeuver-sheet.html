@@ -1,0 +1,21 @@
+<form class="armor-sheet">
+    <h2>
+        <input type="text" name="name" value="{{item.name}}" />
+    </h2>
+    <div>
+        <label>School</label>
+        <input type ="number" name="system.school" value="{{system.school}}"/>
+    </div>
+    <div>
+        <label>Cost</label>
+        <input type ="number" name="system.cost" value="{{system.cost}}"/>
+    </div>
+    <div>
+        <label>System</label>
+         <textarea name="system.functionnement">{{system.functionnement}}</textarea>
+    </div>
+    <div>
+        <label>Rollable</label>
+        <input type="checkbox" name="system.rollable" {{#if system.rollable}}Rollable{{/if}}>
+    </div>
+</form>

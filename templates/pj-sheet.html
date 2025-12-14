@@ -94,12 +94,14 @@
      data-part="{{tabs.fightingTab.id}}">
 
     <div class="fighting-grid">
-
-        <!-- ===== SHIELDS ===== -->
+        <div class="protection">
+            <h5>Protection: {{system.protection}} </h5>
+        </div>
+        <div class="bulk">
+            <h5>Bulk: {{system.bulk}} </h5>
+        </div>
         <div class="category-block shields-block">
             <h3>Shields</h3>
-
-            <!-- Header row -->
             <div class="category-header">
                 <span>Name</span>
                 <span>Weight</span>
@@ -108,7 +110,6 @@
                 <span>Cost</span>
                 <span class="actions">Actions</span>
             </div>
-
             <ul>
             {{#each shields}}
                 <li class="item" data-item-id="{{this.id}}">
@@ -126,11 +127,8 @@
             {{/each}}
             </ul>
         </div>
-
-        <!-- ===== ARMORS ===== -->
         <div class="category-block armor-block">
             <h3>Armors</h3>
-
             <div class="category-header">
                 <span>Name</span>
                 <span>Weight</span>
@@ -139,7 +137,6 @@
                 <span>Cost</span>
                 <span class="actions">Actions</span>
             </div>
-
             <ul>
             {{#each armors}}
                 <li class="item" data-item-id="{{this.id}}">
@@ -157,8 +154,6 @@
             {{/each}}
             </ul>
         </div>
-
-        <!-- ===== WEAPONS ===== -->
         <div class="category-block weapon-block">
             <h3>Weapons</h3>
 
@@ -172,7 +167,6 @@
                 <span>Cost</span>
                 <span class="actions">Actions</span>
             </div>
-
             <ul>
             {{#each weapons}}
                 <li class="item" data-item-id="{{this.id}}">
@@ -184,12 +178,10 @@
                             <div>{{key}}: {{value}}</div>
                         {{/each}}
                     </span>
-
                     <span>{{this.system.traits}}</span>
                     <span>{{this.system.skill}}</span>
                     <span>{{this.system.bulk}}</span>
                     <span>{{this.system.cost}}</span>
-
                     <div class="item-actions">
                         <button type="button" data-action="attack" data-item-skillkey="{{this.system.skill}}">Attack</button>
                         <button type="button" data-action="defense" data-item-skillkey="{{this.system.skill}}">Defense</button>
@@ -201,7 +193,15 @@
             {{/each}}
             </ul>
         </div>
-
+        <div class="Fighting Manoeuveurs">
+            <h3>Fighting Maneuveurs</h3>
+            {{#each fightingManeuveurs}}
+            <li class="item" data-item-id="{{this.id}}">
+                <span class="ManoeuveurName">{{this.name}}</span>
+                <span class="ManoeuverCost">{{this.system.cost}}</span>
+            </li>
+            {{/each}}
+        </div>
     </div>
 </div>
 

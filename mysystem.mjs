@@ -961,6 +961,28 @@ class WeaponSheet extends InfoObjectSheet{
     }
 }
 
+class FightingManeuver extends InfoObjectSheet{
+        static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/fightingManeuver-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+}
+
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
