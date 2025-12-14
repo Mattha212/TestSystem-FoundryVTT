@@ -961,7 +961,7 @@ class WeaponSheet extends InfoObjectSheet{
     }
 }
 
-class FightingManeuver extends InfoObjectSheet{
+class FightingManeuverSheet extends InfoObjectSheet{
         static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1063,6 +1063,11 @@ Hooks.once("init", async ()=>{
     foundry.documents.collections.Items.registerSheet("testsystem", WeaponSheet, {
         types: ["Weapon"],
         makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", FightingManeuverSheet, {
+        types:["FightingManeuver"],
+        makeDefault:true
     });
 
 Handlebars.registerHelper("handleNames", function(str) {
