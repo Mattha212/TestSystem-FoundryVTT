@@ -25,7 +25,7 @@
   }
 },
   "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Fighting Maneuver"],
+    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "FightingManeuver"],
     "Object":{
       "description":"",
       "weight":0
@@ -66,7 +66,7 @@
       "cost":0,
       "skill":""
     },
-    "Fighting Maneuver":{
+    "FightingManeuver":{
       "school":"",
       "cost":"",
       "rollable":false,
