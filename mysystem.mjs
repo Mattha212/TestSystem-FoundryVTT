@@ -380,7 +380,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             }).render(true);
     }
 
-    async _onConfirmDefense(html, skillKey){
+        async _onConfirmDefense(html, skillKey){
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
         const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
@@ -416,10 +416,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 break;
             
         }
+		const TotalProtection = protectionBaseValue + Number(this.document.system.equipment.Shield.protection);
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate();
-        const valueRolled = roll.total - protectionBaseValue;
+        const valueRolled = roll.total - TotalProtection;
         const valueTested = clamp(average + modifier + levelModifierValue,5,95);
         const test = valueTested >=valueRolled;
         const testDegree = Math.floor((valueTested - valueRolled) /10);
@@ -431,7 +432,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
-        <p>Protection:${protectionBaseValue} ( ${attackTypeLabel} )
+        <p>Protection:${TotalProtection} ( ${attackTypeLabel} )
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
