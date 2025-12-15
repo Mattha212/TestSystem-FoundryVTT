@@ -202,7 +202,7 @@
                 {{#if this.system.rollable}}
                     <select name="this.system.weaponLinked" id="weaponLinked">
                         <option value="">-- Sélectionne une arme --</option>
-                        {{#each weapons}}
+                        {{#each ../weapons}}
                             <option value="{{this.name}}" {{#if (eq ../this.system.weaponLinked this.name)}}selected{{/if}}>
                             {{this.name}}
                             </option>
