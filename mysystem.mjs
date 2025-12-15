@@ -799,7 +799,13 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
     static async onSubmitForm(event, form, formData) {
 		event.preventDefault()
         const name = event.target.name;
-        const value = event.target.value;
+        let value;
+        if(target.type == "checkbox"){
+            value = event.target.checked;
+        }
+        else{
+            value = event.target.value;
+        }
         const update = {};
 		update[name] = value;
         await this.document.update(update);
