@@ -16,7 +16,15 @@
     </div>
     <div>
         <label>Rollable</label>
-        <input type="hidden" name="system.rollable" value="false">
-        <input type="checkbox" name="system.rollable" value="true" {{checked system.rollable}}>
+<input type="hidden"
+       name="system.rollable"
+       value="false"
+       data-dtype="Boolean">
+
+<input type="checkbox"
+       name="system.rollable"
+       value="true"
+       data-dtype="Boolean"
+       {{checked system.rollable}}>
     </div>
 </form>
