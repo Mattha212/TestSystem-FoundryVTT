@@ -68,7 +68,7 @@
     },
     "Fighting Maneuver":{
       "school":"",
-      "cost":"",
+      "cost":0,
       "rollable":false,
       "functionnement":""
     }
