@@ -985,6 +985,12 @@ class FightingManeuverSheet extends InfoObjectSheet{
             scrollable: ["", ".tab"],
         }
     }
+
+    async _updateObject(event, formData) {
+        formData["system.rollable"] = !!formData["system.rollable"];
+        return super._updateObject(event, formData);
+    }
+
 }
 
 
