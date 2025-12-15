@@ -199,6 +199,16 @@
             <li class="item" data-item-id="{{this.id}}">
                 <span class="ManoeuveurName">{{this.name}}</span>
                 <span class="ManoeuverCost">{{this.system.cost}}</span>
+                {{if this.system.rollable}}
+                    <select name="this.system.weaponLinked" id="weaponLinked">
+                        <option value="">-- Sélectionne une arme --</option>
+                        {{#each weapons}}
+                            <option value="{{this.name}}" {{#if (eq ../this.system.weaponLinked this.name)}}selected{{/if}}>
+                            {{this.name}}
+                            </option>
+                        {{/each}}                        
+                    </select>
+                {{/if}}
             </li>
             {{/each}}
         </div>
