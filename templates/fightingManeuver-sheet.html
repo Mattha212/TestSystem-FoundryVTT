@@ -4,7 +4,7 @@
     </h2>
     <div>
         <label>School</label>
-        <input type ="number" name="system.school" value="{{system.school}}"/>
+        <input type ="text" name="system.school" value="{{system.school}}"/>
     </div>
     <div>
         <label>Cost</label>
@@ -16,6 +16,6 @@
     </div>
     <div>
         <label>Rollable</label>
-        <input type="checkbox" name="system.rollable" {{#if system.rollable}}Rollable{{/if}}>
+        <input type="checkbox" name="system.rollable" {{checked system.rollable}}>
     </div>
 </form>
