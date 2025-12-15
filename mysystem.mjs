@@ -800,7 +800,7 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
 		event.preventDefault()
         const name = event.target.name;
         let value;
-        if(target.type == "checkbox"){
+        if(event.target.type == "checkbox"){
             value = event.target.checked;
         }
         else{
