@@ -321,7 +321,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const valueTested = clamp(average + modifier + levelModifierValue,5,95);
         const test = valueTested >=valueRolled;
         const testSign = Math.sign(valueTested - valueRolled); 
-        const testDegree = testSign * Math.floor(Maths.abs(valueTested - valueRolled) /10);
+        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) /10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
@@ -425,7 +425,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const valueTested = clamp(average + modifier + levelModifierValue,5,95);
         const test = valueTested >=valueRolled;
         const testSign = Math.sign(valueTested - valueRolled); 
-        const testDegree = testSign * Math.floor(Maths.abs(valueTested - valueRolled) /10);
+        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) /10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
@@ -689,7 +689,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const valueTested = clamp(average + modifier + levelModifierValue,5,95);
         const test = valueTested >=valueRolled;
         const testSign = Math.sign(valueTested - valueRolled); 
-        const testDegree = testSign * Math.floor(Maths.abs(valueTested - valueRolled) /10);
+        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) /10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
