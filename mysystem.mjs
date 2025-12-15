@@ -986,7 +986,8 @@ class FightingManeuverSheet extends InfoObjectSheet{
         }
     }
 
-    async _updateObject(event, formData) {
+    static async onSubmitForm(event, form, formData) {
+        super.onSubmitForm(event,form, formData);
         formData["system.rollable"] = !!formData["system.rollable"];
         return super._updateObject(event, formData);
     }
