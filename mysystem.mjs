@@ -1,5 +1,5 @@
 import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
-import {AttackTypes} from "./data/Actions.js"
+import {AttackTypes, ManeuverTypes } from "./data/Actions.js"
 import { WeaponTraits, ArmorTraits, ShieldTraits } from "./data/Traits.js";
 console.log("mysystem.mjs loaded");
 
@@ -877,7 +877,6 @@ class SubcultureSheet extends InfoObjectSheet{
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
-        context.actor = this
         context.system = context.document.system;
         const allCultures = game.items.filter(i=>i.type === "Culture");
         context.cultures = allCultures;
@@ -990,6 +989,15 @@ class FightingManeuverSheet extends InfoObjectSheet{
             template : "systems/testsystem/templates/fightingManeuver-sheet.html",
             scrollable: ["", ".tab"],
         }
+    }
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        context.system = context.document.system;
+        context.maneuverTypes = Object.values(AttackTypes).map(k => ({
+  key: k,
+  label: k.charAt(0).toUpperCase() + k.slice(1)
+}));
+
     }
 
     static async onSubmitForm(event, form, formData) {

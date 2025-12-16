@@ -4,3 +4,8 @@ export const AttackTypes = Object.freeze({
     EFFICIENT: 2,
     VERY_EFFICIENT: 3,
 });
+
+export const ManeuverTypes = {
+  ATTACK: "attack",
+  DEFENSE: "defense"
+};
