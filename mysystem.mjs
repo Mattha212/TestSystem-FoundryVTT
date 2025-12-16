@@ -997,6 +997,8 @@ class FightingManeuverSheet extends InfoObjectSheet{
   key: k,
   label: k.charAt(0).toUpperCase() + k.slice(1)
 }));
+        return context;
+
 
     }
 
