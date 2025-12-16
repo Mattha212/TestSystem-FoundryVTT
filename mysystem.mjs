@@ -993,7 +993,7 @@ class FightingManeuverSheet extends InfoObjectSheet{
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         context.system = context.document.system;
-        context.maneuverTypes = Object.values(AttackTypes).map(k => ({
+        context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
   key: k,
   label: k.charAt(0).toUpperCase() + k.slice(1)
 }));
