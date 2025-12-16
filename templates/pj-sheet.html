@@ -211,7 +211,7 @@
                     <select name="system.maneuverType" id="maneuverType">
                         <option value=""> Select Attack Type</option>
                         {{#each ../maneuverType}}
-                            <option value ="{{this.name}}" {{#if (eq ../system.maneuverType this.name)}}selected{{/if}}>
+                            <option value ="{{this.name}}" {{#if (eq ../system.maneuverType this.key)}}selected{{/if}}>
                                 {{this.name}}
                             </option>
                         {{/each}}
