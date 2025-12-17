@@ -583,7 +583,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
 		event.stopPropagation();
         const value = event.target.value;
-        const itemId = event.dataset.itemId;
+        const itemId = event.target.dataset.itemId;
         const item = this.document.items.get(itemId);
         if(!item) return;
         const update={};
@@ -595,7 +595,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
 		event.stopPropagation();
         const value = event.target.value;
-        const itemId = event.dataset.itemId;
+        const itemId = event.target.dataset.itemId;
         const item = this.document.items.get(itemId);
         if(!item) return;
         const update={};
