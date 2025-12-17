@@ -97,7 +97,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._onChangeSkillsBound = this._onChangeSkills.bind(this);
         this._onDropBound = this._onDropItems.bind(this);
         this._OnModifyManeuverWeaponLinkedBound = this._OnModifyManeuverWeaponLinked.bind(this);
-        this.__OnModifyManeuverTypeBound = this._OnModifyManeuverType.bind(this);
+        this._OnModifyManeuverTypeBound = this._OnModifyManeuverType.bind(this);
     }
 
     static _onClickTab(event) {
