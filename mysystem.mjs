@@ -96,6 +96,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._onChangeStatBound = this._onChangeStat.bind(this);
         this._onChangeSkillsBound = this._onChangeSkills.bind(this);
         this._onDropBound = this._onDropItems.bind(this);
+        this._OnModifyManeuverWeaponLinkedBound = this._OnModifyManeuverWeaponLinked.bind(this);
+        this.__OnModifyManeuverTypeBound = this._OnModifyManeuverType.bind(this);
     }
 
     static _onClickTab(event) {
@@ -162,6 +164,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.element.querySelectorAll('input[name*="system.skills"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSkillsBound)
         );
+
+        this.element.querySelectorAll('select[name="system.weaponLinked"]').forEach(sel =>
+            sel.addEventListener("change", this._OnModifyManeuverWeaponLinkedBound)
+        );
+
+        this.element.querySelectorAll('select[name="system.maneuverType"]').forEach(sel =>
+            sel.addEventListener("change", this._OnModifyManeuverTypeBound)
+        );
+
 
         if (!this._dropListenerBound) {
             this.element.addEventListener("drop", this._onDropBound);
@@ -566,6 +577,30 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         await this.document.update({ "system.subculture": subCulture });
 
+    }
+
+    async _OnModifyManeuverWeaponLinked(event){
+        event.preventDefault();
+		event.stopPropagation();
+        const value = event.target.value;
+        const itemId = event.dataset.itemId;
+        const item = this.document.items.get(itemId);
+        if(!item) return;
+        const update={};
+        update[`system.weaponLinked`] = value;
+        await item.update(update);
+    }
+
+    async _OnModifyManeuverType(event){
+        event.preventDefault();
+		event.stopPropagation();
+        const value = event.target.value;
+        const itemId = event.dataset.itemId;
+        const item = this.document.items.get(itemId);
+        if(!item) return;
+        const update={};
+        update[`system.maneuverType`] = value;
+        await item.update(update);
     }
 
     static async #_OnPrintItem(event, target){
