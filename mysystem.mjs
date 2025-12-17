@@ -49,7 +49,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             equipWeapon: function(event, target){this._onEquipWeapon(event, target) ;},
             unequipWeapon: function(event, target){this._onUnequipWeapon(event, target) ;},
             attack: function(event, target){this._onAttack(event, target);},
-            defense: function(event, target){ this._onDefense(event, target);}
+            defense: function(event, target){ this._onDefense(event, target);},
+            maneuver: function(event, target){ this._onPerformManeuver(event, target);}
         }
     }
     static PARTS = {
@@ -358,8 +359,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         })
     }
 
-        _onDefense(event, target){
-                event.preventDefault();
+    _onDefense(event, target){
+        event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
         const options =
             Object.entries(AttackTypes)
@@ -461,6 +462,19 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             content:message,
             rolls: [roll],
         })
+    }
+
+    _onPerformManeuver(event, target){
+        const itemId = target.dataset.itemId;
+        const item = this.document.items.get(itemId);
+        if(!item) return;
+        target.dataset.itemSkillkey = item.system.skill;
+        if(item.system.maneuverType == "attack"){
+            this._onAttack(event, target);
+        }
+        else if(item.system.maneuverType == "defense"){
+            this._onDefense(event, target);
+        }
     }
 
     async _onChangeStat(event){
