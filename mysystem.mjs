@@ -467,12 +467,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     _onPerformManeuver(event, target){
         const weaponName = target.dataset.weaponName;
         const weaponLinked = this.document.items.getName(weaponName);
-        if(!item) return;
+        if(!weaponLinked) return;
         target.dataset.itemSkillkey = weaponLinked.system.skill;
-        if(item.system.maneuverType == "attack"){
+        if(weaponLinked.system.maneuverType == "attack"){
             this._onAttack(event, target);
         }
-        else if(item.system.maneuverType == "defense"){
+        else if(weaponLinked.system.maneuverType == "defense"){
             this._onDefense(event, target);
         }
     }
