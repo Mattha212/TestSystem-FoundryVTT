@@ -1102,7 +1102,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
         event.preventDefault();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
         const itemIndex = event.target.dataset.itemIndex;
-        const oldSkill = event.dataset.skill;
+        const oldSkill = event.target.dataset.skill;
         const newSkill = event.value;
 
         if (oldSkill === newSkill) return;

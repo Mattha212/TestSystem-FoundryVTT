@@ -4,10 +4,10 @@
     </h2>
     <button type="button" data-action="addSkills">Add skill</button>
     {{#each system.skillsAllowed as |allowed index|}}
-        <li class="item" data-item-id="{{this}}" data-skill="{{skill}}" data-item-index = "{{index}}">
+        <li class="item">
             {{this}}
         </li>
-        <select name="system.skillsAllowed" data-item-id="{{this.id}}">
+        <select name="system.skillsAllowed" data-skill="{{skill}}" data-item-index = "{{index}}">
             <option value="">Select skill</option>
             {{#each ../system.skills}}
                 <option value ="{{this}}" {{#if (eq allowed this)}}selected{{/if}}>
