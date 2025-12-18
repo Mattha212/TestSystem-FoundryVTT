@@ -1,0 +1,20 @@
+<form class="FightingSchool-sheet">
+    <h2>
+        <input type="text" name="name" value="{{item.name}}" />
+    </h2>
+    <button type="button" data-action="addSkills">Add skill</button>
+    {{#each skillsAllowed}}
+        <li class="item" data-item-id="{{this}}">
+            {{this}}
+        </li>
+        <select name="system.skillAllowed">
+            <option value="">Select skill</option>
+            {{#each system.skills}}
+                <option value ="{{this}}" {{#if (eq skillsAllowed this)}}selected{{/if}}>
+                    {{this}}
+                </option>
+            {{/each}}
+        </select>
+        <button type="button" data-action="removeSkill" data-skill-name="{{this}}">Remove Skill</button>
+    {{/each}}
+</form>

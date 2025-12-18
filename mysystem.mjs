@@ -465,8 +465,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     _onPerformManeuver(event, target){
-        const weaponName = target.dataset.weaponName;
-        const weaponLinked = this.document.items.getName(weaponName);
+        const weaponLinked = this.document.system.equipment.Weapon;
         const itemId = target.dataset.itemId;
         const item = this.document.items.get(itemId);
         if(!weaponLinked) return;
@@ -1053,6 +1052,64 @@ class FightingManeuverSheet extends InfoObjectSheet{
     }
 }
 
+class FightingSchoolSheet extends InfoObjectSheet{
+        static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addSkills: function (event, target) { this._onAddingSkill(event, target);},
+        }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/fightingschool-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+
+    constructor(...args) {
+        super(...args);
+        this._onChangingSkillAllowedBound = this._onChangingSkillAllowed.bind(this);
+    }
+    async _onAddingSkill(event, target){
+        event.preventDefault();
+        const skillsAllowed = foundry.duplicate(this.document.system.skillsAllowed ?? []);
+        skillsAllowed.push("new skill");
+        await this.document.update({
+            "system.skillsAllowed":skillsAllowed
+        });
+    }
+    async _onRemoveSkill(event, target){
+        event.preventDefault();
+        const skillsAllowed = foundry.duplicate(this.document.system.skillsAllowed);
+        const skillname= target.dataset.skillName;
+        const index = skillsAllowed.findIndex(skillname);
+        skillsAllowed.slice(1,index);
+        await this.document.update({
+            "system.skillsAllowed": skillsAllowed
+        });
+    }
+
+    _onChangingSkillAllowed(event){
+        
+    }
+
+    _onRender(context, options){
+        super._onRender(context.options);
+        this.element.querySelectorAll('select[name="skillAllowed"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangingSkillAllowedBound)
+        );
+    }
+
+}
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
@@ -1082,7 +1139,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 });
 
 Hooks.on("preCreateItem", (item, data, options, userId)=>{
-    if(data.type == "Weapon"){
+    if(data.type == "Weapon" || data.type == "Fighting School" ){
         const system = data.system ?? {};
         system.skills = [];
         for(const [skill,list] of Object.entries(Fighting)){
@@ -1138,6 +1195,11 @@ Hooks.once("init", async ()=>{
 
     foundry.documents.collections.Items.registerSheet("testsystem", FightingManeuverSheet, {
         types:["Fighting Maneuver"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", FightingSchoolSheet, {
+        types:["Fighting School"],
         makeDefault:true
     });
 

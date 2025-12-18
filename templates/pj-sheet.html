@@ -200,14 +200,6 @@
                 <span class="ManoeuveurName">{{this.name}}</span>
                 <span class="ManoeuverCost">{{this.system.cost}}</span>
                 {{#if this.system.rollable}}
-                    <select name="system.weaponLinked" data-item-id="{{this.id}}">
-                        <option value="">-- Sélectionne une arme --</option>
-                        {{#each ../weapons}}
-                            <option value="{{this.name}}" {{#if (eq ../system.weaponLinked this.name)}}selected{{/if}}>
-                            {{this.name}}
-                            </option>
-                        {{/each}}                        
-                    </select>
                     <select name="system.maneuverType" data-item-id="{{this.id}}">
                         <option value=""> Select Attack Type</option>
                         {{#each ../maneuverTypes}}
@@ -216,7 +208,7 @@
                             </option>
                         {{/each}}
                     </select>
-                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}" data-weapon-name ="{{this.system.weaponLinked}}">Perform</button>
+                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}">Perform</button>
                 {{/if}}
             </li>
             {{/each}}
