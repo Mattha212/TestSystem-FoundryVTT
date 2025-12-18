@@ -1098,8 +1098,18 @@ class FightingSchoolSheet extends InfoObjectSheet{
         });
     }
 
-    _onChangingSkillAllowed(event){
-        
+    async _onChangingSkillAllowed(event){
+        event.preventDefault();
+        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
+        const itemIndex = event.target.dataset.itemIndex;
+        const oldSkill = select.dataset.prev;
+        const newSkill = select.value;
+
+        if (oldSkill === newSkill) return;
+        skillsAllowed[itemIndex] = newSkill;
+        await this.document.update({
+            "system.skillsAllowed": skillsAllowed
+        });
     }
 
     _onRender(context, options){

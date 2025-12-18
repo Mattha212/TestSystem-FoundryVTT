@@ -3,11 +3,11 @@
         <input type="text" name="name" value="{{item.name}}" />
     </h2>
     <button type="button" data-action="addSkills">Add skill</button>
-    {{#each system.skillsAllowed as |allowed|}}
-        <li class="item" data-item-id="{{this}}">
+    {{#each system.skillsAllowed as |allowed index|}}
+        <li class="item" data-item-id="{{this}}" data-skill="{{skill}}" data-item-index = "{{index}}>
             {{this}}
         </li>
-        <select name="system.skillsAllowed">
+        <select name="system.skillsAllowed" data-item-id="{{this.id}}">
             <option value="">Select skill</option>
             {{#each ../system.skills}}
                 <option value ="{{this}}" {{#if (eq allowed this)}}selected{{/if}}>
