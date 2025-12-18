@@ -1114,7 +1114,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
 
     _onRender(context, options){
         super._onRender(context.options);
-        this.element.querySelectorAll('select[name="skillAllowed"]').forEach(inp =>
+        this.element.querySelectorAll('select[name="system.skillsAllowed"]').forEach(inp =>
             inp.addEventListener("change", this._onChangingSkillAllowedBound)
         );
     }
