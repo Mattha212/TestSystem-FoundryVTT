@@ -1081,7 +1081,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
     }
     async _onAddingSkill(event, target){
         event.preventDefault();
-        const skillsAllowed = foundry.duplicate(this.document.system.skillsAllowed ?? []);
+        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed ?? []);
         skillsAllowed.push("new skill");
         await this.document.update({
             "system.skillsAllowed":skillsAllowed
@@ -1089,7 +1089,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
     }
     async _onRemoveSkill(event, target){
         event.preventDefault();
-        const skillsAllowed = foundry.duplicate(this.document.system.skillsAllowed);
+        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
         const skillname= target.dataset.skillName;
         const index = skillsAllowed.findIndex(skillname);
         skillsAllowed.slice(1,index);
