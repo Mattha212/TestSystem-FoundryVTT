@@ -1063,19 +1063,10 @@ class FightingSchoolSheet extends InfoObjectSheet{
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions: {
-            addSkills: {
-                handler: "_onAddingSkill",
-                event: "click"
-            },
-            changeSkillAllowed: {
-                handler: "_onChangingSkillAllowed",
-                event: "change"
-            },
-            removeSkill: {
-                handler: "_onRemoveSkill",
-                event: "click"
-            }
+        actions:{
+            addSkills: function (event, target) { this._onAddingSkill(event, target);},
+            removeSkill: function (event, target) {this._onRemoveSkill(event,target);},
+            changeSkillAllowed: function(event, target) {this._onChangingSkillAllowed(event, target);}
         }
     }
 
@@ -1115,6 +1106,12 @@ class FightingSchoolSheet extends InfoObjectSheet{
         await this.document.update({
             "system.skillsAllowed": skillsAllowed
         });
+    }
+    _onRender(event){
+        super._onRender(context, options);
+        this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
+            sel.addEventListener("change", this._onChangeSkillBound)
+        );
     }
 
 }
