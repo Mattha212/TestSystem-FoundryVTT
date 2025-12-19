@@ -1065,7 +1065,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
         tag: 'form',
         form:{
             handler:this.onSubmitForm,
-            submitOnChange: false,
+            submitOnChange: true,
             closeOnSubmit: false
         },
         actions:{
