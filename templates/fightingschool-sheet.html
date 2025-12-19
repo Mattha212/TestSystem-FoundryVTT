@@ -10,7 +10,7 @@
         <select   name="system.skillAllowed" data-skill="{{allowed}}" data-item-index = "{{index}}">
             <option value="">Select skill</option>
             {{#each ../system.skills}}
-                <option value ="{{this}}" {{#if (eq allowed this)}}selected{{/if}}>
+                <option value ="{{this}}" {{#if (eq allowed this.name)}}selected{{/if}}>
                     {{this}}
                 </option>
             {{/each}}
