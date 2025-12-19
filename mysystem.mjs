@@ -880,16 +880,19 @@ class TraitSheet extends InfoObjectSheet{
             closeOnSubmit: false
         },
         actions: {
-  rename: function(event, target) {
-    this.document.update({ name: target.value });
-  }
-}
+            rename: function(event, target) {
+                this._onRename(event, target);
+            }
+        }
     }
     static PARTS = {
         main : {
             template : "systems/testsystem/templates/trait-sheet.html",
             scrollable: ["", ".tab"],
         }
+    }
+    async _onRename(event, target){
+        await this.document.update({ name: target.value });
     }
 }
 
