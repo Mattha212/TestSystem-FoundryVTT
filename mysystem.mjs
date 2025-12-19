@@ -1101,8 +1101,6 @@ class FightingSchoolSheet extends InfoObjectSheet{
         const itemIndex = event.target.dataset.itemIndex;
         const oldSkill = event.target.dataset.skill;
         const newSkill = event.target.value;
-
-        if (oldSkill === newSkill) return;
         skillsAllowed[itemIndex] = newSkill;
         await this.document.update({
             "system.skillsAllowed": skillsAllowed
