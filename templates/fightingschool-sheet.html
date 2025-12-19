@@ -7,7 +7,7 @@
         <li class="item">
             {{this}}
         </li>
-        <select   data-action="changeSkillAllowed" data-skill="{{allowed}}" data-item-index = "{{index}}">
+        <select data-event="change"  data-action="changeSkillAllowed" data-skill="{{allowed}}" data-item-index = "{{index}}">
             <option value="">Select skill</option>
             {{#each ../system.skills}}
                 <option value ="{{this}}" {{#if (eq allowed this)}}selected{{/if}}>
