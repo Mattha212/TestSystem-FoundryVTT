@@ -1065,7 +1065,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
         tag: 'form',
         form:{
             handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1117,7 +1117,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
             "system.skillsAllowed": skillsAllowed
         });
     }
-    _onRender(event, options){
+    _onRender(context, options){
         super._onRender(context, options);
         this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSkillAllowedBound)
