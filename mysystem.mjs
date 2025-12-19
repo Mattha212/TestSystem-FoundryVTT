@@ -1046,25 +1046,12 @@ class FightingManeuverSheet extends InfoObjectSheet{
         }
     }
 
-    _onRender(event, options){
-        super._onRender(event, options);
-        this.element.querySelectorAll('select[name="system.school"]').forEach(sel =>
-            sel.addEventListener("change", this._onChangeSchoolBound)
-        );
-    }
-
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         const allSchools = game.items.filter(i=>i.type === "Fighting School");
         context.schools = allSchools;
         return context;
     }
-
-    constructor(...args){
-        super(...args);
-        this._onChangeSchoolBound = this._onChangeSchool.bind(this);
-    }
-
     static async onSubmitForm(event, form, formData) {
         formData["system.rollable"] = !!formData["system.rollable"];
         return super.onSubmitForm(event,form, formData);
@@ -1096,6 +1083,10 @@ class FightingSchoolSheet extends InfoObjectSheet{
         }
     }
 
+    constructor(...args){
+        super(...args);
+        this._onChangeSkillAllowedBound = this._onChangingSkillAllowed.bind(this);
+    }
     async _onAddingSkill(event, target){
         event.preventDefault();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed ?? []);
@@ -1104,7 +1095,6 @@ class FightingSchoolSheet extends InfoObjectSheet{
             "system.skillsAllowed":skillsAllowed
         });
     }
-
     async _onRemoveSkill(event, target){
         event.preventDefault();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
@@ -1127,6 +1117,12 @@ class FightingSchoolSheet extends InfoObjectSheet{
         await this.document.update({
             "system.skillsAllowed": skillsAllowed
         });
+    }
+    _onRender(event, options){
+        super._onRender(context, options);
+        this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
+            sel.addEventListener("change", this._onChangeSkillAllowedBound)
+        );
     }
 
 }
