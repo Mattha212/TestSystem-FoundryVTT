@@ -1076,6 +1076,11 @@ class FightingSchoolSheet extends InfoObjectSheet{
             scrollable: ["", ".tab"],
         }
     }
+
+    constructor(...args){
+        super(...args);
+        this._onChangeSkillAllowedBound = this._onChangingSkillAllowed.bind(this);
+    }
     async _onAddingSkill(event, target){
         event.preventDefault();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed ?? []);
@@ -1110,7 +1115,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
     _onRender(event, options){
         super._onRender(context, options);
         this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
-            sel.addEventListener("change", this._onChangeSkillBound)
+            sel.addEventListener("change", this._onChangeSkillAllowedBound)
         );
     }
 
