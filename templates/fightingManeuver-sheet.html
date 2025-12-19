@@ -7,7 +7,7 @@
         <select name="system.school">
             <option value="">Select a fighting school</option>
             {{#each schools}}
-                <option value="{{this.name}}" {{#if (eq system.school this.name)}}selected{{/if}}>{{this.name}}</option>
+                <option value="{{this.name}}" {{#if (eq ../system.school this.name)}}selected{{/if}}>{{this.name}}</option>
             {{/each}}
         </select>
     </div>
