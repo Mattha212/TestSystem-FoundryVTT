@@ -1107,7 +1107,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
             "system.skillsAllowed": skillsAllowed
         });
     }
-    _onRender(event){
+    _onRender(event, options){
         super._onRender(context, options);
         this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSkillBound)
