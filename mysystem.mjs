@@ -1021,8 +1021,7 @@ class WeaponSheet extends InfoObjectSheet{
 		event.stopPropagation();
 
         const skill = event.target.value;
-        await this.document.update({ "system.skill": skill });
-        
+        await this.document.update({ "system.skill": skill });  
     }
 }
 
@@ -1066,7 +1065,7 @@ class FightingSchoolSheet extends InfoObjectSheet{
         tag: 'form',
         form:{
             handler:this.onSubmitForm,
-            submitOnChange: false,
+            submitOnChange: true,
             closeOnSubmit: false
         },
         actions:{
