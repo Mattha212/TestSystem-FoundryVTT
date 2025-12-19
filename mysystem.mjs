@@ -1063,9 +1063,19 @@ class FightingSchoolSheet extends InfoObjectSheet{
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addSkills: function (event, target) { this._onAddingSkill(event, target);},
-            changeSkillAllowed: function(event, target) {this._onChangingSkillAllowed(event, target);}
+        actions: {
+            addSkills: {
+                handler: "_onAddingSkill",
+                event: "click"
+            },
+            changeSkillAllowed: {
+                handler: "_onChangingSkillAllowed",
+                event: "change"
+            },
+            removeSkill: {
+                handler: "_onRemoveSkill",
+                event: "click"
+            }
         }
     }
 
