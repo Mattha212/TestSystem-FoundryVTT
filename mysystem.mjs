@@ -878,7 +878,12 @@ class TraitSheet extends InfoObjectSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
-        }
+        },
+        actions: {
+  rename: function(event, target) {
+    this.document.update({ name: target.value });
+  }
+}
     }
     static PARTS = {
         main : {
