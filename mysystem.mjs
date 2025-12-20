@@ -466,15 +466,48 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     _onPerformManeuver(event, target){
         const weaponLinked = this.document.system.equipment.Weapon;
-        const itemId = target.dataset.itemId;
-        const item = this.document.items.get(itemId);
+        const maneuverId = target.dataset.itemId;
+        const maneuver = this.document.items.get(maneuverId);
+        const schoolOfManeuver = game.items.filter(i=> i.type === "Fighting School" && i.name===maneuver.system.school);
+
         if(!weaponLinked) return;
-        target.dataset.itemSkillkey = weaponLinked.system.skill;
-        if(item.system.maneuverType == "attack"){
-            this._onAttack(event, target);
+        const weaponSkill = weaponLinked.system.skill;
+        target.dataset.itemSkillkey = weaponSkill;
+
+        if(schoolOfManeuver.system.skillsAllowed.includes(weaponSkill)){
+            if(maneuver.system.maneuverType == "attack"){
+                this._onAttack(event, target);
+            }
+            else if(maneuver.system.maneuverType == "defense"){
+                this._onDefense(event, target);
+            }
         }
-        else if(item.system.maneuverType == "defense"){
-            this._onDefense(event, target);
+        else{
+             const content =`
+        <form class = "maneuver-roll-confirmation-form">
+            <div class = "maneuver-roll-confirmation-group" >
+                <label>Your weapon is not appropriate for this kind of maneuver. Are you certain you want to try it?</label>
+            </div>
+        </form>
+        `;
+        new Dialog({
+            title: `Confirmation`,
+            content,
+            buttons:{
+                rollAttack:{
+                    label: "Roll Attack",
+                    callback: html => this._onAttack(event, target)
+                },
+                rollDefense:{
+                    label: "Roll Defense",
+                    callback: html => this._onDefense(event, target)
+                },
+                cancel:{
+                    label: "Cancel"
+                }
+            },
+                default: "roll"
+            }).render(true);
         }
     }
 
