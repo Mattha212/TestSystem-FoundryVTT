@@ -896,7 +896,7 @@ class CultureSheet extends InfoObjectSheet{
         tag: 'form',
         form:{
             handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         }
     }
@@ -906,8 +906,6 @@ class CultureSheet extends InfoObjectSheet{
             scrollable: ["", ".tab"],
         }
     }
-
-
 }
 
 class SubcultureSheet extends InfoObjectSheet{
