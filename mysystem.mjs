@@ -896,7 +896,7 @@ class CultureSheet extends InfoObjectSheet{
         tag: 'form',
         form:{
             handler:this.onSubmitForm,
-            submitOnChange: false,
+            submitOnChange: true,
             closeOnSubmit: false
         }
     }
