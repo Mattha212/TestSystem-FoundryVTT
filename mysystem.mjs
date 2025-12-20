@@ -471,7 +471,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const schoolOfManeuver = game.items.filter(i=> i.type === "Fighting School" && i.name===maneuver.system.school);
 
         if(!weaponLinked) return;
-        const weaponSkill = weaponLinked.system.skill;
+        const weaponSkill = weaponLinked.skill;
         target.dataset.itemSkillkey = weaponSkill;
 
         if(schoolOfManeuver.system.skillsAllowed.includes(weaponSkill)){
