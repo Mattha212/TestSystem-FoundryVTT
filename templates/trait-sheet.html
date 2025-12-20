@@ -1,6 +1,6 @@
 <form class="trait-sheet">
     <h2>
-        <input type="text" value="{{item.name}}" data-action="rename">
+        <input type="text" name="name" value="{{item.name}}" />
     </h2>
     <div>
         <label>System</label>
@@ -10,26 +10,26 @@
         <label>Type</label>
          <textarea name="system.type"></textarea>
     </div>
-    <div>
-        <label>Effects</label>
-        <button type="button" class="add-effect">Add effect</button>
+<div>
+    <label>Effects</label>
+    <button type="button" class="add-effect">Add effect</button>
 
-        <ul class="effects-list">
-            {{#each item.effects.contents}}
-            <li>
-                <span>{{this.name}}</span>
-                <button type="button"
-                        class="edit-effect"
-                        data-effect-id="{{this.id}}">
-                    Edit effect
-                </button>
-                <button type="button"
-                        class="remove-effect"
-                        data-effect-id="{{this.id}}">
-                    Remove effect
-                </button>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
+    <ul class="effects-list">
+        {{#each item.effects.contents}}
+        <li>
+            <span>{{this.name}}</span>
+            <button type="button"
+                    class="edit-effect"
+                    data-effect-id="{{this.id}}">
+                Edit effect
+            </button>
+            <button type="button"
+                    class="remove-effect"
+                    data-effect-id="{{this.id}}">
+                Remove effect
+            </button>
+        </li>
+        {{/each}}
+    </ul>
+</div>
 </form>

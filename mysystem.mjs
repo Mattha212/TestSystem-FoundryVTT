@@ -878,11 +878,6 @@ class TraitSheet extends InfoObjectSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
-        },
-        actions: {
-            rename: function(event, target) {
-                this._onRename(event, target);
-            }
         }
     }
     static PARTS = {
@@ -890,9 +885,6 @@ class TraitSheet extends InfoObjectSheet{
             template : "systems/testsystem/templates/trait-sheet.html",
             scrollable: ["", ".tab"],
         }
-    }
-    async _onRename(event, target){
-        await this.document.update({ name: target.value });
     }
 }
 
