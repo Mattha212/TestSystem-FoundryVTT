@@ -140,7 +140,7 @@
             <ul>
             {{#each armors}}
                 <li class="item" data-item-id="{{this.id}}">
-                    <span data-action="printItem">{{this.name}}</span>
+                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                     <span>{{this.system.weight}} kg</span>
                     <span>{{this.system.protection}}</span>
                     <span>{{this.system.bulk}}</span>
@@ -170,7 +170,7 @@
             <ul>
             {{#each weapons}}
                 <li class="item" data-item-id="{{this.id}}">
-                    <span data-action="printItem">{{this.name}}</span>
+                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                     <span>{{this.system.weight}} kg</span>
 
                     <span class="weapon-efficiency">
@@ -197,7 +197,7 @@
             <h3>Fighting Maneuveurs</h3>
             {{#each fightingManeuvers}}
             <li class="item" data-item-id="{{this.id}}">
-                <span class="ManoeuveurName">{{this.name}}</span>
+                <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                 <span class="ManoeuverCost">{{this.system.cost}}</span>
                 {{#if this.system.rollable}}
                     <select name="system.maneuverType" data-item-id="{{this.id}}">
@@ -222,7 +222,7 @@
     <ol class="item-list">
       {{#each objects}}
         <li class="item" data-item-id="{{this.id}}">
-          <span class="itemName">{{this.name}}</span>
+          <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
           <span class="item-weight">{{this.system.weight}} kg</span>
         </li>
       {{/each}}
