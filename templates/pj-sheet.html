@@ -220,10 +220,11 @@
   {{!-- Inventory Tab --}}
   <div class="tab {{tabs.inventoryTab.cssClass}}" data-tab="{{tabs.inventoryTab.id}}" data-group="{{tabs.inventoryTab.group}}" data-part="{{tabs.inventoryTab.id}}">
     <ol class="item-list">
-      {{#each objects}}
+      {{#each containers}}
         <li class="item" data-item-id="{{this.id}}">
           <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-          <span class="item-weight">{{this.system.weight}} kg</span>
+          <span class="item-weight">{{this.system.weightUsed}} kg</span>
+          <span class="item-weight">{{this.system.weightRemaining}} kg</span>
         </li>
       {{/each}}
     </ol>

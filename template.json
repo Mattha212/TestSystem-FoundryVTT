@@ -25,7 +25,7 @@
   }
 },
   "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Fighting Maneuver", "Fighting School"],
+    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Fighting Maneuver", "Fighting School", "Container"],
     "Object":{
       "description":"",
       "weight":0
@@ -74,6 +74,14 @@
     },
     "Fighting School":{
       "skillsAllowed":[]
+    },
+    "Container":{
+      "maxSize":0,
+      "inventory":[],
+      "isUsed": false,
+      "weigthAllowed":0,
+      "weigthUsed":0,
+      "weigthRemaining":0
     }
   }
 }

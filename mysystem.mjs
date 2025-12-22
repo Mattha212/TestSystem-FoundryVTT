@@ -122,7 +122,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.skills = this.document.system.skills;
 
         context.traits = this.document.items.filter(i=>i.type === "Trait");
-        context.objects = this.document.items.filter(i=>i.type === "Object");
+        context.objects = this.document.items.filter(i=>i.type === "Containers");
         context.shields = this.document.items.filter(i=>i.type === "Shield");
         context.armors = this.document.items.filter(i=>i.type === "Armor");
         context.weapons = this.document.items.filter(i=>i.type === "Weapon");
@@ -208,6 +208,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             type: item.type,
             system: item.system || {}
         };
+        if(itemData.type === "Container"){
+            itemData.system.isUsed = true;
+        }
         
         await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
@@ -1057,7 +1060,7 @@ class WeaponSheet extends InfoObjectSheet{
 }
 
 class FightingManeuverSheet extends InfoObjectSheet{
-        static DEFAULT_OPTIONS = {
+    static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
@@ -1157,6 +1160,63 @@ class FightingSchoolSheet extends InfoObjectSheet{
 
 }
 
+class ContainerSheet extends InfoObjectSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/container-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+
+    constructor(...args){
+        super(...args);
+        this._onDropBound = this._onDropItems.bind(this);
+    }
+
+    _onRender(context, options){
+        if (!this._dropListenerBound) {
+            this.element.addEventListener("drop", this._onDropBound);
+            this.element.addEventListener("dragover", event => event.preventDefault());
+            this._dropListenerBound = true;
+        }
+    }
+
+    async _onDropItems(event){
+        event.preventDefault();
+        const dataTransfer = event.dataTransfer;
+        if (!dataTransfer) return;
+        const dataString = dataTransfer.getData("text/plain");
+        if (!dataString) return;
+
+        let itemData;
+
+        const parsed = JSON.parse(dataString);
+        const item = await fromUuid(parsed.uuid);
+        if(!item) return;
+        itemData = {
+            name: item.name || "Unnamed Item",
+            type: item.type,
+            system: item.system || {}
+        };
+
+        if(itemData.system.weigth < this.document.system.weigthRemaining) return;
+        
+        await this.document.createEmbeddedDocuments("Item", [itemData]);
+    }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
@@ -1246,6 +1306,11 @@ Hooks.once("init", async ()=>{
 
     foundry.documents.collections.Items.registerSheet("testsystem", FightingSchoolSheet, {
         types:["Fighting School"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ContainerSheet, {
+        types:["Container"],
         makeDefault:true
     });
 

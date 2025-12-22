@@ -1,0 +1,17 @@
+<div class="container-sheet">
+    <input type="text" name="name" value="{{item.name}}" />
+    <select name="system.maxSize">
+        <option value="">Select a maximal size</option>
+        {{#each sizes}}
+            <option value="{{this.name}}" {{#if (eq system.Maxsize this.name)}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+    </select>
+    {{#if system.isUsed}}
+        <label>{{this.system.weightRemaining}}</label>
+        <label>Containment:</label>
+            {{#each system.inventory as |object key|}}
+                <label>key</label>
+                <label>object.weigth</label>
+            {{/each}}
+    {{/if}}
+</div>
