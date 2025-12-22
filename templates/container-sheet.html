@@ -9,9 +9,9 @@
     {{#if system.isUsed}}
         <label>{{this.system.weightRemaining}}</label>
         <label>Containment:</label>
-            {{#each containedItems as |object key|}}
-                <label>{{key}}</label>
-                <label>{{object.weigth}}</label>
+            {{#each containedItems}}
+                <label>{{this.name}}</label>
+                <label>{{this.system.weigth}}</label>
             {{/each}}
     {{/if}}
 </div>
