@@ -1240,7 +1240,7 @@ class ContainerSheet extends InfoObjectSheet{
         contents.push(item);
 
         await this.document.update({
-            "system.content":contents
+            "system.contents":contents
         });
 
     }
