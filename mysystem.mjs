@@ -1237,7 +1237,7 @@ class ContainerSheet extends InfoObjectSheet{
         }
         const contents = Array.from(this.document.system.contents ?? []);
         if(contents.includes(item.uuid))return;
-        contents.push(item);
+        contents.push(item.uuid);
 
 
         await this.document.update({
