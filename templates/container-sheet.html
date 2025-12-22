@@ -9,7 +9,7 @@
     {{#if system.isUsed}}
         <label>{{this.system.weightRemaining}}</label>
         <label>Containment:</label>
-            {{#each system.inventory as |object key|}}
+            {{#each containedItems as |object key|}}
                 <label>key</label>
                 <label>object.weigth</label>
             {{/each}}

@@ -77,7 +77,7 @@
     },
     "Container":{
       "maxSize":0,
-      "inventory":[],
+      "contents":[],
       "isUsed": false,
       "weigthAllowed":0,
       "weigthUsed":0,

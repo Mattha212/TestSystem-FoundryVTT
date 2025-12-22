@@ -218,6 +218,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     async _onDeleteItem(event,target){
         event.preventDefault();
         const itemToRemoveId = target.dataset.itemId;
+        const item = this.document.items.get(itemToRemoveId).toObject();
+        if(item.type === "Container"){
+            for(const element of item.system.contents){
+                const id = element.id;
+                await this.document.deleteEmbeddedDocuments("Item", [id]);
+            }
+        }
+
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
         const equipment = this.document.system.equipment;
         let typeOfItem = null;
@@ -1193,6 +1201,17 @@ class ContainerSheet extends InfoObjectSheet{
         }
     }
 
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        const items = [];
+        for (const uuid of this.document.system.contents ?? []) {
+            const item = await fromUuid(uuid);
+            if (item) items.push(item);
+        }
+        context.containedItems = items;
+        return context;
+    } 
+
     async _onDropItems(event){
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
@@ -1200,20 +1219,30 @@ class ContainerSheet extends InfoObjectSheet{
         const dataString = dataTransfer.getData("text/plain");
         if (!dataString) return;
 
-        let itemData;
-
         const parsed = JSON.parse(dataString);
-        const item = await fromUuid(parsed.uuid);
+        let item = await fromUuid(parsed.uuid);
         if(!item) return;
-        itemData = {
-            name: item.name || "Unnamed Item",
-            type: item.type,
-            system: item.system || {}
-        };
+        if (item.uuid === this.document.uuid) return;
+        if(item.system.weigth < this.document.system.weigthRemaining) return;
 
-        if(itemData.system.weigth < this.document.system.weigthRemaining) return;
-        
-        await this.document.createEmbeddedDocuments("Item", [itemData]);
+        if(!item.actor){
+            const actor = this.document.actor;
+            const [embedded] = await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+            item = embedded;
+        }
+
+        if (item.actor.id !== this.document.actor.id) {
+            ui.notifications.warn("Item must belong to the same actor.");
+            return;
+        }
+        const contents = Array.from(this.document.system.contents ?? []);
+        if(contents.includes(item.uuid))return;
+        contents.push(item);
+
+        await this.document.update({
+            "system.content":contents
+        });
+
     }
 }
 
