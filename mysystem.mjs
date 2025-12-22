@@ -122,7 +122,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.skills = this.document.system.skills;
 
         context.traits = this.document.items.filter(i=>i.type === "Trait");
-        context.objects = this.document.items.filter(i=>i.type === "Container");
+        context.containers = this.document.items.filter(i=>i.type === "Container");
         context.shields = this.document.items.filter(i=>i.type === "Shield");
         context.armors = this.document.items.filter(i=>i.type === "Armor");
         context.weapons = this.document.items.filter(i=>i.type === "Weapon");
