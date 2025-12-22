@@ -59,7 +59,7 @@
     "Weapon":{
       "traits":"",
       "efficiency":{"textile":0,"fluide":0,"solid":0},
-      "weigth":0,
+      "weight":0,
       "bulk":0,
       "hands":1,
       "reach":0,
@@ -79,9 +79,9 @@
       "maxSize":0,
       "contents":[],
       "isUsed": false,
-      "weigthAllowed":0,
-      "weigthUsed":0,
-      "weigthRemaining":0
+      "weightAllowed":0,
+      "weightUsed":0,
+      "weightRemaining":0
     }
   }
 }
