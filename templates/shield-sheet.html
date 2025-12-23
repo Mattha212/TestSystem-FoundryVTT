@@ -1,11 +1,10 @@
 <div class="object-sheet">
-    <div class="shield-sheet">
-        <div class="object-header">
-            <h2>
-                <input type="text" name="name" value="{{item.name}}" />
-            </h2>
-        </div>
-        <div class="object-body">
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+        <section class="object-body">
             <div>
                 <label>Protection</label>
                 <input type ="number" name="system.protection" value="{{system.protection}}"/>
@@ -32,6 +31,6 @@
                     <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
                 {{/each}}
             </select>
-        </div>
+        </section>
     </div>
 </div>
