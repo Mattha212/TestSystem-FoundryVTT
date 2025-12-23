@@ -1095,7 +1095,7 @@ class ObjectSheet extends ObjectsItemsSheet{
     static PARTS = {
         main : {
             template : "systems/testsystem/templates/object-sheet.html",
-            scrollable: ["", ".object-body"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -1116,7 +1116,7 @@ class ShieldSheet extends ObjectsItemsSheet{
     static PARTS = {
         main : {
             template : "systems/testsystem/templates/shield-sheet.html",
-            scrollable: ["", ".object-body"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -1137,7 +1137,7 @@ class ArmorSheet extends ObjectsItemsSheet{
     static PARTS = {
         main : {
             template : "systems/testsystem/templates/armor-sheet.html",
-            scrollable: ["", ".object-body"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -1158,7 +1158,7 @@ class WeaponSheet extends ObjectsItemsSheet{
     static PARTS = {
         main : {
             template : "systems/testsystem/templates/weapon-sheet.html",
-            scrollable: ["", ".object-body"],
+            scrollable: [".object-body"],
         }
     }
 
