@@ -1,6 +1,6 @@
 import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
 import {AttackTypes, ManeuverTypes } from "./data/Actions.js"
-import { WeaponTraits, ArmorTraits, ShieldTraits } from "./data/Traits.js";
+import { ObjectSizes, ObjectSizeLabels } from "./data/Objects.js";
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
@@ -834,12 +834,17 @@ class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(fo
             scrollable: ["", ".tab"],
         }
     }
-    async _prepareContext(options){
+    async _prepareContext(options){ 
         const context = await super._prepareContext(options);    
         context.system = context.document.system;
         context.item = this.document;
+        context.objectSizes = ObjectSizes;
+        context.objectSizeLabels = ObjectSizeLabels;
+
         return context;
     }
+
+
 }
 
 class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
@@ -887,12 +892,9 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         context.effects = this.document.effects.contents;
 		context.system = this.document.system;
         context.item = this.document;
-        context.weapontraits = Object.keys(WeaponTraits).map(
-            k => k.replace(/([A-Z])/g, " $1").trim());
-        context.armortraits = Object.keys(ArmorTraits).map(
-            k => k.replace(/([A-Z])/g, " $1").trim());
-        context.shieldntraits = Object.keys(ShieldTraits).map(
-            k => k.replace(/([A-Z])/g, " $1").trim());
+        context.objectSizes = ObjectSizes;
+        context.objectSizeLabels = ObjectSizeLabels;
+
         return context;
     }
     static async onSubmitForm(event, form, formData) {
@@ -901,6 +903,9 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         let value;
         if(event.target.type == "checkbox"){
             value = event.target.checked;
+        }
+        else if(name === "system.size" || name === "system.maxSize"){
+            value = Number(event.target.value);
         }
         else{
             value = event.target.value;
@@ -1209,6 +1214,10 @@ class ContainerSheet extends InfoObjectSheet{
             if (item) items.push(item);
         }
         context.containedItems = items;
+
+        context.objectSizes = ObjectSizes;
+        context.objectSizeLabels = ObjectSizeLabels;
+
         return context;
     } 
 

@@ -2,16 +2,18 @@
     <input type="text" name="name" value="{{item.name}}" />
     <select name="system.maxSize">
         <option value="">Select a maximal size</option>
-        {{#each sizes}}
-            <option value="{{this.name}}" {{#if (eq system.Maxsize this.name)}}selected{{/if}}>{{this.name}}</option>
+        {{#each objectSizeLabels as |label value|}}
+            <option value="{{label}}" {{#if (eq ../system.maxsize value)}}selected{{/if}}>{{label}}</option>
         {{/each}}
     </select>
     {{#if system.isUsed}}
-        <label>{{this.system.weightRemaining}}</label>
+        <label>Weight remaining: {{this.system.weightRemaining}}</label>
+        <label>Weight used: {{this.system.weightUsed}}</label>
         <label>Containment:</label>
             {{#each containedItems}}
                 <label>{{this.name}}</label>
                 <label>{{this.system.weight}}</label>
+                <label>{{this.system.size}}</label>
             {{/each}}
     {{/if}}
 </div>

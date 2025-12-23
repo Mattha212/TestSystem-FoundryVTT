@@ -43,4 +43,10 @@
             {{/each}}
         </select>
     </div>
+    <select name="system.size">
+        <option value="">Select a size</option>
+        {{#each objectSizeLabels as |label value|}}
+            <option value="{{label}}" {{#if (eq ../system.size value)}}selected{{/if}}>{{label}}</option>
+        {{/each}}
+    </select>
 </div>

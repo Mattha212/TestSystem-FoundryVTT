@@ -28,7 +28,8 @@
     "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Fighting Maneuver", "Fighting School", "Container"],
     "Object":{
       "description":"",
-      "weight":0
+      "weight":0,
+      "size":0
     },
     "Trait":{
       "system":"",
@@ -46,7 +47,8 @@
       "protection":0,
       "weight": 0,
       "bulk":0,
-      "cost":0
+      "cost":0,
+      "size":0
     },
     "Armor":{
       "traits": "",
@@ -54,7 +56,8 @@
       "weight": 0,
       "bulk":0,
       "type": "",
-      "cost":0
+      "cost":0,
+      "size":0
     },
     "Weapon":{
       "traits":"",
@@ -64,7 +67,8 @@
       "hands":1,
       "reach":0,
       "cost":0,
-      "skill":""
+      "skill":"",
+      "size":0
     },
     "Fighting Maneuver":{
       "school":"",
