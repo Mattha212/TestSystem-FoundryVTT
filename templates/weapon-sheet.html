@@ -1,52 +1,58 @@
-<div class="armor-sheet">
-    <h2>
-        <input type="text" name="name" value="{{item.name}}" />
-    </h2>
-    <div>
-        <label>Efficiency</label>
-        {{#each system.efficiency as |value key|}}
-            <label>{{key}}</label>
-            <input type ="number" name="system.efficiency.{{key}}" value="{{value}}"/>
-        {{/each}}
+<div class="object-sheet">
+    <div class="weapon-sheet">
+        <div class="object-header">
+            <h2>
+                <input type="text" name="name" value="{{item.name}}" />
+            </h2>
+        </div>
+        <div class="object-body">
+            <div>
+                <label>Efficiency</label>
+                {{#each system.efficiency as |value key|}}
+                    <label>{{key}}</label>
+                    <input type ="number" name="system.efficiency.{{key}}" value="{{value}}"/>
+                {{/each}}
+            </div>
+            <div>
+                <label>Bulk</label>
+                <input type ="number" name="system.bulk" value="{{system.bulk}}"/>
+            </div>
+            <div>
+                <label>Cost</label>
+                <input type = "number" name="system.cost" value="{{system.cost}}"/>
+            </div>
+            <div>
+                <label>Hands</label>
+                <input type = "number" name="system.hands" value="{{system.hands}}"/>
+            </div>
+            <div>
+                <label>Reach</label>
+                <input type = "number" name="system.reach" value="{{system.reach}}"/>
+            </div>
+            <div>
+                <label>Traits</label>
+                <textarea name="system.traits">{{system.traits}}</textarea>
+            </div>
+            <div>
+                <label>Weight</label>
+                <input type="number" name="system.weight" value="{{system.weight}}"/>
+            </div>
+            <div>
+                <label>Skill related</label>
+                <select name="system.skill" id="skill">
+                    {{#each system.skills as |skill|}}
+                        <option value="{{skill}}" {{#if (eq ../system.skill skill )}}selected{{/if}}>
+                        {{skill}}
+                        </option>
+                    {{/each}}
+                </select>
+            </div>
+            <select name="system.size">
+                <option value="">Select a size</option>
+                {{#each objectSizeLabels as |label value|}}
+                    <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
+                {{/each}}
+            </select>
+        </div>
     </div>
-    <div>
-        <label>Bulk</label>
-        <input type ="number" name="system.bulk" value="{{system.bulk}}"/>
-    </div>
-    <div>
-        <label>Cost</label>
-        <input type = "number" name="system.cost" value="{{system.cost}}"/>
-    </div>
-    <div>
-        <label>Hands</label>
-        <input type = "number" name="system.hands" value="{{system.hands}}"/>
-    </div>
-    <div>
-        <label>Reach</label>
-        <input type = "number" name="system.reach" value="{{system.reach}}"/>
-    </div>
-    <div>
-        <label>Traits</label>
-         <textarea name="system.traits">{{system.traits}}</textarea>
-    </div>
-    <div>
-        <label>Weight</label>
-        <input type="number" name="system.weight" value="{{system.weight}}"/>
-    </div>
-    <div>
-        <label>Skill related</label>
-        <select name="system.skill" id="skill">
-            {{#each system.skills as |skill|}}
-                <option value="{{skill}}" {{#if (eq ../system.skill skill )}}selected{{/if}}>
-                {{skill}}
-                </option>
-            {{/each}}
-        </select>
-    </div>
-    <select name="system.size">
-        <option value="">Select a size</option>
-        {{#each objectSizeLabels as |label value|}}
-            <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
-        {{/each}}
-    </select>
 </div>
