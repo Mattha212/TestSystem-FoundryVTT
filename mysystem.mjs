@@ -30,13 +30,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             title: "Character sheet",
             resizable: true,
         },
-            dragDrop: [
-        {
-            dragSelector: null,dropSelector:".item-list"  
-        },
-		{
-			dragSelector: null, dropSelector: ".trait-list" 
-        }],
         actions:{
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
