@@ -844,6 +844,20 @@ class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(fo
         return context;
     }
 
+    static async onSubmitForm(event, form, formData) {
+		event.preventDefault()
+        const name = event.target.name;
+        let value;
+        if(name === "system.size"){
+            value = Number(event.target.value);
+        }
+        else{
+            value = event.target.value;
+        }
+        const update = {};
+		update[name] = value;
+        await this.document.update(update);
+    }
 
 }
 
