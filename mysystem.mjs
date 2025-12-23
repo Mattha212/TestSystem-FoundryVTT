@@ -833,6 +833,8 @@ class ObjectsItemsSheet extends InfoSheet{
         const context = await super._prepareContext(options);    
         context.objectSizes = ObjectSizes;
         context.objectSizeLabels = ObjectSizeLabels;
+        
+        return context;
     }
 
     static async onSubmitForm(event, form, formData) {
