@@ -1078,9 +1078,6 @@ class FightingManeuverSheet extends NonObjectItemsSheet{
         context.schools = allSchools;
         return context;
     }
-    static async onSubmitForm(event, form, formData) {
-
-    }
 }
 
 class ObjectSheet extends ObjectsItemsSheet{
