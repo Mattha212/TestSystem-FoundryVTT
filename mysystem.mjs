@@ -1079,8 +1079,7 @@ class FightingManeuverSheet extends NonObjectItemsSheet{
         return context;
     }
     static async onSubmitForm(event, form, formData) {
-        formData["system.rollable"] = !!formData["system.rollable"];
-        return super.onSubmitForm(event,form, formData);
+
     }
 }
 
