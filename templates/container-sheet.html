@@ -12,8 +12,10 @@
         <label>Containment:</label>
             {{#each containedItems}}
                 <label>{{this.name}}</label>
-                <label>{{this.system.weight}}</label>
-                <label>{{this.system.size}}</label>
+                <label>Weight: {{this.system.weight}}</label>
+                <label>Size: {{this.system.size}}</label>
+                <label>Quantity:</label>
+                <input type="number" name="this.system.quantity" value="{{this.system.quantity}}">
             {{/each}}
     {{/if}}
 </div>

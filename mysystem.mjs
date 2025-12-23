@@ -814,34 +814,32 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 }
 
-class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
+class InfoSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
 
-    static DEFAULT_OPTIONS = {
-        classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300
-    }
-    static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/object-sheet.html",
-            scrollable: ["", ".tab"],
-        }
-    }
-    async _prepareContext(options){ 
-        const context = await super._prepareContext(options);    
-        context.system = context.document.system;
-        context.item = this.document;
-        context.objectSizes = ObjectSizes;
-        context.objectSizeLabels = ObjectSizeLabels;
+    static DEFAULT_SUBJECT = "item";
+
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);   
+    	context.system = this.document.system;
+        context.item = this.document; 
 
         return context;
+    }
+}
+
+class ObjectsItemsSheet extends InfoSheet{
+
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        context.objectSizes = ObjectSizes;
+        context.objectSizeLabels = ObjectSizeLabels;
     }
 
     static async onSubmitForm(event, form, formData) {
 		event.preventDefault()
         const name = event.target.name;
         let value;
-        if(name === "system.size"){
+        if(name === "system.size" || name === "system.maxSize"){
             value = Number(event.target.value);
         }
         else{
@@ -850,13 +848,10 @@ class ObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(fo
         const update = {};
 		update[name] = value;
         await this.document.update(update);
-    }
-
+    }    
 }
 
-class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
-
-    static DEFAULT_SUBJECT = "item";
+class NonObjectItemsSheet extends InfoSheet{
 
     _onRender(context, options){
         super._onRender(context, options);
@@ -871,17 +866,21 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         );
     }
 
-    async _OnAddEffect(event){
-        event.preventDefault();
-        const effectData = {
-        name: "new Effect",
-        changes: [],
-        icon: "icons/svg/aura.svg",
-        origin: this.document.uuid,
-        };
-        await this.document.createEmbeddedDocuments("ActiveEffect", [effectData]);
+    static async onSubmitForm(event, form, formData) {
+		event.preventDefault()
+        const name = event.target.name;
+        let value;
+        if(event.target.type == "checkbox"){
+            value = event.target.checked;
+        }
+        else{
+            value = event.target.value;
+        }
+        const update = {};
+		update[name] = value;
+        await this.document.update(update);
     }
-  
+
     async _OnEditEffect(event){
         event.preventDefault();
         const effectId = event.currentTarget.dataset.effectId;
@@ -894,37 +893,27 @@ class InfoObjectSheet extends foundry.applications.api.HandlebarsApplicationMixi
         const effectId = event.currentTarget.dataset.effectId;
         await this.document.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
     }
+    
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         context.effects = this.document.effects.contents;
-		context.system = this.document.system;
-        context.item = this.document;
-        context.objectSizes = ObjectSizes;
-        context.objectSizeLabels = ObjectSizeLabels;
-
         return context;
     }
-    static async onSubmitForm(event, form, formData) {
-		event.preventDefault()
-        const name = event.target.name;
-        let value;
-        if(event.target.type == "checkbox"){
-            value = event.target.checked;
-        }
-        else if(name === "system.size" || name === "system.maxSize"){
-            value = Number(event.target.value);
-        }
-        else{
-            value = event.target.value;
-        }
-        const update = {};
-		update[name] = value;
-        await this.document.update(update);
-    }
 
+    async _OnAddEffect(event){
+        event.preventDefault();
+        const effectData = {
+        name: "new Effect",
+        changes: [],
+        icon: "icons/svg/aura.svg",
+        origin: this.document.uuid,
+        };
+        await this.document.createEmbeddedDocuments("ActiveEffect", [effectData]);
+    }
+  
 }
 
-class TraitSheet extends InfoObjectSheet{
+class TraitSheet extends NonObjectItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -944,7 +933,7 @@ class TraitSheet extends InfoObjectSheet{
     }
 }
 
-class CultureSheet extends InfoObjectSheet{
+class CultureSheet extends NonObjectItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -964,7 +953,7 @@ class CultureSheet extends InfoObjectSheet{
     }
 }
 
-class SubcultureSheet extends InfoObjectSheet{
+class SubcultureSheet extends NonObjectItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -986,14 +975,131 @@ class SubcultureSheet extends InfoObjectSheet{
 
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
-        context.system = context.document.system;
         const allCultures = game.items.filter(i=>i.type === "Culture");
         context.cultures = allCultures;
         return context;
     }
 }
 
-class ShieldSheet extends InfoObjectSheet{
+class FightingSchoolSheet extends NonObjectItemsSheet{
+        static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addSkills: function (event, target) { this._onAddingSkill(event, target);},
+            removeSkill: function (event, target) {this._onRemoveSkill(event,target);},
+            changeSkillAllowed: function(event, target) {this._onChangingSkillAllowed(event, target);}
+        }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/fightingschool-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+
+    constructor(...args){
+        super(...args);
+        this._onChangeSkillAllowedBound = this._onChangingSkillAllowed.bind(this);
+    }
+
+    async _onAddingSkill(event, target){
+        event.preventDefault();
+        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed ?? []);
+        skillsAllowed.push("new skill");
+        await this.document.update({
+            "system.skillsAllowed":skillsAllowed
+        });
+    }
+
+    async _onRemoveSkill(event, target){
+        event.preventDefault();
+        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
+        const skillname= target.dataset.skillName;
+        const index = skillsAllowed.indexOf(skillname);
+        if (index !== -1) 
+            skillsAllowed.splice(index, 1);
+        await this.document.update({
+            "system.skillsAllowed": skillsAllowed
+        });
+    }
+
+    async _onChangingSkillAllowed(event){
+        event.preventDefault();
+        event.stopPropagation();
+        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
+        const itemIndex = Number(event.target.dataset.itemIndex);
+        const newSkill = event.target.value;
+        skillsAllowed[itemIndex] = newSkill;
+        await this.document.update({
+            "system.skillsAllowed": skillsAllowed
+        });
+    }
+    _onRender(context, options){
+        super._onRender(context, options);
+        this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
+            sel.addEventListener("change", this._onChangeSkillAllowedBound)
+        );
+    }
+
+}
+
+class FightingManeuverSheet extends NonObjectItemsSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
+    }
+
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/fightingManeuver-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);    
+        const allSchools = game.items.filter(i=>i.type === "Fighting School");
+        context.schools = allSchools;
+        return context;
+    }
+    static async onSubmitForm(event, form, formData) {
+        formData["system.rollable"] = !!formData["system.rollable"];
+        return super.onSubmitForm(event,form, formData);
+    }
+}
+
+class ObjectSheet extends ObjectsItemsSheet{
+
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/object-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+}
+
+class ShieldSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1014,7 +1120,7 @@ class ShieldSheet extends InfoObjectSheet{
     }
 }
 
-class ArmorSheet extends InfoObjectSheet{
+class ArmorSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1035,7 +1141,7 @@ class ArmorSheet extends InfoObjectSheet{
     }
 }
 
-class WeaponSheet extends InfoObjectSheet{
+class WeaponSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1079,108 +1185,7 @@ class WeaponSheet extends InfoObjectSheet{
     }
 }
 
-class FightingManeuverSheet extends InfoObjectSheet{
-    static DEFAULT_OPTIONS = {
-        classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
-        tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
-            closeOnSubmit: false
-        }
-    }
-
-    static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/fightingManeuver-sheet.html",
-            scrollable: ["", ".tab"],
-        }
-    }
-
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);    
-        const allSchools = game.items.filter(i=>i.type === "Fighting School");
-        context.schools = allSchools;
-        return context;
-    }
-    static async onSubmitForm(event, form, formData) {
-        formData["system.rollable"] = !!formData["system.rollable"];
-        return super.onSubmitForm(event,form, formData);
-    }
-}
-
-class FightingSchoolSheet extends InfoObjectSheet{
-        static DEFAULT_OPTIONS = {
-        classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
-        tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
-            closeOnSubmit: false
-        },
-        actions:{
-            addSkills: function (event, target) { this._onAddingSkill(event, target);},
-            removeSkill: function (event, target) {this._onRemoveSkill(event,target);},
-            changeSkillAllowed: function(event, target) {this._onChangingSkillAllowed(event, target);}
-        }
-    }
-
-    static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/fightingschool-sheet.html",
-            scrollable: ["", ".tab"],
-        }
-    }
-
-    constructor(...args){
-        super(...args);
-        this._onChangeSkillAllowedBound = this._onChangingSkillAllowed.bind(this);
-    }
-    async _onAddingSkill(event, target){
-        event.preventDefault();
-        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed ?? []);
-        skillsAllowed.push("new skill");
-        await this.document.update({
-            "system.skillsAllowed":skillsAllowed
-        });
-    }
-    async _onRemoveSkill(event, target){
-        event.preventDefault();
-        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
-        const skillname= target.dataset.skillName;
-        const index = skillsAllowed.indexOf(skillname);
-        if (index !== -1) 
-            skillsAllowed.splice(index, 1);
-        await this.document.update({
-            "system.skillsAllowed": skillsAllowed
-        });
-    }
-
-    async _onChangingSkillAllowed(event){
-        event.preventDefault();
-        event.stopPropagation();
-        const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
-        const itemIndex = Number(event.target.dataset.itemIndex);
-        const newSkill = event.target.value;
-        skillsAllowed[itemIndex] = newSkill;
-        await this.document.update({
-            "system.skillsAllowed": skillsAllowed
-        });
-    }
-    _onRender(context, options){
-        super._onRender(context, options);
-        this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
-            sel.addEventListener("change", this._onChangeSkillAllowedBound)
-        );
-    }
-
-}
-
-class ContainerSheet extends InfoObjectSheet{
+class ContainerSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
