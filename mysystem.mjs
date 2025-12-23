@@ -1202,7 +1202,7 @@ class ContainerSheet extends ObjectsItemsSheet{
     static PARTS = {
         main : {
             template : "systems/testsystem/templates/container-sheet.html",
-            scrollable: ["", ".tab"],
+            scrollable: [".container-body"]
         }
     }
 

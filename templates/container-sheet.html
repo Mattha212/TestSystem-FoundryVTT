@@ -1,21 +1,25 @@
 <div class="container-sheet">
-    <input type="text" name="name" value="{{item.name}}" />
-    <select name="system.maxSize">
-        <option value="">Select a size</option>
-        {{#each objectSizeLabels as |label value|}}
-            <option value="{{value}}" {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>{{label}}</option>
-        {{/each}}
-    </select>
-    {{#if system.isUsed}}
-        <label>Weight remaining: {{this.system.weightRemaining}}</label>
-        <label>Weight used: {{this.system.weight}}</label>
-        <label>Containment:</label>
-            {{#each containedItems}}
-                <label>{{this.name}}</label>
-                <label>Weight: {{this.system.weight}}</label>
-                <label>Size: {{this.system.size}}</label>
-                <label>Quantity:</label>
-                <input type="number" name="this.system.quantity" value="{{this.system.quantity}}">
+    <div class="container-head">
+        <input type="text" name="name" value="{{item.name}}" />
+        <select name="system.maxSize">
+            <option value="">Select a size</option>
+            {{#each objectSizeLabels as |label value|}}
+                <option value="{{value}}" {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>{{label}}</option>
             {{/each}}
-    {{/if}}
+        </select>
+    </div>
+    <div class="container-body">
+        {{#if system.isUsed}}
+            <label>Weight remaining: {{this.system.weightRemaining}}</label>
+            <label>Weight used: {{this.system.weight}}</label>
+            <label>Containment:</label>
+                {{#each containedItems}}
+                    <label>{{this.name}}</label>
+                    <label>Weight: {{this.system.weight}}</label>
+                    <label>Size: {{this.system.size}}</label>
+                    <label>Quantity:</label>
+                    <input type="number" name="this.system.quantity" value="{{this.system.quantity}}">
+                {{/each}}
+        {{/if}}
+    </div>
 </div>
