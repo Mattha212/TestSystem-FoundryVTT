@@ -1,0 +1,15 @@
+.container-sheet {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-header {
+    flex: 0 0 auto;
+}
+
+.container-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-right: 5px;
+}
