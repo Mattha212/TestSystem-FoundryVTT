@@ -84,7 +84,7 @@
       "contents":[],
       "isUsed": false,
       "weightAllowed":0,
-      "weightUsed":0,
+      "weight":0,
       "weightRemaining":0
     }
   }

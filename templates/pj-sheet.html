@@ -223,8 +223,8 @@
       {{#each containers}}
         <li class="item" data-item-id="{{this.id}}">
           <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-          <span class="item-weight">{{this.system.weightUsed}} kg</span>
-          <span class="item-weight">{{this.system.weightRemaining}} kg</span>
+          <span class="item-weight">weight: {{this.system.weight}} kg</span>
+          <span class="item-weight">weight free: {{this.system.weightRemaining}} kg</span>
           <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
         </li>
       {{/each}}

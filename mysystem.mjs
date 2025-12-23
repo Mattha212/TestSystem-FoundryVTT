@@ -204,6 +204,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if(itemData.type === "Container"){
             itemData.system.isUsed = true;
         }
+        if("weight" in itemData.system){
+            itemData.system.quantity = 1;
+        }
         
         await this.document.createEmbeddedDocuments("Item", [itemData]);
     }
@@ -829,11 +832,16 @@ class InfoSheet extends foundry.applications.api.HandlebarsApplicationMixin(foun
 
 class ObjectsItemsSheet extends InfoSheet{
 
+    constructor(...args){
+        super(...args);
+
+        this.system.quantity = 1;
+    }
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         context.objectSizes = ObjectSizes;
         context.objectSizeLabels = ObjectSizeLabels;
-        
+
         return context;
     }
 
