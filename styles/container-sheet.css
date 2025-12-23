@@ -11,5 +11,6 @@
 .container-body {
     flex: 1 1 auto;
     overflow-y: auto;
+    min-height:0;
     padding-right: 5px;
 }
