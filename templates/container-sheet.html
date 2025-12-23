@@ -1,9 +1,9 @@
 <div class="container-sheet">
     <input type="text" name="name" value="{{item.name}}" />
     <select name="system.maxSize">
-        <option value="">Select a maximal size</option>
+        <option value="">Select a size</option>
         {{#each objectSizeLabels as |label value|}}
-            <option value="{{label}}" {{#if (eq ../system.maxsize value)}}selected{{/if}}>{{label}}</option>
+            <option value="{{value}}" {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>{{label}}</option>
         {{/each}}
     </select>
     {{#if system.isUsed}}

@@ -1364,6 +1364,7 @@ Handlebars.registerHelper("handleNames", function(str) {
   Handlebars.registerHelper("eq", function(a, b) {
   return a === b;
 });
+Handlebars.registerHelper("toNumber", value => Number(value))
 });
 
 Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{

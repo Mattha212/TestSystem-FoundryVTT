@@ -25,7 +25,7 @@
     <select name="system.size">
         <option value="">Select a size</option>
         {{#each objectSizeLabels as |label value|}}
-            <option value="{{value}}" {{#if (eq ../system.size value)}}selected{{/if}}>{{label}}</option>
+            <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
         {{/each}}
     </select>
 </div>
