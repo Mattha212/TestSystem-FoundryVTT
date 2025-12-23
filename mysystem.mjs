@@ -832,11 +832,6 @@ class InfoSheet extends foundry.applications.api.HandlebarsApplicationMixin(foun
 
 class ObjectsItemsSheet extends InfoSheet{
 
-    constructor(...args){
-        super(...args);
-
-        this.system.quantity = 1;
-    }
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         context.objectSizes = ObjectSizes;
