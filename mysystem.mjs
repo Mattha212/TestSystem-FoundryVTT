@@ -1249,10 +1249,10 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         if(!item.actor){
             const actor = this.document.actor;
-            
+
             const itemData = item.toObject();
             itemData.system.quantity = 1;
-            const [embedded] = await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+            const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
             item = embedded;
         }
 
