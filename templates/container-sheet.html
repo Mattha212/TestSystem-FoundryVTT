@@ -1,25 +1,37 @@
-<div class="container-sheet" data-application-part="main">
-    <div class="container-head">
+<div data-application-part="main" class="container-sheet">
+
+    <header class="container-header">
         <input type="text" name="name" value="{{item.name}}" />
+
         <select name="system.maxSize">
             <option value="">Select a size</option>
             {{#each objectSizeLabels as |label value|}}
-                <option value="{{value}}" {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>{{label}}</option>
+                <option value="{{value}}"
+                    {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>
+                    {{label}}
+                </option>
             {{/each}}
         </select>
-    </div>
-    <div class="container-body">
+    </header>
+
+    <section class="container-body">
         {{#if system.isUsed}}
-            <label>Weight remaining: {{this.system.weightRemaining}}</label>
-            <label>Weight used: {{this.system.weight}}</label>
-            <label>Containment:</label>
-                {{#each containedItems}}
-                    <label>{{this.name}}</label>
-                    <label>Weight: {{this.system.weight}}</label>
-                    <label>Size: {{this.system.size}}</label>
-                    <label>Quantity:</label>
-                    <input type="number" name="this.system.quantity" value="{{this.system.quantity}}">
-                {{/each}}
+            <p>Weight remaining: {{system.weightRemaining}}</p>
+            <p>Weight used: {{system.weight}}</p>
+
+            <h4>Containment</h4>
+
+            {{#each containedItems}}
+                <div class="contained-item">
+                    <div>{{this.name}}</div>
+                    <div>Weight: {{this.system.weight}}</div>
+                    <div>Size: {{this.system.size}}</div>
+                    <input type="number"
+                           name="system.quantity"
+                           value="{{this.system.quantity}}">
+                </div>
+            {{/each}}
         {{/if}}
-    </div>
+    </section>
+
 </div>
