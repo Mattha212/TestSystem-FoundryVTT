@@ -1282,7 +1282,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const id = event.target.dataset.itemId;
         const actor = this.document.actor;
 
-        item = actor.items.get(id);
+        const item = actor.items.get(id);
 
         const update= {};
         update[`system.quantity`] = value;
