@@ -1276,6 +1276,18 @@ class ContainerSheet extends ObjectsItemsSheet{
         });
     }
 
+    async _UpdateWeight(){
+        let weigthUsed =0;
+        for(const content of this.document.system.contents){
+            let item = await fromUuid(content);
+            weigthUsed += item.weigth;
+        }
+        const update = {};
+        update[`system.weight`] = weigthUsed;
+        update[`system.weightRemaining`] = this.document.system.weigthAllowed - weigthUsed;
+        this.document.update(update);
+    }
+
     async _OnChangeQuantity(event){
         event.preventDefault();
         const value = event.target.value;
@@ -1283,9 +1295,10 @@ class ContainerSheet extends ObjectsItemsSheet{
         const actor = this.document.actor;
 
         const item = actor.items.get(id);
-
+        const baseWeight = item.system.weigth / item.system.quantity;
         const update= {};
         update[`system.quantity`] = value;
+        update[`system.weight`] = baseWeight*value;
         await item.update(update);
     }
 }
