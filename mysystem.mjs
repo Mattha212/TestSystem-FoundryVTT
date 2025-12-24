@@ -1286,7 +1286,7 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         const update= {};
         update[`system.quantity`] = value;
-        await item.document.update(update);
+        await item.update(update);
     }
 }
 
