@@ -1,19 +1,25 @@
-<form class="object-sheet">
+<div class="object-sheet" data-application-part="main">
+
+    <header class="object-header">
     <h2>
         <input type="text" name="name" value="{{item.name}}" />
     </h2>
-    <div>
-        <label>Description</label>
-        <textarea name="system.description">{{system.description}}</textarea>
-    </div>
-    <div>
-        <label>Weight</label>
-        <input type="number" name="system.weight" value="{{system.weight}}"/>
-    </div>
-    <select name="system.size">
-        <option value="">Select a size</option>
-        {{#each objectSizeLabels as |label value|}}
-            <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
-        {{/each}}
-    </select>
-</form>
+    </header>
+
+    <section class="object-body">
+        <div>
+            <label>Description</label>
+            <textarea name="system.description">{{system.description}}</textarea>
+        </div>
+        <div>
+            <label>Weight</label>
+            <input type="number" name="system.weight" value="{{system.weight}}"/>
+        </div>
+        <select name="system.size">
+            <option value="">Select a size</option>
+            {{#each objectSizeLabels as |label value|}}
+                <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+        </select>
+    </section>
+</div>
