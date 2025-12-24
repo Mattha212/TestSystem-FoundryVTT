@@ -1294,7 +1294,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         }
         const update = {};
         update[`system.weight`] = weigthUsed;
-        update[`system.weightRemaining`] = this.document.system.weigthAllowed - weigthUsed;
+        update[`system.weightRemaining`] = Number(this.document.system.weigthAllowed - weigthUsed);
         await this.document.update(update);
     }
 
