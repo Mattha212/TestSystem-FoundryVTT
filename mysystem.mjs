@@ -1202,6 +1202,9 @@ class ContainerSheet extends ObjectsItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        actions:{
+            deleteItem: function (event, target) { this._onDeleteItem(event, target);},
         }
     }
 
@@ -1306,6 +1309,27 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
+    }
+
+    async _onDeleteItem(event, target){
+        const itemId = target.dataset.itemId;
+        const actor = this.document.actor;
+
+        const item = actor.items.get(itemId);
+        if (!item) return;
+
+        await actor.document.deleteEmbeddedDocuments("Item", [itemId]);
+
+        const update = {};
+        const contents = Array.from(this.document.system.contents);
+        const itemIndex = contents.indexOf(item.uuid);
+
+        if(itemIndex!= 1){
+            contents.splice(itemIndex, 1);
+        }
+        update[`system.contents`] = contents;
+        await this.document.update(update);
+        await _UpdateWeight();
     }
 }
 
