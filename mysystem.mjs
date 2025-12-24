@@ -1090,7 +1090,13 @@ class ObjectSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
     }
     static PARTS = {
         main : {
