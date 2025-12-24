@@ -1209,7 +1209,7 @@ class ContainerSheet extends ObjectsItemsSheet{
     constructor(...args){
         super(...args);
         this._onDropBound = this._onDropItems.bind(this);
-        this__onChangeQuantityBound = this._OnChangeQuantity.bind(this);
+        this._onChangeQuantityBound = this._OnChangeQuantity.bind(this);
     }
 
     _onRender(context, options){
