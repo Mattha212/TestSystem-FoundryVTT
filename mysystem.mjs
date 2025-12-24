@@ -1209,9 +1209,16 @@ class ContainerSheet extends ObjectsItemsSheet{
     constructor(...args){
         super(...args);
         this._onDropBound = this._onDropItems.bind(this);
+        this__onChangeQuantityBound = this._OnChangeQuantity.bind(this);
     }
 
     _onRender(context, options){
+
+        this.element.querySelectorAll('input[name*="system.quantity"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangeQuantityBound)
+        );
+
+
         if (!this._dropListenerBound) {
             this.element.addEventListener("drop", this._onDropBound);
             this.element.addEventListener("dragover", event => event.preventDefault());
@@ -1264,11 +1271,19 @@ class ContainerSheet extends ObjectsItemsSheet{
         if(contents.includes(item.uuid))return;
         contents.push(item.uuid);
 
-
         await this.document.update({
             "system.contents":contents
         });
+    }
 
+    async _OnChangeQuantity(event){
+        event.preventDefault();
+        const value = event.target.value;
+        const name = event.target.name;
+
+        const update= {};
+        update[`system.quantity`] = value;
+        await this.document.update(update);
     }
 }
 
