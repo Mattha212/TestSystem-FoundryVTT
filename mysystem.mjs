@@ -1414,6 +1414,10 @@ Handlebars.registerHelper("handleNames", function(str) {
 Handlebars.registerHelper("toNumber", value => Number(value))
 });
 
+Handlebars.registerHelper("not", function (value) {
+    return !value;
+});
+
 Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{
 if(!changed.changes) return;
 const updates = [];
