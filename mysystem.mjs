@@ -1287,14 +1287,14 @@ class ContainerSheet extends ObjectsItemsSheet{
     }
 
     async _UpdateWeight(){
-        let weigthUsed =0;
+        let weightUsed =0;
         for(const content of this.document.system.contents){
             let item = await fromUuid(content);
-            weigthUsed += Number(item.system.weight);
+            weightUsed += Number(item.system.weight);
         }
         const update = {};
-        update[`system.weight`] = weigthUsed;
-        update[`system.weightRemaining`] = Number(this.document.system.weigthAllowed - weigthUsed);
+        update[`system.weight`] = weightUsed;
+        update[`system.weightRemaining`] = Number(this.document.system.weightAllowed - weightUsed);
         await this.document.update(update);
     }
 
