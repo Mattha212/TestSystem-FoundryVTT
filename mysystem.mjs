@@ -1283,6 +1283,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this.document.update({
             "system.contents":contents
         });
+        _UpdateWeight();
     }
 
     async _UpdateWeight(){
@@ -1309,6 +1310,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
+        _UpdateWeight();
     }
 
     async _onDeleteItem(event, target){
