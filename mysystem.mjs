@@ -1290,7 +1290,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         let weigthUsed =0;
         for(const content of this.document.system.contents){
             let item = await fromUuid(content);
-            weigthUsed += item.weigth;
+            weigthUsed += item.system.weigth;
         }
         const update = {};
         update[`system.weight`] = weigthUsed;
