@@ -1225,7 +1225,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         );
 
 
-        if (!this._dropListenerBound) {
+        if (!this._dropListenerBound || this.isUsed) {
             this.element.addEventListener("drop", this._onDropBound);
             this.element.addEventListener("dragover", event => event.preventDefault());
             this._dropListenerBound = true;
