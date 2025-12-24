@@ -1318,7 +1318,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(itemId);
         if (!item) return;
 
-        await actor.document.deleteEmbeddedDocuments("Item", [itemId]);
+        await actor.deleteEmbeddedDocuments("Item", [itemId]);
 
         const update = {};
         const contents = Array.from(this.document.system.contents);
