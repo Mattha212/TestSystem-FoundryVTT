@@ -1279,11 +1279,14 @@ class ContainerSheet extends ObjectsItemsSheet{
     async _OnChangeQuantity(event){
         event.preventDefault();
         const value = event.target.value;
-        const name = event.target.name;
+        const id = event.target.dataset.itemId;
+        const actor = this.document.actor;
+
+        item = actor.items.get(id);
 
         const update= {};
         update[`system.quantity`] = value;
-        await this.document.update(update);
+        await item.document.update(update);
     }
 }
 
