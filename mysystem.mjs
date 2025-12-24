@@ -217,7 +217,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const item = this.document.items.get(itemToRemoveId).toObject();
         if(item.type === "Container"){
             for(const element of item.system.contents){
-                await this.document.deleteEmbeddedDocuments("Item", [element]);
+                const elementId = input.name.split(".")[3];
+                await this.document.deleteEmbeddedDocuments("Item", [elementId]);
             }
         }
 
