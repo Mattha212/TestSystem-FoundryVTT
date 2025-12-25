@@ -1261,7 +1261,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         let item = await fromUuid(parsed.uuid);
         if(!item) return;
         if (item.uuid === this.document.uuid) return;
-        if(Number(item.system.weight) < this.document.system.weightRemaining) return;
+        if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
         if(!item.actor){
             const actor = this.document.actor;
