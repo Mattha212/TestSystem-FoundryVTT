@@ -220,7 +220,7 @@
   {{!-- Inventory Tab --}}
   <div class="tab {{tabs.inventoryTab.cssClass}}" data-tab="{{tabs.inventoryTab.id}}" data-group="{{tabs.inventoryTab.group}}" data-part="{{tabs.inventoryTab.id}}">
     <ol class="item-list">
-        <span class ="weight">{{system.weight}} / {{system.maxWeigth}}</span>
+        <span class ="weight">{{system.weight}} / {{system.maxWeight}}</span>
       {{#each containers}}
         <li class="item" data-item-id="{{this.id}}">
           <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
