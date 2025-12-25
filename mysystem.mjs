@@ -1427,6 +1427,9 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
+
+    CONFIG.Actor.documentClass = Actor;
+
     CONFIG.Actor.documentClasses = {
         PJ: PJActor,
     };
