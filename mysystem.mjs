@@ -1336,7 +1336,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             "system.contents":contents
         });
         await this._UpdateWeight();
-        await actor.OnUpdateWeight();
+        await actor.onUpdateWeight();
     }
 
     async _UpdateWeight(){
@@ -1360,13 +1360,13 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
-        if(Number(actor.getCurrentWeight()) + baseWeight*value> Number(actor.getMaxweight())) return;
+        if(Number(actor.getCurrentWeight()) + baseWeight*value> Number(actor.getMaxWeight())) return;
         if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
         await this._UpdateWeight();
-        await actor.OnUpdateWeight();
+        await actor.onUpdateWeight();
     }
 
     async _onChangeWeightAllowed(event){
@@ -1400,7 +1400,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.contents`] = contents;
         await this.document.update(update);
         await this._UpdateWeight();
-        await actor.OnUpdateWeight();
+        await actor.onUpdateWeight();
     }
 }
 
@@ -1446,7 +1446,6 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
-    CONFIG.Actor.documentClass = Actor;
     CONFIG.Actor.documentClasses = {
         PJ: PJActor,
     };
