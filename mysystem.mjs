@@ -1219,12 +1219,18 @@ class ContainerSheet extends ObjectsItemsSheet{
         super(...args);
         this._onDropBound = this._onDropItems.bind(this);
         this._onChangeQuantityBound = this._OnChangeQuantity.bind(this);
+        this._onChangeWeightAllowedBound = this._onChangeWeightAllowed.bind(this);
+        
     }
 
     _onRender(context, options){
 
         this.element.querySelectorAll('input[name*="system.quantity"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeQuantityBound)
+        );
+
+        this.element.querySelectorAll('input[name*="system.weightAllowed"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangeWeightAllowedBound)
         );
 
 
@@ -1311,6 +1317,18 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
         await this._UpdateWeight();
+    }
+
+    async _onChangeSkillAllowed(event){
+        event.preventDefault();
+        const value = Number(event.target.value);
+
+        const update= {};
+        update[`system.weightAllowed`] = value;
+        update[`system.weightRemaining`] = value;
+
+        await this.document.update(update);
+
     }
 
     async _onDeleteItem(event, target){
