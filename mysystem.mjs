@@ -1298,7 +1298,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         if(Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
-        if(!item.actor){
+        if(!item.document.actor){
             const itemData = item.toObject();
             itemData.system.quantity = 1;
             const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
@@ -1379,7 +1379,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             contents.splice(itemIndex, 1);
         }
         update[`system.contents`] = contents;
-        
+
         await this.document.update(update);
         await this._UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
