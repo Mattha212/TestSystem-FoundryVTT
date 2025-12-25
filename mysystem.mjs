@@ -13,6 +13,32 @@ function enumToLabel(str) {
         .replace(/(^\w|\s\w)/g, m => m.toUpperCase());
 }
 
+
+    class PJActor extends Actor {
+        async onUpdateWeight() {
+            const containers = this.items.filter(i => i.type === "Container");
+
+            let weightUsed = 0;
+            for (const container of containers) {
+            weightUsed += Number(container.system.weight ?? 0);
+            }
+
+            await this.update({
+            "system.weight": weightUsed
+            });
+        }
+
+        getCurrentWeight() {
+            return Number(this.system.weight ?? 0);
+        }
+
+        getMaxWeight() {
+            return Number(this.system.maxWeight ?? 0);
+        }
+    }
+
+
+
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem","sheet","actor"],
@@ -1334,7 +1360,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
-        if(Number(actor.getCurrentWeight) + baseWeight*value> Number(actor.getMaxweight)) return;
+        if(Number(actor.getCurrentWeight()) + baseWeight*value> Number(actor.getMaxweight())) return;
         if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
@@ -1420,7 +1446,10 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
-
+    CONFIG.Actor.documentClass = Actor;
+    CONFIG.Actor.documentClasses = {
+        PJ: PJActor,
+    };
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
         types: ["PJ"],
         makeDefault: true
