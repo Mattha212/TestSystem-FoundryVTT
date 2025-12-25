@@ -549,7 +549,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if(input.name?.endsWith(".MaxValue")){
             update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
-                    }
+            if(label==="Strength"){
+                update[`system.maxWeigth`] = Number(newValue / 2);
+            }
+            }
         else if(input.name?.endsWith(".CurrentValue")){
             const label = this.document.system.stats[statKey].Label;
 
@@ -573,10 +576,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                     update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
                     update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -20;
                 }
-                update[`system.stats.${statKey}.CurrentValue`]= newValue;
-            }
-            else if(label==="Strength"){
-                update[`system.maxWeigth`] = Number(newValue / 2);
                 update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
         }
