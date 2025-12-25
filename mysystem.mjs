@@ -264,7 +264,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if(isInEquipment &&(typeOfItem === "Weapon")){
             await this._onUnequipWeapon(event, target);
         }
-        await PJActorAPI.onUpdateWeight(this);
+        await PJActorAPI.onUpdateWeight(this.actor);
     }
 
 	async _onUnEquipArmor(event, target){
