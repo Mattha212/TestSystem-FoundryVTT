@@ -1305,7 +1305,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const actor = this.document.actor;
 
         const item = actor.items.get(id);
-        const baseWeight = item.system.weigth / item.system.quantity;
+        const baseWeight = Number(item.system.weigth) / item.system.quantity;
         const update= {};
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
