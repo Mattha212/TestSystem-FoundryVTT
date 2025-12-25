@@ -1261,7 +1261,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         let item = await fromUuid(parsed.uuid);
         if(!item) return;
         if (item.uuid === this.document.uuid) return;
-        if(item.system.weigth < this.document.system.weigthRemaining) return;
+        if(item.system.weight < this.document.system.weightRemaining) return;
 
         if(!item.actor){
             const actor = this.document.actor;
@@ -1305,7 +1305,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const actor = this.document.actor;
 
         const item = actor.items.get(id);
-        const baseWeight = Number(item.system.weigth) / item.system.quantity;
+        const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
