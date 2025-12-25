@@ -1319,7 +1319,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this._UpdateWeight();
     }
 
-    async _onChangeSkillAllowed(event){
+    async _onChangeWeightAllowed(event){
         event.preventDefault();
         const value = Number(event.target.value);
 
