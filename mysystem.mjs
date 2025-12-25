@@ -14,26 +14,26 @@ function enumToLabel(str) {
 }
 
 
-class PJActor extends Actor {
-    async onUpdateWeight() {
-        const containers = this.items.filter(i => i.type === "Container");
+class PJActorAPI extends Actor {
+    static async onUpdateWeight(actor) {
+        const containers = actor.items.filter(i => i.type === "Container");
 
         let weightUsed = 0;
         for (const container of containers) {
         weightUsed += Number(container.system.weight ?? 0);
         }
 
-        await this.update({
+        await actor.update({
         "system.weight": weightUsed
         });
     }
 
-    getCurrentWeight() {
-        return Number(this.system.weight ?? 0);
+    static getCurrentWeight(actor) {
+        return Number(actor.system.weight ?? 0);
     }
 
-    getMaxWeight() {
-        return Number(this.system.maxWeight ?? 0);
+    static getMaxWeight(actor) {
+        return Number(actor.system.maxWeight ?? 0);
     }
 }
 
@@ -1291,12 +1291,11 @@ class ContainerSheet extends ObjectsItemsSheet{
         if (!dataString) return;
 
         const parsed = JSON.parse(dataString);
-        const parent = this.document.parent;
         const actor = this.document.actor;
         let item = await fromUuid(parsed.uuid);
         if(!item) return;
         if (item.uuid === this.document.uuid) return;
-        if(Number(parent.getCurrentWeight()) + Number(item.system.weight) > Number(parent.getMaxWeight())) return;
+        if(Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
         if(!item.actor){
@@ -1318,7 +1317,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             "system.contents":contents
         });
         await this._UpdateWeight();
-        await parent.onUpdateWeight();
+        await PJActorAPI.onUpdateWeight(actor);
     }
 
     async _UpdateWeight(){
@@ -1337,18 +1336,18 @@ class ContainerSheet extends ObjectsItemsSheet{
         event.preventDefault();
         const value = Number(event.target.value);
         const id = event.target.dataset.itemId;
-        const parent = this.document.parent;
+        const actor = this.document.actor
 
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
-        if(Number(parent.getCurrentWeight()) + baseWeight*value> Number(parent.getMaxWeight())) return;
+        if(Number(PJActorAPI.getCurrentWeight(actor)) + baseWeight*value> Number(PJActorAPI.getMaxWeight(actor))) return;
         if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
         await this._UpdateWeight();
-        await parent.onUpdateWeight();
+        await PJActorAPI.onUpdateWeight(actor);
     }
 
     async _onChangeWeightAllowed(event){
@@ -1365,7 +1364,6 @@ class ContainerSheet extends ObjectsItemsSheet{
 
     async _onDeleteItem(event, target){
         const itemId = target.dataset.itemId;
-        const parent = this.document.parent;
         const actor = this.document.actor;
 
         const item = actor.items.get(itemId);
@@ -1381,9 +1379,10 @@ class ContainerSheet extends ObjectsItemsSheet{
             contents.splice(itemIndex, 1);
         }
         update[`system.contents`] = contents;
+        
         await this.document.update(update);
         await this._UpdateWeight();
-        await parent.onUpdateWeight();
+        await PJActorAPI.onUpdateWeight(actor);
     }
 }
 
@@ -1430,16 +1429,7 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
 
-  CONFIG.Actor.documentClasses ??= {};
-  CONFIG.Actor.documentClasses.PJ = PJActor;
-
-
-    // foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
-    //     types: ["PJ"],
-    //     makeDefault: true
-    // });
-
-    Actors.registerSheet("testsystem", PJSheet, {
+    foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
         types: ["PJ"],
         makeDefault: true
     });
