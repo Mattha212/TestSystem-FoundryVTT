@@ -1313,6 +1313,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
+        if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
