@@ -1299,7 +1299,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         if(Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
-        if(item.actor == undefined){
+        if(!item.actor){
             const itemData = item.toObject();
             itemData.system.quantity = 1;
             const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
