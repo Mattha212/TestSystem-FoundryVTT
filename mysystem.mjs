@@ -135,10 +135,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             label: k.charAt(0).toUpperCase() + k.slice(1)
         }));
 
-        for (const key in stats) {
-            if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
-            if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
-        }
+        // for (const key in context.stats) {
+        //     if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
+        //     if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
+        // }
 
         return context;
     }
