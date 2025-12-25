@@ -210,25 +210,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.document.update(update);
     }
 
-    async OnUpdateWeight(){
-        const containers =  this.document.items.filter(i=>i.type === "Container");
-        const update={};
-        let weightUsed = 0;
-        for(const container of containers){
-            weightUsed+= Number(container.weight);
-        }
-        update[`system.weight`] = weightUsed;
-
-        await this.document.update(update);
-    }
-
-    getCurrentWeight(){
-        return this.document.system.weight;
-    }
-    getMaxweight(){
-        return this.document.system.maxWeight;
-    }
-
     async _onDropItems(event) {
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
@@ -1314,7 +1295,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         let item = await fromUuid(parsed.uuid);
         if(!item) return;
         if (item.uuid === this.document.uuid) return;
-        if(Number(actor.getCurrentWeight) + Number(item.system.weight) > Number(actor.getMaxweight)) return;
+        if(Number(actor.getCurrentWeight()) + Number(item.system.weight) > Number(actor.getMaxweight())) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
         if(!item.actor){
