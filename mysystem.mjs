@@ -199,7 +199,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     getCurrentWeight(){
         return this.document.system.weight;
     }
-    getMaxWeigth(){
+    getMaxweight(){
         return this.document.system.maxWeight;
     }
 
@@ -550,7 +550,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
             if(statKey==="Strength"){
-                update[`system.maxWeigth`] = Number(newValue / 2);
+                update[`system.maxWeight`] = Number(newValue / 2);
             }
         }
         else if(input.name?.endsWith(".CurrentValue")){
@@ -1288,7 +1288,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         let item = await fromUuid(parsed.uuid);
         if(!item) return;
         if (item.uuid === this.document.uuid) return;
-        if(Number(actor.getCurrentWeight) + Number(item.system.weight) > Number(actor.getMaxWeigth)) return;
+        if(Number(actor.getCurrentWeight) + Number(item.system.weight) > Number(actor.getMaxweight)) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
         if(!item.actor){
@@ -1334,7 +1334,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
-        if(Number(actor.getCurrentWeight) + baseWeight*value> Number(actor.getMaxWeigth)) return;
+        if(Number(actor.getCurrentWeight) + baseWeight*value> Number(actor.getMaxweight)) return;
         if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
