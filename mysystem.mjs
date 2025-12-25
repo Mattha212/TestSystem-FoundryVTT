@@ -549,14 +549,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if(input.name?.endsWith(".MaxValue")){
             update[`system.stats.${statKey}.MaxValue`] = newValue;
             update[`system.stats.${statKey}.CurrentValue`]= newValue;
-            if(label==="Strength"){
+            if(statKey==="Strength"){
                 update[`system.maxWeigth`] = Number(newValue / 2);
             }
-            }
+        }
         else if(input.name?.endsWith(".CurrentValue")){
-            const label = this.document.system.stats[statKey].Label;
-
-            if(label === "Constitution"){
+            if(statKey === "Constitution"){
                 const currentValue = this.document.system.stats[statKey].CurrentValue;
                 const maxValue = this.document.system.stats[statKey].MaxValue;
                 const MaxValueStrength = this.document.system.stats["Strength"].MaxValue;
