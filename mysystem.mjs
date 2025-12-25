@@ -110,9 +110,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.tabs = this.getTabs();
         context.actor = this.document;
         context.system = this.document.system;
-        const stats = context.system.stats;
-        context.stats = stats;
+        context.stats = this.document.system.stats;
         context.skills = this.document.system.skills;
+
 
         context.traits = this.document.items.filter(i=>i.type === "Trait");
         context.containers = this.document.items.filter(i=>i.type === "Container");
@@ -182,6 +182,25 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const update = {};
 		update[name] = value;
         await this.document.update(update);
+    }
+
+    async OnUpdateWeight(){
+        const containers =  this.document.items.filter(i=>i.type === "Container");
+        const update={};
+        let weightUsed = 0;
+        for(const container of containers){
+            weightUsed+= Number(container.weight);
+        }
+        update[`system.weight`] = weightUsed;
+
+        await this.document.update(update);
+    }
+
+    getCurrentWeight(){
+        return this.document.system.weight;
+    }
+    getMaxWeigth(){
+        return this.document.system.maxWeight;
     }
 
     async _onDropItems(event) {
@@ -535,26 +554,30 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             const label = this.document.system.stats[statKey].Label;
 
             if(label === "Constitution"){
-            const currentValue = this.document.system.stats[statKey].CurrentValue;
-            const maxValue = this.document.system.stats[statKey].MaxValue;
-            const MaxValueStrength = this.document.system.stats["Strength"].MaxValue;
-            const MaxValueAgility = this.document.system.stats["Agility"].MaxValue;
+                const currentValue = this.document.system.stats[statKey].CurrentValue;
+                const maxValue = this.document.system.stats[statKey].MaxValue;
+                const MaxValueStrength = this.document.system.stats["Strength"].MaxValue;
+                const MaxValueAgility = this.document.system.stats["Agility"].MaxValue;
 
-            if(newValue>maxValue*0.75){
-                update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
-                update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength;
+                if(newValue>maxValue*0.75){
+                    update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
+                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength;
+                }
+                if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
+                    update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 10;
+                }
+                else if(newValue<=maxValue*0.5 && newValue>maxValue*0.25){
+                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -10;
+                }
+                else if(newValue<=maxValue*0.25 && newValue>0){
+                    update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
+                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -20;
+                }
+                update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
-            if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
-                update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 10;
-            }
-            else if(newValue<=maxValue*0.5 && newValue>maxValue*0.25){
-                update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -10;
-            }
-            else if(newValue<=maxValue*0.25 && newValue>0){
-                update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
-                update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -20;
-            }
-            update[`system.stats.${statKey}.CurrentValue`]= newValue;
+            else if(label==="Strength"){
+                update[`system.maxWeigth`] = Number(newValue / 2);
+                update[`system.stats.${statKey}.CurrentValue`]= newValue;
             }
         }
         await this.document.update(update);
@@ -1264,14 +1287,14 @@ class ContainerSheet extends ObjectsItemsSheet{
         if (!dataString) return;
 
         const parsed = JSON.parse(dataString);
+        const actor = this.document.actor;
         let item = await fromUuid(parsed.uuid);
         if(!item) return;
         if (item.uuid === this.document.uuid) return;
+        if(Number(actor.getCurrentWeight) + Number(item.system.weight) > Number(actor.getMaxWeigth)) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
         if(!item.actor){
-            const actor = this.document.actor;
-
             const itemData = item.toObject();
             itemData.system.quantity = 1;
             const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
@@ -1290,6 +1313,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             "system.contents":contents
         });
         await this._UpdateWeight();
+        await actor.OnUpdateWeight();
     }
 
     async _UpdateWeight(){
@@ -1313,11 +1337,13 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update= {};
+        if(Number(actor.getCurrentWeight) + baseWeight*value> Number(actor.getMaxWeigth)) return;
         if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
         await this._UpdateWeight();
+        await actor.OnUpdateWeight();
     }
 
     async _onChangeWeightAllowed(event){
@@ -1351,6 +1377,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.contents`] = contents;
         await this.document.update(update);
         await this._UpdateWeight();
+        await actor.OnUpdateWeight();
     }
 }
 
