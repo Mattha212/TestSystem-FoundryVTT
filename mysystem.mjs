@@ -53,14 +53,14 @@ class PJActorAPI extends Actor {
         const update = {};
         update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
 	    await actor.update(update);
-        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
+        await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
     static async onUnEquipArmor(target, actor){
         const itemType = target.dataset.itemType;
         const update = {};
         update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
 	    await actor.update(update);
-        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
+        await PJActorAPI.onUpdateProtectionAndBulk(actor);
 	}
 
     static isInEquipment(itemToRemoveId, actor){
