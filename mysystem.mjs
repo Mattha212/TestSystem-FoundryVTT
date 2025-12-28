@@ -1270,8 +1270,8 @@ class ContainerSheet extends ObjectsItemsSheet{
     async _prepareContext(options){
         const context = await super._prepareContext(options);    
         const items = [];
-        for (const uuid of this.document.system.contents ?? []) {
-            const item = await fromUuid(uuid);
+        for (const object of this.document.system.contents ?? []) {
+            const item = await fromUuid(object.uuid);
             if (item) items.push(item);
         }
         context.containedItems = items;
@@ -1297,24 +1297,29 @@ class ContainerSheet extends ObjectsItemsSheet{
         if(Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
 
-        if(!item.actor){
-            const itemData = item.toObject();
-            itemData.system.quantity = 1;
-            const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
-            item = embedded;
+        const existingItem = this.document.system.contents.find(i=> i.name === item.name);
+        if(existingItem){
+            const update = {};
+            update[`system.quantity`] = existingItem.system.quantity +1;
+            update[`system.weight`] = existingItem.system.weight + item.system.weight;
+            await existingItem.update(update);
+        }
+        else{
+            if(!item.actor){
+                const itemData = item.toObject();
+                itemData.system.quantity = 1;
+                const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
+                item = embedded;
+            }
+            const contents = Array.from(this.document.system.contents ?? []);
+            const objectToPush = {"name":item.name, "uuid": item.uuid};
+            contents.push(objectToPush);
+
+            await this.document.update({
+                "system.contents":contents
+            });
         }
 
-        if (item.actor.id !== this.document.actor.id) {
-            ui.notifications.warn("Item must belong to the same actor.");
-            return;
-        }
-        const contents = Array.from(this.document.system.contents ?? []);
-        if(contents.includes(item.uuid))return;
-        contents.push(item.uuid);
-
-        await this.document.update({
-            "system.contents":contents
-        });
         await this._UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
     }
@@ -1322,7 +1327,7 @@ class ContainerSheet extends ObjectsItemsSheet{
     async _UpdateWeight(){
         let weightUsed =0;
         for(const content of this.document.system.contents){
-            let item = await fromUuid(content);
+            let item = await fromUuid(content.uuid);
             weightUsed += Number(item.system.weight);
         }
         const update = {};
@@ -1372,7 +1377,7 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         const update = {};
         const contents = Array.from(this.document.system.contents);
-        const itemIndex = contents.indexOf(item.uuid);
+        const itemIndex = contents.findIndex(i=> i.uuid === item.uuid);
 
         if(itemIndex!= 1){
             contents.splice(itemIndex, 1);
