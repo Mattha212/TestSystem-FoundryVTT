@@ -35,9 +35,20 @@ class PJActorAPI extends Actor {
     static getMaxWeight(actor) {
         return Number(actor.system.maxWeight ?? 0);
     }
+
+    static async onUpdateProtectionAndBulk(){
+		const update = {};
+        let currentBulk =0;
+        let currentProtection = 0;
+        for(const value of Object.values(actor.system.equipment)){
+			currentBulk += Number(value?.bulk ?? 0);
+	        currentProtection += Number(value?.protection ?? 0);
+        }
+        update[`system.protection`] = currentProtection;
+        update[`system.bulk`] = currentBulk;
+        await actor.update(update);
+    }
 }
-
-
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
     static DEFAULT_OPTIONS = {
@@ -275,7 +286,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const update = {};
         update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
 	    await this.document.update(update);
-	    this._OnUpdateEquipment();
+	    await PJActorAPI.onUpdateProtectionAndBulk();
 	}
 
     async _onEquipArmor(event, target){
@@ -289,7 +300,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.${itemType}.bulk`] =  object.system.bulk;
         update[`system.equipment.${itemType}.type`] =  object.system.type;
         await this.document.update(update);
-	    this._OnUpdateEquipment();
+	    await PJActorAPI.onUpdateProtectionAndBulk();
     }
 
     async _onEquipWeapon(event, target){
@@ -304,27 +315,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.Weapon.reach`] = object.system.reach;
         update[`system.equipment.Weapon.skill`] = object.system.skill;
         await this.document.update(update);
-	    this._OnUpdateEquipment();
+	    await PJActorAPI.onUpdateProtectionAndBulk();
     }
 
     async _onUnequipWeapon(event, target){
         const update = {};
         update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
 	    await this.document.update(update);
-	    this._OnUpdateEquipment();
-    }
-
-    async _OnUpdateEquipment(){
-		const update = {};
-        let currentBulk =0;
-        let currentProtection = 0;
-        for(const value of Object.values(this.document.system.equipment)){
-			currentBulk += Number(value?.bulk ?? 0);
-	        currentProtection += Number(value?.protection ?? 0);
-        }
-        update[`system.protection`] = currentProtection;
-        update[`system.bulk`] = currentBulk;
-        await this.document.update(update);
+	    await PJActorAPI.onUpdateProtectionAndBulk();
     }
 
     _onAttack(event, target){
@@ -1387,6 +1385,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this.document.update(update);
         await this._UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
+        await PJActorAPI.onUpdateProtectionAndBulk();
     }
 }
 
