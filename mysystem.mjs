@@ -18,7 +18,7 @@ class PJActorAPI extends Actor {
     static async onUpdateWeight(actor) {
         const containers = actor.items.filter(i => i.type === "Container");
 
-        let weightUsed = 0;
+        let weightUsed = 0; 
         for (const container of containers) {
         weightUsed += Number(container.system.weight ?? 0);
         }
@@ -34,6 +34,10 @@ class PJActorAPI extends Actor {
 
     static getMaxWeight(actor) {
         return Number(actor.system.maxWeight ?? 0);
+    }
+
+    static getContainers(actor){
+        return actor.items.filter(i => i.type === "Container");
     }
 
     static async onUpdateProtectionAndBulk(actor){
@@ -1231,6 +1235,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         },
         actions:{
             deleteItem: function (event, target) { this._onDeleteItem(event, target);},
+            transferItem: function (event, target) {this._onTransfertItem(event, target);}
         }
     }
 
@@ -1311,6 +1316,9 @@ class ContainerSheet extends ObjectsItemsSheet{
                 itemData.system.quantity = 1;
                 const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
                 item = embedded;
+            }
+            else{
+
             }
             const contents = Array.from(this.document.system.contents ?? []);
             const objectToPush = {"name":item.name, "uuid": item.uuid};
@@ -1398,6 +1406,88 @@ class ContainerSheet extends ObjectsItemsSheet{
             await PJActorAPI.onUnequipWeapon(actor);
         }
         await PJActorAPI.onUpdateWeight(actor);
+    }
+
+    async _onTransfertItem(event, target){
+        const actor = this.document.actor;
+        const containers = PJActorAPI.getContainers(actor);
+        const itemToTransfer= target.dataset.itemId;
+
+        const options =
+            Object.entries(containers)
+                .map(([key, value]) =>
+                    `<option value="${value}">${key}</option>`
+                ).
+                join("");
+        const content =
+        `<form>
+            <form class="form-group">
+                <div class = "transfert-group">
+                    <label>Destination</label>
+                    <select id="transfert-select" name="transfertDestination">
+                        ${options}
+                    </select>
+                </div>
+            </form>
+        </form>`;
+        new Dialog({
+            title: `$Transfer menu`,
+            content,
+            buttons:{
+                roll:{
+                    label: "Roll",
+                    callback: html => this._onConfirmTransfer(html, itemToTransfer)
+                },
+                cancel:{
+                    label: "Cancel"
+                }
+            },
+                default: "roll"
+            }).render(true);
+    }
+
+    async _onConfirmTransfer(html, originTransfer){
+        const form = html[0].querySelector("form");
+        const destinationId = form.transfertDestination.value;
+        const actor = this.document.actor;
+        const item = actor.items.get(originTransfer);
+        const destinationContainer = actor.items.get(destinationId);
+
+        if(Number(item.system.weight) > destinationContainer.document.system.weightRemaining) return;
+        const update1 = {}; const update2={};
+        if(item.system.quantity > 1){
+            update1[`system.quantity`] = item.system.quantity -1 ;
+            await item.update(update1);
+        }
+        else{
+            const contents = this.document.system.contents;
+            const index =  contents.findIndex(i => i.name === item.name);
+            contents.splice(index, 1);
+            update1[`system.contents`] = contents;
+            await this.document.update(update1);
+        }
+
+        const targetContents = destinationContainer.document.system.contents;
+        const targetIndex =  targetContents.findIndex(i => i.name === item.name);
+        if(targetIndex!= -1){
+            const targetContent = targetContents[targetIndex];
+            const targetItem = fromUuid(targetContent);
+            update2[`system.quantity`] = targetItem + 1;
+            await targetItem.update(update2);
+        }
+        else{
+                const itemData = item.toObject();
+                itemData.system.quantity = 1;
+                const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                const objectToAdd = {"name":embedded.name, "uuid": embedded.uuid};
+                targetContents.push(objectToAdd);
+
+                await destinationContainer.document.update({
+                    "system.contents":contents
+                });
+            }
+
     }
 }
 
