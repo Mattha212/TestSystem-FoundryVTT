@@ -29,7 +29,7 @@
                 <div class="contained-item">
                     <div>{{this.name}}</div>
                     <div>Weight: {{this.system.weight}}</div>
-                    <div>Size: {{this.system.size}}</div>
+                    <div>Size: {{lookup ../objectSizeLabels this.system.size}}</div>
                     <input type="number"
                            name="system.quantity"
                            value="{{this.system.quantity}}"

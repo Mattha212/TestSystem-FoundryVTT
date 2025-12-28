@@ -7,7 +7,7 @@ export const ObjectSizes = Object.freeze({
 
 export const ObjectSizeLabels = Object.freeze({
     [ObjectSizes.VERY_SMALL]: "Very Small",
-    [ObjectSizes.SMALL]: "Size Small",
-    [ObjectSizes.LARGE]: "Size Large",
+    [ObjectSizes.SMALL]: "Small",
+    [ObjectSizes.LARGE]: "Large",
     [ObjectSizes.VERY_LARGE]: "Very Large",
 });
