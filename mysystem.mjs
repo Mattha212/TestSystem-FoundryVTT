@@ -1421,8 +1421,8 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         const options =
             Object.entries(containers)
-                .map(([key, value]) =>
-                    `<option value="${value}">${key}</option>`
+                .map((container) =>
+                    `<option value="${container}">${container.name}</option>`
                 ).
                 join("");
         const content =
