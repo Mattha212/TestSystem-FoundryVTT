@@ -1296,7 +1296,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         if (item.uuid === this.document.uuid) return;
         if(Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
         if(Number(item.system.weight) > this.document.system.weightRemaining) return;
-        if(item.system.size > this.document.maxSize) return;
+        if(item.system.size > this.document.system.maxSize) return;
         const existingItem = this.document.system.contents.find(i=> i.name === item.name);
         if(existingItem){
             const itemAlreadyPresent = await fromUuid(existingItem.uuid)
