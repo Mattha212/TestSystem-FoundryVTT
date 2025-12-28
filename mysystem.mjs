@@ -43,8 +43,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static DEFAULT_OPTIONS = {
         classes: ["testsystem","sheet","actor"],
         position:{
-            width: 500,
-            height: 300,
+            width: 1000,
+            height: 600,
         },
         tag: 'form',
         form:{
@@ -227,14 +227,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             type: item.type,
             system: item.system || {}
         };
-        if(itemData.type === "Container"){
-            itemData.system.isUsed = true;
-        }
         if("weight" in itemData.system){
             itemData.system.quantity = 1;
+            if(itemData.type === "Container"){
+                itemData.system.isUsed = true;
+                await this.document.createEmbeddedDocuments("Item", [itemData]);
+            }
         }
-        
-        await this.document.createEmbeddedDocuments("Item", [itemData]);
+        else{
+            await this.document.createEmbeddedDocuments("Item", [itemData]);
+        }  
     }
 
     async _onDeleteItem(event,target){
