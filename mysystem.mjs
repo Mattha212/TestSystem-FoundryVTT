@@ -48,6 +48,34 @@ class PJActorAPI extends Actor {
         update[`system.bulk`] = currentBulk;
         await actor.update(update);
     }
+
+    static async onUnequipWeapon(actor){
+        const update = {};
+        update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
+	    await actor.update(update);
+        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
+    }
+    static async onUnEquipArmor(target, actor){
+        const itemType = target.dataset.itemType;
+        const update = {};
+        update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
+	    await actor.update(update);
+        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
+	}
+
+    static isInEquipment(itemToRemoveId, actor){
+        const equipment = actor.system.equipment;
+        let typeOfItem = null;
+        let isInEquipment = false;
+        for(const [type, equip] of Object.entries(equipment)){
+            if(equip.id === itemToRemoveId){
+                typeOfItem = type
+                isInEquipment = true;
+            }
+        }
+        return {typeOfItem, isInEquipment};
+    }
+
 }
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
@@ -75,9 +103,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             changeTab: this._onClickTab,
             deleteItem: function (event, target) { this._onDeleteItem(event, target);},
             equipArmor: function(event, target){ this._onEquipArmor(event, target);},
-            unequipArmor: function(event, target){ this._onUnEquipArmor(event, target);},
+            unequipArmor: function(event, target){PJActorAPI.onUnEquipArmor(target, this.actor);},
             equipWeapon: function(event, target){this._onEquipWeapon(event, target) ;},
-            unequipWeapon: function(event, target){this._onUnequipWeapon(event, target) ;},
+            unequipWeapon: function(event, target){PJActorAPI.onUnequipWeapon(this.actor);},
             attack: function(event, target){this._onAttack(event, target);},
             defense: function(event, target){ this._onDefense(event, target);},
             maneuver: function(event, target){ this._onPerformManeuver(event, target);}
@@ -262,32 +290,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
 
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
-        const equipment = this.document.system.equipment;
-        let typeOfItem = null;
-        let isInEquipment = false;
-        for(const [type, equip] of Object.entries(equipment)){
-            if(equip.id === itemToRemoveId){
-                typeOfItem = type
-                isInEquipment = true;
-            }
-        }
-        if(isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")){
-            target.dataset.itemType =  typeOfItem;
-		    await this._onUnEquipArmor(event, target);
-        }
-        if(isInEquipment &&(typeOfItem === "Weapon")){
-            await this._onUnequipWeapon(event, target);
-        }
         await PJActorAPI.onUpdateWeight(this.actor);
     }
-
-	async _onUnEquipArmor(event, target){
-        const itemType = target.dataset.itemType;
-        const update = {};
-        update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
-	    await this.document.update(update);
-        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
-	}
 
     async _onEquipArmor(event, target){
         event.preventDefault();
@@ -315,13 +319,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.Weapon.reach`] = object.system.reach;
         update[`system.equipment.Weapon.skill`] = object.system.skill;
         await this.document.update(update);
-        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
-    }
-
-    async _onUnequipWeapon(event, target){
-        const update = {};
-        update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
-	    await this.document.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
@@ -1384,8 +1381,17 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         await this.document.update(update);
         await this._UpdateWeight();
+
+        const {typeOfItem, isInEquipment} = PJActorAPI.isInEquipment(itemId, this.actor);
+
+        if(isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")){
+            target.dataset.itemType =  typeOfItem;
+		    await PJActorAPI.onUnEquipArmor(target, this.actor);
+        }
+        if(isInEquipment &&(typeOfItem === "Weapon")){
+            await PJActorAPI.onUnequipWeapon(this.actor);
+        }
         await PJActorAPI.onUpdateWeight(actor);
-        await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
 }
 
