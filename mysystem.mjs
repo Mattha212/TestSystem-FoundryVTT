@@ -1382,14 +1382,14 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this.document.update(update);
         await this._UpdateWeight();
 
-        const {typeOfItem, isInEquipment} = PJActorAPI.isInEquipment(itemId, this.actor);
+        const {typeOfItem, isInEquipment} = PJActorAPI.isInEquipment(itemId, actor);
 
         if(isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")){
             target.dataset.itemType =  typeOfItem;
-		    await PJActorAPI.onUnEquipArmor(target, this.actor);
+		    await PJActorAPI.onUnEquipArmor(target, actor);
         }
         if(isInEquipment &&(typeOfItem === "Weapon")){
-            await PJActorAPI.onUnequipWeapon(this.actor);
+            await PJActorAPI.onUnequipWeapon(actor);
         }
         await PJActorAPI.onUpdateWeight(actor);
     }
