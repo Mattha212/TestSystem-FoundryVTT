@@ -1302,7 +1302,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             const itemAlreadyPresent = await fromUuid(existingItem.uuid)
             const update = {};
             update[`system.quantity`] = itemAlreadyPresent.system.quantity +1;
-            update[`system.weight`] = itemAlreadyPresent.system.weight + item.system.weight;
+            update[`system.weight`] = Number(itemAlreadyPresent.system.weight) + Number(item.system.weight);
             await itemAlreadyPresent.update(update);
         }
         else{
