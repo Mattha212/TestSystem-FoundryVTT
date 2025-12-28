@@ -36,7 +36,7 @@ class PJActorAPI extends Actor {
         return Number(actor.system.maxWeight ?? 0);
     }
 
-    static async onUpdateProtectionAndBulk(){
+    static async onUpdateProtectionAndBulk(actor){
 		const update = {};
         let currentBulk =0;
         let currentProtection = 0;
@@ -286,7 +286,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const update = {};
         update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
 	    await this.document.update(update);
-	    await PJActorAPI.onUpdateProtectionAndBulk();
+        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
 	}
 
     async _onEquipArmor(event, target){
@@ -300,7 +300,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.${itemType}.bulk`] =  object.system.bulk;
         update[`system.equipment.${itemType}.type`] =  object.system.type;
         await this.document.update(update);
-	    await PJActorAPI.onUpdateProtectionAndBulk();
+        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
     async _onEquipWeapon(event, target){
@@ -315,14 +315,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.Weapon.reach`] = object.system.reach;
         update[`system.equipment.Weapon.skill`] = object.system.skill;
         await this.document.update(update);
-	    await PJActorAPI.onUpdateProtectionAndBulk();
+        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
     async _onUnequipWeapon(event, target){
         const update = {};
         update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
 	    await this.document.update(update);
-	    await PJActorAPI.onUpdateProtectionAndBulk();
+        await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
     _onAttack(event, target){
@@ -1385,7 +1385,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this.document.update(update);
         await this._UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
-        await PJActorAPI.onUpdateProtectionAndBulk();
+        await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
 }
 
