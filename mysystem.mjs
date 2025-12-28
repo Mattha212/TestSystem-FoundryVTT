@@ -40,6 +40,12 @@ class PJActorAPI extends Actor {
         return actor.items.filter(i => i.type === "Container");
     }
 
+    static async UpdateAllContainers(actor){
+        const containers = actor.items.filter(i => i.type === "Container");
+        for(const container of containers){
+            await container.UpdateWeight();
+        }
+    }
     static async onUpdateProtectionAndBulk(actor){
 		const update = {};
         let currentBulk =0;
@@ -1329,11 +1335,11 @@ class ContainerSheet extends ObjectsItemsSheet{
             });
         }
 
-        await this._UpdateWeight();
+        await this.UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
     }
 
-    async _UpdateWeight(){
+    async UpdateWeight(){
         let weightUsed =0;
         for(const content of this.document.system.contents){
             let item = await fromUuid(content.uuid);
@@ -1359,7 +1365,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.quantity`] = value;
         update[`system.weight`] = baseWeight*value;
         await item.update(update);
-        await this._UpdateWeight();
+        await this.UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
     }
 
@@ -1394,7 +1400,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         update[`system.contents`] = contents;
 
         await this.document.update(update);
-        await this._UpdateWeight();
+        await this.UpdateWeight();
 
         const {typeOfItem, isInEquipment} = PJActorAPI.isInEquipment(itemId, actor);
 
@@ -1487,6 +1493,7 @@ class ContainerSheet extends ObjectsItemsSheet{
                     "system.contents":contents
                 });
             }
+        await PJActorAPI.UpdateAllContainers(actor);
 
     }
 }
