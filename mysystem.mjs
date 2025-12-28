@@ -1419,12 +1419,13 @@ class ContainerSheet extends ObjectsItemsSheet{
         const containers = PJActorAPI.getContainers(actor);
         const itemToTransfer= target.dataset.itemId;
 
-        const options =
-            Object.entries(containers)
-                .map((container) =>
-                    `<option value="${container}">${container.name}</option>`
-                ).
-                join("");
+        const options = containers
+            .map(container => `
+                <option value="${container.uuid}">
+                ${container.name}
+                </option>
+            `)
+            .join("");
         const content =
         `<form>
             <form class="form-group">
@@ -1457,7 +1458,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const destinationId = form.transfertDestination.value;
         const actor = this.document.actor;
         const item = actor.items.get(originTransfer);
-        const destinationContainer = actor.items.get(destinationId);
+        const destinationContainer = fromUuid(destinationId);
 
         if(Number(item.system.weight) > destinationContainer.document.system.weightRemaining) return;
         const update1 = {}; const update2={};
