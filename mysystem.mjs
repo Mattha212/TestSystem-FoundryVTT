@@ -1622,7 +1622,7 @@ class SpellSheet extends NonObjectItemsSheet{
     }
     async _prepareContext(options){
         const context = await super._prepareContext(options);
-        const spellSystem = game.items.filter(i=> i.type === "SpellSystem");
+        const spellSystem = game.items.filter(i=> i.type === "SpellSystem")[0];
         context.spellTypes = spellSystem.system.existingTypeOfSpells;
         return context;
     }
