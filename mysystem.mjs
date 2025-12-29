@@ -1565,7 +1565,7 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
     }		
 }); 
 
-Hooks.on("UpdateItem", (item, data, option, userId)=>{
+Hooks.on("updateItem", (item, data, option, userId)=>{
   const actor = item.actor;
   if (!actor) return;
 
