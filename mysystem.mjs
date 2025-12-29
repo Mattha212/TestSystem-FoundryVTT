@@ -1581,6 +1581,7 @@ Hooks.on("preUpdateItem", (item, data, options, userId)=>{
                 if (!isInside) continue;
                 const weightDifference = newWeight - oldWeight;
                 if(container.system.weight + weightDifference > container.system.weightAllowed)return false;
+                if(actor.system.weight + weightDifference > actor.system.maxWeight ) return false;
             }}
         }
         if(data.system?.size !== undefined){
