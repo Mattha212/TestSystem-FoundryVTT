@@ -1576,6 +1576,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
         const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
         const index = target.dataset.itemIndex;
         existingTypes.splice(index, 1);
+        const update = {};
         update[`system.existingTypeOfSpells`] = existingTypes;
         this.document.update(update);
     }
