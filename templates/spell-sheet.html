@@ -17,8 +17,8 @@
         </div>
         <select name="system.spellType">
             <option value="">Select a size</option>
-            {{#each spellTypes as |label value|}}
-                <option value="{{value}}" {{#if (eq ../system.spellType  value)}}selected{{/if}}>{{label}}</option>
+            {{#each spellTypes as |value index|}}
+                <option value="{{value}}" {{#if (eq ../system.spellType  value)}}selected{{/if}}>{{value}}</option>
             {{/each}}
         </select>
     </section>
