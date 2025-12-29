@@ -43,7 +43,7 @@ class PJActorAPI extends Actor {
     static async UpdateAllContainers(actor){
         const containers = actor.items.filter(i => i.type === "Container");
         for(const container of containers){
-            await container.updateWeight();
+            await ContainerItemAPI.updateWeight(container);
         }
     }
     static async onUpdateProtectionAndBulk(actor){
@@ -1229,17 +1229,17 @@ class WeaponSheet extends ObjectsItemsSheet{
     }
 }
 
-class ContainerItem extends Item {
-  async updateWeight() {
-        let weightUsed =0;
-        for(const content of this.system.contents){
+class ContainerItemAPI extends Item {
+static async updateWeight(container){
+       let weightUsed =0;
+        for(const content of container.system.contents){
             let item = await fromUuid(content.uuid);
             weightUsed += Number(item.system.weight);
         }
         const update = {};
         update[`system.weight`] = weightUsed;
-        update[`system.weightRemaining`] = Number(this.system.weightAllowed - weightUsed);
-        await this.update(update);
+        update[`system.weightRemaining`] = Number(container.system.weightAllowed - weightUsed);
+        await container.update(update);
   }
 }
 
@@ -1557,11 +1557,7 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
-
-    CONFIG.Item.documentClasses = {
-        Container: ContainerItem
-    };
-
+  
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
         types: ["PJ"],
         makeDefault: true
