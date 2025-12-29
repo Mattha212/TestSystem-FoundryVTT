@@ -43,7 +43,7 @@ class PJActorAPI extends Actor {
     static async UpdateAllContainers(actor){
         const containers = actor.items.filter(i => i.type === "Container");
         for(const container of containers){
-            await container.UpdateWeight();
+            await container.updateWeight();
         }
     }
     static async onUpdateProtectionAndBulk(actor){
@@ -65,6 +65,7 @@ class PJActorAPI extends Actor {
 	    await actor.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
+
     static async onUnEquipArmor(target, actor){
         const itemType = target.dataset.itemType;
         const update = {};
@@ -1227,6 +1228,21 @@ class WeaponSheet extends ObjectsItemsSheet{
         await this.document.update({ "system.skill": skill });  
     }
 }
+
+class ContainerItem extends Item {
+  async updateWeight() {
+        let weightUsed =0;
+        for(const content of this.system.contents){
+            let item = await fromUuid(content.uuid);
+            weightUsed += Number(item.system.weight);
+        }
+        const update = {};
+        update[`system.weight`] = weightUsed;
+        update[`system.weightRemaining`] = Number(this.system.weightAllowed - weightUsed);
+        await this.update(update);
+  }
+}
+
 
 class ContainerSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
