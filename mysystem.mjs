@@ -1458,7 +1458,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const destinationId = form.transfertDestination.value;
         const actor = this.document.actor;
         const item = actor.items.get(originTransfer);
-        const destinationContainer = fromUuid(destinationId);
+        const destinationContainer = await fromUuid(destinationId);
 
         if(Number(item.system.weight) > destinationContainer.document.system.weightRemaining) return;
         const update1 = {}; const update2={};
