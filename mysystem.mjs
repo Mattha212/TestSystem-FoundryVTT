@@ -1565,6 +1565,22 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
     }		
 }); 
 
+Hooks.on("UpdateItem", (item, data, option, userId)=>{
+  const actor = item.actor;
+  if (!actor) return;
+
+  const containers = actor.items.filter(i => i.type === "Container");
+
+  for (const container of containers) {
+    const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+    if (!isInside) continue;
+    if (container.sheet?.rendered) {
+      container.sheet.render(false);
+    }
+  }
+
+});
+
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
   

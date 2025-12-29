@@ -2,7 +2,7 @@
 
     <header class="container-header">
         <input type="text" name="name" value="{{item.name}}" />
-
+        <span class="maximalSize">Maximal size allowed</span>
         <select name="system.maxSize">
             <option value="">Select a size</option>
             {{#each objectSizeLabels as |label value|}}
@@ -16,6 +16,7 @@
 
     <section class="container-body">
         {{#if (not system.isUsed)}}
+        <span class="weightAllowed">Weight allowed:</span>
             <input type = "number" name = "system.weightAllowed" value="{{system.weightAllowed}}"/>
         {{/if}}
         {{#if system.isUsed}}
