@@ -1566,33 +1566,34 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 }); 
 
 Hooks.on("preUpdateItem", (item, data, options, userId)=>{
-  if (!item.actor) return;
+    const actor = item.actor;
+    if (!item.actor) return;
 
-  if (data.system?.weight !== undefined) {
-    const oldWeight = item.system.weight;
-    const newWeight = data.system.weight;
-    if(newWeight < 0 ) return false;
-    if(newWeight>oldWeight){
-        const containers = actor.items.filter(i => i.type === "Container");
+    if (data.system?.weight !== undefined) {
+        const oldWeight = item.system.weight;
+        const newWeight = data.system.weight;
+        if(newWeight < 0 ) return false;
+        if(newWeight>oldWeight){
+            const containers = actor.items.filter(i => i.type === "Container");
 
-        for (const container of containers) {
-            const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
-            if (!isInside) continue;
-            const weightDifference = newWeight - oldWeight;
-            if(container.system.weight + weightDifference > container.system.weightAllowed)return false;
-        }}
-    }
-    if(data.system?.size !== undefined){
-        const newSize = data.system.size;
-        const containers = actor.items.filter(i => i.type === "Container");
-
-        for (const container of containers) {
-            const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
-            if (!isInside) continue;
-            if(newSize>container.system.maxSize) return false;
+            for (const container of containers) {
+                const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+                if (!isInside) continue;
+                const weightDifference = newWeight - oldWeight;
+                if(container.system.weight + weightDifference > container.system.weightAllowed)return false;
+            }}
         }
+        if(data.system?.size !== undefined){
+            const newSize = data.system.size;
+            const containers = actor.items.filter(i => i.type === "Container");
 
-    }
+            for (const container of containers) {
+                const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+                if (!isInside) continue;
+                if(newSize>container.system.maxSize) return false;
+            }
+
+        }
 
 })
 
