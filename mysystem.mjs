@@ -1491,7 +1491,7 @@ class ContainerSheet extends ObjectsItemsSheet{
                 targetContents.push(objectToAdd);
 
                 await destinationContainer.update({
-                    "system.contents":contents
+                    "system.contents":targetContents
                 });
             }
         await PJActorAPI.UpdateAllContainers(actor);
