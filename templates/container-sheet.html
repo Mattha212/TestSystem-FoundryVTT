@@ -27,7 +27,7 @@
 
             {{#each containedItems}}
                 <div class="contained-item">
-                    <div>{{this.name}}</div>
+                     <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                     <div>Weight: {{this.system.weight}}</div>
                     <div>Size: {{lookup ../objectSizeLabels this.system.size}}</div>
                     <input type="number"

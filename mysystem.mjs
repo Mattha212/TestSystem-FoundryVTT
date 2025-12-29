@@ -1257,7 +1257,9 @@ class ContainerSheet extends ObjectsItemsSheet{
         },
         actions:{
             deleteItem: function (event, target) { this._onDeleteItem(event, target);},
-            transferItem: function (event, target) {this._onTransfertItem(event, target);}
+            transferItem: function (event, target) {this._onTransfertItem(event, target);},
+            printItem: this.#_OnPrintItem,
+
         }
     }
 
@@ -1467,6 +1469,14 @@ class ContainerSheet extends ObjectsItemsSheet{
             },
                 default: "roll"
             }).render(true);
+    }
+
+    static async #_OnPrintItem(event, target){
+        event.preventDefault();
+
+        const itemId= target.dataset.itemId;
+        const itemDoc = this.document.items.get(itemId);
+        itemDoc.sheet.render(true);
     }
 
     async _onConfirmTransfer(html, originTransfer){
