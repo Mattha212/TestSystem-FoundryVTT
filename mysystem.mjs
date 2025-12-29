@@ -1568,7 +1568,7 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 Hooks.on("preUpdateItem", (item, data, options, userId)=>{
   if (!item.actor) return;
 
-  if (changes.system?.weight !== undefined) {
+  if (data.system?.weight !== undefined) {
     const oldWeight = item.system.weight;
     const newWeight = data.system.weight;
     if(newWeight < 0 ) return false;
