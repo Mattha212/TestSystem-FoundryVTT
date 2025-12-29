@@ -1622,12 +1622,10 @@ class SpellSheet extends NonObjectItemsSheet{
     }
     async _prepareContext(options){
         const context = await super._prepareContext(options);
-        const spellSystem = game.items.filter(i=> i.type === "SpellSystem")[0];
-        context.spellTypes = spellSystem.system.existingTypeOfSpells;
+        context.spellTypes = Object.keys(Restricted);
+        context.restrictedAttributes = Restricted;
         return context;
     }
-
-
 }
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {

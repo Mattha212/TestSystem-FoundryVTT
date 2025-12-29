@@ -16,9 +16,9 @@
             <input type="number" name="system.vigorCost" value="{{system.vigorCost}}"/>
         </div>
         <select name="system.spellType">
-            <option value="">Select a size</option>
-            {{#each spellTypes as |value index|}}
-                <option value="{{value}}" {{#if (eq ../system.spellType  value)}}selected{{/if}}>{{value}}</option>
+            <option value="">Select a magic type</option>
+            {{#each spellTypes as |type|}}
+                <option value="{{type}}" {{#if (eq ../system.spellType type)}}selected{{/if}}>{{type}}</option>
             {{/each}}
         </select>
     </section>
