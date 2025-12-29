@@ -1547,7 +1547,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
         height: 300,
         tag: 'form',
         form:{
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1589,7 +1589,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
             inp.addEventListener("change", this._onChangeSpecificTypeBound)
         );
     }
-        async _onChangeSpecificType(event){
+    async _onChangeSpecificType(event){
         event.preventDefault();
         const index = event.target.name.split(".")[2];
         const value = event.target.value;
