@@ -1564,7 +1564,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
     }
 
     async _onAddTypeofSpell(event, target){
-        const existingTypes = this.document.system.existingTypeOfSpells;
+        const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
         const newType = "new spell type";
         existingTypes.push(newType);
         const update = {};
@@ -1573,7 +1573,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
     }
 
     async _onRemoveTypeofSpell(event, target){
-        const existingTypes = this.document.system.existingTypeOfSpells;
+        const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
         const index = target.dataset.itemIndex;
         existingTypes.splice(index, 1);
         update[`system.existingTypeOfSpells`] = existingTypes;
