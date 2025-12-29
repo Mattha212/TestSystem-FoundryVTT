@@ -1565,20 +1565,54 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
     }		
 }); 
 
-Hooks.on("updateItem", (item, data, option, userId)=>{
-  const actor = item.actor;
-  if (!actor) return;
+Hooks.on("preUpdateItem", (item, data, options, userId)=>{
+  if (!item.actor) return;
 
-  const containers = actor.items.filter(i => i.type === "Container");
+  if (changes.system?.weight !== undefined) {
+    const oldWeight = item.system.weight;
+    const newWeight = changes.system.weight;
+    if(newWeight < 0 ) return false;
+    if(newWeight>oldWeight){
+        const containers = actor.items.filter(i => i.type === "Container");
 
-  for (const container of containers) {
-    const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
-    if (!isInside) continue;
-    if (container.sheet?.rendered) {
-      container.sheet.render(false);
+        for (const container of containers) {
+            const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+            if (!isInside) continue;
+            const weightDifference = newWeight - oldWeight;
+            if(container.system.weight + weightDifference > container.system.weightAllowed)return false;
+        }}
     }
-  }
+    if(changes.system?.size !== undefined){
+        const oldSize = item.system.size;
+        const newSize = changes.system.size;
+        const containers = actor.items.filter(i => i.type === "Container");
 
+        for (const container of containers) {
+            const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+            if (!isInside) continue;
+            if(newSize>container.system.maxSize) return false;
+        }
+
+    }
+
+})
+
+Hooks.on("updateItem", async (item, data, option, userId)=>{
+    const actor = item.actor;
+    if (!actor) return;
+
+    const containers = actor.items.filter(i => i.type === "Container");
+
+    for (const container of containers) {
+        const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+        if (!isInside) continue;
+
+        if (container.sheet?.rendered) {
+        container.sheet.render(false);
+        }
+  }
+  await PJActorAPI.UpdateAllContainers(actor);
+  await PJActorAPI.onUpdateWeight(actor);
 });
 
 Hooks.once("init", async ()=>{
