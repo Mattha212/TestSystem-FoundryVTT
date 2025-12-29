@@ -1460,7 +1460,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         const item = actor.items.get(originTransfer);
         const destinationContainer = await fromUuid(destinationId);
 
-        if(Number(item.system.weight) > destinationContainer.document.system.weightRemaining) return;
+        if(Number(item.system.weight) > destinationContainer.system.weightRemaining) return;
         const update1 = {}; const update2={};
         if(item.system.quantity > 1){
             update1[`system.quantity`] = item.system.quantity -1 ;
@@ -1474,7 +1474,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             await this.document.update(update1);
         }
 
-        const targetContents = destinationContainer.document.system.contents;
+        const targetContents = destinationContainer.system.contents;
         const targetIndex =  targetContents.findIndex(i => i.name === item.name);
         if(targetIndex!= -1){
             const targetContent = targetContents[targetIndex];
