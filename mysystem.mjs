@@ -1548,7 +1548,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
         tag: 'form',
         form:{
             handler:this.onSubmitForm,
-            submitOnChange: false,
+            submitOnChange: true,
             closeOnSubmit: false
         },
         actions:{
