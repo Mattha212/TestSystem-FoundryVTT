@@ -298,7 +298,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             for(const element of item.system.contents){
                 const elementId = element.uuid.split(".")[3];
                 if(PJActorAPI.isInEquipment(elementId,actor)){
-                    const elementToRemove = await fromUuid(elementId);
+                    const elementToRemove = await fromUuid(element.uuid);
                     if(elementToRemove.type === "Weapon"){
                             await PJActorAPI.onUnequipWeapon(actor);
                     }
