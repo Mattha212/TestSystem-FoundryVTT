@@ -1475,7 +1475,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         event.preventDefault();
 
         const itemId= target.dataset.itemId;
-        const itemDoc = this.document.items.get(itemId);
+        const itemDoc = this.document.actor.items.get(itemId);
         itemDoc.sheet.render(true);
     }
 
