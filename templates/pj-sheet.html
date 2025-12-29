@@ -58,6 +58,7 @@
         <a class="item" data-tab="skillsTab" data-action="changeTab">Skills</a>
         <a class="item" data-tab="fightingTab" data-action="changeTab">Fighting</a>
         <a class="item" data-tab="inventoryTab" data-action="changeTab">Inventory</a>
+        <a class="item" data-tab="magicTab" data-action="changeTab">Magic</a>
     </nav>
  
 <section class="sheet-body" data-application-part="body">
@@ -228,5 +229,19 @@
       {{/each}}
     </ol>
   </div>
+
+    <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
+    <ol class="magic-list">
+        <span>Catalyst spells</span>
+        {{#each system.catalystSpells}}
+        {{/each}}
+        <span>Runesmith spells</span>
+        {{#each system.runesmithSpells}}
+        {{/each}}
+        <span>Thaumarturge spells</span>
+        {{#each system.thaumarturgeSpells}}
+        {{/each}}
+    </ol>
+    </div>
 </section>
 </form>

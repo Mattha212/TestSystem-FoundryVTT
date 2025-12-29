@@ -144,6 +144,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         inventoryTab:{
             id: 'inventoryTab',
             group: 'primary'
+        },
+        magicTab:{
+            id:'magicTab',
+            group:'primary'
         }
     }
 
