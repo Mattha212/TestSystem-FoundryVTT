@@ -1558,6 +1558,10 @@ Hooks.on("preCreateItem", (item, data, options, userId)=>{
 Hooks.once("init", async ()=>{
   console.log("✅ TestSystem Init Hook");
 
+    CONFIG.Item.documentClasses = {
+        Container: ContainerItem
+    };
+
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
         types: ["PJ"],
         makeDefault: true
