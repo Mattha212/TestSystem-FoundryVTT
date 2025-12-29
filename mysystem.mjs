@@ -1490,7 +1490,7 @@ class ContainerSheet extends ObjectsItemsSheet{
                 const objectToAdd = {"name":embedded.name, "uuid": embedded.uuid};
                 targetContents.push(objectToAdd);
 
-                await destinationContainer.document.update({
+                await destinationContainer.update({
                     "system.contents":contents
                 });
             }
