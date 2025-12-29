@@ -1,0 +1,25 @@
+<div class="object-sheet" data-application-part="main">
+
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+
+    <section class="object-body">
+        <div>
+            <label>Description</label>
+            <textarea name="system.description">{{system.description}}</textarea>
+        </div>
+        <div>
+            <label>Cost</label>
+            <input type="number" name="system.vigorCost" value="{{system.vigorCost}}"/>
+        </div>
+        <select name="system.spellType">
+            <option value="">Select a size</option>
+            {{#each spellTypes as |label value|}}
+                <option value="{{value}}" {{#if (eq ../system.spellType  value)}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+        </select>
+    </section>
+</div>

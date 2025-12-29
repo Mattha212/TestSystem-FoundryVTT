@@ -1,0 +1,12 @@
+<div class="object-sheet" data-application-part="main">
+
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+
+    {{#each system.existingTypeOfSpells as |spellType index|}}
+        <input type="text" name="system.existingTypeOfSpells.{{index}}" value="{{spellType}}"/>
+    {{/each}}
+</div>

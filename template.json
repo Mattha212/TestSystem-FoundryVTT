@@ -27,7 +27,8 @@
   }
 },
   "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Fighting Maneuver", "Fighting School", "Container"],
+    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", 
+    "Fighting Maneuver", "Fighting School", "Container", "SpellSystem", "Spell"],
     "Object":{
       "description":"",
       "weight":0,
@@ -88,6 +89,15 @@
       "weightAllowed":0,
       "weight":0,
       "weightRemaining":0
+    },
+    "SpellSystem":{
+      "existingTypeOfSpells": []
+    },
+    "Spell":{
+      "spellType":"",
+      "reach":0,
+      "vigorCost":0,
+      "description":""
     }
   }
 }

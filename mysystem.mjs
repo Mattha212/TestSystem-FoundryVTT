@@ -1540,6 +1540,53 @@ class ContainerSheet extends ObjectsItemsSheet{
     }
 }
 
+class SpellSystemSheet extends NonObjectItemsSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/spellSystem-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class SpellSheet extends NonObjectItemsSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/spell-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);
+        const spellSystem = game.items.filter(i=> i.type === "SpellSystem");
+        context.spellTypes = spellSystem.system.existingTypeOfSpells;
+        return context;
+    }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
@@ -1685,6 +1732,16 @@ Hooks.once("init", async ()=>{
 
     foundry.documents.collections.Items.registerSheet("testsystem", ContainerSheet, {
         types:["Container"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", SpellSystemSheet, {
+        types:["SpellSystem"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", SpellSheet, {
+        types:["Spell"],
         makeDefault:true
     });
 

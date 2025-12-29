@@ -232,14 +232,23 @@
 
     <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
     <ol class="magic-list">
-        <span>Catalyst spells</span>
+        <span class="catalystSpells">Catalyst spells</span>
         {{#each system.catalystSpells}}
+            <span>{{this.name}}</span>
+            <span>{{this.system.reach}}</span>
+            <span>{{this.system.vigorCost}}</span>
         {{/each}}
-        <span>Runesmith spells</span>
+        <span class="runesmithSpells">Runesmith spells</span>
         {{#each system.runesmithSpells}}
+            <span>{{this.name}}</span>
+            <span>{{this.system.reach}}</span>
+            <span>{{this.system.vigorCost}}</span>
         {{/each}}
-        <span>Thaumarturge spells</span>
+        <span class="thaumarturgeSpells">Thaumarturge spells</span>
         {{#each system.thaumarturgeSpells}}
+            <span>{{this.name}}</span>
+            <span>{{this.system.reach}}</span>
+            <span>{{this.system.vigorCost}}</span>
         {{/each}}
     </ol>
     </div>
