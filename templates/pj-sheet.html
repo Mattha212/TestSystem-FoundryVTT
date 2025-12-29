@@ -233,19 +233,25 @@
     <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
     <ol class="magic-list">
         <span class="catalystSpells">Catalyst spells</span>
-        {{#each system.catalystSpells}}
+        {{#each catalystSpells}}
             <span>{{this.name}}</span>
             <span>{{this.system.reach}}</span>
             <span>{{this.system.vigorCost}}</span>
         {{/each}}
         <span class="runesmithSpells">Runesmith spells</span>
-        {{#each system.runesmithSpells}}
+        {{#each runesmithSpells}}
             <span>{{this.name}}</span>
             <span>{{this.system.reach}}</span>
             <span>{{this.system.vigorCost}}</span>
         {{/each}}
         <span class="thaumarturgeSpells">Thaumarturge spells</span>
-        {{#each system.thaumarturgeSpells}}
+        {{#each thaumarturgeSpells}}
+            <span>{{this.name}}</span>
+            <span>{{this.system.reach}}</span>
+            <span>{{this.system.vigorCost}}</span>
+        {{/each}}
+        <span class="WordsOfPowerSpells">Words of Power spells</span>
+        {{#each wordsOfPowerSpells}}
             <span>{{this.name}}</span>
             <span>{{this.system.reach}}</span>
             <span>{{this.system.vigorCost}}</span>

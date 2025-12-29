@@ -209,6 +209,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         context.cultures = allCultures;
         context.subcultures = allSubcultures.filter(i=> i.system.parentCulture === context.system.culture)
+        
+        context.catalystSpells = game.items.filter(i=>i.type === "Spell" && i.system.spellType === "Catalysme");
+        context.runesmithSpells = game.items.filter(i=>i.type === "Spell" && i.system.spellType === "Forgerune");
+        context.thaumarturgeSpells = game.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
+        context.wordsOfPowerSpells = game.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
+
 
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
             key: k,
