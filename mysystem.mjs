@@ -1550,6 +1550,10 @@ class SpellSystemSheet extends NonObjectItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        actions:{
+            addTypeofSpell: function (event, target) { this._onAddTypeofSpell(event, target);},
+            removeTypeofSpell:function (event, target) { this._onRemoveTypeofSpell(event, target);}
         }
     }
     static PARTS = {
@@ -1557,6 +1561,23 @@ class SpellSystemSheet extends NonObjectItemsSheet{
             template : "systems/testsystem/templates/spellSystem-sheet.html",
             scrollable: [".tab"],
         }
+    }
+
+    async _onAddTypeofSpell(event, target){
+        const existingTypes = this.document.system.existingTypeOfSpells;
+        const newType = "new spell type";
+        existingTypes.push(newType);
+        const update = {};
+        update[`system.existingTypeOfSpells`] = existingTypes;
+        this.document.update(update);
+    }
+
+    async _onRemoveTypeofSpell(event, target){
+        const existingTypes = this.document.system.existingTypeOfSpells;
+        const index = target.dataset.itemIndex;
+        existingTypes.splice(index, 1);
+        update[`system.existingTypeOfSpells`] = existingTypes;
+        this.document.update(update);
     }
 }
 

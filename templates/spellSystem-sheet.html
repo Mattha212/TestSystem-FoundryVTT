@@ -8,5 +8,7 @@
 
     {{#each system.existingTypeOfSpells as |spellType index|}}
         <input type="text" name="system.existingTypeOfSpells.{{index}}" value="{{spellType}}"/>
+        <button type="button" data-action="removeTypeofSpell" data-item-index ={{index}}>Remove</button>
     {{/each}}
+    <button type="button" data-action="addTypeofSpell">Add type of spell</button>
 </div>
