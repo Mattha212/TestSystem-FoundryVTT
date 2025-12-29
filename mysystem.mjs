@@ -1547,7 +1547,6 @@ class SpellSystemSheet extends NonObjectItemsSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
@@ -1580,27 +1579,27 @@ class SpellSystemSheet extends NonObjectItemsSheet{
         update[`system.existingTypeOfSpells`] = existingTypes;
         this.document.update(update);
     }
-    // constructor(...args) {
-    //     super(...args);
+    constructor(...args) {
+        super(...args);
 
-    //     this._onChangeSpecificTypeBound = this._onChangeSpecificType.bind(this);
-    // }
-    // _onRender(context, options){
-    //     this.element.querySelectorAll('input[name*="system.existingTypeOfSpells"]').forEach(inp =>
-    //         inp.addEventListener("change", this._onChangeSpecificTypeBound)
-    //     );
-    // }
-    //     async _onChangeSpecificType(event){
-    //     event.preventDefault();
-    //     const index = event.target.name.split(".")[2];
-    //     const value = event.target.value;
-    //     const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
-    //     existingTypes[index] =value;
-    //     const update = {};
-    //     update[`system.existingTypeOfSpells`] = existingTypes;
-    //     this.document.update(update);
+        this._onChangeSpecificTypeBound = this._onChangeSpecificType.bind(this);
+    }
+    _onRender(context, options){
+        this.element.querySelectorAll('input[name*="system.existingTypeOfSpells"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangeSpecificTypeBound)
+        );
+    }
+        async _onChangeSpecificType(event){
+        event.preventDefault();
+        const index = event.target.name.split(".")[2];
+        const value = event.target.value;
+        const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
+        existingTypes[index] =value;
+        const update = {};
+        update[`system.existingTypeOfSpells`] = existingTypes;
+        this.document.update(update);
 
-    // }
+    }
 }
 
 class SpellSheet extends NonObjectItemsSheet{
