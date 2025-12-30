@@ -230,33 +230,65 @@
     </ol>
   </div>
 
-    <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
-    <ol class="magic-list">
-        <span class="catalystSpells">Catalyst spells</span>
-        {{#each catalystSpells}}
-            <span>{{this.name}}</span>
-            <span>{{this.system.reach}}</span>
-            <span>{{this.system.vigorCost}}</span>
-        {{/each}}
-        <span class="runesmithSpells">Runesmith spells</span>
-        {{#each runesmithSpells}}
-            <span>{{this.name}}</span>
-            <span>{{this.system.reach}}</span>
-            <span>{{this.system.vigorCost}}</span>
-        {{/each}}
-        <span class="thaumarturgeSpells">Thaumarturge spells</span>
-        {{#each thaumarturgeSpells}}
-            <span>{{this.name}}</span>
-            <span>{{this.system.reach}}</span>
-            <span>{{this.system.vigorCost}}</span>
-        {{/each}}
-        <span class="WordsOfPowerSpells">Words of Power spells</span>
-        {{#each wordsOfPowerSpells}}
-            <span>{{this.name}}</span>
-            <span>{{this.system.reach}}</span>
-            <span>{{this.system.vigorCost}}</span>
-        {{/each}}
-    </ol>
+<div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
+  <div class="magic-list">
+
+    <div class="spell-category">Catalyst Spells</div>
+    {{#each catalystSpells}}
+      <div class="spell-row">
+        <span class="spell-name">{{this.name}}</span>
+        <span class="spell-reach">{{this.system.reach}}</span>
+        <span class="spell-cost">{{this.system.vigorCost}}</span>
+        <button type="button"
+                data-action="skillRoll"
+                data-category="Restricted"
+                data-skillkey="{{this.system.spellType}}">
+          Cast
+        </button>
+      </div>
+    {{/each}}
+    <div class="spell-category">Runesmith Spells</div>
+    {{#each runesmithSpells}}
+      <div class="spell-row">
+        <span class="spell-name">{{this.name}}</span>
+        <span class="spell-reach">{{this.system.reach}}</span>
+        <span class="spell-cost">{{this.system.vigorCost}}</span>
+        <button type="button"
+                data-action="skillRoll"
+                data-category="Restricted"
+                data-skillkey="{{this.system.spellType}}">
+          Cast
+        </button>
+      </div>
+    {{/each}}
+    <div class="spell-category">Thaumarturge Spells</div>
+    {{#each thaumarturgeSpells}}
+      <div class="spell-row">
+        <span class="spell-name">{{this.name}}</span>
+        <span class="spell-reach">{{this.system.reach}}</span>
+        <span class="spell-cost">{{this.system.vigorCost}}</span>
+        <button type="button"
+                data-action="skillRoll"
+                data-category="Restricted"
+                data-skillkey="{{this.system.spellType}}">
+          Cast
+        </button>
+      </div>
+    {{/each}}
+    <div class="spell-category">Words of Power Spells</div>
+    {{#each wordsOfPowerSpells}}
+      <div class="spell-row">
+        <span class="spell-name">{{this.name}}</span>
+        <span class="spell-reach">{{this.system.reach}}</span>
+        <span class="spell-cost">{{this.system.vigorCost}}</span>
+        <button type="button"
+                data-action="skillRoll"
+                data-category="Restricted"
+                data-skillkey="{{this.system.spellType}}">
+          Cast
+        </button>
+      </div>
+    {{/each}}
     </div>
 </section>
 </form>
