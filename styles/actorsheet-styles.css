@@ -295,7 +295,6 @@ width: 50px;
     line-height: 1.1;
 }
 
-
 .magic-list {
   display: flex;
   flex-direction: column;
@@ -304,8 +303,7 @@ width: 50px;
 
 /* Titre de catégorie */
 .spell-category {
-  margin-top: 0.75rem;
-  padding: 0.25rem 0.5rem;
+  margin-top: 0.5rem;
   font-weight: bold;
   background: rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #666;
@@ -314,43 +312,10 @@ width: 50px;
 /* Ligne d’un sort */
 .spell-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.5rem;
-}
-
-/* Alternance visuelle */
-.spell-row:nth-child(even) {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-/* Colonnes */
-.spell-name {
-  font-weight: 500;
-}
-.magic-list {
-  display: flex;
-  flex-direction: column;
   gap: 0.25rem;
-}
-
-/* Titre de catégorie */
-.spell-category {
-  margin-top: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  font-weight: bold;
-  background: rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #666;
-}
-
-/* Ligne d’un sort */
-.spell-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.25rem;
 }
 
 /* Alternance visuelle */
@@ -367,21 +332,4 @@ width: 50px;
 .spell-reach,
 .spell-cost {
   text-align: center;
-}
-
-/* Groupe de boutons */
-.spell-row > button {
-  margin-left: 0.25rem;
-}
-
-.spell-row > button:first-of-type {
-  margin-left: 0;
-}
-.spell-reach,
-.spell-cost {
-  text-align: center;
-}
-
-.spell-row button {
-  justify-self: end;
 }
