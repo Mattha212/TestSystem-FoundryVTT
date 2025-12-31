@@ -885,7 +885,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await ChatMessage.create({
             speaker:ChatMessage.getSpeaker({actor:this.actor}),
             content:message,
-            rolls: [roll],
         })
     }
     _onClose(options){
