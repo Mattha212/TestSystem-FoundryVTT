@@ -231,64 +231,77 @@
   </div>
 
 <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
-  <div class="magic-list">
-
-    <div class="spell-category">Catalyst Spells</div>
-    {{#each catalystSpells}}
-      <div class="spell-row">
-        <span class="spell-name">{{this.name}}</span>
-        <span class="spell-reach">{{this.system.reach}}</span>
-        <span class="spell-cost">{{this.system.vigorCost}}</span>
-        <button type="button"
-                data-action="skillRoll"
-                data-category="Restricted"
-                data-skillkey="{{this.system.spellType}}">
-          Cast
-        </button>
-      </div>
-    {{/each}}
-    <div class="spell-category">Runesmith Spells</div>
-    {{#each runesmithSpells}}
-      <div class="spell-row">
-        <span class="spell-name">{{this.name}}</span>
-        <span class="spell-reach">{{this.system.reach}}</span>
-        <span class="spell-cost">{{this.system.vigorCost}}</span>
-        <button type="button"
-                data-action="skillRoll"
-                data-category="Restricted"
-                data-skillkey="{{this.system.spellType}}">
-          Cast
-        </button>
-      </div>
-    {{/each}}
-    <div class="spell-category">Thaumarturge Spells</div>
-    {{#each thaumarturgeSpells}}
-      <div class="spell-row">
-        <span class="spell-name">{{this.name}}</span>
-        <span class="spell-reach">{{this.system.reach}}</span>
-        <span class="spell-cost">{{this.system.vigorCost}}</span>
-        <button type="button"
-                data-action="skillRoll"
-                data-category="Restricted"
-                data-skillkey="{{this.system.spellType}}">
-          Cast
-        </button>
-      </div>
-    {{/each}}
-    <div class="spell-category">Words of Power Spells</div>
-    {{#each wordsOfPowerSpells}}
-      <div class="spell-row">
-        <span class="spell-name">{{this.name}}</span>
-        <span class="spell-reach">{{this.system.reach}}</span>
-        <span class="spell-cost">{{this.system.vigorCost}}</span>
-        <button type="button"
-                data-action="skillRoll"
-                data-category="Restricted"
-                data-skillkey="{{this.system.spellType}}">
-          Cast
-        </button>
-      </div>
-    {{/each}}
+    <div class="magic-list">
+        <div class="spell-category">Catalyst Spells</div>
+            {{#each catalystSpells}}
+                <div class="spell-row">
+                    <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-reach">{{this.system.reach}}</span>
+                    <span class="spell-cost">{{this.system.vigorCost}}</span>
+                    <button type="button"
+                            data-action="skillRoll"
+                            data-category="Restricted"
+                            data-skillkey="{{this.system.spellType}}">
+                    Cast
+                    </button>
+                    <button type="button" data-action="printDescription" data-item-id="{{this.id}}"></button>
+                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                </div>
+            {{/each}}
+        </div>
+        <div class="spell-category">Runesmith Spells</div>
+            {{#each runesmithSpells}}
+                <div class="spell-row">
+                    <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-reach">{{this.system.reach}}</span>
+                    <span class="spell-cost">{{this.system.vigorCost}}</span>
+                    <button type="button"
+                            data-action="skillRoll"
+                            data-category="Restricted"
+                            data-skillkey="{{this.system.spellType}}">
+                    Cast
+                    </button>
+                    <button type="button" data-action="printDescription" data-item-id="{{this.id}}"></button>
+                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                </div>
+            {{/each}}
+        </div>
+        <div class="spell-category">Thaumarturge Spells</div>
+            {{#each thaumarturgeSpells}}
+                <div class="spell-row">
+                    <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-reach">{{this.system.reach}}</span>
+                    <span class="spell-cost">{{this.system.vigorCost}}</span>
+                    <button type="button"
+                            data-action="skillRoll"
+                            data-category="Restricted"
+                            data-skillkey="{{this.system.spellType}}">
+                    Cast
+                    </button>
+                    <button type="button" data-action="printDescription" data-item-id="{{this.id}}"></button>
+                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                </div>
+            {{/each}}
+        </div>
+        <div class="spell-category">Words of Power Spells</div>
+            {{#each wordsOfPowerSpells}}
+                <div class="spell-row">
+                    <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-reach">{{this.system.reach}}</span>
+                    <span class="spell-cost">{{this.system.vigorCost}}</span>
+                    <button type="button"
+                            data-action="skillRoll"
+                            data-category="Restricted"
+                            data-skillkey="{{this.system.spellType}}">
+                    Cast
+                    </button>
+                    <button type="button" data-action="printDescription" data-item-id="{{this.id}}"></button>
+                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                </div>
+            {{/each}}
+        </div>
     </div>
+</div>
+
 </section>
 </form>

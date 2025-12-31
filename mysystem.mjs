@@ -119,7 +119,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             unequipWeapon: function(event, target){PJActorAPI.onUnequipWeapon(this.actor);},
             attack: function(event, target){this._onAttack(event, target);},
             defense: function(event, target){ this._onDefense(event, target);},
-            maneuver: function(event, target){ this._onPerformManeuver(event, target);}
+            maneuver: function(event, target){ this._onPerformManeuver(event, target);},
+            printDescription: function(event, target){ this._onPrintDescription(event, target);}
         }
     }
     static PARTS = {
@@ -870,6 +871,23 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
     }
 
+    async _onPrintDescription(event, target){
+        event.preventDefault();
+        const itemId = target.dataset.itemId;
+        const item = this.document.items.get(itemId);
+        const message = `
+        <div class= "spell-description>
+        <h3>Spell description: ${item.name}</h3>
+        <p>${item.system.description}</p>
+        </div>
+        `;
+
+        await ChatMessage.create({
+            speaker:ChatMessage.getSpeaker({actor:this.actor}),
+            content:message,
+            rolls: [roll],
+        })
+    }
     _onClose(options){
         this._dropListenerBound = false;
     }
