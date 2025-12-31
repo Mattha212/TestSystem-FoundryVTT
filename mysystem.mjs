@@ -876,7 +876,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemId = target.dataset.itemId;
         const item = this.document.items.get(itemId);
         const message = `
-        <div class= "spell-description>
+        <div class= "spell-description">
         <h3>Spell description: ${item.name}</h3>
         <p>${item.system.description}</p>
         </div>
