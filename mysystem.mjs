@@ -2047,47 +2047,47 @@ Hooks.once("init", async ()=>{
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FamilyStandingSheet, {
-        types:["Lifepath- Family Standing"],
+        types:["Lifepath - Family Standing"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", ParentMishapsSheet, {
-        types:["Lifepath- Parent Mishaps"],
+        types:["Lifepath - Parent Mishaps"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", CrucialChildhoodMomentSheet, {
-        types:["Lifepath- Crucial Childhood Moment"],
+        types:["Lifepath - Crucial Childhood Moment"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", ChildhoodMemorySheet, {
-        types:["Lifepath- Childhood Memory"],
+        types:["Lifepath - Childhood Memory"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", StrokeofFortuneSheet, {
-        types:["Lifepath- Stroke of Fortune"],
+        types:["Lifepath - Stroke of Fortune"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", StrokeofTragedySheet, {
-        types:["Lifepath- Stroke of Tragedy"],
+        types:["Lifepath - Stroke of Tragedy"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FatefulEncounterSheet, {
-        types:["Lifepath- Fateful Encounter"],
+        types:["Lifepath - Fateful Encounter"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", DramaticEncounterSheet, {
-        types:["Lifepath- Dramatic Encounter"],
+        types:["Lifepath - Dramatic Encounter"],
         makeDefault:true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", RomanceSheet, {
-        types:["Lifepath- Romance"],
+        types:["Lifepath - Romance"],
         makeDefault:true
     });
 
