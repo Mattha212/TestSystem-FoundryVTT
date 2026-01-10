@@ -1696,7 +1696,7 @@ class LifePathInfoSheet extends InfoSheet{
             inp.addEventListener("change", this._onChangePossibilityBound)
         );
 
-        this.element.querySelectorAll('select[name*="system.culture"]').forEach(int=>
+        this.element.querySelectorAll('select[name*="system.culture"]').forEach(inp=>
             inp.addEventListener("change", this._onChangeCultureBound)
         );
     }
