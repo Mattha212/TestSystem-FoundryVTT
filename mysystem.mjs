@@ -1729,8 +1729,9 @@ class ParentMishapsSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}
+        }
     }
     static PARTS = {
         main : {
@@ -1752,8 +1753,9 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}
+       }
     }
     static PARTS = {
         main : {
@@ -1775,8 +1777,8 @@ class ChildhoodMemorySheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}       }
     }
     static PARTS = {
         main : {
@@ -1798,8 +1800,8 @@ class StrokeofFortuneSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}      }
     }
     static PARTS = {
         main : {
@@ -1821,8 +1823,8 @@ class StrokeofTragedySheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}       }
     }
     static PARTS = {
         main : {
@@ -1844,8 +1846,8 @@ class FatefulEncounterSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}        }
     }
     static PARTS = {
         main : {
@@ -1867,8 +1869,8 @@ class DramaticEncounterSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}        }
     }
     static PARTS = {
         main : {
@@ -1890,8 +1892,8 @@ class RomanceSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}        }
     }
     static PARTS = {
         main : {
