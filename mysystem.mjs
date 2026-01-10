@@ -1686,6 +1686,8 @@ class LifePathInfoSheet extends InfoSheet{
     async _prepareContext(options){
         const context = await super._prepareContext(options);
         context.cultures = game.items.filter(i=>i.type === "Culture");
+
+        return context;
     }
 }
 
