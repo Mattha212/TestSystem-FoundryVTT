@@ -219,6 +219,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
         
+        context.familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture);
+        context.parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture);
+        context.crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture);
+        context.childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture);
+
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
             key: k,
             label: k.charAt(0).toUpperCase() + k.slice(1)
@@ -1677,6 +1682,10 @@ class LifePathInfoSheet extends InfoSheet{
         const update = {};
 		update[name] = value;
         await this.document.update(update);
+    }
+    async _prepareContext(options){
+        const context = await super._prepareContext(options);
+        const cultures = game.items.filter(i=>i.type === "Culture");
     }
 }
 
