@@ -315,7 +315,7 @@
                             <option value=""> Select family standing</option>
                             {{#each familyStandings}}
                                 <option value ="{{this.name}}" {{#if (eq ../system.background.familyStanding this.value)}}selected{{/if}}>
-                                    {{this.key}}
+                                    {{this.name}}
                                 </option>
                             {{/each}}
                         </select>
@@ -334,7 +334,7 @@
                                 <option value=""> Select parent mishaps</option>
                                 {{#each parentMishaps}}
                                     <option value ="{{this.name}}" {{#if (eq ../system.background.parentMishaps this.value)}}selected{{/if}}>
-                                        {{this.key}}
+                                        {{this.name}}
                                     </option>
                                 {{/each}}
                             </select>                            
@@ -347,7 +347,7 @@
                             <option value=""> Select crucial childhood event</option>
                             {{#each crucialChildhoodEvent}}
                                 <option value ="{{this.name}}" {{#if (eq ../system.background.CrucialChildhoodEvent this.value)}}selected{{/if}}>
-                                    {{this.key}}
+                                    {{this.name}}
                                 </option>
                             {{/each}}
                         </select>   
@@ -358,7 +358,7 @@
                             <option value=""> Select childhood memory</option>
                             {{#each childhoodMemory}}
                                 <option value ="{{this.name}}" {{#if (eq ../system.background.ChildhoodMemory this.value)}}selected{{/if}}>
-                                    {{this.key}}
+                                    {{this.name}}
                                 </option>
                             {{/each}}
                         </select>
