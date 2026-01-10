@@ -1670,6 +1670,14 @@ class LifePathInfoSheet extends InfoSheet{
         update[`system.possibilities`] = possibilities;
         this.document.update(update);
     }
+    static async #onSubmitForm(event, form, formData) {
+		event.preventDefault()
+        const name = event.target.name;
+        const value = event.target.value;
+        const update = {};
+		update[name] = value;
+        await this.document.update(update);
+    }
 }
 
 class FamilyStandingSheet extends LifePathInfoSheet{
