@@ -223,9 +223,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if(familyStandings.length>0) context.familyStandings = familyStandings[0].system.possibilities;
         const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture);
         if(parentMishaps.length>0) context.parentMishaps = parentMishaps[0].system.possibilities;
-        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture)[0].system.possibilities;
+        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture);
         if(crucialChildhoodEvent.length>0) context.crucialChildhoodEvent = crucialChildhoodEvent[0].system.possibilities;
-        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture)[0].system.possibilities;
+        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture);
         if(childhoodMemory.length>0) context.childhoodMemory = childhoodMemory[0].system.possibilities;
 
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
