@@ -1659,6 +1659,7 @@ class SpellSheet extends NonObjectItemsSheet{
 
 class LifePathInfoSheet extends InfoSheet{
     async onAddPossibilty(event, target){
+        event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
         const newPossibility = "new possibility";
         possibilities.push(newPossibility);
@@ -1668,6 +1669,7 @@ class LifePathInfoSheet extends InfoSheet{
     }
 
     async onRemovePossibility(event, target){
+        event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
         const index = target.database.itemIndex;
         possibilities.splice(index,1);
@@ -1703,8 +1705,8 @@ class FamilyStandingSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}
+            addPossibility: function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:async function(event, target){ this.onRemovePossibility(event, target);}
         }
     }
     static PARTS = {
