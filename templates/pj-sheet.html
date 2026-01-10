@@ -313,7 +313,7 @@
                         <h3>Family standing</h3>
                         <select name="system.background.familyStanding">
                             <option value=""> Select family standing</option>
-                            {{#each ../familyStandings}}
+                            {{#each familyStandings}}
                                 <option value ="{{this.key}}" {{#if (eq ../system.background.familyStanding this.key)}}selected{{/if}}>
                                     {{this.key}}
                                 </option>
@@ -332,7 +332,7 @@
                             <h3>Parent mishaps</h3>
                             <select name="system.background.parentMishaps">
                                 <option value=""> Select parent mishaps</option>
-                                {{#each ../parentMishaps}}
+                                {{#each parentMishaps}}
                                     <option value ="{{this.key}}" {{#if (eq ../system.background.parentMishaps this.key)}}selected{{/if}}>
                                         {{this.key}}
                                     </option>
@@ -345,7 +345,7 @@
                         <h3>Crucial childhood event</h3>
                         <select name="system.background.CrucialChildhoodEvent">
                             <option value=""> Select crucial childhood event</option>
-                            {{#each ../crucialChildhoodEvent}}
+                            {{#each crucialChildhoodEvent}}
                                 <option value ="{{this.key}}" {{#if (eq ../system.background.CrucialChildhoodEvent this.key)}}selected{{/if}}>
                                     {{this.key}}
                                 </option>
@@ -356,7 +356,7 @@
                         <h3>Childhood Memory</h3>
                         <select name="system.background.ChildhoodMemory">
                             <option value=""> Select childhood memory</option>
-                            {{#each ../childhoodMemory}}
+                            {{#each childhoodMemory}}
                                 <option value ="{{this.key}}" {{#if (eq ../system.background.ChildhoodMemory this.key)}}selected{{/if}}>
                                     {{this.key}}
                                 </option>
