@@ -333,3 +333,84 @@ width: 50px;
 .spell-cost {
   text-align: center;
 }
+
+.testsystem.actor.sheet .tab[data-tab="historyTab"] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px;
+}
+
+.testsystem.actor.sheet .tab[data-tab="historyTab"] > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.testsystem.actor.sheet .tab[data-tab="historyTab"] h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.testsystem.actor.sheet .Nation {
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+}
+
+.testsystem.actor.sheet .Lifepath {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.testsystem.actor.sheet .beginning,
+.testsystem.actor.sheet .highlight,
+.testsystem.actor.sheet .background {
+  padding: 8px;
+  border: 1px solid #aaa5;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.testsystem.actor.sheet .beginning > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #aaa5;
+}
+
+.testsystem.actor.sheet .beginning > div:last-child {
+  border-bottom: none;
+}
+
+.testsystem.actor.sheet .tab[data-tab="historyTab"] select,
+.testsystem.actor.sheet .tab[data-tab="historyTab"] textarea {
+  width: 100%;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.testsystem.actor.sheet .highlight span {
+  display: block;
+  padding: 3px 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.testsystem.actor.sheet .background textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.testsystem.actor.sheet .tab[data-tab="historyTab"] button {
+  align-self: flex-start;
+  padding: 4px 8px;
+  font-size: 0.9em;
+}

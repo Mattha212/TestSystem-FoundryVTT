@@ -305,7 +305,7 @@
 
         <div class="tab {{tabs.historyTab.cssClass}}" data-tab="{{tabs.historyTab.id}}" data-group="{{tabs.historyTab.group}}" data-part="{{tabs.historyTab.id}}">
             <div class="Nation"><h3>Nation</h3>
-                <span>{system.culture}</span>
+                <span>{{system.culture}}</span>
             </div>
             <div class="Lifepath">
                 <div class="beginning"><h3>Beginning</h3>
@@ -323,6 +323,7 @@
                     <div class="parent situation">
                         <h3>Parent situation</h3>
                         <select name="system.background.parentSituation">
+                            <option value="">Select a parent situation</option>
                             <option value="false">Alive and well</option>
                             <option value="true">Tragic fate</option>
                         </select>
