@@ -1671,7 +1671,7 @@ class LifePathInfoSheet extends InfoSheet{
     async _onRemovePossibility(event, target){
         event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
-        const index = target.database.itemIndex;
+        const index = target.dataset.itemIndex;
         possibilities.splice(index,1);
         const update = {};
         update[`system.possibilities`] = possibilities;
@@ -1689,10 +1689,15 @@ class LifePathInfoSheet extends InfoSheet{
         super(...args);
 
         this._onChangePossibilityBound = this._onChangePossibility.bind(this);
+        this._onChangeCultureBound = this._onChangeCulture.bind(this);
     }
     _onRender(context, options){
         this.element.querySelectorAll('input[name*="system.possibilities"]').forEach(inp =>
             inp.addEventListener("change", this._onChangePossibilityBound)
+        );
+
+        this.element.querySelectorAll('select[name*="system.culture"]').forEach(int=>
+            inp.addEventListener("change", this._onChangeCultureBound)
         );
     }
     async _onChangePossibility(event){
@@ -1703,6 +1708,13 @@ class LifePathInfoSheet extends InfoSheet{
         existingTypes[index] =value;
         const update = {};
         update[`system.possibilities`] = existingTypes;
+        this.document.update(update);
+    }
+    async _onChangeCulture(event){
+        event.preventDefault();
+        const value = event.target.value;
+        const update = {};
+        update[`system.culture`] = value;
         this.document.update(update);
     }
 
