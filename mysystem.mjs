@@ -1691,7 +1691,7 @@ class LifePathInfoSheet extends InfoSheet{
         this._onChangePossibilityBound = this._onChangePossibility.bind(this);
     }
     _onRender(context, options){
-        this.element.querySelectorAll('input[name*="system.possibilties"]').forEach(inp =>
+        this.element.querySelectorAll('input[name*="system.possibilities"]').forEach(inp =>
             inp.addEventListener("change", this._onChangePossibilityBound)
         );
     }
