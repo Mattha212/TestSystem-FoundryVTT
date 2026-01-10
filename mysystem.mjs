@@ -219,10 +219,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
         
-        context.familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture)[0].system.possibilities;
-        context.parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture)[0].system.possibilities;
-        context.crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture)[0].system.possibilities;
-        context.childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture)[0].system.possibilities;
+        const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture);
+        if(familyStandings.length>0) context.familyStandings = familyStandings[0].system.possibilities;
+        const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture);
+        if(parentMishaps.length>0) context.parentMishaps = parentMishaps[0].system.possibilities;
+        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture)[0].system.possibilities;
+        if(crucialChildhoodEvent.length>0) context.crucialChildhoodEvent = crucialChildhoodEvent[0].system.possibilities;
+        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture)[0].system.possibilities;
+        if(childhoodMemory.length>0) context.childhoodMemory = childhoodMemory[0].system.possibilities;
 
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
             key: k,
