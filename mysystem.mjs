@@ -149,6 +149,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         magicTab:{
             id:'magicTab',
             group:'primary'
+        },
+        historyTab:{
+            if:'historyTab',
+            groupe:'primary'
         }
     }
 
@@ -194,7 +198,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.stats = this.document.system.stats;
         context.skills = this.document.system.skills;
 
-
         context.traits = this.document.items.filter(i=>i.type === "Trait");
         context.containers = this.document.items.filter(i=>i.type === "Container");
         context.shields = this.document.items.filter(i=>i.type === "Shield");
@@ -215,8 +218,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.runesmithSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Forgerune");
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
-
-
+        
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
             key: k,
             label: k.charAt(0).toUpperCase() + k.slice(1)
@@ -1651,6 +1653,234 @@ class SpellSheet extends NonObjectItemsSheet{
     }
 }
 
+class LifePathInfoSheet extends InfoSheet{
+    async onAddPossibilty(event, target){
+        const possibilities = Array.from(this.document.system.possibilities);
+        const newPossibility = "new possibility";
+        possibilities.push(newPossibility);
+        const update = {};
+        update[`system.possibilities`] = possibilities;
+        this.document.update(update);
+    }
+
+    async onRemovePossibility(event, target){
+        const possibilities = Array.from(this.document.system.possibilities);
+        const index = target.database.itemIndex;
+        possibilities.splice(index,1);
+        const update = {};
+        update[`system.possibilities`] = possibilities;
+        this.document.update(update);
+    }
+}
+
+class FamilyStandingSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}
+        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class ParentMishapsSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class CrucialChildhoodMomentSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class ChildhoodMemorySheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class StrokeofFortuneSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class StrokeofTragedySheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class FatefulEncounterSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class DramaticEncounterSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
+class RomanceSheet extends InfoSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form:{
+            handler:this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        actions:{
+            addPossibility:function(event, target){ this.onAddPossibilty(event, target);},
+            removePossibilty:function(event, target){ this.onRemovePossibility(event, target);}        }
+    }
+    static PARTS = {
+        main : {
+            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+            scrollable: [".tab"],
+        }
+    }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
   if (data.type !== "PJ") return;
 
@@ -1808,6 +2038,52 @@ Hooks.once("init", async ()=>{
         types:["Spell"],
         makeDefault:true
     });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", FamilyStandingSheet, {
+        types:["Lifepath- Family Standing"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ParentMishapsSheet, {
+        types:["Lifepath- Parent Mishaps"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", CrucialChildhoodMomentSheet, {
+        types:["Lifepath- Crucial Childhood Moment"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ChildhoodMemorySheet, {
+        types:["Lifepath- Childhood Memory"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", StrokeofFortuneSheet, {
+        types:["Lifepath- Stroke of Fortune"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", StrokeofTragedySheet, {
+        types:["Lifepath- Stroke of Tragedy"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", FatefulEncounterSheet, {
+        types:["Lifepath- Fateful Encounter"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", DramaticEncounterSheet, {
+        types:["Lifepath- Dramatic Encounter"],
+        makeDefault:true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", RomanceSheet, {
+        types:["Lifepath- Romance"],
+        makeDefault:true
+    });
+
 
 Handlebars.registerHelper("handleNames", function(str) {
   if (typeof str !== "string") return "";

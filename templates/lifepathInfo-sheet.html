@@ -1,0 +1,23 @@
+<div class="object-sheet" data-application-part="main">
+
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+
+    <select name="system.culture" id="culture">
+        <option value="">-- Sélectionne une culture --</option>
+        {{#each cultures}}
+            <option value="{{this.name}}" {{#if (eq ../system.parentCulture this.name)}}selected{{/if}}>
+            {{this.name}}
+            </option>
+        {{/each}}
+    </select>
+
+    {{#each system.possibilities as |possibility index|}}
+        <input type="text" name="system.possibilities.{{index}}" value="{{possibility}}"/>
+        <button type="button" data-action="removePossibilty" data-item-index="{{index}}">Remove possibility</button>
+    {{/each}}
+    <button type="button" data-action="addPossibilty">Add possibility</button>
+</div>

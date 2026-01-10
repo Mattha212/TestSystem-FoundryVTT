@@ -18,6 +18,15 @@
         "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
         "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
       },
+      "background":{
+        "familyStanding":"",
+        "parentMishaps":false,
+        "familyFate":"",
+        "CrucialChildhoodEvent":"",
+        "ChildhoodMemory":"",
+        "highlights":[],
+        "story":""
+      },
       "protection":0,
       "bulk":0,
       "weight":0,
@@ -98,6 +107,42 @@
       "reach":0,
       "vigorCost":0,
       "description":""
+    },
+    "Lifepath - Family Standing":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Parent Mishaps":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Crucial Childhood Moment":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Childhood Memory":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Stroke of Fortune":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Stroke of Tragedy":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Fateful Encounter":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Dramatic Encounter":{
+      "culture":"",
+      "possibilities":[]
+    },
+    "Lifepath - Romance":{
+      "culture":"",
+      "possibilities":[]
     }
   }
 }
