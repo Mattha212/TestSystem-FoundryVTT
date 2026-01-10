@@ -1658,7 +1658,7 @@ class SpellSheet extends NonObjectItemsSheet{
 }
 
 class LifePathInfoSheet extends InfoSheet{
-    async onAddPossibilty(event, target){
+    async _onAddPossibilty(event, target){
         event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
         const newPossibility = "new possibility";
@@ -1668,7 +1668,7 @@ class LifePathInfoSheet extends InfoSheet{
         this.document.update(update);
     }
 
-    async onRemovePossibility(event, target){
+    async _onRemovePossibility(event, target){
         event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
         const index = target.database.itemIndex;
@@ -1705,8 +1705,8 @@ class FamilyStandingSheet extends LifePathInfoSheet{
             closeOnSubmit: false
         },
         actions:{
-            addPossibility: function(event, target){ this.onAddPossibilty(event, target);},
-            removePossibilty:async function(event, target){ this.onRemovePossibility(event, target);}
+            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
+            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}
         }
     }
     static PARTS = {
