@@ -219,10 +219,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
         
-        context.familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture).possibilities;
-        context.parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture).possibilities;
-        context.crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture).possibilities;
-        context.childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture).possibilities;
+        context.familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture)[0].possibilities;
+        context.parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture)[0].possibilities;
+        context.crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture)[0].possibilities;
+        context.childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture)[0].possibilities;
 
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
             key: k,
