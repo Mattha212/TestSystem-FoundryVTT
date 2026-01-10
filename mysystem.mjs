@@ -1677,20 +1677,35 @@ class LifePathInfoSheet extends InfoSheet{
         update[`system.possibilities`] = possibilities;
         this.document.update(update);
     }
-    static async onSubmitForm(event, form, formData) {
-		event.preventDefault()
-        const name = event.target.name;
-        const value = event.target.value;
-        const update = {};
-		update[name] = value;
-        await this.document.update(update);
-    }
+
     async _prepareContext(options){
         const context = await super._prepareContext(options);
         context.cultures = game.items.filter(i=>i.type === "Culture");
 
         return context;
     }
+
+    constructor(...args) {
+        super(...args);
+
+        this._onChangePossibilityBound = this._onChangePossibility.bind(this);
+    }
+    _onRender(context, options){
+        this.element.querySelectorAll('input[name*="system.possibilties"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangePossibilityBound)
+        );
+    }
+    async _onChangePossibility(event){
+        event.preventDefault();
+        const index = event.target.name.split(".")[2];
+        const value = event.target.value;
+        const existingTypes = Array.from(this.document.system.possibilities);
+        existingTypes[index] =value;
+        const update = {};
+        update[`system.possibilities`] = existingTypes;
+        this.document.update(update);
+    }
+
 }
 
 class FamilyStandingSheet extends LifePathInfoSheet{
@@ -1700,8 +1715,7 @@ class FamilyStandingSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1724,8 +1738,7 @@ class ParentMishapsSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1748,8 +1761,7 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1772,8 +1784,7 @@ class ChildhoodMemorySheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1795,8 +1806,7 @@ class StrokeofFortuneSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1818,8 +1828,7 @@ class StrokeofTragedySheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1841,8 +1850,7 @@ class FatefulEncounterSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1864,8 +1872,7 @@ class DramaticEncounterSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
@@ -1887,8 +1894,7 @@ class RomanceSheet extends LifePathInfoSheet{
         height: 300,
         tag: 'form',
         form:{
-            handler:this.onSubmitForm,
-            submitOnChange: true,
+            submitOnChange: false,
             closeOnSubmit: false
         },
         actions:{
