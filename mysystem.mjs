@@ -1283,7 +1283,6 @@ static async updateWeight(container){
   }
 }
 
-
 class ContainerSheet extends ObjectsItemsSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
@@ -1673,7 +1672,7 @@ class LifePathInfoSheet extends InfoSheet{
     }
 }
 
-class FamilyStandingSheet extends InfoSheet{
+class FamilyStandingSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1697,7 +1696,7 @@ class FamilyStandingSheet extends InfoSheet{
     }
 }
 
-class ParentMishapsSheet extends InfoSheet{
+class ParentMishapsSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1720,7 +1719,7 @@ class ParentMishapsSheet extends InfoSheet{
     }
 }
 
-class CrucialChildhoodMomentSheet extends InfoSheet{
+class CrucialChildhoodMomentSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1743,7 +1742,7 @@ class CrucialChildhoodMomentSheet extends InfoSheet{
     }
 }
 
-class ChildhoodMemorySheet extends InfoSheet{
+class ChildhoodMemorySheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1766,7 +1765,7 @@ class ChildhoodMemorySheet extends InfoSheet{
     }
 }
 
-class StrokeofFortuneSheet extends InfoSheet{
+class StrokeofFortuneSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1789,7 +1788,7 @@ class StrokeofFortuneSheet extends InfoSheet{
     }
 }
 
-class StrokeofTragedySheet extends InfoSheet{
+class StrokeofTragedySheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1812,7 +1811,7 @@ class StrokeofTragedySheet extends InfoSheet{
     }
 }
 
-class FatefulEncounterSheet extends InfoSheet{
+class FatefulEncounterSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1835,7 +1834,7 @@ class FatefulEncounterSheet extends InfoSheet{
     }
 }
 
-class DramaticEncounterSheet extends InfoSheet{
+class DramaticEncounterSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1858,7 +1857,7 @@ class DramaticEncounterSheet extends InfoSheet{
     }
 }
 
-class RomanceSheet extends InfoSheet{
+class RomanceSheet extends LifePathInfoSheet{
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
