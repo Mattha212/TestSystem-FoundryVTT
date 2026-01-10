@@ -9,7 +9,7 @@
     <select name="system.culture" id="culture">
         <option value="">-- Sélectionne une culture --</option>
         {{#each cultures}}
-            <option value="{{this.name}}" {{#if (eq ../system.parentCulture this.name)}}selected{{/if}}>
+            <option value="{{this.name}}" {{#if (eq ../system.culture this.name)}}selected{{/if}}>
             {{this.name}}
             </option>
         {{/each}}
