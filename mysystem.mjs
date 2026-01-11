@@ -719,15 +719,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             subSelect.appendChild(opt);
         }
         
-        this._RomanceHighlights = game.items.filters(i=>i.type === "Lifepath - Romance"
+        this._RomanceHighlights = game.items.filter(i=>i.type === "Lifepath - Romance"
              && i.system.culture === this.document.system.culture);
-        this._DramaticHighlights = game.items.filters(i=>i.type === "Lifepath - Dramatic Encounter"
+        this._DramaticHighlights = game.items.filter(i=>i.type === "Lifepath - Dramatic Encounter"
              && i.system.culture === this.document.system.culture);
-        this._FatefulHighlights = game.items.filters(i=>i.type === "Lifepath - Fateful Encounter"
+        this._FatefulHighlights = game.items.filter(i=>i.type === "Lifepath - Fateful Encounter"
              && i.system.culture === this.document.system.culture);
-        this._FortuneHighlights = game.items.filters(i=>i.type === "Lifepath - Stroke of Fortune"
+        this._FortuneHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Fortune"
              && i.system.culture === this.document.system.culture);
-        this._TragedyHighlights === game.items.filters(i=>i.type === "Lifepath - Stroke of Tragedy"
+        this._TragedyHighlights === game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
              && i.system.culture === this.document.system.culture);
 
         const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture);
