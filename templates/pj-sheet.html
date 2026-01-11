@@ -370,15 +370,15 @@
                         <select name = "system.background.highlights.{{index}}.type" data-highlight-field="type" 
                         data-item-index="{{index}}" data-no-submit>
                             <option value=""> Select the type of highlight </option>
-                            <option value="Stroke of Fortune"         {{#if (eq highlight.type "Stroke of Fortune")}}selected{{/if}}>
+                            <option value="Stroke of Fortune"  {{#if (eq highlight.type "Stroke of Fortune")}}selected{{/if}}>
                                 Stroke of Fortune </option>
-                            <option value="Stroke of Tragedy"         {{#if (eq highlight.type "Stroke of Tragedy")}}selected{{/if}}>
+                            <option value="Stroke of Tragedy"  {{#if (eq highlight.type "Stroke of Tragedy")}}selected{{/if}}>
                                 Stroke of Tragedy </option>
-                            <option value="Fateful Encounter"         {{#if (eq highlight.type "Fateful Encounter")}}selected{{/if}}>
+                            <option value="Fateful Encounter"  {{#if (eq highlight.type "Fateful Encounter")}}selected{{/if}}>
                                 Fateful Encounter </option>
-                            <option value="Dramatic Encounter"        {{#if (eq highlight.type "Dramatic Encounter")}}selected{{/if}}>
+                            <option value="Dramatic Encounter"  {{#if (eq highlight.type "Dramatic Encounter")}}selected{{/if}}>
                                 Dramatic Encounter </option>
-                            <option value="Romance"         {{#if (eq highlight.type "Romance")}}selected{{/if}}>
+                            <option value="Romance"  {{#if (eq highlight.type "Romance")}}selected{{/if}}>
                                 Romance </option>
                         </select>
                         {{#if highlight.availablePossibilities.length}}
@@ -386,7 +386,7 @@
                             data-item-index="{{index}}" data-no-submit>
                                 <option value="">Select a possibility</option>
                                 {{#each highlight.availablePossibilities}}
-                                <option value="{{this}}" {{#if (eq highlight.value {{this}}) }}selected{{/if}}>{{this}}</option>
+                                <option value="{{this}}" {{#if (eq highlight.value this) }}selected{{/if}}>{{this}}</option>
                                 {{/each}}
                             </select>
                         {{/if}}
