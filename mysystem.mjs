@@ -306,7 +306,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if (event.target.dataset.noSubmit !== undefined) return;
 		event.preventDefault()
         const name = event.target.name;
-        const value = event.target.value;
+        let value = event.target.value;
         if (value === "true") value = true;
         else if (value === "false") value = false;
         const update = {};
