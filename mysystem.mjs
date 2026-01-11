@@ -402,7 +402,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const highlights = Array.from(this.document.system.background.highlights);
         highlights[itemIndex].type = value
         const update = {}
-        update[`system.background.highlights.${itemIndex}`] = value;
+        update[`system.background.highlights`] = highlights;
         await this.document.update(update);
     }
 
