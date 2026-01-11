@@ -98,7 +98,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         },
         tag: 'form',
         form:{
-            // handler:this.#onSubmitForm,
+            handler:this.#onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
@@ -303,6 +303,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     static async #onSubmitForm(event, form, formData) {
+        if (event.target.dataset.noSubmit !== undefined) return;
 		event.preventDefault()
         const name = event.target.name;
         const value = event.target.value;
