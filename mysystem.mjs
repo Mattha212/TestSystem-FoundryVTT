@@ -122,7 +122,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             maneuver: function(event, target){ this._onPerformManeuver(event, target);},
             printDescription: function(event, target){ this._onPrintDescription(event, target);},
             addHighlight: function(event, target){this._onAddHighlight(event, target);},
-            changeHighlightType: function(event, target){ this._OnChangeHighlightType(event, target);}
         }
     }
     static PARTS = {
@@ -179,6 +178,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._onDropBound = this._onDropItems.bind(this);
         this._OnModifyManeuverWeaponLinkedBound = this._OnModifyManeuverWeaponLinked.bind(this);
         this._OnModifyManeuverTypeBound = this._OnModifyManeuverType.bind(this);
+        this._OnChangeHighlightTypeBound = this._OnChangeHighlightType(this);
+
 
         this._RomanceHighlights = [];
         this._FatefulHighlights = [];
@@ -289,6 +290,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             sel.addEventListener("change", this._OnModifyManeuverTypeBound)
         );
 
+        this.element.querySelectorAll('select[name="system.background.highlights"]').forEach(sel=>
+            sel.addEventListener("change", this._OnChangeHighlightTypeBound)
+        );
 
         if (!this._dropListenerBound) {
             this.element.addEventListener("drop", this._onDropBound);
@@ -390,10 +394,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
-    async _OnChangeHighlightType(event, target){
+    async _OnChangeHighlightType(event){
         event.preventDefault();
-        const itemIndex = target.dataset.itemIndex;
-        const value = target.value;
+        const itemIndex = event.target.dataset.itemIndex;
+        const value = event.target.value;
         const update = {}
         update[`system.background.highlights.${itemIndex}.type`] = value;
         await this.document.update(update);
@@ -734,7 +738,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             && i.system.culture === this.document.system.culture);
         if(familyStandings.length>0) this._FamilyStandings = familyStandings[0].system.possibilities;
         else this._FamilyStandings = [];
-        
+
         const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" 
             && i.system.culture === this.document.system.culture);
         if(parentMishaps.length>0) this._ParentMishaps = parentMishaps[0].system.possibilities;
