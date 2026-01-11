@@ -386,7 +386,7 @@
                             data-item-index="{{index}}" data-no-submit>
                                 <option value="">Select a possibility</option>
                                 {{#each highlight.availablePossibilities}}
-                                <option value="{{this}}">{{this}}</option>
+                                <option value="{{this}}" {{#if (eq highlight.value {{this}}) }}selected{{/if}}>{{this}}</option>
                                 {{/each}}
                             </select>
                         {{/if}}
