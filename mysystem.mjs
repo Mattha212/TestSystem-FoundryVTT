@@ -399,8 +399,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const itemIndex = event.target.dataset.itemIndex;
         const value = event.target.value;
+        const highlights = Array.from(this.document.system.background.highlights);
+        highlights[itemIndex].type = value
         const update = {}
-        update[`system.background.highlights.${itemIndex}.type`] = value;
+        update[`system.background.highlights.${itemIndex}`] = value;
         await this.document.update(update);
     }
 
