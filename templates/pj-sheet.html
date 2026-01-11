@@ -367,7 +367,7 @@
                 <div class="highlight"><h3>Highlights</h3>
                     {{#each system.background.highlights as |highlight index|}}
                         <span>highlight type</span>
-                        <select name = "system.background.highlights.index" data-action="changeHighlightType" data-item-index="index">
+                        <select name = "system.background.highlights.{{index}}.type" data-action="changeHighlightType" data-item-index="{{index}}">
                             <option value=""> Select the type of highlight </option>
                             <option value="Stroke of Fortune"> Stroke of Fortune </option>
                             <option value="Stroke of Tragedy"> Stroke of Tragedy </option>
@@ -375,7 +375,15 @@
                             <option value="Dramatic Encounter"> Dramatic Encounter </option>
                             <option value="Romance"> Romance </option>
                         </select>
-                        
+                        {{#if highlight.availablePossibilities.length}}
+                            <select name="system.background.highlights.{{index}}.value">
+                                <option value="">Select a possibility</option>
+                                {{#each highlight.availablePossibilities}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        {{/if}}
+                        <button type="button" data-action="removeHighlight" data-item-index="{{index}}">Remove highlight</button>
                     {{/each}}
                     <button type="button" data-action="addHighlight">Add highlight</button>
                 </div>

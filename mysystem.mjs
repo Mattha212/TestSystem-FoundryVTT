@@ -121,6 +121,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             defense: function(event, target){ this._onDefense(event, target);},
             maneuver: function(event, target){ this._onPerformManeuver(event, target);},
             printDescription: function(event, target){ this._onPrintDescription(event, target);},
+            addHighlight: function(event, target){this._onAddHighlight(event, target);},
             changeHighlightType: function(event, target){ this._OnChangeHighlightType(event, target);}
         }
     }
@@ -178,6 +179,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._onDropBound = this._onDropItems.bind(this);
         this._OnModifyManeuverWeaponLinkedBound = this._OnModifyManeuverWeaponLinked.bind(this);
         this._OnModifyManeuverTypeBound = this._OnModifyManeuverType.bind(this);
+
+        this._RomanceHighlights = [];
+        this._FatefulHighlights = [];
+        this._DramaticHighlights = [];
+        this._FortuneHighlights = [];
+        this._TragedyHighlights = [];
+
+        this._FamilyStandings = [];
+        this._ParentMishaps = [];
+        this._CrucialChildhoodEvents = [];
+        this._ChildhoodMemory = [];
     }
 
     static _onClickTab(event) {
@@ -219,15 +231,26 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.runesmithSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Forgerune");
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
-        
-        const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture);
-        if(familyStandings.length>0) context.familyStandings = familyStandings[0].system.possibilities;
-        const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture);
-        if(parentMishaps.length>0) context.parentMishaps = parentMishaps[0].system.possibilities;
-        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture);
-        if(crucialChildhoodEvent.length>0) context.crucialChildhoodEvent = crucialChildhoodEvent[0].system.possibilities;
-        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture);
-        if(childhoodMemory.length>0) context.childhoodMemory = childhoodMemory[0].system.possibilities;
+
+        context.familyStandings = this._FamilyStandings;
+        context.parentMishaps = this._ParentMishaps;
+        context.crucialChildhoodEvents = this._CrucialChildhoodEvents;
+        context.childhoodMemory = this._ChildhoodMemory;
+
+        context.highlightOptionsByType = {
+            "Romance": this._RomanceHighlights.flatMap(i => i.system.possibilities),
+            "Fateful Encounter": this._FatefulHighlights.flatMap(i => i.system.possibilities),
+            "Stroke of Fortune": this._FortuneHighlights.flatMap(i => i.system.possibilities),
+            "Dramatic Encounter": this._DramaticHighlights.flatMap(i => i.system.possibilities),
+            "Stroke of Tragedy": this._TragedyHighlights.flatMap(i => i.system.possibilities)
+        };
+
+        context.highlights = context.system.background.highlights.map(h => {
+            return {
+                ...h,
+                availablePossibilities: highlightOptionsByType[h.type] ?? []
+            };
+        });
 
         context.maneuverTypes = Object.values(ManeuverTypes).map(k => ({
             key: k,
@@ -485,7 +508,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             }).render(true);
     }
 
-        async _onConfirmDefense(html, skillKey){
+    async _onConfirmDefense(html, skillKey){
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
         const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
@@ -694,7 +717,31 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             opt.value = s.name;
             opt.textContent = s.name;
             subSelect.appendChild(opt);
-        } 
+        }
+        
+        this._RomanceHighlights = game.items.filters(i=>i.type === "Lifepath - Romance"
+             && i.system.culture === this.document.system.culture);
+        this._DramaticHighlights = game.items.filters(i=>i.type === "Lifepath - Dramatic Encounter"
+             && i.system.culture === this.document.system.culture);
+        this._FatefulHighlights = game.items.filters(i=>i.type === "Lifepath - Fateful Encounter"
+             && i.system.culture === this.document.system.culture);
+        this._FortuneHighlights = game.items.filters(i=>i.type === "Lifepath - Stroke of Fortune"
+             && i.system.culture === this.document.system.culture);
+        this._TragedyHighlights === game.items.filters(i=>i.type === "Lifepath - Stroke of Tragedy"
+             && i.system.culture === this.document.system.culture);
+
+        const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" && i.system.culture === context.system.culture);
+        if(familyStandings.length>0) this._FamilyStandings = familyStandings[0].system.possibilities;
+        else this._FamilyStandings = [];
+        const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" && i.system.culture === context.system.culture);
+        if(parentMishaps.length>0) this._ParentMishaps = parentMishaps[0].system.possibilities;
+        else this._ParentMishaps =[];
+        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" && i.system.culture === context.system.culture);
+        if(crucialChildhoodEvent.length>0) this._CrucialChildhoodEvents = crucialChildhoodEvent[0].system.possibilities;
+        else this._CrucialChildhoodEvents = [];
+        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" && i.system.culture === context.system.culture);
+        if(childhoodMemory.length>0) this._ChildhoodMemory = childhoodMemory[0].system.possibilities;
+        else this._ChildhoodMemory = [];
     }
 
     async _onChangeSubCulture(event){
@@ -908,6 +955,27 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             content:message,
         })
     }
+
+    async _onAddHighlight(event, target){
+        event.preventDefault();
+        const newHighlight = {type:"", value:""};
+        const highlights = Array.from(this.document.system.background.highlights);
+        highlights.push(newHighlight);
+        const update = {};
+        update[`system.background.highlights`] = highlights;
+        await this.document.udpdate(update);
+    }
+
+    async _onDeleteHighlight(event, target){
+        event.preventDefault();
+        const index = target.dataset.itemIndex;
+        const highlights = Array.from(this.document.system.background.highlights);
+        highlights.splice(index, 1);
+        const update = {};
+        update[`system.background.highlights`] = highlights;
+        await this.document.udpdate(update);
+    }
+
     _onClose(options){
         this._dropListenerBound = false;
     }

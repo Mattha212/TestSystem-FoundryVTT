@@ -37,10 +37,10 @@
 },
   "Item":{
     "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", 
-    "Fighting Maneuver", "Fighting School", "Container", "SpellSystem", "Spell",
-  "Lifepath - Family Standing", "Lifepath - Parent Mishaps", "Lifepath - Crucial Childhood Moment",
-"Lifepath - Childhood Memory","Lifepath - Stroke of Fortune","Lifepath - Stroke of Tragedy",
-"Lifepath - Fateful Encounter","Lifepath - Dramatic Encounter","Lifepath - Romance"],
+      "Fighting Maneuver", "Fighting School", "Container", "SpellSystem", "Spell",
+      "Lifepath - Family Standing", "Lifepath - Parent Mishaps", "Lifepath - Crucial Childhood Moment",
+      "Lifepath - Childhood Memory","Lifepath - Stroke of Fortune","Lifepath - Stroke of Tragedy",
+      "Lifepath - Fateful Encounter","Lifepath - Dramatic Encounter","Lifepath - Romance"],
     "Object":{
       "description":"",
       "weight":0,
