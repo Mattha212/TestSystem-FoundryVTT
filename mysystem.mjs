@@ -307,6 +307,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 		event.preventDefault()
         const name = event.target.name;
         const value = event.target.value;
+        if (value === "true") value = true;
+        else if (value === "false") value = false;
         const update = {};
 		update[name] = value;
         await this.document.update(update);
@@ -2243,7 +2245,6 @@ Handlebars.registerHelper("eq", function(a, b) {
   return a === b;
 });
 Handlebars.registerHelper("toNumber", value => Number(value))
-Handlebars.registerHelper("toBoolean", value=>Boolean(value));
 Handlebars.registerHelper("not", function (value) {
     return !value;
 });

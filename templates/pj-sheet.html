@@ -324,9 +324,12 @@
                         <h3>Parent situation</h3>
                         <select name="system.background.parentSituation">
                             <option value="">Select a parent situation</option>
-                            <option value=false {{#if (eq system.background.parentSituation Boolean this)}}selected{{/if}}>Alive and well</option>
-                            <option value=true {{#if (eq system.background.parentSituation Boolean this)}}selected{{/if}}>Tragic fate</option>
-                        </select>
+                                <option value="false" {{#if (eq system.background.parentSituation false)}}selected{{/if}}>
+                                    Alive and well
+                                </option>
+                                <option value="true"  {{#if (eq system.background.parentSituation true)}}selected{{/if}}>
+                                    Tragic fate
+                                </option>
                         {{#if system.background.parentSituation}}
                         <div class="parent mishaps">
                             <h3>Parent mishaps</h3>
