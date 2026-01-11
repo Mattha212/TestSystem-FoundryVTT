@@ -324,8 +324,8 @@
                         <h3>Parent situation</h3>
                         <select name="system.background.parentSituation">
                             <option value="">Select a parent situation</option>
-                            <option value="false">Alive and well</option>
-                            <option value="true">Tragic fate</option>
+                            <option value="false" {{#if (eq ../system.background.parentSituation this)}}selected{{/if}}>Alive and well</option>
+                            <option value="true"{{#if (eq ../system.background.parentSituation this)}}selected{{/if}}>Tragic fate</option>
                         </select>
                         {{#if system.background.parentSituation}}
                         <div class="parent mishaps">
@@ -366,7 +366,6 @@
                 </div>
                 <div class="highlight"><h3>Highlights</h3>
                     {{#each highlights  as |highlight index|}}
-                        <span>highlight type</span>
                         <select name = "system.background.highlights.{{index}}.type" data-highlight-field="type" 
                         data-item-index="{{index}}" data-no-submit>
                             <option value=""> Select the type of highlight </option>
