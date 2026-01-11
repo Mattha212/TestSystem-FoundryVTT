@@ -2236,18 +2236,20 @@ Handlebars.registerHelper("handleNames", function(str) {
   const spaced = str.replace(/([A-Z])/g, " $1").trim();
   return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 });
-    Handlebars.registerHelper("includes", function (array, value) {
+Handlebars.registerHelper("includes", function (array, value) {
     return array.includes(value);
-  });
-  Handlebars.registerHelper("eq", function(a, b) {
+});
+Handlebars.registerHelper("eq", function(a, b) {
   return a === b;
 });
 Handlebars.registerHelper("toNumber", value => Number(value))
-});
-
+Handlebars.registerHelper("toBoolean", value=>Boolean(value));
 Handlebars.registerHelper("not", function (value) {
     return !value;
 });
+});
+
+
 
 Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{
 if(!changed.changes) return;
