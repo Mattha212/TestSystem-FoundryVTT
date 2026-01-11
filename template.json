@@ -20,7 +20,8 @@
       },
       "background":{
         "familyStanding":"",
-        "parentMishaps":false,
+        "parentMishaps":"",
+        "parentSituation":false,
         "familyFate":"",
         "CrucialChildhoodEvent":"",
         "ChildhoodMemory":"",
