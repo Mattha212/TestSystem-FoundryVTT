@@ -291,7 +291,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             sel.addEventListener("change", this._OnModifyManeuverTypeBound)
         );
 
-        this.element.querySelectorAll('select[name="system.background.highlights"]').forEach(sel=>
+        this.element.querySelectorAll('select[name*="system.background.highlights"]').forEach(sel=>
             sel.addEventListener("change", this._OnChangeHighlightTypeBound)
         );
 
