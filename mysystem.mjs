@@ -153,7 +153,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         },
         historyTab:{
             id:'historyTab',
-            groupe:'primary'
+            group:'primary'
         }
     }
 
