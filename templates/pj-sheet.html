@@ -365,14 +365,23 @@
                     </div>
                 </div>
                 <div class="highlight"><h3>Highlights</h3>
-                    {{#each system.background.highlights}}
+                    {{#each system.background.highlights as |highlight index|}}
                         <span>highlight type</span>
+                        <select name = "system.background.highlights.index" data-action="changeHighlightType" data-item-index="index">
+                            <option value=""> Select the type of highlight </option>
+                            <option value="Stroke of Fortune"> Stroke of Fortune </option>
+                            <option value="Stroke of Tragedy"> Stroke of Tragedy </option>
+                            <option value="Fateful Encounter"> Fateful Encounter </option>
+                            <option value="Dramatic Encounter"> Dramatic Encounter </option>
+                            <option value="Romance"> Romance </option>
+                        </select>
+                        
                     {{/each}}
                     <button type="button" data-action="addHighlight">Add highlight</button>
                 </div>
                 <div class="background">
                     <h3>Story</h3>
-                    <textarea name="system.background.story">{system.background.story}</textarea>
+                    <textarea name="system.background.story">{{system.background.story}}</textarea>
                 </div>
             </div>
         </div>

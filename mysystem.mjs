@@ -120,7 +120,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             attack: function(event, target){this._onAttack(event, target);},
             defense: function(event, target){ this._onDefense(event, target);},
             maneuver: function(event, target){ this._onPerformManeuver(event, target);},
-            printDescription: function(event, target){ this._onPrintDescription(event, target);}
+            printDescription: function(event, target){ this._onPrintDescription(event, target);},
+            changeHighlightType: function(event, target){ this._OnChangeHighlightType(event, target);}
         }
     }
     static PARTS = {
@@ -151,7 +152,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             group:'primary'
         },
         historyTab:{
-            if:'historyTab',
+            id:'historyTab',
             groupe:'primary'
         }
     }
@@ -364,6 +365,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.equipment.Weapon.skill`] = object.system.skill;
         await this.document.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
+    }
+
+    async _OnChangeHighlightType(event, target){
+        event.target();
+        const itemIndex = target.dataset.itemIndex;
+        const value = target.value;
+        const update = {}
+        update[`system.background.highlights.${itemIndex}.type`] = value;
+        await this.document.update(update);
     }
 
     _onAttack(event, target){
