@@ -98,7 +98,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         },
         tag: 'form',
         form:{
-            handler:this.#onSubmitForm,
+            // handler:this.#onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
