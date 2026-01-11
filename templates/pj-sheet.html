@@ -365,20 +365,20 @@
                     </div>
                 </div>
                 <div class="highlight"><h3>Highlights</h3>
-                    {{#each system.background.highlights as |highlight index|}}
+                    {{#each highlights  as |highlight index|}}
                         <span>highlight type</span>
                         <select name = "system.background.highlights.{{index}}.type" data-item-index="{{index}}" data-no-submit>
                             <option value=""> Select the type of highlight </option>
                             <option value="Stroke of Fortune"         {{#if (eq highlight.type "Stroke of Fortune")}}selected{{/if}}>
-                                > Stroke of Fortune </option>
+                                Stroke of Fortune </option>
                             <option value="Stroke of Tragedy"         {{#if (eq highlight.type "Stroke of Tragedy")}}selected{{/if}}>
-                                > Stroke of Tragedy </option>
+                                Stroke of Tragedy </option>
                             <option value="Fateful Encounter"         {{#if (eq highlight.type "Fateful Encounter")}}selected{{/if}}>
-                                > Fateful Encounter </option>
+                                Fateful Encounter </option>
                             <option value="Dramatic Encounter"        {{#if (eq highlight.type "Dramatic Encounter")}}selected{{/if}}>
-                                > Dramatic Encounter </option>
+                                Dramatic Encounter </option>
                             <option value="Romance"         {{#if (eq highlight.type "Romance")}}selected{{/if}}>
-                                > Romance </option>
+                                Romance </option>
                         </select>
                         {{#if highlight.availablePossibilities.length}}
                             <select name="system.background.highlights.{{index}}.value">
