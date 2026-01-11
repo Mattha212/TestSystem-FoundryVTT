@@ -334,13 +334,6 @@ width: 50px;
   text-align: center;
 }
 
-.testsystem.actor.sheet .tab[data-tab="historyTab"] {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 10px;
-}
-
 .testsystem.actor.sheet .tab[data-tab="historyTab"] > div {
   display: flex;
   flex-direction: column;
