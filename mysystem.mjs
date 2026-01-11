@@ -963,7 +963,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         highlights.push(newHighlight);
         const update = {};
         update[`system.background.highlights`] = highlights;
-        await this.document.udpdate(update);
+        await this.document.update(update);
     }
 
     async _onDeleteHighlight(event, target){
@@ -973,7 +973,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         highlights.splice(index, 1);
         const update = {};
         update[`system.background.highlights`] = highlights;
-        await this.document.udpdate(update);
+        await this.document.update(update);
     }
 
     _onClose(options){
