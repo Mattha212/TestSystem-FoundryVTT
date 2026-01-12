@@ -194,6 +194,20 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._ChildhoodMemory = [];
     }
 
+    getLifepathData(){
+        this._RomanceHighlights = game.items.filter(i=>i.type === "Lifepath - Romance"
+             && i.system.culture === this.document.system.culture);
+        this._DramaticHighlights = game.items.filter(i=>i.type === "Lifepath - Dramatic Encounter"
+             && i.system.culture === this.document.system.culture);
+        this._FatefulHighlights = game.items.filter(i=>i.type === "Lifepath - Fateful Encounter"
+             && i.system.culture === this.document.system.culture);
+        this._FortuneHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Fortune"
+             && i.system.culture === this.document.system.culture);
+        this._TragedyHighlights === game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
+             && i.system.culture === this.document.system.culture);
+    }
+
+    
     static _onClickTab(event) {
         event.preventDefault();
 
@@ -233,6 +247,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.runesmithSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Forgerune");
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
+
+        getLifepathData();
 
         context.familyStandings = this._FamilyStandings;
         context.parentMishaps = this._ParentMishaps;
@@ -738,16 +754,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             subSelect.appendChild(opt);
         }
         
-        this._RomanceHighlights = game.items.filter(i=>i.type === "Lifepath - Romance"
-             && i.system.culture === this.document.system.culture);
-        this._DramaticHighlights = game.items.filter(i=>i.type === "Lifepath - Dramatic Encounter"
-             && i.system.culture === this.document.system.culture);
-        this._FatefulHighlights = game.items.filter(i=>i.type === "Lifepath - Fateful Encounter"
-             && i.system.culture === this.document.system.culture);
-        this._FortuneHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Fortune"
-             && i.system.culture === this.document.system.culture);
-        this._TragedyHighlights === game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
-             && i.system.culture === this.document.system.culture);
+        getLifepathData();
 
         const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" 
             && i.system.culture === this.document.system.culture);
