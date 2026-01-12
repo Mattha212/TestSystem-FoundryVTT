@@ -207,7 +207,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
              && i.system.culture === this.document.system.culture);
     }
 
-    
+
     static _onClickTab(event) {
         event.preventDefault();
 
@@ -248,7 +248,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
 
-        getLifepathData();
+        this.getLifepathData();
 
         context.familyStandings = this._FamilyStandings;
         context.parentMishaps = this._ParentMishaps;
