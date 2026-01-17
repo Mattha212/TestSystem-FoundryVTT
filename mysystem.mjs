@@ -205,6 +205,27 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
              && i.system.culture === this.document.system.culture);
         this._TragedyHighlights === game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
              && i.system.culture === this.document.system.culture);
+
+
+        const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" 
+            && i.system.culture === this.document.system.culture);
+        if(familyStandings.length>0) this._FamilyStandings = familyStandings[0].system.possibilities;
+        else this._FamilyStandings = [];
+
+        const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" 
+            && i.system.culture === this.document.system.culture);
+        if(parentMishaps.length>0) this._ParentMishaps = parentMishaps[0].system.possibilities;
+        else this._ParentMishaps =[];
+        
+        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" 
+            && i.system.culture === this.document.system.culture);
+        if(crucialChildhoodEvent.length>0) this._CrucialChildhoodEvents = crucialChildhoodEvent[0].system.possibilities;
+        else this._CrucialChildhoodEvents = [];
+
+        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" 
+            && i.system.culture === this.document.system.culture);
+        if(childhoodMemory.length>0) this._ChildhoodMemory = childhoodMemory[0].system.possibilities;
+        else this._ChildhoodMemory = [];
     }
 
 
@@ -756,25 +777,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         
         this.getLifepathData();
 
-        const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" 
-            && i.system.culture === this.document.system.culture);
-        if(familyStandings.length>0) this._FamilyStandings = familyStandings[0].system.possibilities;
-        else this._FamilyStandings = [];
-
-        const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" 
-            && i.system.culture === this.document.system.culture);
-        if(parentMishaps.length>0) this._ParentMishaps = parentMishaps[0].system.possibilities;
-        else this._ParentMishaps =[];
         
-        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" 
-            && i.system.culture === this.document.system.culture);
-        if(crucialChildhoodEvent.length>0) this._CrucialChildhoodEvents = crucialChildhoodEvent[0].system.possibilities;
-        else this._CrucialChildhoodEvents = [];
-
-        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" 
-            && i.system.culture === this.document.system.culture);
-        if(childhoodMemory.length>0) this._ChildhoodMemory = childhoodMemory[0].system.possibilities;
-        else this._ChildhoodMemory = [];
     }
 
     async _onChangeSubCulture(event){
