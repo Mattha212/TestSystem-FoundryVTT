@@ -203,7 +203,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
              && i.system.culture === this.document.system.culture);
         this._FortuneHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Fortune"
              && i.system.culture === this.document.system.culture);
-        this._TragedyHighlights === game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
+        this._TragedyHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
              && i.system.culture === this.document.system.culture);
 
 
