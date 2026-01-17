@@ -349,7 +349,7 @@
                         <h3>Crucial childhood event</h3>
                         <select name="system.background.CrucialChildhoodEvent">
                             <option value=""> Select crucial childhood event</option>
-                            {{#each crucialChildhoodEvent}}
+                            {{#each crucialChildhoodEvents}}
                                 <option value ="{{this}}" {{#if (eq ../system.background.CrucialChildhoodEvent this)}}selected{{/if}}>
                                     {{this}}
                                 </option>
