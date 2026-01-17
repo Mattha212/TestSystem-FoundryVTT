@@ -754,7 +754,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             subSelect.appendChild(opt);
         }
         
-        getLifepathData();
+        this.getLifepathData();
 
         const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" 
             && i.system.culture === this.document.system.culture);
