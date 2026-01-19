@@ -1820,7 +1820,7 @@ class LifePathInfoSheet extends InfoSheet{
         );
 
         this.element.querySelectorAll('input[name="name"]').forEach(inp=>
-            inp.addEventListener("change", this._onchangeNameBound)
+            inp.addEventListener("change", this._onChangeNameBound)
         )
 
     }
