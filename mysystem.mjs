@@ -1808,6 +1808,7 @@ class LifePathInfoSheet extends InfoSheet{
 
         this._onChangePossibilityBound = this._onChangePossibility.bind(this);
         this._onChangeCultureBound = this._onChangeCulture.bind(this);
+        this._onChangeNameBound = this._onChangeName.bind(this);
     }
     _onRender(context, options){
         this.element.querySelectorAll('input[name*="system.possibilities"]').forEach(inp =>
@@ -1817,6 +1818,11 @@ class LifePathInfoSheet extends InfoSheet{
         this.element.querySelectorAll('select[name*="system.culture"]').forEach(inp=>
             inp.addEventListener("change", this._onChangeCultureBound)
         );
+
+        this.element.querySelectorAll('input[name="name"]').forEach(inp=>
+            inp.addEventListener("change", this._onchangeNameBound)
+        )
+
     }
     async _onChangePossibility(event){
         event.preventDefault();
@@ -1828,6 +1834,7 @@ class LifePathInfoSheet extends InfoSheet{
         update[`system.possibilities`] = existingTypes;
         this.document.update(update);
     }
+
     async _onChangeCulture(event){
         event.preventDefault();
         const value = event.target.value;
@@ -1836,6 +1843,14 @@ class LifePathInfoSheet extends InfoSheet{
         this.document.update(update);
     }
 
+    async _onChangeName(event){
+        event.preventDefault();
+        const value = event.target.value;
+
+        await this.document.update({
+            name: value
+        });
+    }
 }
 
 class FamilyStandingSheet extends LifePathInfoSheet{
