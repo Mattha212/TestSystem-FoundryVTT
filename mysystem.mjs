@@ -1128,6 +1128,9 @@ class TraitSheet extends NonObjectItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true
         }
     }
     static PARTS = {
@@ -1148,6 +1151,9 @@ class CultureSheet extends NonObjectItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true
         }
     }
     static PARTS = {
@@ -1168,6 +1174,9 @@ class SubcultureSheet extends NonObjectItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true
         }
     }
 
@@ -1267,6 +1276,9 @@ class FightingManeuverSheet extends NonObjectItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true,
         }
     }
 
@@ -1296,6 +1308,9 @@ class ObjectSheet extends ObjectsItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true,
         }
     }
     static PARTS = {
@@ -1316,6 +1331,9 @@ class ShieldSheet extends ObjectsItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+          window:{
+            resizable: true,
         }
     }
 
@@ -1337,6 +1355,9 @@ class ArmorSheet extends ObjectsItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true,
         }
     }
 
@@ -1358,6 +1379,9 @@ class WeaponSheet extends ObjectsItemsSheet{
             handler:this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window:{
+            resizable: true,
         }
     }
 
@@ -1422,6 +1446,9 @@ class ContainerSheet extends ObjectsItemsSheet{
             transferItem: function (event, target) {this._onTransfertItem(event, target);},
             printItem: this.#_OnPrintItem,
 
+        },
+        window:{
+            resizable: true,
         }
     }
 
