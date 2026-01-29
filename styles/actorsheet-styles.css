@@ -270,11 +270,13 @@ width: 50px;
 }
 
 /* Default column layout for shields & armor */
-.shields-block li,
 .armor-block li {
-    grid-template-columns: repeat(5, 1fr) auto;
+    grid-template-columns: repeat(6, 1fr) auto;
 }
+.shields-block li{
+      grid-template-columns: repeat(5, 1fr) auto;
 
+}
 /* More compact line for weapons */
 .weapon-block li {
     grid-template-columns: 1.2fr 0.7fr 1fr 1fr 0.7fr 0.7fr 0.7fr auto;

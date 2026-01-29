@@ -13,6 +13,16 @@
         </div>
 
         <div>
+            <label>Type</label>
+            <select name="system.type">
+                <option value="">Select an armor type</option>
+                <option value="Textile" {{#if (eq system.type Textile)}}selected{{/if}}>Textile</option>
+                <option value="Fluid" {{#if (eq system.type Fluid)}}selected{{/if}}>Fluide</option>
+                <option value="Solid" {{#if (eq system.type Solid)}}selected{{/if}}>Textile</option>
+            </select>
+        </div>
+
+        <div>
             <label>Bulk</label>
             <input type="number" name="system.bulk" value="{{system.bulk}}"/>
         </div>
