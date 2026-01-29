@@ -46,7 +46,7 @@
       "description":"",
       "weight":0,
       "size":0,
-      "cost":0
+      "cost":""
     },
     "Trait":{
       "system":"",
@@ -64,7 +64,7 @@
       "protection":0,
       "weight": 0,
       "bulk":0,
-      "cost":0,
+      "cost":"",
       "size":0
     },
     "Armor":{
@@ -73,7 +73,7 @@
       "weight": 0,
       "bulk":0,
       "type": "",
-      "cost":0,
+      "cost":"",
       "size":0
     },
     "Weapon":{
@@ -83,7 +83,7 @@
       "bulk":0,
       "hands":1,
       "reach":0,
-      "cost":0,
+      "cost":"",
       "skill":"",
       "size":0
     },
@@ -102,7 +102,7 @@
       "isUsed": false,
       "weightAllowed":0,
       "weight":0,
-      "cost":0,
+      "cost":"",
       "weightRemaining":0
     },
     "SpellSystem":{
