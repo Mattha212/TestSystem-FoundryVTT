@@ -16,8 +16,8 @@
             <input type="text" name="system.school" value="{{system.school}}"/>
         </div>
         <div>
-            <label>Description</label>
-            <textarea name="system.description">{{system.description}}</textarea>
+            <label>Reach</label>
+            <input type="number" name="system.school" value="{{system.school}}"/>
         </div>
         <div>
             <label>Cost</label>
@@ -29,5 +29,10 @@
                 <option value="{{type}}" {{#if (eq ../system.spellType type)}}selected{{/if}}>{{type}}</option>
             {{/each}}
         </select>
+
+        <div>
+            <label>Description</label>
+            <textarea name="system.description">{{system.description}}</textarea>
+        </div>
     </section>
 </div>
