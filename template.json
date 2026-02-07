@@ -110,6 +110,8 @@
     },
     "Spell":{
       "spellType":"",
+      "school":"",
+      "prerequisite":"",
       "reach":0,
       "vigorCost":0,
       "description":""
