@@ -1587,6 +1587,8 @@ class ContainerSheet extends ObjectsItemsSheet {
     async _onConfirmAddVoidItem(html) {
         const select = html[0].querySelector('select[name="addvoidItem"]');
         const value = select?.value;
+        const actor = this.document.actor;
+        
         let itemData;
         switch (value) {
             case "Weapon":
@@ -1639,7 +1641,7 @@ class ContainerSheet extends ObjectsItemsSheet {
             system: itemData
         }
         data.system.quantity = 1;
-        const [embedded] = await this.document.createEmbeddedDocuments("Item", [data]);
+        const [embedded] = await actor.createEmbeddedDocuments("Item", [data]);
 
         const Contents =  Array.from(this.document.system.contents);
         const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
