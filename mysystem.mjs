@@ -1,10 +1,10 @@
-import {CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
-import {AttackTypes, ManeuverTypes } from "./data/Actions.js"
+import { CATEGORYSKILLS, Social, Stealth, Crafting, Knowledge, Athletic, Restricted, Fighting } from "./data/Skills.js"
+import { AttackTypes, ManeuverTypes } from "./data/Actions.js"
 import { ObjectSizes, ObjectSizeLabels } from "./data/Objects.js";
 console.log("mysystem.mjs loaded");
 
 function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
+    return Math.min(Math.max(value, min), max);
 }
 function enumToLabel(str) {
     return str
@@ -18,13 +18,13 @@ class PJActorAPI extends Actor {
     static async onUpdateWeight(actor) {
         const containers = actor.items.filter(i => i.type === "Container");
 
-        let weightUsed = 0; 
+        let weightUsed = 0;
         for (const container of containers) {
-        weightUsed += Number(container.system.weight ?? 0);
+            weightUsed += Number(container.system.weight ?? 0);
         }
 
         await actor.update({
-        "system.weight": weightUsed
+            "system.weight": weightUsed
         });
     }
 
@@ -36,138 +36,138 @@ class PJActorAPI extends Actor {
         return Number(actor.system.maxWeight ?? 0);
     }
 
-    static getContainers(actor){
+    static getContainers(actor) {
         return actor.items.filter(i => i.type === "Container");
     }
 
-    static async UpdateAllContainers(actor){
+    static async UpdateAllContainers(actor) {
         const containers = actor.items.filter(i => i.type === "Container");
-        for(const container of containers){
+        for (const container of containers) {
             await ContainerItemAPI.updateWeight(container);
         }
     }
-    static async onUpdateProtectionAndBulk(actor){
-		const update = {};
-        let currentBulk =0;
+    static async onUpdateProtectionAndBulk(actor) {
+        const update = {};
+        let currentBulk = 0;
         let currentProtection = 0;
-        for(const value of Object.values(actor.system.equipment)){
-			currentBulk += Number(value?.bulk ?? 0);
-	        currentProtection += Number(value?.protection ?? 0);
+        for (const value of Object.values(actor.system.equipment)) {
+            currentBulk += Number(value?.bulk ?? 0);
+            currentProtection += Number(value?.protection ?? 0);
         }
         update[`system.protection`] = currentProtection;
         update[`system.bulk`] = currentBulk;
         await actor.update(update);
     }
 
-    static async onUnequipWeapon(actor){
+    static async onUnequipWeapon(actor) {
         const update = {};
-        update[`system.equipment.Weapon`] = {"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0};
-	    await actor.update(update);
+        update[`system.equipment.Weapon`] = { "id": "", "efficiency": { "textile": 0, "fluide": 0, "solid": 0 }, "bulk": 0, "reach": 0 };
+        await actor.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
 
-    static async onUnEquipArmor(target, actor){
+    static async onUnEquipArmor(target, actor) {
         const itemType = target.dataset.itemType;
         const update = {};
-        update[`system.equipment.${itemType}`] = {"id":"","protection":0, "bulk":0, "type":""};
-	    await actor.update(update);
+        update[`system.equipment.${itemType}`] = { "id": "", "protection": 0, "bulk": 0, "type": "" };
+        await actor.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(actor);
-	}
+    }
 
-    static isInEquipment(itemToRemoveId, actor){
+    static isInEquipment(itemToRemoveId, actor) {
         const equipment = actor.system.equipment;
         let typeOfItem = null;
         let isInEquipment = false;
-        for(const [type, equip] of Object.entries(equipment)){
-            if(equip.id === itemToRemoveId){
+        for (const [type, equip] of Object.entries(equipment)) {
+            if (equip.id === itemToRemoveId) {
                 typeOfItem = type
                 isInEquipment = true;
             }
         }
-        return {typeOfItem, isInEquipment};
+        return { typeOfItem, isInEquipment };
     }
 
 }
 
 class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2) {
     static DEFAULT_OPTIONS = {
-        classes: ["testsystem","sheet","actor"],
-        position:{
+        classes: ["testsystem", "sheet", "actor"],
+        position: {
             width: 1000,
             height: 600,
         },
         tag: 'form',
-        form:{
-            handler:this.#onSubmitForm,
+        form: {
+            handler: this.#onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             title: "Character sheet",
             resizable: true,
         },
-        actions:{
+        actions: {
             deleteTrait: this.#_onRemoveTrait,
             statRoll: this.#_onRollStat,
             skillRoll: this.#_OnRollSkill,
             printItem: this.#_OnPrintItem,
             changeTab: this._onClickTab,
-            deleteItem: function (event, target) { this._onDeleteItem(event, target);},
-            equipArmor: function(event, target){ this._onEquipArmor(event, target);},
-            unequipArmor: function(event, target){PJActorAPI.onUnEquipArmor(target, this.actor);},
-            equipWeapon: function(event, target){this._onEquipWeapon(event, target) ;},
-            unequipWeapon: function(event, target){PJActorAPI.onUnequipWeapon(this.actor);},
-            attack: function(event, target){this._onAttack(event, target);},
-            defense: function(event, target){ this._onDefense(event, target);},
-            maneuver: function(event, target){ this._onPerformManeuver(event, target);},
-            printDescription: function(event, target){ this._onPrintDescription(event, target);},
-            addHighlight: function(event, target){this._onAddHighlight(event, target);},
-            removeHighlight: function(event, target){this._onDeleteHighlight(event, target);}
+            deleteItem: function (event, target) { this._onDeleteItem(event, target); },
+            equipArmor: function (event, target) { this._onEquipArmor(event, target); },
+            unequipArmor: function (event, target) { PJActorAPI.onUnEquipArmor(target, this.actor); },
+            equipWeapon: function (event, target) { this._onEquipWeapon(event, target); },
+            unequipWeapon: function (event, target) { PJActorAPI.onUnequipWeapon(this.actor); },
+            attack: function (event, target) { this._onAttack(event, target); },
+            defense: function (event, target) { this._onDefense(event, target); },
+            maneuver: function (event, target) { this._onPerformManeuver(event, target); },
+            printDescription: function (event, target) { this._onPrintDescription(event, target); },
+            addHighlight: function (event, target) { this._onAddHighlight(event, target); },
+            removeHighlight: function (event, target) { this._onDeleteHighlight(event, target); }
         }
     }
     static PARTS = {
-        form : {
-            template : "systems/testsystem/templates/pj-sheet.html",
+        form: {
+            template: "systems/testsystem/templates/pj-sheet.html",
             scrollable: ["", ".tab"],
         }
     }
 
     tabGroups = {
-		primary: 'skillsTab'
-	}
+        primary: 'skillsTab'
+    }
     tabs = {
-        skillsTab:{
-            id:'skillsTab',
+        skillsTab: {
+            id: 'skillsTab',
             group: 'primary'
         },
-        fightingTab:{
+        fightingTab: {
             id: 'fightingTab',
             group: 'primary'
         },
-        inventoryTab:{
+        inventoryTab: {
             id: 'inventoryTab',
             group: 'primary'
         },
-        magicTab:{
-            id:'magicTab',
-            group:'primary'
+        magicTab: {
+            id: 'magicTab',
+            group: 'primary'
         },
-        historyTab:{
-            id:'historyTab',
-            group:'primary'
+        historyTab: {
+            id: 'historyTab',
+            group: 'primary'
         }
     }
 
-	getTabs () {
-		const tabs = this.tabs
+    getTabs() {
+        const tabs = this.tabs
 
-		for (const tab of Object.values(tabs)) {
-			tab.active = this.tabGroups[tab.group] === tab.id
-			tab.cssClass = tab.active ? 'item active' : 'item';
-		}
+        for (const tab of Object.values(tabs)) {
+            tab.active = this.tabGroups[tab.group] === tab.id
+            tab.cssClass = tab.active ? 'item active' : 'item';
+        }
 
-		return tabs;
-	}
+        return tabs;
+    }
 
     constructor(...args) {
         super(...args);
@@ -194,37 +194,37 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._ChildhoodMemory = [];
     }
 
-    getLifepathData(){
-        this._RomanceHighlights = game.items.filter(i=>i.type === "Lifepath - Romance"
-             && i.system.culture === this.document.system.culture);
-        this._DramaticHighlights = game.items.filter(i=>i.type === "Lifepath - Dramatic Encounter"
-             && i.system.culture === this.document.system.culture);
-        this._FatefulHighlights = game.items.filter(i=>i.type === "Lifepath - Fateful Encounter"
-             && i.system.culture === this.document.system.culture);
-        this._FortuneHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Fortune"
-             && i.system.culture === this.document.system.culture);
-        this._TragedyHighlights = game.items.filter(i=>i.type === "Lifepath - Stroke of Tragedy"
-             && i.system.culture === this.document.system.culture);
-
-
-        const familyStandings = game.items.filter(i=>i.type === "Lifepath - Family Standing" 
+    getLifepathData() {
+        this._RomanceHighlights = game.items.filter(i => i.type === "Lifepath - Romance"
             && i.system.culture === this.document.system.culture);
-        if(familyStandings.length>0) this._FamilyStandings = familyStandings[0].system.possibilities;
+        this._DramaticHighlights = game.items.filter(i => i.type === "Lifepath - Dramatic Encounter"
+            && i.system.culture === this.document.system.culture);
+        this._FatefulHighlights = game.items.filter(i => i.type === "Lifepath - Fateful Encounter"
+            && i.system.culture === this.document.system.culture);
+        this._FortuneHighlights = game.items.filter(i => i.type === "Lifepath - Stroke of Fortune"
+            && i.system.culture === this.document.system.culture);
+        this._TragedyHighlights = game.items.filter(i => i.type === "Lifepath - Stroke of Tragedy"
+            && i.system.culture === this.document.system.culture);
+
+
+        const familyStandings = game.items.filter(i => i.type === "Lifepath - Family Standing"
+            && i.system.culture === this.document.system.culture);
+        if (familyStandings.length > 0) this._FamilyStandings = familyStandings[0].system.possibilities;
         else this._FamilyStandings = [];
 
-        const parentMishaps = game.items.filter(i=>i.type === "Lifepath - Parent Mishaps" 
+        const parentMishaps = game.items.filter(i => i.type === "Lifepath - Parent Mishaps"
             && i.system.culture === this.document.system.culture);
-        if(parentMishaps.length>0) this._ParentMishaps = parentMishaps[0].system.possibilities;
-        else this._ParentMishaps =[];
-        
-        const crucialChildhoodEvent = game.items.filter(i=>i.type === "Lifepath - Crucial Childhood Moment" 
+        if (parentMishaps.length > 0) this._ParentMishaps = parentMishaps[0].system.possibilities;
+        else this._ParentMishaps = [];
+
+        const crucialChildhoodEvent = game.items.filter(i => i.type === "Lifepath - Crucial Childhood Moment"
             && i.system.culture === this.document.system.culture);
-        if(crucialChildhoodEvent.length>0) this._CrucialChildhoodEvents = crucialChildhoodEvent[0].system.possibilities;
+        if (crucialChildhoodEvent.length > 0) this._CrucialChildhoodEvents = crucialChildhoodEvent[0].system.possibilities;
         else this._CrucialChildhoodEvents = [];
 
-        const childhoodMemory = game.items.filter(i=>i.type === "Lifepath - Childhood Memory" 
+        const childhoodMemory = game.items.filter(i => i.type === "Lifepath - Childhood Memory"
             && i.system.culture === this.document.system.culture);
-        if(childhoodMemory.length>0) this._ChildhoodMemory = childhoodMemory[0].system.possibilities;
+        if (childhoodMemory.length > 0) this._ChildhoodMemory = childhoodMemory[0].system.possibilities;
         else this._ChildhoodMemory = [];
     }
 
@@ -240,7 +240,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.render();
     }
 
-    async _prepareContext(options){
+    async _prepareContext(options) {
         const context = await super._prepareContext(options);
         context.tabs = this.getTabs();
         context.actor = this.document;
@@ -248,26 +248,26 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.stats = this.document.system.stats;
         context.skills = this.document.system.skills;
 
-        context.traits = this.document.items.filter(i=>i.type === "Trait");
-        context.containers = this.document.items.filter(i=>i.type === "Container");
-        context.shields = this.document.items.filter(i=>i.type === "Shield");
-        context.armors = this.document.items.filter(i=>i.type === "Armor");
-        context.weapons = this.document.items.filter(i=>i.type === "Weapon");
-        context.fightingManeuvers = this.document.items.filter(i=>i.type === "Fighting Maneuver");
-        
+        context.traits = this.document.items.filter(i => i.type === "Trait");
+        context.containers = this.document.items.filter(i => i.type === "Container");
+        context.shields = this.document.items.filter(i => i.type === "Shield");
+        context.armors = this.document.items.filter(i => i.type === "Armor");
+        context.weapons = this.document.items.filter(i => i.type === "Weapon");
+        context.fightingManeuvers = this.document.items.filter(i => i.type === "Fighting Maneuver");
+
         context.protection = this.document.system.protection;
         context.bulk = this.document.system.bulk;
 
-        const allCultures = game.items.filter(i=>i.type === "Culture");
-        const allSubcultures = game.items.filter(i=>i.type === "Subculture");
+        const allCultures = game.items.filter(i => i.type === "Culture");
+        const allSubcultures = game.items.filter(i => i.type === "Subculture");
 
         context.cultures = allCultures;
-        context.subcultures = allSubcultures.filter(i=> i.system.parentCulture === context.system.culture)
-        
-        context.catalystSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Catalysme");
-        context.runesmithSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Forgerune");
-        context.thaumarturgeSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "Thaumaturgie");
-        context.wordsOfPowerSpells = this.document.items.filter(i=>i.type === "Spell" && i.system.spellType === "WordsOfPower");
+        context.subcultures = allSubcultures.filter(i => i.system.parentCulture === context.system.culture)
+
+        context.catalystSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Catalysme");
+        context.runesmithSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Forgerune");
+        context.thaumarturgeSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Thaumaturgie");
+        context.wordsOfPowerSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "WordsOfPower");
 
         this.getLifepathData();
 
@@ -303,7 +303,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         return context;
     }
-    _onRender(context, options){
+    _onRender(context, options) {
         this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCultureBound)
         );
@@ -328,7 +328,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             sel.addEventListener("change", this._OnModifyManeuverTypeBound)
         );
 
-        this.element.querySelectorAll('select[name*="system.background.highlights"]').forEach(sel=>
+        this.element.querySelectorAll('select[name*="system.background.highlights"]').forEach(sel =>
             sel.addEventListener("change", this._OnChangeHighlightTypeBound)
         );
 
@@ -341,13 +341,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     static async #onSubmitForm(event, form, formData) {
         if (event.target.dataset.noSubmit !== undefined) return;
-		event.preventDefault()
+        event.preventDefault()
         const name = event.target.name;
         let value = event.target.value;
         if (value === "true") value = true;
         else if (value === "false") value = false;
         const update = {};
-		update[name] = value;
+        update[name] = value;
         await this.document.update(update);
     }
 
@@ -362,38 +362,38 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const parsed = JSON.parse(dataString);
         const item = await fromUuid(parsed.uuid);
-        if(!item) return;
+        if (!item) return;
         itemData = {
             name: item.name || "Unnamed Item",
             type: item.type,
             system: item.system || {}
         };
-        if("weight" in itemData.system){
+        if ("weight" in itemData.system) {
             itemData.system.quantity = 1;
-            if(itemData.type === "Container"){
+            if (itemData.type === "Container") {
                 itemData.system.isUsed = true;
                 await this.document.createEmbeddedDocuments("Item", [itemData]);
             }
         }
-        else{
+        else {
             await this.document.createEmbeddedDocuments("Item", [itemData]);
-        }  
+        }
     }
 
-    async _onDeleteItem(event,target){
+    async _onDeleteItem(event, target) {
         event.preventDefault();
         const actor = this.actor;
         const itemToRemoveId = target.dataset.itemId;
         const item = this.document.items.get(itemToRemoveId).toObject();
-        if(item.type === "Container"){
-            for(const element of item.system.contents){
+        if (item.type === "Container") {
+            for (const element of item.system.contents) {
                 const elementId = element.uuid.split(".")[3];
-                if(PJActorAPI.isInEquipment(elementId,actor)){
+                if (PJActorAPI.isInEquipment(elementId, actor)) {
                     const elementToRemove = await fromUuid(element.uuid);
-                    if(elementToRemove.type === "Weapon"){
-                            await PJActorAPI.onUnequipWeapon(actor);
+                    if (elementToRemove.type === "Weapon") {
+                        await PJActorAPI.onUnequipWeapon(actor);
                     }
-                    else if(elementToRemove.type === "Shield" || elementToRemove.type === "Armor"){
+                    else if (elementToRemove.type === "Shield" || elementToRemove.type === "Armor") {
                         target.dataset.itemType = elementToRemove.type;
                         await PJActorAPI.onUnEquipArmor(target, actor);
                     }
@@ -406,46 +406,46 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await PJActorAPI.onUpdateWeight(this.actor);
     }
 
-    async _onEquipArmor(event, target){
+    async _onEquipArmor(event, target) {
         event.preventDefault();
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
         update[`system.equipment.${itemType}.id`] = itemId;
-        update[`system.equipment.${itemType}.protection`] =  object.system.protection;
-        update[`system.equipment.${itemType}.bulk`] =  object.system.bulk;
-        update[`system.equipment.${itemType}.type`] =  object.system.type;
+        update[`system.equipment.${itemType}.protection`] = object.system.protection;
+        update[`system.equipment.${itemType}.bulk`] = object.system.bulk;
+        update[`system.equipment.${itemType}.type`] = object.system.type;
         await this.document.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
-    async _onEquipWeapon(event, target){
+    async _onEquipWeapon(event, target) {
         event.preventDefault();
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {};
         update[`system.equipment.Weapon.id`] = itemId;
-        update[`system.equipment.Weapon.efficiency`] =  object.system.efficiency;
-        update[`system.equipment.Weapon.bulk`] =  object.system.bulk;
-        update[`system.equipment.Weapon.type`] =  object.system.type;
+        update[`system.equipment.Weapon.efficiency`] = object.system.efficiency;
+        update[`system.equipment.Weapon.bulk`] = object.system.bulk;
+        update[`system.equipment.Weapon.type`] = object.system.type;
         update[`system.equipment.Weapon.reach`] = object.system.reach;
         update[`system.equipment.Weapon.skill`] = object.system.skill;
         await this.document.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
-    async _OnChangeHighlightType(event){
+    async _OnChangeHighlightType(event) {
         event.preventDefault();
         const itemIndex = event.target.dataset.itemIndex;
         const field = event.target.dataset.highlightField;
         const value = event.target.value;
 
         const highlights = Array.from(this.document.system.background.highlights);
-        if(field === "type"){
+        if (field === "type") {
             highlights[itemIndex].type = value;
         }
-        else if(field === "value"){
+        else if (field === "value") {
             highlights[itemIndex].value = value;
         }
 
@@ -455,11 +455,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.render(false);
     }
 
-    _onAttack(event, target){
+    _onAttack(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
 
-        const content =`
+        const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
                 <label>Modifier</label>
@@ -470,41 +470,41 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         new Dialog({
             title: `${skillKey} roll`,
             content,
-            buttons:{
-                roll:{
+            buttons: {
+                roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmAttack(html,skillKey)
+                    callback: html => this._onConfirmAttack(html, skillKey)
                 },
-                cancel:{
+                cancel: {
                     label: "Cancel"
                 }
             },
-                default: "roll"
-            }).render(true);
+            default: "roll"
+        }).render(true);
     }
 
-    async _onConfirmAttack(html,skillKey){
+    async _onConfirmAttack(html, skillKey) {
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
-        const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
-        const average = values.reduce((a,b)=> a+b,0)/ values.length;
+        const values = statsSkill.map(s => this.document.system.stats[s].CurrentValue || 0);
+        const average = values.reduce((a, b) => a + b, 0) / values.length;
         const form = html[0].querySelector("form");
-        const levelModifierValue = skillLevel *5;
-        const modifier = 10 * (Number(form.modifier.value) || 0);       
-        
+        const levelModifierValue = skillLevel * 5;
+        const modifier = 10 * (Number(form.modifier.value) || 0);
+
         const statDetails = statsSkill.map(s => {
-        const val = this.document.system.stats[s]?.CurrentValue ?? 0;
-        return `${s}(${val})`;
+            const val = this.document.system.stats[s]?.CurrentValue ?? 0;
+            return `${s}(${val})`;
         }).join(" + ");
 
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate();
         const valueRolled = roll.total;
-        const valueTested = clamp(average + modifier + levelModifierValue,5,95);
-        const test = valueTested >=valueRolled;
-        const testSign = Math.sign(valueTested - valueRolled); 
-        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) /10);
+        const valueTested = clamp(average + modifier + levelModifierValue, 5, 95);
+        const test = valueTested >= valueRolled;
+        const testSign = Math.sign(valueTested - valueRolled);
+        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) / 10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
@@ -518,13 +518,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         `;
 
         await ChatMessage.create({
-            speaker:ChatMessage.getSpeaker({actor:this.actor}),
-            content:message,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content: message,
             rolls: [roll],
         })
     }
 
-    _onDefense(event, target){
+    _onDefense(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
         const options =
@@ -534,7 +534,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 ).
                 join("");
         const content =
-        `<form>
+            `<form>
             <form class="form-group">
                 <div class = "difficulty-Modifier-group" >
                     <label>Modifier</label>
@@ -551,64 +551,64 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         new Dialog({
             title: `${skillKey} defense roll`,
             content,
-            buttons:{
-                roll:{
+            buttons: {
+                roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmDefense(html,skillKey)
+                    callback: html => this._onConfirmDefense(html, skillKey)
                 },
-                cancel:{
+                cancel: {
                     label: "Cancel"
                 }
             },
-                default: "roll"
-            }).render(true);
+            default: "roll"
+        }).render(true);
     }
 
-    async _onConfirmDefense(html, skillKey){
+    async _onConfirmDefense(html, skillKey) {
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
-        const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
-        const average = values.reduce((a,b)=> a+b,0)/ values.length;
+        const values = statsSkill.map(s => this.document.system.stats[s].CurrentValue || 0);
+        const average = values.reduce((a, b) => a + b, 0) / values.length;
         const form = html[0].querySelector("form");
-        const levelModifierValue = skillLevel *5;
-        const modifier = 10 * (Number(form.modifier.value) || 0);       
-        
+        const levelModifierValue = skillLevel * 5;
+        const modifier = 10 * (Number(form.modifier.value) || 0);
+
         const statDetails = statsSkill.map(s => {
-        const val = this.document.system.stats[s]?.CurrentValue ?? 0;
-        return `${s}(${val})`;
+            const val = this.document.system.stats[s]?.CurrentValue ?? 0;
+            return `${s}(${val})`;
         }).join(" + ");
 
         let protectionBaseValue = Number(this.document.system.equipment.Armor.protection);
         const attackType = form.attackType.value;
         const attackTypeNumber = Number(attackType);
-        let attackTypeLabel="";
-        switch(attackTypeNumber){
+        let attackTypeLabel = "";
+        switch (attackTypeNumber) {
             case AttackTypes.INNEFICIENT:
                 protectionBaseValue *= 2;
-                attackTypeLabel= "Inneficient attack";
+                attackTypeLabel = "Inneficient attack";
                 break;
             case AttackTypes.CLASSIC:
-                attackTypeLabel= "Classic attack";
+                attackTypeLabel = "Classic attack";
                 break;
             case AttackTypes.EFFICIENT:
-                attackTypeLabel= "Efficient attack";
+                attackTypeLabel = "Efficient attack";
                 protectionBaseValue /= 2;
                 break;
             case AttackTypes.VERY_EFFICIENT:
-                attackTypeLabel= "Very efficient attack";
+                attackTypeLabel = "Very efficient attack";
                 protectionBaseValue = 0;
                 break;
-            
+
         }
-		const TotalProtection = protectionBaseValue + Number(this.document.system.equipment.Shield.protection);
+        const TotalProtection = protectionBaseValue + Number(this.document.system.equipment.Shield.protection);
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate();
         const valueRolled = roll.total - TotalProtection;
-        const valueTested = clamp(average + modifier + levelModifierValue,5,95);
-        const test = valueTested >=valueRolled;
-        const testSign = Math.sign(valueTested - valueRolled); 
-        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) /10);
+        const valueTested = clamp(average + modifier + levelModifierValue, 5, 95);
+        const test = valueTested >= valueRolled;
+        const testSign = Math.sign(valueTested - valueRolled);
+        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) / 10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
@@ -623,139 +623,139 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         `;
 
         await ChatMessage.create({
-            speaker:ChatMessage.getSpeaker({actor:this.actor}),
-            content:message,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content: message,
             rolls: [roll],
         })
     }
 
-    _onPerformManeuver(event, target){
+    _onPerformManeuver(event, target) {
         const weaponLinked = this.document.system.equipment.Weapon;
         const maneuverId = target.dataset.itemId;
         const maneuver = this.document.items.get(maneuverId);
-        const schoolOfManeuver = game.items.filter(i=> i.type === "Fighting School" && i.name===maneuver.system.school)[0];
+        const schoolOfManeuver = game.items.filter(i => i.type === "Fighting School" && i.name === maneuver.system.school)[0];
 
-        if(weaponLinked.id.length===0) return;
+        if (weaponLinked.id.length === 0) return;
         const weaponSkill = weaponLinked.skill;
         target.dataset.itemSkillkey = weaponSkill;
 
-        if(schoolOfManeuver.system.skillsAllowed.includes(weaponSkill)){
-            if(maneuver.system.maneuverType == "attack"){
+        if (schoolOfManeuver.system.skillsAllowed.includes(weaponSkill)) {
+            if (maneuver.system.maneuverType == "attack") {
                 this._onAttack(event, target);
             }
-            else if(maneuver.system.maneuverType == "defense"){
+            else if (maneuver.system.maneuverType == "defense") {
                 this._onDefense(event, target);
             }
         }
-        else{
-             const content =`
+        else {
+            const content = `
         <form class = "maneuver-roll-confirmation-form">
             <div class = "maneuver-roll-confirmation-group" >
                 <label>Your weapon is not appropriate for this kind of maneuver. Are you certain you want to try it?</label>
             </div>
         </form>
         `;
-        new Dialog({
-            title: `Confirmation`,
-            content,
-            buttons:{
-                rollAttack:{
-                    label: "Roll Attack",
-                    callback: html => this._onAttack(event, target)
+            new Dialog({
+                title: `Confirmation`,
+                content,
+                buttons: {
+                    rollAttack: {
+                        label: "Roll Attack",
+                        callback: html => this._onAttack(event, target)
+                    },
+                    rollDefense: {
+                        label: "Roll Defense",
+                        callback: html => this._onDefense(event, target)
+                    },
+                    cancel: {
+                        label: "Cancel"
+                    }
                 },
-                rollDefense:{
-                    label: "Roll Defense",
-                    callback: html => this._onDefense(event, target)
-                },
-                cancel:{
-                    label: "Cancel"
-                }
-            },
                 default: "roll"
             }).render(true);
         }
     }
 
-    async _onChangeStat(event){
+    async _onChangeStat(event) {
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
 
         const input = event.target;
         const statKey = input.name.split(".")[2];
         const newValue = Number(input.value);
-        const update={};
+        const update = {};
 
-        if(input.name?.endsWith(".MaxValue")){
+        if (input.name?.endsWith(".MaxValue")) {
             update[`system.stats.${statKey}.MaxValue`] = newValue;
-            update[`system.stats.${statKey}.CurrentValue`]= newValue;
-            if(statKey==="Strength"){
+            update[`system.stats.${statKey}.CurrentValue`] = newValue;
+            if (statKey === "Strength") {
                 update[`system.maxWeight`] = Number(newValue / 2);
             }
         }
-        else if(input.name?.endsWith(".CurrentValue")){
-            if(statKey === "Constitution"){
+        else if (input.name?.endsWith(".CurrentValue")) {
+            if (statKey === "Constitution") {
                 const currentValue = this.document.system.stats[statKey].CurrentValue;
                 const maxValue = this.document.system.stats[statKey].MaxValue;
                 const MaxValueStrength = this.document.system.stats["Strength"].MaxValue;
                 const MaxValueAgility = this.document.system.stats["Agility"].MaxValue;
 
-                if(newValue>maxValue*0.75){
+                if (newValue > maxValue * 0.75) {
                     update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility;
                     update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength;
                 }
-                if(newValue<=maxValue*0.75 && newValue>maxValue*0.5){
+                if (newValue <= maxValue * 0.75 && newValue > maxValue * 0.5) {
                     update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 10;
                 }
-                else if(newValue<=maxValue*0.5 && newValue>maxValue*0.25){
-                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -10;
+                else if (newValue <= maxValue * 0.5 && newValue > maxValue * 0.25) {
+                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength - 10;
                 }
-                else if(newValue<=maxValue*0.25 && newValue>=0){
+                else if (newValue <= maxValue * 0.25 && newValue >= 0) {
                     update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
-                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength -20;
+                    update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength - 20;
                 }
-                update[`system.stats.${statKey}.CurrentValue`]= newValue;
+                update[`system.stats.${statKey}.CurrentValue`] = newValue;
             }
         }
         await this.document.update(update);
     }
 
-    async _onChangeSkills(event){   
+    async _onChangeSkills(event) {
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
 
         const input = event.target;
-        const update={};
-        if(input.name?.endsWith(".level")){
+        const update = {};
+        if (input.name?.endsWith(".level")) {
             const categoryKey = input.name.split(".")[2];
             const skillKey = input.name.split(".")[3];
             const newValue = Number(input.value);
             update[`system.skills.${categoryKey}.${skillKey}.level`] = newValue;
         }
         await this.actor.update(update);
-    } 
+    }
 
-    static async #_onRemoveTrait(event, target, sheet){
+    static async #_onRemoveTrait(event, target, sheet) {
         event.preventDefault();
         const traitToRemoveId = target.dataset.traitId;
         await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
     }
-    
-    async _onChangeCulture(event){
+
+    async _onChangeCulture(event) {
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
 
         const culture = event.target.value;
-        const existingCultures = this.document.items.filter(i=> i.type === "Culture");
-        const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
-        if(existingCultures.length>0) {
-            await this.document.deleteEmbeddedDocuments("Item", existingCultures.map(i=> i.id) );
+        const existingCultures = this.document.items.filter(i => i.type === "Culture");
+        const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
+        if (existingCultures.length > 0) {
+            await this.document.deleteEmbeddedDocuments("Item", existingCultures.map(i => i.id));
         }
-        if(existingSubCulture.length>0){
-            await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+        if (existingSubCulture.length > 0) {
+            await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i => i.id));
         }
 
-        if(culture.length>0){
-            const cultureItem = game.items.find(i=> i.name === culture).toObject();
+        if (culture.length > 0) {
+            const cultureItem = game.items.find(i => i.name === culture).toObject();
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
 
@@ -768,74 +768,74 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const subcultures = allSubcultures.filter(s => s.system.parentCulture === culture);
         subSelect.innerHTML = `<option value="">-- Sélectionne une sous-culture --</option>`;
 
-        for (const s of subcultures){
+        for (const s of subcultures) {
             const opt = document.createElement("option");
             opt.value = s.name;
             opt.textContent = s.name;
             subSelect.appendChild(opt);
         }
-        
+
         this.getLifepathData();
 
-        
+
     }
 
-    async _onChangeSubCulture(event){
+    async _onChangeSubCulture(event) {
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
 
         const subCulture = event.target.value;
-        const existingSubCulture = this.document.items.filter(i=> i.type === "Subculture");
-        if(existingSubCulture.length>0){
-            await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i=> i.id) );
+        const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
+        if (existingSubCulture.length > 0) {
+            await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i => i.id));
         }
-        if(subCulture.length>0){
-            const cultureItem = game.items.find(i=> i.name === subCulture).toObject();
+        if (subCulture.length > 0) {
+            const cultureItem = game.items.find(i => i.name === subCulture).toObject();
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
         await this.document.update({ "system.subculture": subCulture });
 
     }
 
-    async _OnModifyManeuverWeaponLinked(event){
+    async _OnModifyManeuverWeaponLinked(event) {
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
         const value = event.target.value;
         const itemId = event.target.dataset.itemId;
         const item = this.document.items.get(itemId);
-        if(!item) return;
-        const update={};
+        if (!item) return;
+        const update = {};
         update[`system.weaponLinked`] = value;
         await item.update(update);
     }
 
-    async _OnModifyManeuverType(event){
+    async _OnModifyManeuverType(event) {
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
         const value = event.target.value;
         const itemId = event.target.dataset.itemId;
         const item = this.document.items.get(itemId);
-        if(!item) return;
-        const update={};
+        if (!item) return;
+        const update = {};
         update[`system.maneuverType`] = value;
         await item.update(update);
     }
 
-    static async #_OnPrintItem(event, target){
+    static async #_OnPrintItem(event, target) {
         event.preventDefault();
 
-        const itemId= target.dataset.itemId;
+        const itemId = target.dataset.itemId;
         const itemDoc = this.document.items.get(itemId);
         itemDoc.sheet.render(true);
     }
 
-    static async #_onRollStat(event, target){
+    static async #_onRollStat(event, target) {
         event.preventDefault();
         const statKey = target.dataset.stat;
         const stat = this.document.system.stats[statKey];
-        if(!stat) return;
+        if (!stat) return;
 
-        const content =`
+        const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
                 <label>Modifier</label>
@@ -847,33 +847,33 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         new Dialog({
             title: `${statKey} roll`,
             content,
-            buttons:{
-                roll:{
+            buttons: {
+                roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmRollStat(html,statKey)
+                    callback: html => this._onConfirmRollStat(html, statKey)
                 },
-                cancel:{
+                cancel: {
                     label: "Cancel"
                 }
             },
-                default: "roll"
-            }).render(true);
+            default: "roll"
+        }).render(true);
     }
 
-    async _onConfirmRollStat(html, statKey){
+    async _onConfirmRollStat(html, statKey) {
         const stat = this.document.system.stats[statKey];
         const currentValueStat = stat.CurrentValue;
 
         const form = html[0].querySelector("form");
-        const modifier = 10 * (Number(form.modifier.value) || 0);       
-        
+        const modifier = 10 * (Number(form.modifier.value) || 0);
+
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate();
         const valueRolled = roll.total;
-        const valueTested = clamp(currentValueStat + modifier,5,95);
-        const test = valueTested >=valueRolled;
-        const testDegree = Math.floor((valueTested - valueRolled) /10);
+        const valueTested = clamp(currentValueStat + modifier, 5, 95);
+        const test = valueTested >= valueRolled;
+        const testDegree = Math.floor((valueTested - valueRolled) / 10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
@@ -885,25 +885,25 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         `;
 
         await ChatMessage.create({
-            speaker:ChatMessage.getSpeaker({actor:this.actor}),
-            content:message,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content: message,
             rolls: [roll],
         })
 
-        if(test){
+        if (test) {
             ui.notifications.info(`il se passe des trucs`);
         }
-        else{
+        else {
             ui.notifications.info(`il se passe rien`);
         }
     }
 
-    static async #_OnRollSkill(event, target){
+    static async #_OnRollSkill(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.skillkey;
         const skillCategory = target.dataset.category;
 
-        const content =`
+        const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
                 <label>Modifier</label>
@@ -914,41 +914,41 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         new Dialog({
             title: `${skillKey} roll`,
             content,
-            buttons:{
-                roll:{
+            buttons: {
+                roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmRollSkill(html,skillKey, skillCategory)
+                    callback: html => this._onConfirmRollSkill(html, skillKey, skillCategory)
                 },
-                cancel:{
+                cancel: {
                     label: "Cancel"
                 }
             },
-                default: "roll"
-            }).render(true);
+            default: "roll"
+        }).render(true);
     }
 
-    async _onConfirmRollSkill(html, skillKey, skillCategory){
+    async _onConfirmRollSkill(html, skillKey, skillCategory) {
         const statsSkill = this.document.system.skills[skillCategory][skillKey].stats;
         const skillLevel = this.document.system.skills[skillCategory][skillKey].level;
-        const values = statsSkill.map(s=>this.document.system.stats[s].CurrentValue || 0);
-        const average = values.reduce((a,b)=> a+b,0)/ values.length;
+        const values = statsSkill.map(s => this.document.system.stats[s].CurrentValue || 0);
+        const average = values.reduce((a, b) => a + b, 0) / values.length;
         const form = html[0].querySelector("form");
-        const levelModifierValue = skillLevel *5;
-        const modifier = 10 * (Number(form.modifier.value) || 0);       
-        
+        const levelModifierValue = skillLevel * 5;
+        const modifier = 10 * (Number(form.modifier.value) || 0);
+
         const statDetails = statsSkill.map(s => {
-        const val = this.document.system.stats[s]?.CurrentValue ?? 0;
-        return `${s}(${val})`;
+            const val = this.document.system.stats[s]?.CurrentValue ?? 0;
+            return `${s}(${val})`;
         }).join(" + ");
 
         const formula = `1d100`;
         const roll = new Roll(formula);
         await roll.evaluate();
         const valueRolled = roll.total;
-        const valueTested = clamp(average + modifier + levelModifierValue,5,95);
-        const test = valueTested >=valueRolled;
-        const testSign = Math.sign(valueTested - valueRolled); 
-        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) /10);
+        const valueTested = clamp(average + modifier + levelModifierValue, 5, 95);
+        const test = valueTested >= valueRolled;
+        const testSign = Math.sign(valueTested - valueRolled);
+        const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) / 10);
         const stringResponse = test ? "Success" : "Failure";
 
         const message = `
@@ -962,20 +962,20 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         `;
 
         await ChatMessage.create({
-            speaker:ChatMessage.getSpeaker({actor:this.actor}),
-            content:message,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content: message,
             rolls: [roll],
         })
 
-        if(test){
+        if (test) {
             ui.notifications.info(`il se passe des trucs`);
         }
-        else{
+        else {
             ui.notifications.info(`il se passe rien`);
         }
     }
 
-    async _onPrintDescription(event, target){
+    async _onPrintDescription(event, target) {
         event.preventDefault();
         const itemId = target.dataset.itemId;
         const item = this.document.items.get(itemId);
@@ -987,14 +987,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         `;
 
         await ChatMessage.create({
-            speaker:ChatMessage.getSpeaker({actor:this.actor}),
-            content:message,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content: message,
         })
     }
 
-    async _onAddHighlight(event, target){
+    async _onAddHighlight(event, target) {
         event.preventDefault();
-        const newHighlight = {type:"", value:""};
+        const newHighlight = { type: "", value: "" };
         const highlights = Array.from(this.document.system.background.highlights);
         highlights.push(newHighlight);
         const update = {};
@@ -1002,7 +1002,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.document.update(update);
     }
 
-    async _onDeleteHighlight(event, target){
+    async _onDeleteHighlight(event, target) {
         event.preventDefault();
         const index = target.dataset.itemIndex;
         const highlights = Array.from(this.document.system.background.highlights);
@@ -1012,28 +1012,28 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.document.update(update);
     }
 
-    _onClose(options){
+    _onClose(options) {
         this._dropListenerBound = false;
     }
 }
 
-class InfoSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2){
+class InfoSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.DocumentSheetV2) {
 
     static DEFAULT_SUBJECT = "item";
 
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);   
-    	context.system = this.document.system;
-        context.item = this.document; 
+    async _prepareContext(options) {
+        const context = await super._prepareContext(options);
+        context.system = this.document.system;
+        context.item = this.document;
 
         return context;
     }
 }
 
-class ObjectsItemsSheet extends InfoSheet{
+class ObjectsItemsSheet extends InfoSheet {
 
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);    
+    async _prepareContext(options) {
+        const context = await super._prepareContext(options);
         context.objectSizes = ObjectSizes;
         context.objectSizeLabels = ObjectSizeLabels;
 
@@ -1041,24 +1041,24 @@ class ObjectsItemsSheet extends InfoSheet{
     }
 
     static async onSubmitForm(event, form, formData) {
-		event.preventDefault()
+        event.preventDefault()
         const name = event.target.name;
         let value;
-        if(name === "system.size" || name === "system.maxSize"){
+        if (name === "system.size" || name === "system.maxSize") {
             value = Number(event.target.value);
         }
-        else{
+        else {
             value = event.target.value;
         }
         const update = {};
-		update[name] = value;
+        update[name] = value;
         await this.document.update(update);
-    }    
+    }
 }
 
-class NonObjectItemsSheet extends InfoSheet{
+class NonObjectItemsSheet extends InfoSheet {
 
-    _onRender(context, options){
+    _onRender(context, options) {
         super._onRender(context, options);
         this.element.querySelectorAll(".add-effect").forEach(inp =>
             inp.addEventListener("click", this._OnAddEffect.bind(this))
@@ -1072,181 +1072,181 @@ class NonObjectItemsSheet extends InfoSheet{
     }
 
     static async onSubmitForm(event, form, formData) {
-		event.preventDefault()
+        event.preventDefault()
         const name = event.target.name;
         let value;
-        if(event.target.type == "checkbox"){
+        if (event.target.type == "checkbox") {
             value = event.target.checked;
         }
-        else{
+        else {
             value = event.target.value;
         }
         const update = {};
-		update[name] = value;
+        update[name] = value;
         await this.document.update(update);
     }
 
-    async _OnEditEffect(event){
+    async _OnEditEffect(event) {
         event.preventDefault();
         const effectId = event.currentTarget.dataset.effectId;
         const effect = this.document.effects.get(effectId);
-        if (effect) effect.sheet.render(true); 
+        if (effect) effect.sheet.render(true);
     }
-  
-    async _OnRemoveEffect(event){
+
+    async _OnRemoveEffect(event) {
         event.preventDefault();
         const effectId = event.currentTarget.dataset.effectId;
         await this.document.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
     }
-    
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);    
+
+    async _prepareContext(options) {
+        const context = await super._prepareContext(options);
         context.effects = this.document.effects.contents;
         return context;
     }
 
-    async _OnAddEffect(event){
+    async _OnAddEffect(event) {
         event.preventDefault();
         const effectData = {
-        name: "new Effect",
-        changes: [],
-        icon: "icons/svg/aura.svg",
-        origin: this.document.uuid,
+            name: "new Effect",
+            changes: [],
+            icon: "icons/svg/aura.svg",
+            origin: this.document.uuid,
         };
         await this.document.createEmbeddedDocuments("ActiveEffect", [effectData]);
     }
-  
+
 }
 
-class TraitSheet extends NonObjectItemsSheet{
+class TraitSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/trait-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/trait-sheet.html",
             scrollable: ["", ".tab"],
         }
     }
 }
 
-class CultureSheet extends NonObjectItemsSheet{
+class CultureSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/culture-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/culture-sheet.html",
             scrollable: ["", ".tab"],
         }
     }
 }
 
-class SubcultureSheet extends NonObjectItemsSheet{
+class SubcultureSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/subculture-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/subculture-sheet.html",
             scrollable: ["", ".tab"],
         }
     }
 
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);    
-        const allCultures = game.items.filter(i=>i.type === "Culture");
+    async _prepareContext(options) {
+        const context = await super._prepareContext(options);
+        const allCultures = game.items.filter(i => i.type === "Culture");
         context.cultures = allCultures;
         return context;
     }
 }
 
-class FightingSchoolSheet extends NonObjectItemsSheet{
-        static DEFAULT_OPTIONS = {
+class FightingSchoolSheet extends NonObjectItemsSheet {
+    static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        actions:{
-            addSkills: function (event, target) { this._onAddingSkill(event, target);},
-            removeSkill: function (event, target) {this._onRemoveSkill(event,target);},
-            changeSkillAllowed: function(event, target) {this._onChangingSkillAllowed(event, target);}
+        actions: {
+            addSkills: function (event, target) { this._onAddingSkill(event, target); },
+            removeSkill: function (event, target) { this._onRemoveSkill(event, target); },
+            changeSkillAllowed: function (event, target) { this._onChangingSkillAllowed(event, target); }
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/fightingschool-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/fightingschool-sheet.html",
             scrollable: ["", ".tab"],
         }
     }
 
-    constructor(...args){
+    constructor(...args) {
         super(...args);
         this._onChangeSkillAllowedBound = this._onChangingSkillAllowed.bind(this);
     }
 
-    async _onAddingSkill(event, target){
+    async _onAddingSkill(event, target) {
         event.preventDefault();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed ?? []);
         skillsAllowed.push("new skill");
         await this.document.update({
-            "system.skillsAllowed":skillsAllowed
+            "system.skillsAllowed": skillsAllowed
         });
     }
 
-    async _onRemoveSkill(event, target){
+    async _onRemoveSkill(event, target) {
         event.preventDefault();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
-        const skillname= target.dataset.skillName;
+        const skillname = target.dataset.skillName;
         const index = skillsAllowed.indexOf(skillname);
-        if (index !== -1) 
+        if (index !== -1)
             skillsAllowed.splice(index, 1);
         await this.document.update({
             "system.skillsAllowed": skillsAllowed
         });
     }
 
-    async _onChangingSkillAllowed(event){
+    async _onChangingSkillAllowed(event) {
         event.preventDefault();
         event.stopPropagation();
         const skillsAllowed = foundry.utils.duplicate(this.document.system.skillsAllowed);
@@ -1257,7 +1257,7 @@ class FightingSchoolSheet extends NonObjectItemsSheet{
             "system.skillsAllowed": skillsAllowed
         });
     }
-    _onRender(context, options){
+    _onRender(context, options) {
         super._onRender(context, options);
         this.element.querySelectorAll('select[name="system.skillAllowed"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeSkillAllowedBound)
@@ -1266,133 +1266,133 @@ class FightingSchoolSheet extends NonObjectItemsSheet{
 
 }
 
-class FightingManeuverSheet extends NonObjectItemsSheet{
+class FightingManeuverSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true,
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/fightingManeuver-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/fightingManeuver-sheet.html",
             scrollable: ["", ".tab"],
         }
     }
 
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);    
-        const allSchools = game.items.filter(i=>i.type === "Fighting School");
+    async _prepareContext(options) {
+        const context = await super._prepareContext(options);
+        const allSchools = game.items.filter(i => i.type === "Fighting School");
         context.schools = allSchools;
         return context;
     }
 }
 
-class ObjectSheet extends ObjectsItemsSheet{
+class ObjectSheet extends ObjectsItemsSheet {
 
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true,
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/object-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/object-sheet.html",
             scrollable: [".object-body"],
         }
     }
 }
 
-class ShieldSheet extends ObjectsItemsSheet{
+class ShieldSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-          window:{
+        window: {
             resizable: true,
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/shield-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/shield-sheet.html",
             scrollable: [".object-body"],
         }
     }
 }
 
-class ArmorSheet extends ObjectsItemsSheet{
+class ArmorSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true,
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/armor-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/armor-sheet.html",
             scrollable: [".object-body"],
         }
     }
 }
 
-class WeaponSheet extends ObjectsItemsSheet{
+class WeaponSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        window:{
+        window: {
             resizable: true,
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/weapon-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/weapon-sheet.html",
             scrollable: [".object-body"],
         }
     }
 
-     _onRender(context, options){
+    _onRender(context, options) {
         super._onRender(context, options);
 
         this.element.querySelectorAll('select[name="system.skill"]').forEach(sel =>
@@ -1406,20 +1406,20 @@ class WeaponSheet extends ObjectsItemsSheet{
         this._onChangeSkillBound = this._onChangeSkill.bind(this);
     }
 
-    async _onChangeSkill(event){
+    async _onChangeSkill(event) {
 
         event.preventDefault();
-		event.stopPropagation();
+        event.stopPropagation();
 
         const skill = event.target.value;
-        await this.document.update({ "system.skill": skill });  
+        await this.document.update({ "system.skill": skill });
     }
 }
 
 class ContainerItemAPI extends Item {
-static async updateWeight(container){
-       let weightUsed =0;
-        for(const content of container.system.contents){
+    static async updateWeight(container) {
+        let weightUsed = 0;
+        for (const content of container.system.contents) {
             let item = await fromUuid(content.uuid);
             weightUsed += Number(item.system.weight);
         }
@@ -1427,47 +1427,50 @@ static async updateWeight(container){
         update[`system.weight`] = weightUsed;
         update[`system.weightRemaining`] = Number(container.system.weightAllowed - weightUsed);
         await container.update(update);
-  }
+    }
+
+
 }
 
-class ContainerSheet extends ObjectsItemsSheet{
+class ContainerSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
         },
-        actions:{
-            deleteItem: function (event, target) { this._onDeleteItem(event, target);},
-            transferItem: function (event, target) {this._onTransfertItem(event, target);},
+        actions: {
+            deleteItem: function (event, target) { this._onDeleteItem(event, target); },
+            transferItem: function (event, target) { this._onTransfertItem(event, target); },
             printItem: this.#_OnPrintItem,
+            addVoidItem: function (event, target) { this._OnAddVoidItem(event, target); }
 
         },
-        window:{
+        window: {
             resizable: true,
         }
     }
 
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/container-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/container-sheet.html",
             scrollable: [".container-body"]
         }
     }
 
-    constructor(...args){
+    constructor(...args) {
         super(...args);
         this._onDropBound = this._onDropItems.bind(this);
         this._onChangeQuantityBound = this._OnChangeQuantity.bind(this);
         this._onChangeWeightAllowedBound = this._onChangeWeightAllowed.bind(this);
-        
+
     }
 
-    _onRender(context, options){
+    _onRender(context, options) {
 
         this.element.querySelectorAll('input[name*="system.quantity"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeQuantityBound)
@@ -1485,8 +1488,8 @@ class ContainerSheet extends ObjectsItemsSheet{
         }
     }
 
-    async _prepareContext(options){
-        const context = await super._prepareContext(options);    
+    async _prepareContext(options) {
+        const context = await super._prepareContext(options);
         const items = [];
         for (const object of this.document.system.contents ?? []) {
             const item = await fromUuid(object.uuid);
@@ -1498,9 +1501,9 @@ class ContainerSheet extends ObjectsItemsSheet{
         context.objectSizeLabels = ObjectSizeLabels;
 
         return context;
-    } 
+    }
 
-    async _onDropItems(event){
+    async _onDropItems(event) {
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
         if (!dataTransfer) return;
@@ -1510,35 +1513,35 @@ class ContainerSheet extends ObjectsItemsSheet{
         const parsed = JSON.parse(dataString);
         const actor = this.document.actor;
         let item = await fromUuid(parsed.uuid);
-        if(!item) return;
+        if (!item) return;
         if (item.uuid === this.document.uuid) return;
-        if(Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
-        if(Number(item.system.weight) > this.document.system.weightRemaining) return;
-        if(item.system.size > this.document.system.maxSize) return;
-        const existingItem = this.document.system.contents.find(i=> i.name === item.name);
-        if(existingItem){
+        if (Number(PJActorAPI.getCurrentWeight(actor)) + Number(item.system.weight) > Number(PJActorAPI.getMaxWeight(actor))) return;
+        if (Number(item.system.weight) > this.document.system.weightRemaining) return;
+        if (item.system.size > this.document.system.maxSize) return;
+        const existingItem = this.document.system.contents.find(i => i.name === item.name);
+        if (existingItem) {
             const itemAlreadyPresent = await fromUuid(existingItem.uuid)
             const update = {};
-            update[`system.quantity`] = itemAlreadyPresent.system.quantity +1;
+            update[`system.quantity`] = itemAlreadyPresent.system.quantity + 1;
             update[`system.weight`] = Number(itemAlreadyPresent.system.weight) + Number(item.system.weight);
             await itemAlreadyPresent.update(update);
         }
-        else{
-            if(!item.actor){
+        else {
+            if (!item.actor) {
                 const itemData = item.toObject();
                 itemData.system.quantity = 1;
                 const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
                 item = embedded;
             }
-            else{
+            else {
 
             }
             const contents = Array.from(this.document.system.contents ?? []);
-            const objectToPush = {"name":item.name, "uuid": item.uuid};
+            const objectToPush = { "name": item.name, "uuid": item.uuid };
             contents.push(objectToPush);
 
             await this.document.update({
-                "system.contents":contents
+                "system.contents": contents
             });
         }
 
@@ -1546,9 +1549,111 @@ class ContainerSheet extends ObjectsItemsSheet{
         await PJActorAPI.onUpdateWeight(actor);
     }
 
-    async UpdateWeight(){
-        let weightUsed =0;
-        for(const content of this.document.system.contents){
+    async _OnAddVoidItem(event, target) {
+
+        const objectTypes = ["Object", "Weapon", "Armor", "Shield"];
+
+        const options = objectTypes
+            .map(type => `<option value="${type}">${type}</option>`)
+            .join("");
+
+        const content =
+            `<form>
+            <form class="form-group">
+                <div class = "addvoid-item-group">
+                    <label>Destination</label>
+                    <select id="addvoid-item" name="addvoidItem">
+                        ${options}
+                    </select>
+                </div>
+            </form>
+        </form>`;
+        new Dialog({
+            title: `$Transfer menu`,
+            content,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: html => this._onConfirmAddVoidItem(html)
+                },
+                cancel: {
+                    label: "Cancel"
+                }
+            },
+            default: "roll"
+        }).render(true);
+    }
+
+    async _onConfirmAddVoidItem(html) {
+        const select = html.querySelector('select[name="addvoidItem"]');
+        const value = select?.value;
+        let itemData;
+        switch (value) {
+            case "Weapon":
+                itemData = {
+                    "traits": "",
+                    "efficiency": { "textile": 0, "fluide": 0, "solid": 0 },
+                    "weight": 0,
+                    "bulk": 0,
+                    "hands": 1,
+                    "reach": 0,
+                    "cost": "",
+                    "skill": "",
+                    "size": 0
+                }
+                break;
+            case "Object":
+                itemData = {
+                    "description": "",
+                    "weight": 0,
+                    "size": 0,
+                    "cost": ""
+                }
+                break;
+            case "Shield":
+                itemData = {
+                    "traits": "",
+                    "protection": 0,
+                    "weight": 0,
+                    "bulk": 0,
+                    "cost": "",
+                    "size": 0
+                }
+                break;
+            case "Armor":
+                itemData = {
+                    "traits": "",
+                    "protection": 0,
+                    "weight": 0,
+                    "bulk": 0,
+                    "type": "",
+                    "cost": "",
+                    "size": 0
+                }
+                break;
+
+        }
+        const data = {
+            name : `new ${value}`,
+            type : value,
+            system: itemData
+        }
+        data.system.quantity = 1;
+        const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
+
+        const Contents =  Array.from(this.document.system.contents);
+        const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
+        Contents.push(objectToAdd);
+
+        await this.document.update({
+            "system.contents": Contents
+        });
+
+    }
+
+    async UpdateWeight() {
+        let weightUsed = 0;
+        for (const content of this.document.system.contents) {
             let item = await fromUuid(content.uuid);
             weightUsed += Number(item.system.weight);
         }
@@ -1558,7 +1663,7 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this.document.update(update);
     }
 
-    async _OnChangeQuantity(event){
+    async _OnChangeQuantity(event) {
         event.preventDefault();
         const value = Number(event.target.value);
         const id = event.target.dataset.itemId;
@@ -1566,21 +1671,21 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         const item = actor.items.get(id);
         const baseWeight = Number(item.system.weight) / item.system.quantity;
-        const update= {};
-        if(Number(PJActorAPI.getCurrentWeight(actor)) + baseWeight*value> Number(PJActorAPI.getMaxWeight(actor))) return;
-        if(baseWeight*value > Number(this.document.system.weightRemaining)) return;
+        const update = {};
+        if (Number(PJActorAPI.getCurrentWeight(actor)) + baseWeight * value > Number(PJActorAPI.getMaxWeight(actor))) return;
+        if (baseWeight * value > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
-        update[`system.weight`] = baseWeight*value;
+        update[`system.weight`] = baseWeight * value;
         await item.update(update);
         await this.UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
     }
 
-    async _onChangeWeightAllowed(event){
+    async _onChangeWeightAllowed(event) {
         event.preventDefault();
         const value = Number(event.target.value);
 
-        const update= {};
+        const update = {};
         update[`system.weightAllowed`] = value;
         update[`system.weightRemaining`] = value;
 
@@ -1588,7 +1693,7 @@ class ContainerSheet extends ObjectsItemsSheet{
 
     }
 
-    async _onDeleteItem(event, target){
+    async _onDeleteItem(event, target) {
         const itemId = target.dataset.itemId;
         const actor = this.document.actor;
 
@@ -1599,9 +1704,9 @@ class ContainerSheet extends ObjectsItemsSheet{
 
         const update = {};
         const contents = Array.from(this.document.system.contents);
-        const itemIndex = contents.findIndex(i=> i.uuid === item.uuid);
+        const itemIndex = contents.findIndex(i => i.uuid === item.uuid);
 
-        if(itemIndex!= 1){
+        if (itemIndex != 1) {
             contents.splice(itemIndex, 1);
         }
         update[`system.contents`] = contents;
@@ -1609,22 +1714,22 @@ class ContainerSheet extends ObjectsItemsSheet{
         await this.document.update(update);
         await this.UpdateWeight();
 
-        const {typeOfItem, isInEquipment} = PJActorAPI.isInEquipment(itemId, actor);
+        const { typeOfItem, isInEquipment } = PJActorAPI.isInEquipment(itemId, actor);
 
-        if(isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")){
-            target.dataset.itemType =  typeOfItem;
-		    await PJActorAPI.onUnEquipArmor(target, actor);
+        if (isInEquipment && (typeOfItem === "Armor" || typeOfItem === "Shield")) {
+            target.dataset.itemType = typeOfItem;
+            await PJActorAPI.onUnEquipArmor(target, actor);
         }
-        if(isInEquipment &&(typeOfItem === "Weapon")){
+        if (isInEquipment && (typeOfItem === "Weapon")) {
             await PJActorAPI.onUnequipWeapon(actor);
         }
         await PJActorAPI.onUpdateWeight(actor);
     }
 
-    async _onTransfertItem(event, target){
+    async _onTransfertItem(event, target) {
         const actor = this.document.actor;
         const containers = PJActorAPI.getContainers(actor);
-        const itemToTransfer= target.dataset.itemId;
+        const itemToTransfer = target.dataset.itemId;
 
         const options = containers
             .map(container => `
@@ -1634,7 +1739,7 @@ class ContainerSheet extends ObjectsItemsSheet{
             `)
             .join("");
         const content =
-        `<form>
+            `<form>
             <form class="form-group">
                 <div class = "transfert-group">
                     <label>Destination</label>
@@ -1647,96 +1752,96 @@ class ContainerSheet extends ObjectsItemsSheet{
         new Dialog({
             title: `$Transfer menu`,
             content,
-            buttons:{
-                roll:{
+            buttons: {
+                roll: {
                     label: "Roll",
                     callback: html => this._onConfirmTransfer(html, itemToTransfer)
                 },
-                cancel:{
+                cancel: {
                     label: "Cancel"
                 }
             },
-                default: "roll"
-            }).render(true);
+            default: "roll"
+        }).render(true);
     }
 
-    static async #_OnPrintItem(event, target){
+    static async #_OnPrintItem(event, target) {
         event.preventDefault();
 
-        const itemId= target.dataset.itemId;
+        const itemId = target.dataset.itemId;
         const itemDoc = this.document.actor.items.get(itemId);
         itemDoc.sheet.render(true);
     }
 
-    async _onConfirmTransfer(html, originTransfer){
+    async _onConfirmTransfer(html, originTransfer) {
         const form = html[0].querySelector("form");
         const destinationId = form.transfertDestination.value;
         const actor = this.document.actor;
         const item = actor.items.get(originTransfer);
         const destinationContainer = await fromUuid(destinationId);
 
-        if(Number(item.system.weight) > destinationContainer.system.weightRemaining) return;
-        const update1 = {}; const update2={};
-        if(item.system.quantity > 1){
-            update1[`system.quantity`] = item.system.quantity -1 ;
+        if (Number(item.system.weight) > destinationContainer.system.weightRemaining) return;
+        const update1 = {}; const update2 = {};
+        if (item.system.quantity > 1) {
+            update1[`system.quantity`] = item.system.quantity - 1;
             await item.update(update1);
         }
-        else{
+        else {
             const contents = this.document.system.contents;
-            const index =  contents.findIndex(i => i.name === item.name);
+            const index = contents.findIndex(i => i.name === item.name);
             contents.splice(index, 1);
             update1[`system.contents`] = contents;
             await this.document.update(update1);
         }
 
         const targetContents = destinationContainer.system.contents;
-        const targetIndex =  targetContents.findIndex(i => i.name === item.name);
-        if(targetIndex!= -1){
+        const targetIndex = targetContents.findIndex(i => i.name === item.name);
+        if (targetIndex != -1) {
             const targetContent = targetContents[targetIndex];
             const targetItem = fromUuid(targetContent);
             update2[`system.quantity`] = targetItem + 1;
             await targetItem.update(update2);
         }
-        else{
-                const itemData = item.toObject();
-                itemData.system.quantity = 1;
-                const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
+        else {
+            const itemData = item.toObject();
+            itemData.system.quantity = 1;
+            const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
 
-                const objectToAdd = {"name":embedded.name, "uuid": embedded.uuid};
-                targetContents.push(objectToAdd);
+            const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
+            targetContents.push(objectToAdd);
 
-                await destinationContainer.update({
-                    "system.contents":targetContents
-                });
-            }
+            await destinationContainer.update({
+                "system.contents": targetContents
+            });
+        }
         await PJActorAPI.UpdateAllContainers(actor);
 
     }
 }
 
-class SpellSystemSheet extends NonObjectItemsSheet{
+class SpellSystemSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addTypeofSpell: function (event, target) { this._onAddTypeofSpell(event, target);},
-            removeTypeofSpell:function (event, target) { this._onRemoveTypeofSpell(event, target);}
+        actions: {
+            addTypeofSpell: function (event, target) { this._onAddTypeofSpell(event, target); },
+            removeTypeofSpell: function (event, target) { this._onRemoveTypeofSpell(event, target); }
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/spellSystem-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/spellSystem-sheet.html",
             scrollable: [".tab"],
         }
     }
 
-    async _onAddTypeofSpell(event, target){
+    async _onAddTypeofSpell(event, target) {
         const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
         const newType = "new spell type";
         existingTypes.push(newType);
@@ -1745,7 +1850,7 @@ class SpellSystemSheet extends NonObjectItemsSheet{
         this.document.update(update);
     }
 
-    async _onRemoveTypeofSpell(event, target){
+    async _onRemoveTypeofSpell(event, target) {
         const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
         const index = target.dataset.itemIndex;
         existingTypes.splice(index, 1);
@@ -1758,17 +1863,17 @@ class SpellSystemSheet extends NonObjectItemsSheet{
 
         this._onChangeSpecificTypeBound = this._onChangeSpecificType.bind(this);
     }
-    _onRender(context, options){
+    _onRender(context, options) {
         this.element.querySelectorAll('input[name*="system.existingTypeOfSpells"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeSpecificTypeBound)
         );
     }
-    async _onChangeSpecificType(event){
+    async _onChangeSpecificType(event) {
         event.preventDefault();
         const index = event.target.name.split(".")[2];
         const value = event.target.value;
         const existingTypes = Array.from(this.document.system.existingTypeOfSpells);
-        existingTypes[index] =value;
+        existingTypes[index] = value;
         const update = {};
         update[`system.existingTypeOfSpells`] = existingTypes;
         this.document.update(update);
@@ -1776,25 +1881,28 @@ class SpellSystemSheet extends NonObjectItemsSheet{
     }
 }
 
-class SpellSheet extends NonObjectItemsSheet{
+class SpellSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
-            handler:this.onSubmitForm,
+        form: {
+            handler: this.onSubmitForm,
             submitOnChange: true,
             closeOnSubmit: false
+        },
+        window: {
+            resizable: true
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/spell-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/spell-sheet.html",
             scrollable: [".tab"],
         }
     }
-    async _prepareContext(options){
+    async _prepareContext(options) {
         const context = await super._prepareContext(options);
         context.spellTypes = Object.keys(Restricted);
         context.restrictedAttributes = Restricted;
@@ -1802,8 +1910,8 @@ class SpellSheet extends NonObjectItemsSheet{
     }
 }
 
-class LifePathInfoSheet extends InfoSheet{
-    async _onAddPossibilty(event, target){
+class LifePathInfoSheet extends InfoSheet {
+    async _onAddPossibilty(event, target) {
         event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
         const newPossibility = "new possibility";
@@ -1813,19 +1921,19 @@ class LifePathInfoSheet extends InfoSheet{
         this.document.update(update);
     }
 
-    async _onRemovePossibility(event, target){
+    async _onRemovePossibility(event, target) {
         event.preventDefault();
         const possibilities = Array.from(this.document.system.possibilities);
         const index = target.dataset.itemIndex;
-        possibilities.splice(index,1);
+        possibilities.splice(index, 1);
         const update = {};
         update[`system.possibilities`] = possibilities;
         this.document.update(update);
     }
 
-    async _prepareContext(options){
+    async _prepareContext(options) {
         const context = await super._prepareContext(options);
-        context.cultures = game.items.filter(i=>i.type === "Culture");
+        context.cultures = game.items.filter(i => i.type === "Culture");
 
         return context;
     }
@@ -1837,32 +1945,32 @@ class LifePathInfoSheet extends InfoSheet{
         this._onChangeCultureBound = this._onChangeCulture.bind(this);
         this._onChangeNameBound = this._onChangeName.bind(this);
     }
-    _onRender(context, options){
+    _onRender(context, options) {
         this.element.querySelectorAll('input[name*="system.possibilities"]').forEach(inp =>
             inp.addEventListener("change", this._onChangePossibilityBound)
         );
 
-        this.element.querySelectorAll('select[name*="system.culture"]').forEach(inp=>
+        this.element.querySelectorAll('select[name*="system.culture"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeCultureBound)
         );
 
-        this.element.querySelectorAll('input[name="name"]').forEach(inp=>
+        this.element.querySelectorAll('input[name="name"]').forEach(inp =>
             inp.addEventListener("change", this._onChangeNameBound)
         )
 
     }
-    async _onChangePossibility(event){
+    async _onChangePossibility(event) {
         event.preventDefault();
         const index = event.target.name.split(".")[2];
         const value = event.target.value;
         const existingTypes = Array.from(this.document.system.possibilities);
-        existingTypes[index] =value;
+        existingTypes[index] = value;
         const update = {};
         update[`system.possibilities`] = existingTypes;
         this.document.update(update);
     }
 
-    async _onChangeCulture(event){
+    async _onChangeCulture(event) {
         event.preventDefault();
         const value = event.target.value;
         const update = {};
@@ -1870,7 +1978,7 @@ class LifePathInfoSheet extends InfoSheet{
         this.document.update(update);
     }
 
-    async _onChangeName(event){
+    async _onChangeName(event) {
         event.preventDefault();
         const value = event.target.value;
 
@@ -1880,281 +1988,288 @@ class LifePathInfoSheet extends InfoSheet{
     }
 }
 
-class FamilyStandingSheet extends LifePathInfoSheet{
+class FamilyStandingSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class ParentMishapsSheet extends LifePathInfoSheet{
+class ParentMishapsSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
         }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class CrucialChildhoodMomentSheet extends LifePathInfoSheet{
+class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}
-       }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class ChildhoodMemorySheet extends LifePathInfoSheet{
+class ChildhoodMemorySheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}       }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class StrokeofFortuneSheet extends LifePathInfoSheet{
+class StrokeofFortuneSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}      }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class StrokeofTragedySheet extends LifePathInfoSheet{
+class StrokeofTragedySheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}       }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class FatefulEncounterSheet extends LifePathInfoSheet{
+class FatefulEncounterSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}        }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class DramaticEncounterSheet extends LifePathInfoSheet{
+class DramaticEncounterSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}        }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
-class RomanceSheet extends LifePathInfoSheet{
+class RomanceSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
         tag: 'form',
-        form:{
+        form: {
             submitOnChange: false,
             closeOnSubmit: false
         },
-        actions:{
-            addPossibility: function(event, target){ this._onAddPossibilty(event, target);},
-            removePossibilty: function(event, target){ this._onRemovePossibility(event, target);}        }
+        actions: {
+            addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
+            removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        }
     }
     static PARTS = {
-        main : {
-            template : "systems/testsystem/templates/lifepathInfo-sheet.html",
+        main: {
+            template: "systems/testsystem/templates/lifepathInfo-sheet.html",
             scrollable: [".tab"],
         }
     }
 }
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
-  if (data.type !== "PJ") return;
+    if (data.type !== "PJ") return;
 
-  const system = data.system ?? {};
-  const categoryData = {
+    const system = data.system ?? {};
+    const categoryData = {
         Fighting,
-        Social, 
-        Stealth, 
-        Crafting, 
-        Knowledge, 
+        Social,
+        Stealth,
+        Crafting,
+        Knowledge,
         Athletic,
         Restricted
     }
     if (!system.skills || Object.keys(system.skills).length === 0) {
-      system.skills = {};
-      for (const [category, list] of Object.entries(CATEGORYSKILLS)) {
-        const data = categoryData[category] || {};
-        system.skills[category] = {};
-        for (const skill of list) {
-          system.skills[category][skill] = { stats: data[skill] || [], level: 0, learningPoints: 0 };
+        system.skills = {};
+        for (const [category, list] of Object.entries(CATEGORYSKILLS)) {
+            const data = categoryData[category] || {};
+            system.skills[category] = {};
+            for (const skill of list) {
+                system.skills[category][skill] = { stats: data[skill] || [], level: 0, learningPoints: 0 };
+            }
         }
-      }
     }
 
-  actor.updateSource({ system });
+    actor.updateSource({ system });
 });
 
-Hooks.on("preCreateItem", (item, data, options, userId)=>{
-    if(data.type == "Weapon" || data.type == "Fighting School" ){
+Hooks.on("preCreateItem", (item, data, options, userId) => {
+    if (data.type == "Weapon" || data.type == "Fighting School") {
         const system = data.system ?? {};
         system.skills = [];
-        for(const [skill,list] of Object.entries(Fighting)){
+        for (const [skill, list] of Object.entries(Fighting)) {
             if (!system.skills.includes(skill)) {
                 system.skills.push(skill);
             }
         }
         item.updateSource({ system });
-    }		
-}); 
+    }
+});
 
-Hooks.on("preUpdateItem", (item, data, options, userId)=>{
+Hooks.on("preUpdateItem", (item, data, options, userId) => {
     const actor = item.actor;
     if (!item.actor) return;
 
     if (data.system?.weight !== undefined) {
         const oldWeight = item.system.weight;
         const newWeight = data.system.weight;
-        if(newWeight < 0 ) return false;
-        if(newWeight>oldWeight){
+        if (newWeight < 0) return false;
+        if (newWeight > oldWeight) {
             const containers = actor.items.filter(i => i.type === "Container");
 
             for (const container of containers) {
                 const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
                 if (!isInside) continue;
                 const weightDifference = newWeight - oldWeight;
-                if(container.system.weight + weightDifference > container.system.weightAllowed)return false;
-                if(actor.system.weight + weightDifference > actor.system.maxWeight ) return false;
-            }}
-        }
-        if(data.system?.size !== undefined){
-            const newSize = data.system.size;
-            const containers = actor.items.filter(i => i.type === "Container");
-
-            for (const container of containers) {
-                const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
-                if (!isInside) continue;
-                if(newSize>container.system.maxSize) return false;
+                if (container.system.weight + weightDifference > container.system.weightAllowed) return false;
+                if (actor.system.weight + weightDifference > actor.system.maxWeight) return false;
             }
-
         }
+    }
+    if (data.system?.size !== undefined) {
+        const newSize = data.system.size;
+        const containers = actor.items.filter(i => i.type === "Container");
+
+        for (const container of containers) {
+            const isInside = container.system.contents?.some(c => c.uuid === item.uuid);
+            if (!isInside) continue;
+            if (newSize > container.system.maxSize) return false;
+        }
+
+    }
 
 })
 
-Hooks.on("updateItem", async (item, data, option, userId)=>{
+Hooks.on("updateItem", async (item, data, option, userId) => {
     const actor = item.actor;
     if (!actor) return;
 
@@ -2165,16 +2280,16 @@ Hooks.on("updateItem", async (item, data, option, userId)=>{
         if (!isInside) continue;
 
         if (container.sheet?.rendered) {
-        container.sheet.render(false);
+            container.sheet.render(false);
         }
-  }
-  await PJActorAPI.UpdateAllContainers(actor);
-  await PJActorAPI.onUpdateWeight(actor);
+    }
+    await PJActorAPI.UpdateAllContainers(actor);
+    await PJActorAPI.onUpdateWeight(actor);
 });
 
-Hooks.once("init", async ()=>{
-  console.log("✅ TestSystem Init Hook");
-  
+Hooks.once("init", async () => {
+    console.log("✅ TestSystem Init Hook");
+
     foundry.documents.collections.Actors.registerSheet("testsystem", PJSheet, {
         types: ["PJ"],
         makeDefault: true
@@ -2189,11 +2304,11 @@ Hooks.once("init", async ()=>{
         types: ["Trait"],
         makeDefault: true
     });
- 
+
     foundry.documents.collections.Items.registerSheet("testsystem", CultureSheet, {
         types: ["Culture"],
         makeDefault: true
-    });    
+    });
 
     foundry.documents.collections.Items.registerSheet("testsystem", SubcultureSheet, {
         types: ["Subculture"],
@@ -2215,121 +2330,121 @@ Hooks.once("init", async ()=>{
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FightingManeuverSheet, {
-        types:["Fighting Maneuver"],
-        makeDefault:true
+        types: ["Fighting Maneuver"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FightingSchoolSheet, {
-        types:["Fighting School"],
-        makeDefault:true
+        types: ["Fighting School"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", ContainerSheet, {
-        types:["Container"],
-        makeDefault:true
+        types: ["Container"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", SpellSystemSheet, {
-        types:["SpellSystem"],
-        makeDefault:true
+        types: ["SpellSystem"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", SpellSheet, {
-        types:["Spell"],
-        makeDefault:true
+        types: ["Spell"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FamilyStandingSheet, {
-        types:["Lifepath - Family Standing"],
-        makeDefault:true
+        types: ["Lifepath - Family Standing"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", ParentMishapsSheet, {
-        types:["Lifepath - Parent Mishaps"],
-        makeDefault:true
+        types: ["Lifepath - Parent Mishaps"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", CrucialChildhoodMomentSheet, {
-        types:["Lifepath - Crucial Childhood Moment"],
-        makeDefault:true
+        types: ["Lifepath - Crucial Childhood Moment"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", ChildhoodMemorySheet, {
-        types:["Lifepath - Childhood Memory"],
-        makeDefault:true
+        types: ["Lifepath - Childhood Memory"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", StrokeofFortuneSheet, {
-        types:["Lifepath - Stroke of Fortune"],
-        makeDefault:true
+        types: ["Lifepath - Stroke of Fortune"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", StrokeofTragedySheet, {
-        types:["Lifepath - Stroke of Tragedy"],
-        makeDefault:true
+        types: ["Lifepath - Stroke of Tragedy"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", FatefulEncounterSheet, {
-        types:["Lifepath - Fateful Encounter"],
-        makeDefault:true
+        types: ["Lifepath - Fateful Encounter"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", DramaticEncounterSheet, {
-        types:["Lifepath - Dramatic Encounter"],
-        makeDefault:true
+        types: ["Lifepath - Dramatic Encounter"],
+        makeDefault: true
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", RomanceSheet, {
-        types:["Lifepath - Romance"],
-        makeDefault:true
+        types: ["Lifepath - Romance"],
+        makeDefault: true
     });
 
 
-Handlebars.registerHelper("handleNames", function(str) {
-  if (typeof str !== "string") return "";
-  const spaced = str.replace(/([A-Z])/g, " $1").trim();
-  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
-});
-Handlebars.registerHelper("includes", function (array, value) {
-    return array.includes(value);
-});
-Handlebars.registerHelper("eq", function(a, b) {
-  return a === b;
-});
-Handlebars.registerHelper("toNumber", value => Number(value))
-Handlebars.registerHelper("not", function (value) {
-    return !value;
-});
+    Handlebars.registerHelper("handleNames", function (str) {
+        if (typeof str !== "string") return "";
+        const spaced = str.replace(/([A-Z])/g, " $1").trim();
+        return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+    });
+    Handlebars.registerHelper("includes", function (array, value) {
+        return array.includes(value);
+    });
+    Handlebars.registerHelper("eq", function (a, b) {
+        return a === b;
+    });
+    Handlebars.registerHelper("toNumber", value => Number(value))
+    Handlebars.registerHelper("not", function (value) {
+        return !value;
+    });
 });
 
 
 
-Hooks.on("updateActiveEffect", async (effect, changed, option, userId) =>{
-if(!changed.changes) return;
-const updates = [];
-for (const change of effect.changes) {
-    if (change.key.endsWith(".MaxValue") ) {
-      const parts = change.key.split("."); 
-      const statName = parts[2];       
-      const basePath = parts.slice(0, -1).join(".");
-      const currentKey = `${basePath}.CurrentValue`;
-		
-      if (statName === "Constitution") return;
-		
-		const exists = effect.changes.some(c => c.key === currentKey);
-		
-		if (!exists) {
-			const mirrorChange = foundry.utils.duplicate(change);
-			mirrorChange.key = currentKey;
-			updates.push(mirrorChange);
-	    }
+Hooks.on("updateActiveEffect", async (effect, changed, option, userId) => {
+    if (!changed.changes) return;
+    const updates = [];
+    for (const change of effect.changes) {
+        if (change.key.endsWith(".MaxValue")) {
+            const parts = change.key.split(".");
+            const statName = parts[2];
+            const basePath = parts.slice(0, -1).join(".");
+            const currentKey = `${basePath}.CurrentValue`;
+
+            if (statName === "Constitution") return;
+
+            const exists = effect.changes.some(c => c.key === currentKey);
+
+            if (!exists) {
+                const mirrorChange = foundry.utils.duplicate(change);
+                mirrorChange.key = currentKey;
+                updates.push(mirrorChange);
+            }
+        }
     }
-  }
-   if (updates.length === 0) return;
+    if (updates.length === 0) return;
 
-  await effect.update({
-    changes: [...effect.changes, ...updates]
-  });
+    await effect.update({
+        changes: [...effect.changes, ...updates]
+    });
 });
 
 

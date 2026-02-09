@@ -22,7 +22,7 @@
             <input type = "number" name = "system.weightAllowed" value="{{system.weightAllowed}}"/>
         {{/if}}
         {{#if system.isUsed}}
-        <p>Weigth allowed: {{system.weightAllowed}}</p>
+            <p>Weigth allowed: {{system.weightAllowed}}</p>
             <p>Weight remaining: {{system.weightRemaining}}</p>
             <p>Weight used: {{system.weight}}</p>
 
@@ -41,6 +41,10 @@
                     <button type="button" data-action="transferItem" data-item-id="{{this.id}}">Transfer</button>
                 </div>
             {{/each}}
+
+            <div class="add-void-item">
+                <button type="button" data-action="addVoidItem">Create void item</button>
+            </div>
         {{/if}}
     </section>
 
