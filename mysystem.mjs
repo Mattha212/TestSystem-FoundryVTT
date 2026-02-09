@@ -1585,7 +1585,7 @@ class ContainerSheet extends ObjectsItemsSheet {
     }
 
     async _onConfirmAddVoidItem(html) {
-        const select = html.querySelector('select[name="addvoidItem"]');
+        const select = html[0].querySelector('select[name="addvoidItem"]');
         const value = select?.value;
         let itemData;
         switch (value) {
