@@ -1561,7 +1561,7 @@ class ContainerSheet extends ObjectsItemsSheet {
             `<form>
             <form class="form-group">
                 <div class = "addvoid-item-group">
-                    <label>Destination</label>
+                    <label>Type</label>
                     <select id="addvoid-item" name="addvoidItem">
                         ${options}
                     </select>
@@ -1569,11 +1569,11 @@ class ContainerSheet extends ObjectsItemsSheet {
             </form>
         </form>`;
         new Dialog({
-            title: `$Transfer menu`,
+            title: `$Create void`,
             content,
             buttons: {
                 roll: {
-                    label: "Roll",
+                    label: "create",
                     callback: html => this._onConfirmAddVoidItem(html)
                 },
                 cancel: {
