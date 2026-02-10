@@ -446,7 +446,7 @@ width: 50px;
 /* Header row */
 .maneuver-header {
   display: grid;
-  grid-template-columns: 1fr 0.5fr auto;
+  grid-template-columns: 1fr 0.35fr 0fr;
   padding: 4px 10px;
   font-weight: bold;
   border-bottom: 1px solid #aaa5;
@@ -462,15 +462,27 @@ width: 50px;
 /* Row */
 .maneuver-row {
   display: grid;
-  grid-template-columns: 1fr 0.5fr auto;
+  grid-template-columns: 1fr 0.5fr 120px; /* largeur fixe actions */
   align-items: center;
-  padding: 4px 10px;
-  border-bottom: 1px solid #aaa3;
 }
 
-/* Alternating background */
-.maneuver-row:nth-child(even) {
-  background: rgba(255, 255, 255, 0.04);
+/* Actions container */
+.maneuver-row .item-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+/* Buttons */
+.maneuver-row .item-actions button {
+  font-size: 0.8em;
+  padding: 2px 6px;
+  width: 100%;
+}
+
+/* If only one button, align left */
+.maneuver-row .item-actions button:only-child {
+  grid-column: 1 / span 2;
 }
 
 /* Cost column */
@@ -479,13 +491,8 @@ width: 50px;
   font-weight: bold;
 }
 
-/* Buttons */
-.maneuver-row .item-actions {
-  display: flex;
-  gap: 4px;
-}
-
-.maneuver-row .item-actions button {
-  font-size: 0.8em;
-  padding: 2px 6px;
+.maneuver-name {
+  padding-left: 10px;   /* ajuste à ton goût */
+  font-weight: 500;
+  cursor: pointer;
 }
