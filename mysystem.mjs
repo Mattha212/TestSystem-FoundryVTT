@@ -255,6 +255,24 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.weapons = this.document.items.filter(i => i.type === "Weapon");
         context.fightingManeuvers = this.document.items.filter(i => i.type === "Fighting Maneuver");
 
+        const maneuversBySchool = {};
+
+        for (const m of context.fightingManeuvers) {
+            const school = m.system.school || "Other";
+            if (!maneuversBySchool[school]) {
+                maneuversBySchool[school] = [];
+            }
+            maneuversBySchool[school].push(m);
+        }
+
+        context.fightingManeuversBySchool = Object.entries(maneuversBySchool).map(
+            ([school, maneuvers]) => ({
+                school,
+                maneuvers
+            })
+        );
+
+
         context.protection = this.document.system.protection;
         context.bulk = this.document.system.bulk;
 
@@ -1588,7 +1606,7 @@ class ContainerSheet extends ObjectsItemsSheet {
         const select = html[0].querySelector('select[name="addvoidItem"]');
         const value = select?.value;
         const actor = this.document.actor;
-        
+
         let itemData;
         switch (value) {
             case "Weapon":
@@ -1636,14 +1654,14 @@ class ContainerSheet extends ObjectsItemsSheet {
 
         }
         const data = {
-            name : `new ${value}`,
-            type : value,
+            name: `new ${value}`,
+            type: value,
             system: itemData
         }
         data.system.quantity = 1;
         const [embedded] = await actor.createEmbeddedDocuments("Item", [data]);
 
-        const Contents =  Array.from(this.document.system.contents);
+        const Contents = Array.from(this.document.system.contents);
         const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
         Contents.push(objectToAdd);
 

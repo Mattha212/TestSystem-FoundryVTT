@@ -1,57 +1,58 @@
 <form class="actor-sheet" autocomplete="off" form data-sheet-part="form" method="POST">
     <header class="sheet-header">
         <div class="portrait">
-            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
         </div>
         <div class="char-info">
-            <input type="text" name="system.playerName" value="{{system.playerName}}"/>Player name
-            <input type="text" name="name" value="{{actor.name}}"/>Character name
-            <input type="text" name="system.characterGender" value="{{system.characterGender}}"/>Gender
-            <input type="number" name="system.age" value="{{system.age}}"/>Age
+            <input type="text" name="system.playerName" value="{{system.playerName}}" />Player name
+            <input type="text" name="name" value="{{actor.name}}" />Character name
+            <input type="text" name="system.characterGender" value="{{system.characterGender}}" />Gender
+            <input type="number" name="system.age" value="{{system.age}}" />Age
             <label for="culture">Culture :</label>
             <select name="system.culture" id="culture">
-            <option value="">-- Sélectionne une culture --</option>
-            {{#each cultures}}
+                <option value="">-- Sélectionne une culture --</option>
+                {{#each cultures}}
                 <option value="{{this.name}}" {{#if (eq ../system.culture this.name)}}selected{{/if}}>
-                {{this.name}}
+                    {{this.name}}
                 </option>
-            {{/each}}
+                {{/each}}
             </select>
             <label for="subculture">Sous-culture :</label>
             <select name="system.subculture" id="subculture">
-            <option value="">-- Sélectionne une sous-culture --</option>
-            {{#each subcultures}}
+                <option value="">-- Sélectionne une sous-culture --</option>
+                {{#each subcultures}}
                 <option value="{{this.name}}" {{#if (eq ../system.subculture this.name)}}selected{{/if}}>
-                {{this.name}}
+                    {{this.name}}
                 </option>
-            {{/each}}
+                {{/each}}
             </select>
         </div>
         <div class="traits">
             <ol class="trait-list">
-                {{#each traits}}   
+                {{#each traits}}
                 <li class="trait" data-item-id="{{this.id}}">
-                <span class="trait-name">{{this.name}}</span>
-                <button type="button" class="delete-trait" data-action="deleteTrait" data-trait-id="{{this.id}}">Remove trait</button>
+                    <span class="trait-name">{{this.name}}</span>
+                    <button type="button" class="delete-trait" data-action="deleteTrait"
+                        data-trait-id="{{this.id}}">Remove trait</button>
                 </li>
                 {{/each}}
             </ol>
         </div>
     </header>
-    <section class ="sheet-stats">
+    <section class="sheet-stats">
         {{#each system.stats as |stat key|}}
-        <div class = "stat-block">
-            <button type="button" class = "stat-roll" data-action = "statRoll" data-stat="{{key}}">{{stat.Label}}</button>
+        <div class="stat-block">
+            <button type="button" class="stat-roll" data-action="statRoll" data-stat="{{key}}">{{stat.Label}}</button>
             <div class="stat-values">
-                <input type="number" name="system.stats.{{key}}.MaxValue" value = "{{stat.MaxValue}}"/>
+                <input type="number" name="system.stats.{{key}}.MaxValue" value="{{stat.MaxValue}}" />
                 <span>/</span>
-            {{#if (or (eq key "Constitution") (eq key "Vigor"))}}
-            <input type="number" name="system.stats.{{key}}.CurrentValue" value="{{stat.CurrentValue}}" />
-            {{else}}
-            <span class="CurrentValues">{{stat.CurrentValue}}</span>
-            {{/if}}
+                {{#if (or (eq key "Constitution") (eq key "Vigor"))}}
+                <input type="number" name="system.stats.{{key}}.CurrentValue" value="{{stat.CurrentValue}}" />
+                {{else}}
+                <span class="CurrentValues">{{stat.CurrentValue}}</span>
+                {{/if}}
             </div>
-        </div>        
+        </div>
         {{/each}}
     </section>
     <nav class="tabs sheet-tabs" data-group="primary">
@@ -61,39 +62,41 @@
         <a class="item" data-tab="magicTab" data-action="changeTab">Magic</a>
         <a class="item" data-tab="historyTab" data-action="changeTab">History</a>
     </nav>
- 
+
     <section class="sheet-body" data-application-part="body">
-        <div class="tab {{tabs.skillsTab.cssClass}}" data-tab="{{tabs.skillsTab.id}}" data-group="{{tabs.skillsTab.group}}" data-part="{{tabs.skillsTab.id}}">
+        <div class="tab {{tabs.skillsTab.cssClass}}" data-tab="{{tabs.skillsTab.id}}"
+            data-group="{{tabs.skillsTab.group}}" data-part="{{tabs.skillsTab.id}}">
             {{#each skills as |category categoryName|}}
-                <div class="CategoryTitle">{{handleNames categoryName}}</div>
-                <div class="skills">
+            <div class="CategoryTitle">{{handleNames categoryName}}</div>
+            <div class="skills">
                 <div class="skills-header">
-                    <span></span>  
+                    <span></span>
                     <span>Level</span>
                     <span>Learning Points</span>
                 </div>
                 <div class="skills-header-filler"></div>
-                    {{#each category as |skill skillname|}}
-                        <div class="skill-block">
-                        <button type="button" class="skill-roll" data-action="skillRoll" data-skillkey="{{skillname}}" data-category="{{handleNames categoryName}}">
-                            {{handleNames skillname}}
-                        </button>
-                        <div class="skill-input">
-                            <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.level" value="{{skill.level}}"/>
-                        </div>
-                        <div class="skill-input">
-                            <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.learningPoints" value="{{skill.learningPoints}}"/>
-                        </div>
-                        </div>
-                    {{/each}}
+                {{#each category as |skill skillname|}}
+                <div class="skill-block">
+                    <button type="button" class="skill-roll" data-action="skillRoll" data-skillkey="{{skillname}}"
+                        data-category="{{handleNames categoryName}}">
+                        {{handleNames skillname}}
+                    </button>
+                    <div class="skill-input">
+                        <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.level"
+                            value="{{skill.level}}" />
+                    </div>
+                    <div class="skill-input">
+                        <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.learningPoints"
+                            value="{{skill.learningPoints}}" />
+                    </div>
                 </div>
+                {{/each}}
+            </div>
             {{/each}}
         </div>
 
-        <div class="tab fighting {{tabs.fightingTab.cssClass}}"
-            data-tab="{{tabs.fightingTab.id}}"
-            data-group="{{tabs.fightingTab.group}}"
-            data-part="{{tabs.fightingTab.id}}">
+        <div class="tab fighting {{tabs.fightingTab.cssClass}}" data-tab="{{tabs.fightingTab.id}}"
+            data-group="{{tabs.fightingTab.group}}" data-part="{{tabs.fightingTab.id}}">
 
             <div class="fighting-grid">
                 <div class="protection">
@@ -114,17 +117,19 @@
                     </div>
                     <ul>
                         {{#each shields}}
-                            <li class="item" data-item-id="{{this.id}}">
-                                <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                                <span>{{this.system.weight}} kg</span>
-                                <span>{{this.system.protection}}</span>
-                                <span>{{this.system.bulk}}</span>
-                                <span>{{this.system.cost}}</span>
-                                <div class="item-actions">
-                                    <button type="button" data-action="equipArmor" data-item-id="{{this.id}}" data-item-type="{{this.type}}">Equip</button>
-                                    <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}" data-item-type="{{this.type}}">Unequip</button>
-                                </div>
-                            </li>
+                        <li class="item" data-item-id="{{this.id}}">
+                            <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.protection}}</span>
+                            <span>{{this.system.bulk}}</span>
+                            <span>{{this.system.cost}}</span>
+                            <div class="item-actions">
+                                <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
+                                    data-item-type="{{this.type}}">Equip</button>
+                                <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}"
+                                    data-item-type="{{this.type}}">Unequip</button>
+                            </div>
+                        </li>
                         {{/each}}
                     </ul>
                 </div>
@@ -141,18 +146,20 @@
                     </div>
                     <ul>
                         {{#each armors}}
-                            <li class="item" data-item-id="{{this.id}}">
-                                <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                                <span>{{this.system.weight}} kg</span>
-                                <span>{{this.system.protection}}</span>
-                                <span>{{this.system.bulk}}</span>
-                                <span>{{this.system.cost}}</span>
-                                <span>{{this.system.type}}</span>
-                                <div class="item-actions">
-                                    <button type="button" data-action="equipArmor" data-item-id="{{this.id}}" data-item-type="{{this.type}}">Equip</button>
-                                    <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}" data-item-type="{{this.type}}">Unequip</button>
-                                </div>
-                            </li>
+                        <li class="item" data-item-id="{{this.id}}">
+                            <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.protection}}</span>
+                            <span>{{this.system.bulk}}</span>
+                            <span>{{this.system.cost}}</span>
+                            <span>{{this.system.type}}</span>
+                            <div class="item-actions">
+                                <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
+                                    data-item-type="{{this.type}}">Equip</button>
+                                <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}"
+                                    data-item-type="{{this.type}}">Unequip</button>
+                            </div>
+                        </li>
                         {{/each}}
                     </ul>
                 </div>
@@ -171,239 +178,277 @@
                     </div>
                     <ul>
                         {{#each weapons}}
-                            <li class="item" data-item-id="{{this.id}}">
-                                <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                                <span>{{this.system.weight}} kg</span>
+                        <li class="item" data-item-id="{{this.id}}">
+                            <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span>{{this.system.weight}} kg</span>
 
-                                <span class="weapon-efficiency">
-                                    {{#each this.system.efficiency as |value key|}}
-                                        <div>{{key}}: {{value}}</div>
-                                    {{/each}}
-                                </span>
-                                <span>{{this.system.traits}}</span>
-                                <span>{{this.system.skill}}</span>
-                                <span>{{this.system.bulk}}</span>
-                                <span>{{this.system.cost}}</span>
-                                <div class="item-actions">
-                                    <button type="button" data-action="attack" data-item-skillkey="{{this.system.skill}}">Attack</button>
-                                    <button type="button" data-action="defense" data-item-skillkey="{{this.system.skill}}">Defense</button>
-                                    <button type="button" data-action="equipWeapon" data-item-id="{{this.id}}">Equip</button>
-                                    <button type="button" data-action="unequipWeapon" data-item-id="{{this.id}}">Unequip</button>
-                                </div>
-                            </li>
+                            <span class="weapon-efficiency">
+                                {{#each this.system.efficiency as |value key|}}
+                                <div>{{key}}: {{value}}</div>
+                                {{/each}}
+                            </span>
+                            <span>{{this.system.traits}}</span>
+                            <span>{{this.system.skill}}</span>
+                            <span>{{this.system.bulk}}</span>
+                            <span>{{this.system.cost}}</span>
+                            <div class="item-actions">
+                                <button type="button" data-action="attack"
+                                    data-item-skillkey="{{this.system.skill}}">Attack</button>
+                                <button type="button" data-action="defense"
+                                    data-item-skillkey="{{this.system.skill}}">Defense</button>
+                                <button type="button" data-action="equipWeapon"
+                                    data-item-id="{{this.id}}">Equip</button>
+                                <button type="button" data-action="unequipWeapon"
+                                    data-item-id="{{this.id}}">Unequip</button>
+                            </div>
+                        </li>
                         {{/each}}
                     </ul>
                 </div>
-                <div class="Fighting Manoeuveurs">
-                    <h3>Fighting Maneuveurs</h3>
-                    {{#each fightingManeuvers}}
+                <div class="category-block maneuver-block">
+                    <h3>Fighting Maneuvers</h3>
+
+                    {{#each fightingManeuversBySchool}}
+                    <div class="maneuver-school">
+                        <div class="maneuver-school-title">
+                            {{this.school}}
+                        </div>
+
+                        <div class="maneuver-header">
+                            <span>Name</span>
+                            <span>Cost</span>
+                            <span class="actions">Actions</span>
+                        </div>
+
+                        <ul class="maneuver-list">
+                            {{#each this.maneuvers}}
+                            <li class="item maneuver-row" data-item-id="{{this.id}}">
+                                <span data-action="printItem" data-item-id="{{this.id}}">
+                                    {{this.name}}
+                                </span>
+
+                                <span class="maneuver-cost">
+                                    {{this.system.cost}}
+                                </span>
+
+                                <div class="item-actions">
+                                    {{#if this.system.rollable}}
+                                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}">
+                                        Perform
+                                    </button>
+                                    {{/if}}
+                                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">
+                                        Remove
+                                    </button>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    {{/each}}
+                </div>
+
+                {{!-- Inventory Tab --}}
+                <div class="tab {{tabs.inventoryTab.cssClass}}" data-tab="{{tabs.inventoryTab.id}}"
+                    data-group="{{tabs.inventoryTab.group}}" data-part="{{tabs.inventoryTab.id}}">
+                    <ol class="item-list">
+                        <span class="weight">Weight: {{system.weight}} / {{system.maxWeight}}</span>
+                        {{#each containers}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                            <span class="ManoeuverCost">{{this.system.cost}}</span>
-                            {{#if this.system.rollable}}
-                                <select name="system.maneuverType" data-item-id="{{this.id}}">
-                                    <option value=""> Select Attack Type</option>
-                                    {{#each ../maneuverTypes}}
-                                        <option value ="{{this.key}}" {{#if (eq ../system.maneuverType this.key)}}selected{{/if}}>
-                                            {{this.key}}
-                                        </option>
-                                    {{/each}}
-                                </select>
-                                <button type="button" data-action="maneuver" data-item-id="{{this.id}}">Perform</button>
-                            {{/if}}
+                            <span class="item-weight">weight: {{this.system.weight}} kg</span>
+                            <span class="item-weight">weight free: {{this.system.weightRemaining}} kg</span>
                             <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                         </li>
-                    {{/each}}
+                        {{/each}}
+                    </ol>
                 </div>
-            </div>
-        </div>
 
-        {{!-- Inventory Tab --}}
-        <div class="tab {{tabs.inventoryTab.cssClass}}" 
-        data-tab="{{tabs.inventoryTab.id}}" 
-        data-group="{{tabs.inventoryTab.group}}" 
-        data-part="{{tabs.inventoryTab.id}}">
-            <ol class="item-list">
-                <span class ="weight">Weight: {{system.weight}} / {{system.maxWeight}}</span>
-                {{#each containers}}
-                    <li class="item" data-item-id="{{this.id}}">
-                        <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                        <span class="item-weight">weight: {{this.system.weight}} kg</span>
-                        <span class="item-weight">weight free: {{this.system.weightRemaining}} kg</span>
-                        <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
-                    </li>
-                {{/each}}
-            </ol>
-        </div>
-
-        <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
-            <div class="magic-list">
-                <div class="spell-category">Catalyst Spells</div>
-                    {{#each catalystSpells}}
+                <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}"
+                    data-group="{{tabs.magicTab.group}}" data-part="{{tabs.magicTab.id}}">
+                    <div class="magic-list">
+                        <div class="spell-category">Catalyst Spells</div>
+                        {{#each catalystSpells}}
                         <div class="spell-row">
-                            <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span class="spell-name" data-action="printItem"
+                                data-item-id="{{this.id}}">{{this.name}}</span>
                             <span class="spell-reach">{{this.system.reach}}</span>
                             <span class="spell-cost">{{this.system.vigorCost}}</span>
-                            <button type="button"
-                                    data-action="skillRoll"
-                                    data-category="Restricted"
-                                    data-skillkey="{{this.system.spellType}}">
-                            Cast
+                            <button type="button" data-action="skillRoll" data-category="Restricted"
+                                data-skillkey="{{this.system.spellType}}">
+                                Cast
                             </button>
-                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send Description</button>
+                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send
+                                Description</button>
                             <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                         </div>
-                    {{/each}}
-                <div class="spell-category">Runesmith Spells</div>
-                    {{#each runesmithSpells}}
+                        {{/each}}
+                        <div class="spell-category">Runesmith Spells</div>
+                        {{#each runesmithSpells}}
                         <div class="spell-row">
-                            <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span class="spell-name" data-action="printItem"
+                                data-item-id="{{this.id}}">{{this.name}}</span>
                             <span class="spell-reach">{{this.system.reach}}</span>
                             <span class="spell-cost">{{this.system.vigorCost}}</span>
-                            <button type="button"
-                                    data-action="skillRoll"
-                                    data-category="Restricted"
-                                    data-skillkey="{{this.system.spellType}}">
-                            Cast
+                            <button type="button" data-action="skillRoll" data-category="Restricted"
+                                data-skillkey="{{this.system.spellType}}">
+                                Cast
                             </button>
-                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send Description</button>
+                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send
+                                Description</button>
                             <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                         </div>
-                    {{/each}}
-                <div class="spell-category">Thaumarturge Spells</div>
-                    {{#each thaumarturgeSpells}}
+                        {{/each}}
+                        <div class="spell-category">Thaumarturge Spells</div>
+                        {{#each thaumarturgeSpells}}
                         <div class="spell-row">
-                            <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span class="spell-name" data-action="printItem"
+                                data-item-id="{{this.id}}">{{this.name}}</span>
                             <span class="spell-reach">{{this.system.reach}}</span>
                             <span class="spell-cost">{{this.system.vigorCost}}</span>
-                            <button type="button"
-                                    data-action="skillRoll"
-                                    data-category="Restricted"
-                                    data-skillkey="{{this.system.spellType}}">
-                            Cast
+                            <button type="button" data-action="skillRoll" data-category="Restricted"
+                                data-skillkey="{{this.system.spellType}}">
+                                Cast
                             </button>
-                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send Description</button>
+                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send
+                                Description</button>
                             <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                         </div>
-                    {{/each}}
-                <div class="spell-category">Words of Power Spells</div>
-                    {{#each wordsOfPowerSpells}}
+                        {{/each}}
+                        <div class="spell-category">Words of Power Spells</div>
+                        {{#each wordsOfPowerSpells}}
                         <div class="spell-row">
-                            <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span class="spell-name" data-action="printItem"
+                                data-item-id="{{this.id}}">{{this.name}}</span>
                             <span class="spell-reach">{{this.system.reach}}</span>
                             <span class="spell-cost">{{this.system.vigorCost}}</span>
-                            <button type="button"
-                                    data-action="skillRoll"
-                                    data-category="Restricted"
-                                    data-skillkey="{{this.system.spellType}}">
-                            Cast
+                            <button type="button" data-action="skillRoll" data-category="Restricted"
+                                data-skillkey="{{this.system.spellType}}">
+                                Cast
                             </button>
-                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send Description</button>
+                            <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send
+                                Description</button>
                             <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                         </div>
-                    {{/each}}
-            </div>
-        </div>
-
-        <div class="tab {{tabs.historyTab.cssClass}}" data-tab="{{tabs.historyTab.id}}" data-group="{{tabs.historyTab.group}}" data-part="{{tabs.historyTab.id}}">
-            <div class="Nation"><h3>Nation</h3>
-                <span>{{system.culture}}</span>
-            </div>
-            <div class="Lifepath">
-                <div class="beginning"><h3>Beginning</h3>
-                    <div class="family standing">
-                        <h3>Family standing</h3>
-                        <select name="system.background.familyStanding">
-                            <option value=""> Select family standing</option>
-                            {{#each familyStandings}}
-                                <option value ="{{this}}" {{#if (eq ../system.background.familyStanding this)}}selected{{/if}}>
-                                    {{this}}
-                                </option>
-                            {{/each}}
-                        </select>
+                        {{/each}}
                     </div>
-                    <div class="parent situation">
-                        <h3>Parent situation</h3>
-                        <select name="system.background.parentSituation">
-                            <option value="">Select a parent situation</option>
-                                <option value="false" {{#if (eq system.background.parentSituation false)}}selected{{/if}}>
-                                    Alive and well
-                                </option>
-                                <option value="true"  {{#if (eq system.background.parentSituation true)}}selected{{/if}}>
-                                    Tragic fate
-                                </option>
-                        </select>
-                        {{#if system.background.parentSituation}}
-                        <div class="parent mishaps">
-                            <h3>Parent mishaps</h3>
-                            <select name="system.background.parentMishaps">
-                                <option value=""> Select parent mishaps</option>
-                                {{#each parentMishaps}}
-                                    <option value ="{{this}}" {{#if (eq ../system.background.parentMishaps this)}}selected{{/if}}>
+                </div>
+
+                <div class="tab {{tabs.historyTab.cssClass}}" data-tab="{{tabs.historyTab.id}}"
+                    data-group="{{tabs.historyTab.group}}" data-part="{{tabs.historyTab.id}}">
+                    <div class="Nation">
+                        <h3>Nation</h3>
+                        <span>{{system.culture}}</span>
+                    </div>
+                    <div class="Lifepath">
+                        <div class="beginning">
+                            <h3>Beginning</h3>
+                            <div class="family standing">
+                                <h3>Family standing</h3>
+                                <select name="system.background.familyStanding">
+                                    <option value=""> Select family standing</option>
+                                    {{#each familyStandings}}
+                                    <option value="{{this}}" {{#if (eq ../system.background.familyStanding
+                                        this)}}selected{{/if}}>
                                         {{this}}
                                     </option>
-                                {{/each}}
-                            </select>                            
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="parent situation">
+                                <h3>Parent situation</h3>
+                                <select name="system.background.parentSituation">
+                                    <option value="">Select a parent situation</option>
+                                    <option value="false" {{#if (eq system.background.parentSituation
+                                        false)}}selected{{/if}}>
+                                        Alive and well
+                                    </option>
+                                    <option value="true" {{#if (eq system.background.parentSituation
+                                        true)}}selected{{/if}}>
+                                        Tragic fate
+                                    </option>
+                                </select>
+                                {{#if system.background.parentSituation}}
+                                <div class="parent mishaps">
+                                    <h3>Parent mishaps</h3>
+                                    <select name="system.background.parentMishaps">
+                                        <option value=""> Select parent mishaps</option>
+                                        {{#each parentMishaps}}
+                                        <option value="{{this}}" {{#if (eq ../system.background.parentMishaps
+                                            this)}}selected{{/if}}>
+                                            {{this}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="Crucial childhood Event">
+                                <h3>Crucial childhood event</h3>
+                                <select name="system.background.CrucialChildhoodEvent">
+                                    <option value=""> Select crucial childhood event</option>
+                                    {{#each crucialChildhoodEvents}}
+                                    <option value="{{this}}" {{#if (eq ../system.background.CrucialChildhoodEvent
+                                        this)}}selected{{/if}}>
+                                        {{this}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="Childhood memory">
+                                <h3>Childhood Memory</h3>
+                                <select name="system.background.ChildhoodMemory">
+                                    <option value=""> Select childhood memory</option>
+                                    {{#each childhoodMemory}}
+                                    <option value="{{this}}" {{#if (eq ../system.background.ChildhoodMemory
+                                        this)}}selected{{/if}}>
+                                        {{this}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
                         </div>
-                        {{/if}}
-                    </div>
-                    <div class="Crucial childhood Event">
-                        <h3>Crucial childhood event</h3>
-                        <select name="system.background.CrucialChildhoodEvent">
-                            <option value=""> Select crucial childhood event</option>
-                            {{#each crucialChildhoodEvents}}
-                                <option value ="{{this}}" {{#if (eq ../system.background.CrucialChildhoodEvent this)}}selected{{/if}}>
-                                    {{this}}
-                                </option>
-                            {{/each}}
-                        </select>   
-                    </div>
-                    <div class="Childhood memory">
-                        <h3>Childhood Memory</h3>
-                        <select name="system.background.ChildhoodMemory">
-                            <option value=""> Select childhood memory</option>
-                            {{#each childhoodMemory}}
-                                <option value ="{{this}}" {{#if (eq ../system.background.ChildhoodMemory this)}}selected{{/if}}>
-                                    {{this}}
-                                </option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div>
-                <div class="highlight"><h3>Highlights</h3>
-                    {{#each highlights  as |highlight index|}}
-                        <select name = "system.background.highlights.{{index}}.type" data-highlight-field="type" 
-                        data-item-index="{{index}}" data-no-submit>
-                            <option value=""> Select the type of highlight </option>
-                            <option value="Stroke of Fortune"  {{#if (eq highlight.type "Stroke of Fortune")}}selected{{/if}}>
-                                Stroke of Fortune </option>
-                            <option value="Stroke of Tragedy"  {{#if (eq highlight.type "Stroke of Tragedy")}}selected{{/if}}>
-                                Stroke of Tragedy </option>
-                            <option value="Fateful Encounter"  {{#if (eq highlight.type "Fateful Encounter")}}selected{{/if}}>
-                                Fateful Encounter </option>
-                            <option value="Dramatic Encounter"  {{#if (eq highlight.type "Dramatic Encounter")}}selected{{/if}}>
-                                Dramatic Encounter </option>
-                            <option value="Romance"  {{#if (eq highlight.type "Romance")}}selected{{/if}}>
-                                Romance </option>
-                        </select>
-                        {{#if highlight.availablePossibilities.length}}
-                            <select name="system.background.highlights.{{index}}.value" data-highlight-field="value" 
-                            data-item-index="{{index}}" data-no-submit>
+                        <div class="highlight">
+                            <h3>Highlights</h3>
+                            {{#each highlights as |highlight index|}}
+                            <select name="system.background.highlights.{{index}}.type" data-highlight-field="type"
+                                data-item-index="{{index}}" data-no-submit>
+                                <option value=""> Select the type of highlight </option>
+                                <option value="Stroke of Fortune" {{#if (eq highlight.type "Stroke of Fortune"
+                                    )}}selected{{/if}}>
+                                    Stroke of Fortune </option>
+                                <option value="Stroke of Tragedy" {{#if (eq highlight.type "Stroke of Tragedy"
+                                    )}}selected{{/if}}>
+                                    Stroke of Tragedy </option>
+                                <option value="Fateful Encounter" {{#if (eq highlight.type "Fateful Encounter"
+                                    )}}selected{{/if}}>
+                                    Fateful Encounter </option>
+                                <option value="Dramatic Encounter" {{#if (eq highlight.type "Dramatic Encounter"
+                                    )}}selected{{/if}}>
+                                    Dramatic Encounter </option>
+                                <option value="Romance" {{#if (eq highlight.type "Romance" )}}selected{{/if}}>
+                                    Romance </option>
+                            </select>
+                            {{#if highlight.availablePossibilities.length}}
+                            <select name="system.background.highlights.{{index}}.value" data-highlight-field="value"
+                                data-item-index="{{index}}" data-no-submit>
                                 <option value="">Select a possibility</option>
                                 {{#each highlight.availablePossibilities}}
-                                <option value="{{this}}" {{#if (eq highlight.value this) }}selected{{/if}}>{{this}}</option>
+                                <option value="{{this}}" {{#if (eq highlight.value this) }}selected{{/if}}>{{this}}
+                                </option>
                                 {{/each}}
                             </select>
-                        {{/if}}
-                        <button type="button" data-action="removeHighlight" data-item-index="{{index}}">Remove highlight</button>
-                    {{/each}}
-                    <button type="button" data-action="addHighlight">Add highlight</button>
+                            {{/if}}
+                            <button type="button" data-action="removeHighlight" data-item-index="{{index}}">Remove
+                                highlight</button>
+                            {{/each}}
+                            <button type="button" data-action="addHighlight">Add highlight</button>
+                        </div>
+                        <div class="background">
+                            <h3>Story</h3>
+                            <textarea name="system.background.story">{{system.background.story}}</textarea>
+                        </div>
+                    </div>
                 </div>
-                <div class="background">
-                    <h3>Story</h3>
-                    <textarea name="system.background.story">{{system.background.story}}</textarea>
-                </div>
-            </div>
-        </div>
     </section>
 </form>
