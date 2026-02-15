@@ -504,8 +504,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const ammunitions = this.document.items.filter(i => i.type === "Ammunition" && i.system.quantity > 0);
         const options =
             Object.entries(ammunitions)
-                .map(([key, value]) =>
-                    `<option value="${value}">${enumToLabel(value.name)}</option>`
+                .map((ammo) =>
+                    `<option value="${ammo.id}">${enumToLabel(ammo.name)}</option>`
                 ).
                 join("");
         const content = `
@@ -527,11 +527,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             buttons: {
                 roll: {
                     label: "Roll",
-                    callback: async html =>  {
+                    callback: async html => {
                         const form = html[0].querySelector("form");
-                        const ammunitionUsedKey = form.ammunitionType.value.name;
-                        const ammunitionUsedObject = this.document.items.filter(i => i.name === ammunitionUsedKey);
-                        const newAmmunitionUsedQuantity = ammunitionUsedObject.system.quantity - 1;
+                        const ammunitionId = form.ammunitionType.value;
+                        const ammunitionItem = this.document.items.get(ammunitionId);
+                        const newAmmunitionUsedQuantity = ammunitionItem.system.quantity - 1;
                         const update = {};
                         update[`system.quantity`] = newAmmunitionUsedQuantity;
                         await this.document.update(update);
