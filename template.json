@@ -37,7 +37,7 @@
   }
 },
   "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", 
+    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Ranged Weapon", "Ammunition",
       "Fighting Maneuver", "Fighting School", "Container", "SpellSystem", "Spell",
       "Lifepath - Family Standing", "Lifepath - Parent Mishaps", "Lifepath - Crucial Childhood Moment",
       "Lifepath - Childhood Memory","Lifepath - Stroke of Fortune","Lifepath - Stroke of Tragedy",
@@ -86,6 +86,22 @@
       "cost":"",
       "skill":"",
       "size":0
+    },
+    "Ranged Weapon":{
+      "traits":"",
+      "efficiency":{"textile":0,"fluide":0,"solid":0},
+      "weight":0,
+      "bulk":0,
+      "hands":1,
+      "reach":0,
+      "cost":"",
+      "skill":"",
+      "size":0
+    },
+    "Ammunition":{
+      "traits":"",
+      "weight":0,
+      "cost":0
     },
     "Fighting Maneuver":{
       "school":"",

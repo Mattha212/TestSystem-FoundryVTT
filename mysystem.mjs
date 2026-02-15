@@ -253,8 +253,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.shields = this.document.items.filter(i => i.type === "Shield");
         context.armors = this.document.items.filter(i => i.type === "Armor");
         context.weapons = this.document.items.filter(i => i.type === "Weapon");
+        context.rangedWeapons = this.document.items.filter(i => i.type === "Ranged Weapon");
         context.fightingManeuvers = this.document.items.filter(i => i.type === "Fighting Maneuver");
-
+        context.ammunitions = this.document.items.filter(i=> i.type === "Ammunition");
         const maneuversBySchool = {};
 
         for (const m of context.fightingManeuvers) {
@@ -1339,6 +1340,29 @@ class ObjectSheet extends ObjectsItemsSheet {
     }
 }
 
+class AmmunitionSheet extends ObjectsItemsSheet{
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form: {
+            handler: this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        window: {
+            resizable: true,
+        }
+    }
+    static PARTS = {
+        main: {
+            template: "systems/testsystem/templates/ammunition-sheet.html",
+            scrollable: [".object-body"],
+        }
+    }
+}
+
 class ShieldSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
@@ -1431,6 +1455,30 @@ class WeaponSheet extends ObjectsItemsSheet {
 
         const skill = event.target.value;
         await this.document.update({ "system.skill": skill });
+    }
+}
+
+class RangedWeaponSheet extends WeaponSheet{
+        static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form: {
+            handler: this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        window: {
+            resizable: true,
+        }
+    }
+
+    static PARTS = {
+        main: {
+            template: "systems/testsystem/templates/weapon-sheet.html",
+            scrollable: [".object-body"],
+        }
     }
 }
 
@@ -2344,8 +2392,19 @@ Hooks.once("init", async () => {
         types: ["Armor"],
         makeDefault: true
     });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", AmmunitionSheet, {
+        type: ["Ammunition"],
+        makeDefault: true
+    });
+
     foundry.documents.collections.Items.registerSheet("testsystem", WeaponSheet, {
         types: ["Weapon"],
+        makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", RangedWeaponSheet, {
+        types: ["Ranged Weapon"],
         makeDefault: true
     });
 
