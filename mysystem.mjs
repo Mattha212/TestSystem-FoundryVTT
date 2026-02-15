@@ -533,7 +533,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                         const newAmmunitionUsedQuantity = ammunitionItem.system.quantity - 1;
                         const update = {};
                         update[`system.quantity`] = newAmmunitionUsedQuantity;
-                        await this.document.update(update);
+                        await ammunitionItem.update(update);
+                        PJActorAPI.UpdateAllContainers();
                         this._onConfirmAttack(html, skillKey);
                     }
                 },
