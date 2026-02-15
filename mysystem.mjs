@@ -502,8 +502,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
         const ammunitions = this.document.items.filter(i => i.type === "Ammunition" && i.system.quantity > 0);
-        const options =
-            Object.entries(ammunitions)
+        const options =ammunitions
                 .map((ammo) =>
                     `<option value="${ammo.id}">${ammo.name}</option>`
                 ).
