@@ -316,11 +316,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             label: k.charAt(0).toUpperCase() + k.slice(1)
         }));
 
-        // for (const key in context.stats) {
-        //     if (stats[key].MaxValue == null) stats[key].MaxValue = 0;
-        //     if (stats[key].CurrentValue == null) stats[key].CurrentValue = 0;
-        // }
-
         return context;
     }
     _onRender(context, options) {
@@ -510,7 +505,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const options =
             Object.entries(ammunitions)
                 .map(([key, value]) =>
-                    `<option value="${value}">${enumToLabel(key)}</option>`
+                    `<option value="${value}">${enumToLabel(value.name)}</option>`
                 ).
                 join("");
         const content = `
@@ -534,7 +529,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                     label: "Roll",
                     callback: async html =>  {
                         const form = html[0].querySelector("form");
-                        const ammunitionUsedKey = form.ammunitionType.key;
+                        const ammunitionUsedKey = form.ammunitionType.value.name;
                         const ammunitionUsedObject = this.document.items.filter(i => i.name === ammunitionUsedKey);
                         const newAmmunitionUsedQuantity = ammunitionUsedObject.system.quantity - 1;
                         const update = {};
