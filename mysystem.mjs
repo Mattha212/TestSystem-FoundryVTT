@@ -118,6 +118,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             equipWeapon: function (event, target) { this._onEquipWeapon(event, target); },
             unequipWeapon: function (event, target) { PJActorAPI.onUnequipWeapon(this.actor); },
             attack: function (event, target) { this._onAttack(event, target); },
+            rangedAttack: function (event, target) { this._onRangedAttack(event, target); },
             defense: function (event, target) { this._onDefense(event, target); },
             maneuver: function (event, target) { this._onPerformManeuver(event, target); },
             printDescription: function (event, target) { this._onPrintDescription(event, target); },
@@ -255,7 +256,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.weapons = this.document.items.filter(i => i.type === "Weapon");
         context.rangedWeapons = this.document.items.filter(i => i.type === "Ranged Weapon");
         context.fightingManeuvers = this.document.items.filter(i => i.type === "Fighting Maneuver");
-        context.ammunitions = this.document.items.filter(i=> i.type === "Ammunition");
+        context.ammunitions = this.document.items.filter(i => i.type === "Ammunition");
         const maneuversBySchool = {};
 
         for (const m of context.fightingManeuvers) {
@@ -493,6 +494,54 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 roll: {
                     label: "Roll",
                     callback: html => this._onConfirmAttack(html, skillKey)
+                },
+                cancel: {
+                    label: "Cancel"
+                }
+            },
+            default: "roll"
+        }).render(true);
+    }
+
+    _onRangedAttack(event, target) {
+        event.preventDefault();
+        const skillKey = target.dataset.itemSkillkey;
+        const ammunitions = this.document.items.filter(i => i.type === "Ammunition" && i.system.quantity > 0);
+        const options =
+            Object.entries(ammunitions)
+                .map(([key, value]) =>
+                    `<option value="${value}">${enumToLabel(key)}</option>`
+                ).
+                join("");
+        const content = `
+        <form class = "difficulty-Modifier-form">
+            <div class = "difficulty-Modifier-group" >
+                <label>Modifier</label>
+                <input type = number name = "modifier" value="0">
+                <div class = "ammunition-type">
+                    <label>Ammunition to use</label>
+                    <select id="ammunition-select" name="ammunitionType">
+                        ${options}
+                    </select>
+            </div>
+        </form>
+        `;
+        new Dialog({
+            title: `${skillKey} roll`,
+            content,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: async html =>  {
+                        const form = html[0].querySelector("form");
+                        const ammunitionUsedKey = form.ammunitionType.key;
+                        const ammunitionUsedObject = this.document.items.filter(i => i.name === ammunitionUsedKey);
+                        const newAmmunitionUsedQuantity = ammunitionUsedObject.system.quantity - 1;
+                        const update = {};
+                        update[`system.quantity`] = newAmmunitionUsedQuantity;
+                        await this.document.update(update);
+                        this._onConfirmAttack(html, skillKey);
+                    }
                 },
                 cancel: {
                     label: "Cancel"
@@ -1340,7 +1389,7 @@ class ObjectSheet extends ObjectsItemsSheet {
     }
 }
 
-class AmmunitionSheet extends ObjectsItemsSheet{
+class AmmunitionSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
@@ -1458,8 +1507,8 @@ class WeaponSheet extends ObjectsItemsSheet {
     }
 }
 
-class RangedWeaponSheet extends WeaponSheet{
-        static DEFAULT_OPTIONS = {
+class RangedWeaponSheet extends WeaponSheet {
+    static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
         height: 300,
