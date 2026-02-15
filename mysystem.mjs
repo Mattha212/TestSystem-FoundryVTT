@@ -2340,7 +2340,7 @@ Hooks.on("preCreateActor", (actor, data, options, userId) => {
 });
 
 Hooks.on("preCreateItem", (item, data, options, userId) => {
-    if (data.type == "Weapon" || data.type == "Fighting School") {
+    if (data.type == "Weapon" || data.type == "Ranged Weapon" || data.type == "Fighting School") {
         const system = data.system ?? {};
         system.skills = [];
         for (const [skill, list] of Object.entries(Fighting)) {
