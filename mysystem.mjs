@@ -505,7 +505,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const options =
             Object.entries(ammunitions)
                 .map((ammo) =>
-                    `<option value="${ammo.id}">${enumToLabel(ammo.name)}</option>`
+                    `<option value="${ammo.id}">${ammo.name}</option>`
                 ).
                 join("");
         const content = `
