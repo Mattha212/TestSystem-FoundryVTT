@@ -502,11 +502,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
         const ammunitions = this.document.items.filter(i => i.type === "Ammunition" && i.system.quantity > 0);
-        const options =ammunitions
-                .map((ammo) =>
-                    `<option value="${ammo.id}">${ammo.name}</option>`
-                ).
-                join("");
+        const options = ammunitions
+            .map((ammo) =>
+                `<option value="${ammo.id}">${ammo.name}</option>`
+            ).
+            join("");
         const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
@@ -530,9 +530,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                         const form = html[0].querySelector("form");
                         const ammunitionId = form.ammunitionType.value;
                         const ammunitionItem = this.document.items.get(ammunitionId);
+                        const baseWeight = Number(ammunitionItem.system.weight) / ammunitionItem.system.quantity;
+
                         const newAmmunitionUsedQuantity = ammunitionItem.system.quantity - 1;
                         const update = {};
                         update[`system.quantity`] = newAmmunitionUsedQuantity;
+                        update[`system.weight`] = baseWeight * newAmmunitionUsedQuantity;
                         await ammunitionItem.update(update);
                         PJActorAPI.UpdateAllContainers();
                         this._onConfirmAttack(html, skillKey);
