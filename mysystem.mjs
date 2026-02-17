@@ -592,9 +592,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
                         let extraModifier = 0;
 
-                        const distance = form.elements["distance"]?.value;
-                        const obstruction = form.elements["obstruction"]?.value;
-                        const efficiency = form.elements["efficiency"]?.value;
+                        const distance = form.querySelector('input[name="distance"]:checked')?.value;
+                        const obstruction = form.querySelector('input[name="obstruction"]:checked')?.value;
+                        const efficiency = form.querySelector('input[name="efficiency"]:checked')?.value;
 
                         if (distance) {
                             extraModifier += modifiers[distance] || 0;
