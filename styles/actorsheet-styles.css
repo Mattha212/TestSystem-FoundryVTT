@@ -496,3 +496,11 @@ width: 50px;
   font-weight: 500;
   cursor: pointer;
 }
+
+
+.radio-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}

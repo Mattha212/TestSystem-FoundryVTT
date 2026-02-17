@@ -509,26 +509,47 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             join("");
         const content = `
         <form class = "difficulty-Modifier-form">
-            <div class = "difficulty-Modifier-group" >
+            <div class="difficulty-Modifier-group">
+
                 <label>Modifier</label>
-                <input type = number name = "modifier" value="0">
-                <label>Less than 0.25 of the max distance</label>
-                <input type="radio" name="distance" value="less-quart-max-distance>
-                <label>Between 0.25 and 0.5 of the max distance </label>
-                <input type="radio" name="distance" value="btw-quart-and-half-max-distance">
-                <label>Between 0.5 and 0.75 of the max distance</label>
-                <input type="radio" name="distance" value="btw-half-threequart-max-distance">
-                <label>Between the max distance and 0.75 of the max distance</label>
-                <input type="radio" name="distance" value="more-threequart-max-distance">
-                <label>Line obstructed (person or semi-cover)</label>
-                <input type="radio" name="obstruction" value="line-obstructed">
-                <label>Armor efficiency of -1</label>
-                <input type="radio" name="efficiency" value="bad-efficiency">
-                <label>Armor efficiency of 0</label>
-                <input type="radio" name="efficiency" value="normal-efficiency">
-                <label>Armor efficiency of 1</label>
-                <input type="radio" name="efficiency" value="good-efficiency">
-                <div class = "ammunition-type">
+                <input type="number" name="modifier" value="0">
+                <h4>Distance</h4>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="less-quart-max-distance>
+                    <label>Less than 0.25 of max distance</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="btw-quart-and-half-max-distance">
+                    <label>Between 0.25 and 0.5</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="btw-half-threequart-max-distance">
+                    <label>Between 0.5 and 0.75</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="more-threequart-max-distance">
+                    <label>More than 0.75</label>
+                </div>
+                <h4>Obstruction</h4>
+                <div class="radio-line">
+                    <input type="radio" name="obstruction" value="line-obstructed">
+                    <label>Line obstructed</label>
+                </div>
+                <h4>Armor efficiency</h4>
+                <div class="radio-line">
+                    <input type="radio" name="efficiency" value="bad-efficiency">
+                    <label>-1</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="efficiency" value="normal-efficiency">
+                    <label>0</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="efficiency" value="good-efficiency">
+                    <label>+1</label>
+                </div>
+            </div>
+            <div class = "ammunition-type">
                     <label>Ammunition to use</label>
                     <select id="ammunition-select" name="ammunitionType">
                         ${options}
