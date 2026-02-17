@@ -588,12 +588,24 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
                         let extraModifier = 0;
 
-                        for (let key in modifiers) {
-                            if (form.elements[key]?.checked) {
-                                extraModifier += modifiers[key];
-                            }
+
+                        const distance = form.elements["distance"]?.value;
+                        const obstruction = form.elements["obstruction"]?.value;
+                        const efficiency = form.elements["efficiency"]?.value;
+
+                        if (distance) {
+                            extraModifier += modifiers[distance] || 0;
                         }
-                        form.modifier.value += extraModifier;
+
+                        if (obstruction) {
+                            extraModifier += modifiers[obstruction] || 0;
+                        }
+
+                        if (efficiency) {
+                            extraModifier += modifiers[efficiency] || 0;
+                        }
+
+                        form.modifier.value = Number(form.modifier.value) + extraModifier;
                         PJActorAPI.UpdateAllContainers(this.document);
                         this._onConfirmAttack(html, skillKey);
                     }
