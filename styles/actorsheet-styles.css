@@ -504,3 +504,8 @@ width: 50px;
     gap: 6px;
     margin-bottom: 6px;
 }
+.dialog-buttons {
+    padding: 6px 10px;
+    margin: 0;
+    flex: 0 0 auto;
+}
