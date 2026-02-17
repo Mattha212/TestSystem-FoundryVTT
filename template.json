@@ -1,172 +1,277 @@
 {
-  "Actor":{
-    "types":["PJ"],
-    "PJ":{
-      "playerName":"",
-      "characterGender":"",
+  "Actor": {
+    "types": [
+      "PJ"
+    ],
+    "PJ": {
+      "playerName": "",
+      "characterGender": "",
       "age": 0,
       "culture": "",
-      "subculture":"",
-      "stats":{
-        "Strength":{"Label":"Strength","CurrentValue":0,"MaxValue":0},
-        "Agility":{"Label":"Agility","CurrentValue":0,"MaxValue":0},
-        "Dexterity":{"Label":"Dexterity","CurrentValue":0,"MaxValue":0},
-        "Constitution":{"Label":"Constitution","CurrentValue":0,"MaxValue":0},
-        "Charisme":{"Label":"Charisme","CurrentValue":0,"MaxValue":0},
-        "Intelligence":{"Label":"Intelligence","CurrentValue":0,"MaxValue":0},
-        "Perception":{"Label":"Perception","CurrentValue":0,"MaxValue":0},
-        "Bravery":{"Label":"Bravery","CurrentValue":0,"MaxValue":0},
-        "Vigor":{"Label":"Vigor","CurrentValue":0,"MaxValue":0}
+      "subculture": "",
+      "stats": {
+        "Strength": {
+          "Label": "Strength",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Agility": {
+          "Label": "Agility",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Dexterity": {
+          "Label": "Dexterity",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Constitution": {
+          "Label": "Constitution",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Charisme": {
+          "Label": "Charisme",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Intelligence": {
+          "Label": "Intelligence",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Perception": {
+          "Label": "Perception",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Bravery": {
+          "Label": "Bravery",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        },
+        "Vigor": {
+          "Label": "Vigor",
+          "CurrentValue": 0,
+          "MaxValue": 0
+        }
       },
-      "background":{
-        "familyStanding":"",
-        "parentMishaps":"",
-        "parentSituation":false,
-        "familyFate":"",
-        "CrucialChildhoodEvent":"",
-        "ChildhoodMemory":"",
-        "highlights":[],
-        "story":""
+      "background": {
+        "familyStanding": "",
+        "parentMishaps": "",
+        "parentSituation": false,
+        "familyFate": "",
+        "CrucialChildhoodEvent": "",
+        "ChildhoodMemory": "",
+        "highlights": [],
+        "story": ""
       },
-      "protection":0,
-      "bulk":0,
-      "weight":0,
-      "maxWeight":0,
-      "equipment":{"Armor":{"id":"","protection":0, "bulk":0, "type":""}, "Shield":{"id":"","protection":0, "bulk":0, "type":""},
-      "Weapon":{"id":"", "efficiency":{"textile":0,"fluide":0,"solid":0},"bulk":0, "reach":0, "skill":""}}
-  }
-},
-  "Item":{
-    "types":["Object", "Trait", "Culture", "Subculture", "Shield", "Armor", "Weapon", "Ranged Weapon", "Ammunition",
-      "Fighting Maneuver", "Fighting School", "Container", "SpellSystem", "Spell",
-      "Lifepath - Family Standing", "Lifepath - Parent Mishaps", "Lifepath - Crucial Childhood Moment",
-      "Lifepath - Childhood Memory","Lifepath - Stroke of Fortune","Lifepath - Stroke of Tragedy",
-      "Lifepath - Fateful Encounter","Lifepath - Dramatic Encounter","Lifepath - Romance"],
-    "Object":{
-      "description":"",
-      "weight":0,
-      "size":0,
-      "cost":""
-    },
-    "Trait":{
-      "system":"",
-      "type":""
-    },
-    "Culture":{
-      "system":""
-    },
-    "Subculture":{
-      "system":"",
-      "parentCulture":""
-    },
-    "Shield":{
-      "traits": "",
-      "protection":0,
+      "protection": 0,
+      "bulk": 0,
       "weight": 0,
-      "bulk":0,
-      "cost":"",
-      "size":0
+      "maxWeight": 0,
+      "equipment": {
+        "Armor": {
+          "id": "",
+          "protection": 0,
+          "bulk": 0,
+          "type": ""
+        },
+        "Shield": {
+          "id": "",
+          "protection": 0,
+          "bulk": 0,
+          "type": ""
+        },
+        "Weapon": {
+          "id": "",
+          "efficiency": {
+            "textile": 0,
+            "fluide": 0,
+            "solid": 0
+          },
+          "bulk": 0,
+          "reach": 0,
+          "skill": ""
+        }
+      }
+    }
+  },
+  "Item": {
+    "types": [
+      "Object",
+      "Trait",
+      "Culture",
+      "Subculture",
+      "Shield",
+      "Armor",
+      "Weapon",
+      "Ranged Weapon",
+      "Thrown Weapon",
+      "Ammunition",
+      "Fighting Maneuver",
+      "Fighting School",
+      "Container",
+      "SpellSystem",
+      "Spell",
+      "Lifepath - Family Standing",
+      "Lifepath - Parent Mishaps",
+      "Lifepath - Crucial Childhood Moment",
+      "Lifepath - Childhood Memory",
+      "Lifepath - Stroke of Fortune",
+      "Lifepath - Stroke of Tragedy",
+      "Lifepath - Fateful Encounter",
+      "Lifepath - Dramatic Encounter",
+      "Lifepath - Romance"
+    ],
+    "Object": {
+      "description": "",
+      "weight": 0,
+      "size": 0,
+      "cost": ""
     },
-    "Armor":{
+    "Trait": {
+      "system": "",
+      "type": ""
+    },
+    "Culture": {
+      "system": ""
+    },
+    "Subculture": {
+      "system": "",
+      "parentCulture": ""
+    },
+    "Shield": {
       "traits": "",
       "protection": 0,
       "weight": 0,
-      "bulk":0,
+      "bulk": 0,
+      "cost": "",
+      "size": 0
+    },
+    "Armor": {
+      "traits": "",
+      "protection": 0,
+      "weight": 0,
+      "bulk": 0,
       "type": "",
-      "cost":"",
-      "size":0
+      "cost": "",
+      "size": 0
     },
-    "Weapon":{
-      "traits":"",
-      "efficiency":{"textile":0,"fluide":0,"solid":0},
-      "weight":0,
-      "bulk":0,
-      "hands":1,
-      "reach":0,
-      "cost":"",
-      "skill":"",
-      "size":0
+    "Weapon": {
+      "traits": "",
+      "efficiency": {
+        "textile": 0,
+        "fluide": 0,
+        "solid": 0
+      },
+      "weight": 0,
+      "bulk": 0,
+      "hands": 1,
+      "reach": 0,
+      "cost": "",
+      "skill": "",
+      "size": 0
     },
-    "Ranged Weapon":{
-      "traits":"",
-      "efficiency":{"textile":0,"fluide":0,"solid":0},
-      "weight":0,
-      "bulk":0,
-      "hands":1,
-      "reach":0,
-      "cost":"",
-      "skill":"",
-      "size":0
+    "Ranged Weapon": {
+      "traits": "",
+      "efficiency": {
+        "textile": 0,
+        "fluide": 0,
+        "solid": 0
+      },
+      "weight": 0,
+      "bulk": 0,
+      "hands": 1,
+      "reach": 0,
+      "cost": "",
+      "skill": "",
+      "size": 0
     },
-    "Ammunition":{
-      "traits":"",
-      "weight":0,
-      "cost":0
+    "Thrown Weapon": {
+      "traits": "",
+      "efficiency": {
+        "textile": 0,
+        "fluide": 0,
+        "solid": 0
+      },
+      "weight": 0,
+      "bulk": 0,
+      "hands": 1,
+      "reach": 0,
+      "cost": "",
+      "skill": "",
+      "size": 0
     },
-    "Fighting Maneuver":{
-      "school":"",
-      "cost":0,
-      "rollable":false,
-      "functionnement":""
+    "Ammunition": {
+      "traits": "",
+      "weight": 0,
+      "cost": 0
     },
-    "Fighting School":{
-      "skillsAllowed":[]
+    "Fighting Maneuver": {
+      "school": "",
+      "cost": 0,
+      "rollable": false,
+      "functionnement": ""
     },
-    "Container":{
-      "maxSize":0,
-      "contents":[],
+    "Fighting School": {
+      "skillsAllowed": []
+    },
+    "Container": {
+      "maxSize": 0,
+      "contents": [],
       "isUsed": false,
-      "weightAllowed":0,
-      "weight":0,
-      "cost":"",
-      "weightRemaining":0
+      "weightAllowed": 0,
+      "weight": 0,
+      "cost": "",
+      "weightRemaining": 0
     },
-    "SpellSystem":{
+    "SpellSystem": {
       "existingTypeOfSpells": []
     },
-    "Spell":{
-      "spellType":"",
-      "school":"",
-      "prerequisite":"",
-      "reach":0,
-      "vigorCost":0,
-      "description":""
+    "Spell": {
+      "spellType": "",
+      "school": "",
+      "prerequisite": "",
+      "reach": 0,
+      "vigorCost": 0,
+      "description": ""
     },
-    "Lifepath - Family Standing":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Family Standing": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Parent Mishaps":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Parent Mishaps": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Crucial Childhood Moment":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Crucial Childhood Moment": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Childhood Memory":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Childhood Memory": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Stroke of Fortune":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Stroke of Fortune": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Stroke of Tragedy":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Stroke of Tragedy": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Fateful Encounter":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Fateful Encounter": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Dramatic Encounter":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Dramatic Encounter": {
+      "culture": "",
+      "possibilities": []
     },
-    "Lifepath - Romance":{
-      "culture":"",
-      "possibilities":[]
+    "Lifepath - Romance": {
+      "culture": "",
+      "possibilities": []
     }
   }
 }

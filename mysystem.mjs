@@ -255,6 +255,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.armors = this.document.items.filter(i => i.type === "Armor");
         context.weapons = this.document.items.filter(i => i.type === "Weapon");
         context.rangedWeapons = this.document.items.filter(i => i.type === "Ranged Weapon");
+        context.thrownWeapons = this.document.items.filter(i => i.type === "Thrown Weapon");
         context.fightingManeuvers = this.document.items.filter(i => i.type === "Fighting Maneuver");
         context.ammunitions = this.document.items.filter(i => i.type === "Ammunition");
         const maneuversBySchool = {};
@@ -1604,6 +1605,30 @@ class RangedWeaponSheet extends WeaponSheet {
     }
 }
 
+class ThrownWeaponSheet extends WeaponSheet {
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form: {
+            handler: this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        window: {
+            resizable: true,
+        }
+    }
+
+    static PARTS = {
+        main: {
+            template: "systems/testsystem/templates/thrownWeapon-sheet.html",
+            scrollable: [".object-body"],
+        }
+    }
+}
+
 class ContainerItemAPI extends Item {
     static async updateWeight(container) {
         let weightUsed = 0;
@@ -2527,6 +2552,11 @@ Hooks.once("init", async () => {
 
     foundry.documents.collections.Items.registerSheet("testsystem", RangedWeaponSheet, {
         types: ["Ranged Weapon"],
+        makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", ThrownWeaponSheet, {
+        types: ["Thrown Weapon"],
         makeDefault: true
     });
 

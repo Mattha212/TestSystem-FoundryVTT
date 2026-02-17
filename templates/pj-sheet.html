@@ -172,7 +172,7 @@
                         <span>Efficiencies</span>
                         <span>Traits</span>
                         <span>Skill</span>
-                        <span>Bulk</span>
+                        <span>Reach</span>
                         <span>Cost</span>
                         <span class="actions">Actions</span>
                     </div>
@@ -189,7 +189,7 @@
                             </span>
                             <span>{{this.system.traits}}</span>
                             <span>{{this.system.skill}}</span>
-                            <span>{{this.system.bulk}}</span>
+                            <span>{{this.system.reach}}</span>
                             <span>{{this.system.cost}}</span>
                             <div class="item-actions">
                                 <button type="button" data-action="attack"
@@ -231,7 +231,7 @@
                         <span>Efficiencies</span>
                         <span>Traits</span>
                         <span>Skill</span>
-                        <span>Bulk</span>
+                        <span>Reach</span>
                         <span>Cost</span>
                         <span class="actions">Actions</span>
                     </div>
@@ -248,7 +248,7 @@
                             </span>
                             <span>{{this.system.traits}}</span>
                             <span>{{this.system.skill}}</span>
-                            <span>{{this.system.bulk}}</span>
+                            <span>{{this.system.reach}}</span>
                             <span>{{this.system.cost}}</span>
                             <div class="item-actions">
                                 <button type="button" data-action="rangedAttack"
@@ -264,6 +264,49 @@
                         {{/each}}
                     </ul>
                 </div>
+                <div class="category-block weapon-block">
+                    <h3>Thrown Weapons</h3>
+
+                    <div class="category-header">
+                        <span>Name</span>
+                        <span>Weight</span>
+                        <span>Efficiencies</span>
+                        <span>Traits</span>
+                        <span>Skill</span>
+                        <span>Reach</span>
+                        <span>Cost</span>
+                        <span class="actions">Actions</span>
+                    </div>
+                    <ul>
+                        {{#each thrownWeapons}}
+                        <li class="item" data-item-id="{{this.id}}">
+                            <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                            <span>{{this.system.weight}} kg</span>
+
+                            <span class="weapon-efficiency">
+                                {{#each this.system.efficiency as |value key|}}
+                                <div>{{key}}: {{value}}</div>
+                                {{/each}}
+                            </span>
+                            <span>{{this.system.traits}}</span>
+                            <span>{{this.system.skill}}</span>
+                            <span>{{this.system.reach}}</span>
+                            <span>{{this.system.cost}}</span>
+                            <div class="item-actions">
+                                <button type="button" data-action="rangedAttack"
+                                    data-item-skillkey="Throwing">Attack</button>
+                                <button type="button" data-action="defense"
+                                    data-item-skillkey="Brawling">Defense</button>
+                                <button type="button" data-action="equipWeapon"
+                                    data-item-id="{{this.id}}">Equip</button>
+                                <button type="button" data-action="unequipWeapon"
+                                    data-item-id="{{this.id}}">Unequip</button>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+
                 <div class="category-block maneuver-block">
                     <h3>Fighting Maneuvers</h3>
 
