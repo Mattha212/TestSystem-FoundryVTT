@@ -603,7 +603,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 }
             },
             default: "roll"
-        },{ height: "auto"}).render(true);
+        },{ height: 600}).render(true);
     }
 
     async _onConfirmAttack(html, skillKey) {
