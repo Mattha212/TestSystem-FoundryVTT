@@ -604,8 +604,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             },
             default: "roll"
         }, {
-            width: 650,
-            height: 450,
+            width: 533.555,
+            height: 435.778,
             resizable: true
         }).render(true);
     }
