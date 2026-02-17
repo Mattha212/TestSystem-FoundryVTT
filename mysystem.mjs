@@ -512,6 +512,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             <div class = "difficulty-Modifier-group" >
                 <label>Modifier</label>
                 <input type = number name = "modifier" value="0">
+                <input type="radio" name="distance" value="less-quart-max-distance>
+                <input type="radio" name="distance" value="btw-quart-and-half-max-distance">
+                <input type="radio" name="distance" value="btw-half-threequart-max-distance">
+                <input type="radio" name="distance" value="more-threequart-max-distance">
+                <input type="radio" name="distance" value="line-obstructed">
+                <input type="radio" name="distance" value="bad-efficiency">
+                <input type="radio" name="distance" value="normal-efficiency">
+                <input type="radio" name="distance" value="good-efficiency">
                 <div class = "ammunition-type">
                     <label>Ammunition to use</label>
                     <select id="ammunition-select" name="ammunitionType">
@@ -537,6 +545,26 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                         update[`system.quantity`] = newAmmunitionUsedQuantity;
                         update[`system.weight`] = baseWeight * newAmmunitionUsedQuantity;
                         await ammunitionItem.update(update);
+
+                        const modifiers = {
+                            "less-quart-max-distance": 10,
+                            "btw-half-threequart-max-distance": 0,
+                            "btw-half-threequart-max-distance": -10,
+                            "more-threequart-max-distance": -20,
+                            "line-obstructed": -10,
+                            "bad-efficiency": -10,
+                            "normal-efficiency": 0,
+                            "good-efficiency": 10
+                        };
+
+                        let extraModifier = 0;
+
+                        for (let key in modifiers) {
+                            if (form.elements[key]?.checked) {
+                                extraModifier += modifiers[key];
+                            }
+                        }
+                        form.modifier.value += extraModifier;
                         PJActorAPI.UpdateAllContainers(this.document);
                         this._onConfirmAttack(html, skillKey);
                     }
