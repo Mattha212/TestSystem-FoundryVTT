@@ -515,7 +515,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 <input type="number" name="modifier" value="0">
                 <h4>Distance</h4>
                 <div class="radio-line">
-                    <input type="radio" name="distance" value="less-quart-max-distance>
+                    <input type="radio" name="distance" value="less-quart-max-distance">
                     <label>Less than 0.25 of max distance</label>
                 </div>
                 <div class="radio-line">
