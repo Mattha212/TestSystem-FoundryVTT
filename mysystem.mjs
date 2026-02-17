@@ -639,6 +639,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <h3>Attack roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
+        <p>${modifier}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
@@ -743,6 +744,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <h3>Defense roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
+        <p>${modifier}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
         <p>Protection:${TotalProtection} ( ${attackTypeLabel} )
         <p>Success Degree: ${testDegree} </p>
