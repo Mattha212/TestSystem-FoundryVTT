@@ -576,14 +576,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                         await ammunitionItem.update(update);
 
                         const modifiers = {
-                            "less-quart-max-distance": 10,
+                            "less-quart-max-distance": 1,
                             "btw-half-threequart-max-distance": 0,
-                            "btw-half-threequart-max-distance": -10,
-                            "more-threequart-max-distance": -20,
-                            "line-obstructed": -10,
-                            "bad-efficiency": -10,
+                            "btw-half-threequart-max-distance": -1,
+                            "more-threequart-max-distance": -2,
+                            "line-obstructed": -1,
+                            "bad-efficiency": -1,
                             "normal-efficiency": 0,
-                            "good-efficiency": 10
+                            "good-efficiency": 1
                         };
 
                         let extraModifier = 0;
