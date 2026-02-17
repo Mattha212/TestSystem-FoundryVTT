@@ -567,14 +567,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                     callback: async html => {
                         const form = html[0].querySelector("form");
                         const ammunitionId = form.ammunitionType.value;
-                        const ammunitionItem = this.document.items.get(ammunitionId);
-                        const baseWeight = Number(ammunitionItem.system.weight) / ammunitionItem.system.quantity;
+                        if (ammunitionId) {
+                            const ammunitionItem = this.document.items.get(ammunitionId);
+                            const baseWeight = Number(ammunitionItem.system.weight) / ammunitionItem.system.quantity;
 
-                        const newAmmunitionUsedQuantity = ammunitionItem.system.quantity - 1;
-                        const update = {};
-                        update[`system.quantity`] = newAmmunitionUsedQuantity;
-                        update[`system.weight`] = baseWeight * newAmmunitionUsedQuantity;
-                        await ammunitionItem.update(update);
+                            const newAmmunitionUsedQuantity = ammunitionItem.system.quantity - 1;
+                            const update = {};
+                            update[`system.quantity`] = newAmmunitionUsedQuantity;
+                            update[`system.weight`] = baseWeight * newAmmunitionUsedQuantity;
+                            await ammunitionItem.update(update);
+                            PJActorAPI.UpdateAllContainers(this.document);
+                        }
 
                         const modifiers = {
                             "less-quart-max-distance": 1,
@@ -588,7 +591,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                         };
 
                         let extraModifier = 0;
-
 
                         const distance = form.elements["distance"]?.value;
                         const obstruction = form.elements["obstruction"]?.value;
@@ -607,7 +609,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                         }
 
                         form.modifier.value = Number(form.modifier.value) + extraModifier;
-                        PJActorAPI.UpdateAllContainers(this.document);
                         this._onConfirmAttack(html, skillKey);
                     }
                 },
