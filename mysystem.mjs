@@ -521,13 +521,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 <label>Between the max distance and 0.75 of the max distance</label>
                 <input type="radio" name="distance" value="more-threequart-max-distance">
                 <label>Line obstructed (person or semi-cover)</label>
-                <input type="radio" name="distance" value="line-obstructed">
+                <input type="radio" name="obstruction" value="line-obstructed">
                 <label>Armor efficiency of -1</label>
-                <input type="radio" name="distance" value="bad-efficiency">
+                <input type="radio" name="efficiency" value="bad-efficiency">
                 <label>Armor efficiency of 0</label>
-                <input type="radio" name="distance" value="normal-efficiency">
+                <input type="radio" name="efficiency" value="normal-efficiency">
                 <label>Armor efficiency of 1</label>
-                <input type="radio" name="distance" value="good-efficiency">
+                <input type="radio" name="efficiency" value="good-efficiency">
                 <div class = "ammunition-type">
                     <label>Ammunition to use</label>
                     <select id="ammunition-select" name="ammunitionType">
