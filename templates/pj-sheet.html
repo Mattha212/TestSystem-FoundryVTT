@@ -215,9 +215,11 @@
                     </div>
                     <ul>
                         {{#each ammunitions}}
-                        <span>{{this.name}}</span>
-                        <span>{{this.system.traits}}</span>
-                        <span>{{this.system.quantity}}</span>
+                        <li class="item" data-item-id="{{this.id}}">
+                            <span>{{this.name}}</span>
+                            <span>{{this.system.traits}}</span>
+                            <span>{{this.system.quantity}}</span>
+                        </li>
                         {{/each}}
                     </ul>
 
@@ -293,8 +295,8 @@
                             <span>{{this.system.reach}}</span>
                             <span>{{this.system.cost}}</span>
                             <div class="item-actions">
-                                <button type="button" data-action="rangedAttack"
-                                    data-item-skillkey="Throwing" data-thrown="true">Attack</button>
+                                <button type="button" data-action="rangedAttack" data-item-skillkey="Throwing"
+                                    data-thrown="true">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
                                 <button type="button" data-action="equipWeapon"

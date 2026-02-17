@@ -257,7 +257,7 @@ width: 50px;
 }
 /* Weapons have more columns */
 .weapon-block .category-header {
-    grid-template-columns: 1.2fr 0.7fr 1fr 1fr 0.7fr 0.7fr 0.7fr auto;
+    grid-template-columns: 0.75fr 0.60fr 1fr 0.75fr 0.5fr 0.5fr 0.75fr 1fr;
 }
 
 /* List of items */
@@ -508,4 +508,29 @@ width: 50px;
     padding: 6px 10px;
     margin: 0;
     flex: 0 0 auto;
+}
+
+.ammunition-block .category-header {
+    grid-template-columns: 1.5fr 1fr 0.6fr;
+}
+
+/* Ligne */
+.ammunition-block li {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.6fr;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+    border-bottom: 1px solid #aaa5;
+}
+
+/* Alignement */
+.ammunition-block li span:nth-child(2) {
+    font-size: 0.9em;
+    opacity: 0.85;
+}
+
+.ammunition-block li span:nth-child(3) {
+    text-align: center;
+    font-weight: bold;
 }
