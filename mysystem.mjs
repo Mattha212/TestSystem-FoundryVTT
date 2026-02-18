@@ -2685,6 +2685,9 @@ Hooks.once("init", async () => {
     Handlebars.registerHelper("not", function (value) {
         return !value;
     });
+    Handlebars.registerHelper("round", function (value, decimals) {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+});
 });
 
 

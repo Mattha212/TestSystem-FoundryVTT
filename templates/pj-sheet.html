@@ -119,7 +119,7 @@
                         {{#each shields}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.weight round 2}} kg</span>
                             <span>{{this.system.protection}}</span>
                             <span>{{this.system.bulk}}</span>
                             <span>{{this.system.cost}}</span>
@@ -148,7 +148,7 @@
                         {{#each armors}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.weight round 2}} kg</span>
                             <span>{{this.system.protection}}</span>
                             <span>{{this.system.bulk}}</span>
                             <span>{{this.system.cost}}</span>
@@ -180,7 +180,7 @@
                         {{#each weapons}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.weight round 2}} kg</span>
 
                             <span class="weapon-efficiency">
                                 {{#each this.system.efficiency as |value key|}}
@@ -241,7 +241,7 @@
                         {{#each rangedWeapons}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.weight round 2}} kg</span>
 
                             <span class="weapon-efficiency">
                                 {{#each this.system.efficiency as |value key|}}
@@ -283,7 +283,7 @@
                         {{#each thrownWeapons}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                            <span>{{this.system.weight}} kg</span>
+                            <span>{{this.system.weight round 2}} kg</span>
 
                             <span class="weapon-efficiency">
                                 {{#each this.system.efficiency as |value key|}}
@@ -358,7 +358,7 @@
             data-group="{{tabs.inventoryTab.group}}" data-part="{{tabs.inventoryTab.id}}">
 
             <div class="inventory-weight">
-                Weight: {{system.weight}} / {{system.maxWeight}}
+                Weight: {{system.weight round 2}} / {{system.maxWeight round 2}}
             </div>
 
             <ol class="item-list">
@@ -369,11 +369,11 @@
                     </span>
 
                     <span class="item-weight">
-                        {{this.system.weight}} kg
+                        {{this.system.weight round 2}} kg
                     </span>
 
                     <span class="item-free">
-                        {{this.system.weightRemaining}} kg
+                        {{this.system.weightRemaining round 2}} kg
                     </span>
 
                     <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">
