@@ -22,16 +22,16 @@
             <input type = "number" name = "system.weightAllowed" value="{{system.weightAllowed}}"/>
         {{/if}}
         {{#if system.isUsed}}
-            <p>Weigth allowed: {{system.weightAllowed round 2}}</p>
-            <p>Weight remaining: {{system.weightRemaining round 2}}</p>
-            <p>Weight used: {{system.weight round 2}}</p>
+            <p>Weigth allowed: {{round system.weightAllowed 2}}</p>
+            <p>Weight remaining: {{round system.weightRemaining 2}}</p>
+            <p>Weight used: {{round system.weight 2}}</p>
 
             <h4>Containment</h4>
 
             {{#each containedItems}}
                 <div class="contained-item">
                      <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                    <div>Weight: {{this.system.weight round 2}}</div>
+                    <div>Weight: {{round this.system.weight 2}}</div>
                     <div>Size: {{lookup ../objectSizeLabels this.system.size}}</div>
                     <input type="number"
                            name="system.quantity"
