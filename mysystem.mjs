@@ -12,6 +12,9 @@ function enumToLabel(str) {
         .replace(/_/g, " ")
         .replace(/(^\w|\s\w)/g, m => m.toUpperCase());
 }
+function roundTo(value, decimals = 2) {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+}
 
 
 class PJActorAPI extends Actor {
@@ -1874,8 +1877,14 @@ class ContainerSheet extends ObjectsItemsSheet {
             weightUsed += Number(item.system.weight);
         }
         const update = {};
+        weightUsed = roundTo(weightUsed, 2);
+
+        const weightRemaining = roundTo(
+            Number(this.document.system.weightAllowed) - weightUsed,
+            2
+        );
         update[`system.weight`] = weightUsed;
-        update[`system.weightRemaining`] = Number(this.document.system.weightAllowed - weightUsed);
+        update[`system.weightRemaining`] = weightRemaining;
         await this.document.update(update);
     }
 
