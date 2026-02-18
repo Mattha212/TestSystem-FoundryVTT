@@ -1895,12 +1895,17 @@ class ContainerSheet extends ObjectsItemsSheet {
         const actor = this.document.actor
 
         const item = actor.items.get(id);
-        const baseWeight = Number(item.system.weight) / item.system.quantity;
         const update = {};
-        if (Number(PJActorAPI.getCurrentWeight(actor)) + baseWeight * value > Number(PJActorAPI.getMaxWeight(actor))) return;
-        if (baseWeight * value > Number(this.document.system.weightRemaining)) return;
+        const baseWeight = roundTo(
+            Number(item.system.weight) / item.system.quantity,
+            4
+        );
+
+        const newWeight = roundTo(baseWeight * value, 2);
+        if (Number(PJActorAPI.getCurrentWeight(actor)) + newWeight > Number(PJActorAPI.getMaxWeight(actor))) return;
+        if (newWeight > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
-        update[`system.weight`] = baseWeight * value;
+        update[`system.weight`] = newWeight;
         await item.update(update);
         await this.UpdateWeight();
         await PJActorAPI.onUpdateWeight(actor);
