@@ -356,14 +356,29 @@
         {{!-- Inventory Tab --}}
         <div class="tab {{tabs.inventoryTab.cssClass}}" data-tab="{{tabs.inventoryTab.id}}"
             data-group="{{tabs.inventoryTab.group}}" data-part="{{tabs.inventoryTab.id}}">
+
+            <div class="inventory-weight">
+                Weight: {{system.weight}} / {{system.maxWeight}}
+            </div>
+
             <ol class="item-list">
-                <span class="weight">Weight: {{system.weight}} / {{system.maxWeight}}</span>
                 {{#each containers}}
                 <li class="item" data-item-id="{{this.id}}">
-                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                    <span class="item-weight">weight: {{this.system.weight}} kg</span>
-                    <span class="item-weight">weight free: {{this.system.weightRemaining}} kg</span>
-                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+                    <span class="item-name" data-action="printItem" data-item-id="{{this.id}}">
+                        {{this.name}}
+                    </span>
+
+                    <span class="item-weight">
+                        {{this.system.weight}} kg
+                    </span>
+
+                    <span class="item-free">
+                        {{this.system.weightRemaining}} kg
+                    </span>
+
+                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">
+                        Remove
+                    </button>
                 </li>
                 {{/each}}
             </ol>

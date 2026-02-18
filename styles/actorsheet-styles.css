@@ -534,3 +534,51 @@ width: 50px;
     text-align: center;
     font-weight: bold;
 }
+
+.inventory-weight {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+/* Reset liste */
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ligne */
+.item-list li {
+    display: grid;
+    grid-template-columns: 2fr 0.8fr 0.8fr auto;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 6px;
+    border-bottom: 1px solid #aaa5;
+}
+
+/* Alternance légère */
+.item-list li:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Nom */
+.item-name {
+    font-weight: 500;
+    padding-left: 6px; /* léger décalage à droite */
+}
+
+/* Poids */
+.item-weight,
+.item-free {
+    text-align: center;
+    font-size: 0.9em;
+    opacity: 0.85;
+}
+
+/* Bouton */
+.item-list button {
+    font-size: 0.8em;
+    padding: 2px 6px;
+    cursor: pointer;
+}
