@@ -1743,18 +1743,22 @@ class ContainerSheet extends ObjectsItemsSheet {
         if (existingItem) {
             const itemAlreadyPresent = await fromUuid(existingItem.uuid)
             const update = {};
-            update[`system.quantity`] = itemAlreadyPresent.system.quantity + 1;
-            const newWeight = Math.round(
-                (Number(itemAlreadyPresent.system.weight) + Number(item.system.weight)) * 100
-            ) / 100;
-            update[`system.weight`] = newWeight;
+            const newQuantity = itemAlreadyPresent.system.quantity + 1;
+            const baseWeight = Number(itemAlreadyPresent.system.baseWeight ?? item.system.weight);
+
+            update[`system.quantity`] = newQuantity;
+            update[`system.baseWeight`] = baseWeight;
+            update[`system.weight`] = Math.round((baseWeight * newQuantity) * 100) / 100;
             await itemAlreadyPresent.update(update);
         }
         else {
             if (!item.actor) {
                 const itemData = item.toObject();
+                const cleanWeight = Math.round(Number(itemData.system.weight) * 100) / 100;
+
                 itemData.system.quantity = 1;
-                itemData.system.weight = roundTo(itemData.system.weight, 2);
+                itemData.system.baseWeight = cleanWeight;
+                itemData.system.weight = cleanWeight;
                 const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
                 item = embedded;
             }
@@ -1866,6 +1870,7 @@ class ContainerSheet extends ObjectsItemsSheet {
             system: itemData
         }
         data.system.quantity = 1;
+        data.system.baseWeight = 0;
         const [embedded] = await actor.createEmbeddedDocuments("Item", [data]);
 
         const Contents = Array.from(this.document.system.contents);
@@ -1906,9 +1911,7 @@ class ContainerSheet extends ObjectsItemsSheet {
 
         const item = actor.items.get(id);
         const update = {};
-        const baseWeight = Math.round(
-            (Number(item.system.weight) / item.system.quantity) * 100
-        ) / 100;
+        const baseWeight = Number(item.system.baseWeight ?? 0);
 
         const newWeight = Math.round(
             (baseWeight * value) * 100
@@ -2021,16 +2024,15 @@ class ContainerSheet extends ObjectsItemsSheet {
         const actor = this.document.actor;
         const item = actor.items.get(originTransfer);
         const destinationContainer = await fromUuid(destinationId);
-        const baseWeight = roundTo(
-            Number(item.system.weight) / item.system.quantity,
-            2
-        );
+        const baseWeight = Number(item.system.baseWeight ?? 0);
+
         if (Number(item.system.weight) > destinationContainer.system.weightRemaining) return;
         const update1 = {}; const update2 = {};
         if (item.system.quantity > 1) {
-            update1[`system.quantity`] = item.system.quantity - 1;
-            update1[`system.weight`] = roundTo(baseWeight * (item.system.quantity - 1), 2);
-            await item.update(update1);
+            const newQuantity = item.system.quantity - 1;
+
+            update1[`system.quantity`] = newQuantity;
+            update1[`system.weight`] = Math.round((baseWeight * newQuantity) * 100) / 100;
         }
         else {
             const contents = this.document.system.contents;
@@ -2045,8 +2047,11 @@ class ContainerSheet extends ObjectsItemsSheet {
         if (targetIndex != -1) {
             const targetContent = targetContents[targetIndex];
             const targetItem = await fromUuid(targetContent);
-            update2[`system.quantity`] = targetItem.system.quantity + 1;
-            update2[`system.weight`] = roundTo(baseWeight * (targetItem + 1), 2)
+            const newQuantity = targetItem.system.quantity + 1;
+
+            update2[`system.quantity`] = newQuantity;
+            update2[`system.baseWeight`] = baseWeight;
+            update2[`system.weight`] = Math.round((baseWeight * newQuantity) * 100) / 100;
             await targetItem.update(update2);
         }
         else {
