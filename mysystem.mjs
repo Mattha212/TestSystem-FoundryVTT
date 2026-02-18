@@ -1879,12 +1879,13 @@ class ContainerSheet extends ObjectsItemsSheet {
             weightUsed += Number(item.system.weight);
         }
         const update = {};
-        const totalWeightUsed = roundTo(weightUsed, 2);
+        weightUsed = Number(weightUsed.toFixed(2));
+        
         const weightRemaining = roundTo(
             Number(this.document.system.weightAllowed) - weightUsed,
             2
         );
-        update[`system.weight`] = totalWeightUsed;
+        update[`system.weight`] = weightUsed;
         update[`system.weightRemaining`] = weightRemaining;
         await this.document.update(update);
     }
