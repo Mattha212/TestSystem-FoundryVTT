@@ -1939,7 +1939,7 @@ class ContainerSheet extends ObjectsItemsSheet {
         const contents = Array.from(this.document.system.contents);
         const itemIndex = contents.findIndex(i => i.uuid === item.uuid);
 
-        if (itemIndex != 1) {
+        if (itemIndex != -1) {
             contents.splice(itemIndex, 1);
         }
         update[`system.contents`] = contents;
@@ -2035,15 +2035,15 @@ class ContainerSheet extends ObjectsItemsSheet {
         const targetIndex = targetContents.findIndex(i => i.name === item.name);
         if (targetIndex != -1) {
             const targetContent = targetContents[targetIndex];
-            const targetItem = fromUuid(targetContent);
-            update2[`system.quantity`] = targetItem + 1;
+            const targetItem = await fromUuid(targetContent);
+            update2[`system.quantity`] = targetItem.system.quantity + 1;
             update2[`system.weight`] = roundTo(baseWeight * (targetItem + 1),2 )
             await targetItem.update(update2);
         }
         else {
             const itemData = item.toObject();
             itemData.system.quantity = 1;
-            itemData.system.weigth = roundTo(itemData.system.weigth,2);
+            itemData.system.weight = roundTo(itemData.system.weight,2);
             const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
 
             const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
