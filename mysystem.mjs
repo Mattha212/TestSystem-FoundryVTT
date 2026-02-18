@@ -22,14 +22,18 @@ class PJActorAPI extends Actor {
         const containers = actor.items.filter(i => i.type === "Container");
 
         let weightUsed = 0;
+
         for (const container of containers) {
-            weightUsed += Number(container.system.weight ?? 0);
+            const cleanWeight = Number(container.system.weight ?? 0);
+
+            weightUsed = Math.round((weightUsed + cleanWeight) * 100) / 100;
         }
-        weightUsed = roundTo(weightUsed, 2)
+
         await actor.update({
             "system.weight": weightUsed
         });
     }
+
 
     static getCurrentWeight(actor) {
         return Number(actor.system.weight ?? 0);
@@ -1740,7 +1744,9 @@ class ContainerSheet extends ObjectsItemsSheet {
             const itemAlreadyPresent = await fromUuid(existingItem.uuid)
             const update = {};
             update[`system.quantity`] = itemAlreadyPresent.system.quantity + 1;
-            const newWeight = roundTo(Number(itemAlreadyPresent.system.weight) + Number(item.system.weight), 2);
+            const newWeight = Math.round(
+                (Number(itemAlreadyPresent.system.weight) + Number(item.system.weight)) * 100
+            ) / 100;
             update[`system.weight`] = newWeight;
             await itemAlreadyPresent.update(update);
         }
@@ -1874,24 +1880,22 @@ class ContainerSheet extends ObjectsItemsSheet {
 
     async UpdateWeight() {
         let weightUsed = 0;
+
         for (const content of this.document.system.contents) {
-            let item = await fromUuid(content.uuid);
-            const cleanWeight = Number(
-                Number(item.system.weight).toFixed(2)
-            );
+            const item = await fromUuid(content.uuid);
+            const cleanWeight = Number(item.system.weight ?? 0);
 
-            weightUsed += cleanWeight;
+            weightUsed = Math.round((weightUsed + cleanWeight) * 100) / 100;
         }
-        const update = {};
-        weightUsed = Number(weightUsed.toFixed(2));
 
-        const weightRemaining = roundTo(
-            Number(this.document.system.weightAllowed) - weightUsed,
-            2
-        );
-        update[`system.weight`] = weightUsed;
-        update[`system.weightRemaining`] = weightRemaining;
-        await this.document.update(update);
+        const weightRemaining = Math.round(
+            (Number(this.document.system.weightAllowed ?? 0) - weightUsed) * 100
+        ) / 100;
+
+        await this.document.update({
+            "system.weight": weightUsed,
+            "system.weightRemaining": weightRemaining
+        });
     }
 
     async _OnChangeQuantity(event) {
@@ -1902,12 +1906,13 @@ class ContainerSheet extends ObjectsItemsSheet {
 
         const item = actor.items.get(id);
         const update = {};
-        const baseWeight = roundTo(
-            Number(item.system.weight) / item.system.quantity,
-            4
-        );
+        const baseWeight = Math.round(
+            (Number(item.system.weight) / item.system.quantity) * 100
+        ) / 100;
 
-        const newWeight = roundTo(baseWeight * value, 2);
+        const newWeight = Math.round(
+            (baseWeight * value) * 100
+        ) / 100;
         if (Number(PJActorAPI.getCurrentWeight(actor)) + newWeight > Number(PJActorAPI.getMaxWeight(actor))) return;
         if (newWeight > Number(this.document.system.weightRemaining)) return;
         update[`system.quantity`] = value;
