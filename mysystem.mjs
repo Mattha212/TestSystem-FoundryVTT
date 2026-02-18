@@ -1740,7 +1740,7 @@ class ContainerSheet extends ObjectsItemsSheet {
             const itemAlreadyPresent = await fromUuid(existingItem.uuid)
             const update = {};
             update[`system.quantity`] = itemAlreadyPresent.system.quantity + 1;
-            const newWeight = roundTo(Number(itemAlreadyPresent.system.weight) + Number(item.system.weight),2);
+            const newWeight = roundTo(Number(itemAlreadyPresent.system.weight) + Number(item.system.weight), 2);
             update[`system.weight`] = newWeight;
             await itemAlreadyPresent.update(update);
         }
@@ -1748,6 +1748,7 @@ class ContainerSheet extends ObjectsItemsSheet {
             if (!item.actor) {
                 const itemData = item.toObject();
                 itemData.system.quantity = 1;
+                itemData.system.weight = roundTo(itemData.system.weight, 2);
                 const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
                 item = embedded;
             }
@@ -1915,10 +1916,11 @@ class ContainerSheet extends ObjectsItemsSheet {
     async _onChangeWeightAllowed(event) {
         event.preventDefault();
         const value = Number(event.target.value);
+        const rounded = roundTo(value, 2);
 
         const update = {};
-        update[`system.weightAllowed`] = value;
-        update[`system.weightRemaining`] = value;
+        update[`system.weightAllowed`] = rounded;
+        update[`system.weightRemaining`] = rounded;
 
         await this.document.update(update);
 
@@ -2010,11 +2012,15 @@ class ContainerSheet extends ObjectsItemsSheet {
         const actor = this.document.actor;
         const item = actor.items.get(originTransfer);
         const destinationContainer = await fromUuid(destinationId);
-
+        const baseWeight = roundTo(
+            Number(item.system.weight) / item.system.quantity,
+            2
+        );
         if (Number(item.system.weight) > destinationContainer.system.weightRemaining) return;
         const update1 = {}; const update2 = {};
         if (item.system.quantity > 1) {
             update1[`system.quantity`] = item.system.quantity - 1;
+            update1[`system.weight`] = roundTo(baseWeight*(item.system.quantity - 1),2);
             await item.update(update1);
         }
         else {
@@ -2031,11 +2037,13 @@ class ContainerSheet extends ObjectsItemsSheet {
             const targetContent = targetContents[targetIndex];
             const targetItem = fromUuid(targetContent);
             update2[`system.quantity`] = targetItem + 1;
+            update2[`system.weight`] = roundTo(baseWeight * (targetItem + 1),2 )
             await targetItem.update(update2);
         }
         else {
             const itemData = item.toObject();
             itemData.system.quantity = 1;
+            itemData.system.weigth = roundTo(itemData.system.weigth,2);
             const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
 
             const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
