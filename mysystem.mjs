@@ -25,7 +25,7 @@ class PJActorAPI extends Actor {
         for (const container of containers) {
             weightUsed += Number(container.system.weight ?? 0);
         }
-
+        weightUsed = roundTo(weightUsed,2)
         await actor.update({
             "system.weight": weightUsed
         });
