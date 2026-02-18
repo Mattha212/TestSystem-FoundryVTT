@@ -21,13 +21,14 @@ class PJActorAPI extends Actor {
     static async onUpdateWeight(actor) {
         const containers = actor.items.filter(i => i.type === "Container");
 
-        let weightUsed = 0;
+        let weightUsedCenti = 0;
 
         for (const container of containers) {
-            const cleanWeight = Number(container.system.weight ?? 0);
-
-            weightUsed = Math.round((weightUsed + cleanWeight) * 100) / 100;
+            const cleanWeight = Math.round(Number(container.system.weight ?? 0) * 100);
+            weightUsedCenti += cleanWeight;
         }
+
+        const weightUsed = weightUsedCenti / 100;
 
         await actor.update({
             "system.weight": weightUsed
@@ -1884,17 +1885,17 @@ class ContainerSheet extends ObjectsItemsSheet {
     }
 
     async UpdateWeight() {
-        let weightUsed = 0;
+        let weightUsedCenti = 0;
 
         for (const content of this.document.system.contents) {
             const item = await fromUuid(content.uuid);
-            const cleanWeight = Number(item.system.weight ?? 0);
-
-            weightUsed = Math.round((weightUsed + cleanWeight) * 100) / 100;
+            const cleanWeight = Math.round(Number(item.system.weight ?? 0) * 100);
+            weightUsedCenti += cleanWeight;
         }
 
+        const weightUsed = weightUsedCenti / 100;
         const weightRemaining = Math.round(
-            (Number(this.document.system.weightAllowed ?? 0) - weightUsed) * 100
+            (Number(this.document.system.weightAllowed ?? 0) * 100 - weightUsedCenti)
         ) / 100;
 
         await this.document.update({
