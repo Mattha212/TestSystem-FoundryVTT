@@ -25,7 +25,7 @@ class PJActorAPI extends Actor {
         for (const container of containers) {
             weightUsed += Number(container.system.weight ?? 0);
         }
-        weightUsed = roundTo(weightUsed,2)
+        weightUsed = roundTo(weightUsed, 2)
         await actor.update({
             "system.weight": weightUsed
         });
@@ -1876,11 +1876,15 @@ class ContainerSheet extends ObjectsItemsSheet {
         let weightUsed = 0;
         for (const content of this.document.system.contents) {
             let item = await fromUuid(content.uuid);
-            weightUsed += Number(item.system.weight);
+            const cleanWeight = Number(
+                Number(item.system.weight).toFixed(2)
+            );
+
+            weightUsed += cleanWeight;
         }
         const update = {};
         weightUsed = Number(weightUsed.toFixed(2));
-        
+
         const weightRemaining = roundTo(
             Number(this.document.system.weightAllowed) - weightUsed,
             2
@@ -2020,7 +2024,7 @@ class ContainerSheet extends ObjectsItemsSheet {
         const update1 = {}; const update2 = {};
         if (item.system.quantity > 1) {
             update1[`system.quantity`] = item.system.quantity - 1;
-            update1[`system.weight`] = roundTo(baseWeight*(item.system.quantity - 1),2);
+            update1[`system.weight`] = roundTo(baseWeight * (item.system.quantity - 1), 2);
             await item.update(update1);
         }
         else {
@@ -2037,13 +2041,13 @@ class ContainerSheet extends ObjectsItemsSheet {
             const targetContent = targetContents[targetIndex];
             const targetItem = await fromUuid(targetContent);
             update2[`system.quantity`] = targetItem.system.quantity + 1;
-            update2[`system.weight`] = roundTo(baseWeight * (targetItem + 1),2 )
+            update2[`system.weight`] = roundTo(baseWeight * (targetItem + 1), 2)
             await targetItem.update(update2);
         }
         else {
             const itemData = item.toObject();
             itemData.system.quantity = 1;
-            itemData.system.weight = roundTo(itemData.system.weight,2);
+            itemData.system.weight = roundTo(itemData.system.weight, 2);
             const [embedded] = await actor.createEmbeddedDocuments("Item", [itemData]);
 
             const objectToAdd = { "name": embedded.name, "uuid": embedded.uuid };
