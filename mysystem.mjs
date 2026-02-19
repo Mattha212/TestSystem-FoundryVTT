@@ -132,6 +132,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             printDescription: function (event, target) { this._onPrintDescription(event, target); },
             addHighlight: function (event, target) { this._onAddHighlight(event, target); },
             removeHighlight: function (event, target) { this._onDeleteHighlight(event, target); },
+            thrownWeapons: function (event, target) { this._onThrownAttack(event, target); }
         }
     }
     static PARTS = {
