@@ -525,9 +525,14 @@ width: 50px;
 }
 
 /* Alignement */
+.ammunition-block li span:nth-child(1) {
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
 .ammunition-block li span:nth-child(2) {
-    font-size: 0.9em;
-    opacity: 0.85;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .ammunition-block li span:nth-child(3) {
