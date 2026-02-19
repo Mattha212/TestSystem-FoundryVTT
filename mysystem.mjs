@@ -131,7 +131,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             maneuver: function (event, target) { this._onPerformManeuver(event, target); },
             printDescription: function (event, target) { this._onPrintDescription(event, target); },
             addHighlight: function (event, target) { this._onAddHighlight(event, target); },
-            removeHighlight: function (event, target) { this._onDeleteHighlight(event, target); }
+            removeHighlight: function (event, target) { this._onDeleteHighlight(event, target); },
         }
     }
     static PARTS = {
@@ -631,6 +631,86 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }).render(true);
     }
 
+    _onThrownAttack(event, target) {
+        event.preventDefault();
+        const skillKey = target.dataset.itemSkillkey;
+        const content = `
+        <form class = "difficulty-Modifier-form">
+            <div class="difficulty-Modifier-group">
+                <label>Modifier</label>
+                <input type="number" name="modifier" value="0">
+                <h4>Distance</h4>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="less-quart-max-distance">
+                    <label>Less than 0.25 of max distance</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="btw-quart-and-half-max-distance">
+                    <label>Between 0.25 and 0.5</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="btw-half-threequart-max-distance">
+                    <label>Between 0.5 and 0.75</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" name="distance" value="more-threequart-max-distance">
+                    <label>More than 0.75</label>
+                </div>
+                <h4>Obstruction</h4>
+                <div class="radio-line">
+                    <input type="radio" name="obstruction" value="line-obstructed">
+                    <label>Line obstructed</label>
+                </div>
+            </div>
+        </form>
+        `;
+        new Dialog({
+            title: `${skillKey} roll`,
+            content,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: async html => {
+                        const form = html[0].querySelector("form");
+                        const modifiers = {
+                            "less-quart-max-distance": 1,
+                            "btw-half-threequart-max-distance": 0,
+                            "btw-half-threequart-max-distance": -1,
+                            "more-threequart-max-distance": -2,
+                            "line-obstructed": -1,
+                        };
+
+                        let extraModifier = 0;
+
+                        const distance = form.querySelector('input[name="distance"]:checked')?.value;
+                        const obstruction = form.querySelector('input[name="obstruction"]:checked')?.value;
+
+                        if (distance) {
+                            extraModifier += modifiers[distance] || 0;
+                        }
+
+                        if (obstruction) {
+                            extraModifier += modifiers[obstruction] || 0;
+                        }
+
+                        form.modifier.value = Number(form.modifier.value) + extraModifier;
+                        this._onConfirmAttack(html, skillKey);
+                    }
+                },
+                cancel: {
+                    label: "Cancel"
+                }
+            },
+            default: "roll"
+        }, {
+            width: 533.555,
+            height: 435.778,
+            resizable: true
+        }).render(true);
+    }
+
+
+
     async _onConfirmAttack(html, skillKey) {
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
@@ -790,12 +870,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         target.dataset.itemSkillkey = weaponSkill;
 
         if (schoolOfManeuver.system.skillsAllowed.includes(weaponSkill)) {
-            if (maneuver.system.maneuverType == "attack") {
-                this._onAttack(event, target);
-            }
-            else if (maneuver.system.maneuverType == "defense") {
-                this._onDefense(event, target);
-            }
+            const content = `
+        <form class = "maneuver-roll-confirmation-form">
+        </form>
+        `;
         }
         else {
             const content = `
@@ -805,25 +883,26 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             </div>
         </form>
         `;
-            new Dialog({
-                title: `Confirmation`,
-                content,
-                buttons: {
-                    rollAttack: {
-                        label: "Roll Attack",
-                        callback: html => this._onAttack(event, target)
-                    },
-                    rollDefense: {
-                        label: "Roll Defense",
-                        callback: html => this._onDefense(event, target)
-                    },
-                    cancel: {
-                        label: "Cancel"
-                    }
-                },
-                default: "roll"
-            }).render(true);
         }
+        new Dialog({
+            title: `Confirmation`,
+            content,
+            buttons: {
+                rollAttack: {
+                    label: "Roll Attack",
+                    callback: html => this._onAttack(event, target)
+                },
+                rollDefense: {
+                    label: "Roll Defense",
+                    callback: html => this._onDefense(event, target)
+                },
+                cancel: {
+                    label: "Cancel"
+                }
+            },
+            default: "roll"
+        }).render(true);
+
     }
 
     async _onChangeStat(event) {
@@ -2088,7 +2167,7 @@ class SpellSystemSheet extends NonObjectItemsSheet {
             addTypeofSpell: function (event, target) { this._onAddTypeofSpell(event, target); },
             removeTypeofSpell: function (event, target) { this._onRemoveTypeofSpell(event, target); }
         },
-                window: {
+        window: {
             resizable: true
         }
     }
@@ -2260,7 +2339,7 @@ class FamilyStandingSheet extends LifePathInfoSheet {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
         },
-        window:{
+        window: {
             resizable: true
         }
     }
@@ -2285,7 +2364,7 @@ class ParentMishapsSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2310,7 +2389,7 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2335,7 +2414,7 @@ class ChildhoodMemorySheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2360,7 +2439,7 @@ class StrokeofFortuneSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2385,7 +2464,7 @@ class StrokeofTragedySheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2410,7 +2489,7 @@ class FatefulEncounterSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2435,7 +2514,7 @@ class DramaticEncounterSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2460,7 +2539,7 @@ class RomanceSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
-        },        window:{
+        }, window: {
             resizable: true
         }
     }
@@ -2709,8 +2788,8 @@ Hooks.once("init", async () => {
         return !value;
     });
     Handlebars.registerHelper("round", function (value, decimals) {
-    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
-});
+        return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+    });
 });
 
 
