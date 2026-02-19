@@ -204,8 +204,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
     getLifepathData() {
-        this._RomanceHighlights = game.items.filter(i => i.type === "Lifepath - Romance"
-            && i.system.culture === this.document.system.culture);
+        this._RomanceHighlights = game.items.filter(i => i.type === "Lifepath - Romance");
         this._DramaticHighlights = game.items.filter(i => i.type === "Lifepath - Dramatic Encounter"
             && i.system.culture === this.document.system.culture);
         this._FatefulHighlights = game.items.filter(i => i.type === "Lifepath - Fateful Encounter"
@@ -1361,6 +1360,9 @@ class FightingSchoolSheet extends NonObjectItemsSheet {
             addSkills: function (event, target) { this._onAddingSkill(event, target); },
             removeSkill: function (event, target) { this._onRemoveSkill(event, target); },
             changeSkillAllowed: function (event, target) { this._onChangingSkillAllowed(event, target); }
+        },
+        window: {
+            resizable: true
         }
     }
 
@@ -2086,12 +2088,15 @@ class SpellSystemSheet extends NonObjectItemsSheet {
         actions: {
             addTypeofSpell: function (event, target) { this._onAddTypeofSpell(event, target); },
             removeTypeofSpell: function (event, target) { this._onRemoveTypeofSpell(event, target); }
+        },
+                window: {
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/spellSystem-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 
@@ -2153,7 +2158,7 @@ class SpellSheet extends NonObjectItemsSheet {
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/spell-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
     async _prepareContext(options) {
@@ -2255,12 +2260,15 @@ class FamilyStandingSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },
+        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2278,12 +2286,14 @@ class ParentMishapsSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2301,12 +2311,14 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2324,12 +2336,14 @@ class ChildhoodMemorySheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2347,12 +2361,14 @@ class StrokeofFortuneSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2370,12 +2386,14 @@ class StrokeofTragedySheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2393,12 +2411,14 @@ class FatefulEncounterSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2416,12 +2436,14 @@ class DramaticEncounterSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
@@ -2439,12 +2461,14 @@ class RomanceSheet extends LifePathInfoSheet {
         actions: {
             addPossibility: function (event, target) { this._onAddPossibilty(event, target); },
             removePossibilty: function (event, target) { this._onRemovePossibility(event, target); }
+        },        window:{
+            resizable: true
         }
     }
     static PARTS = {
         main: {
             template: "systems/testsystem/templates/lifepathInfo-sheet.html",
-            scrollable: [".tab"],
+            scrollable: [".object-body"],
         }
     }
 }
