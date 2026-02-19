@@ -660,7 +660,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <h3>Attack roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
-        <p>${modifier}</p>
+        <p>Modifiers: ${modifier}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
@@ -765,7 +765,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <h3>Defense roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
-        <p>${modifier}</p>
+        <p>Modifiers:${modifier}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
         <p>Protection:${TotalProtection} ( ${attackTypeLabel} )
         <p>Success Degree: ${testDegree} </p>
@@ -926,8 +926,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
 
         this.getLifepathData();
-
-
     }
 
     async _onChangeSubCulture(event) {
@@ -944,7 +942,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
         await this.document.update({ "system.subculture": subCulture });
-
     }
 
     async _OnModifyManeuverWeaponLinked(event) {
@@ -1030,6 +1027,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <div class= "custom-stat-roll">
         <h3>Stat roll: ${statKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
+        <p>Modifier: ${modifier}</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
@@ -1055,7 +1053,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const content = `
         <form class = "difficulty-Modifier-form">
-            <div class = "difficulty-Modifier-group" >
+            <div clas<ps = "difficulty-Modifier-group" >
                 <label>Modifier</label>
                 <input type = number name = "modifier" value="0">
             </div>
@@ -1106,6 +1104,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <h3>Skill roll: ${skillKey}</h3>
         <p>${valueRolled} / ${valueTested}: ${stringResponse}</p>
         <p>${statDetails}</p>
+        <p>Modifier: ${modifier}</p>
         <p>Level: ${skillLevel} (+ ${levelModifierValue}%)</p>
         <p>Success Degree: ${testDegree} </p>
         </div>
