@@ -6,45 +6,48 @@
         <select name="system.maxSize">
             <option value="">Select a size</option>
             {{#each objectSizeLabels as |label value|}}
-                <option value="{{value}}"
-                    {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>
-                    {{label}}
-                </option>
+            <option value="{{value}}" {{#if (eq ../system.maxSize (toNumber value))}}selected{{/if}}>
+                {{label}}
+            </option>
             {{/each}}
         </select>
-        <span>Cost</span>        
-        <input type="text" name="system.cost" value="{{system.cost}}"/>
+        <span>Cost</span>
+        <input type="text" name="system.cost" value="{{system.cost}}" />
     </header>
 
     <section class="container-body">
         {{#if (not system.isUsed)}}
         <span class="weightAllowed">Weight allowed:</span>
-            <input type = "number" name = "system.weightAllowed" value="{{system.weightAllowed}}"/>
+        <input type="number" name="system.weightAllowed" value="{{system.weightAllowed}}" />
         {{/if}}
         {{#if system.isUsed}}
-            <p>Weigth allowed: {{round system.weightAllowed 2}}</p>
-            <p>Weight remaining: {{round system.weightRemaining 2}}</p>
-            <p>Weight used: {{round system.weight 2}}</p>
+        <p>Weigth allowed: {{round system.weightAllowed 2}}</p>
+        <p>Weight remaining: {{round system.weightRemaining 2}}</p>
+        <p>Weight used: {{round system.weight 2}}</p>
 
-            <h4>Containment</h4>
+        <h4>Containment</h4>
+        <div class="contained-item header">
+            <span>Name</span>
+            <div>Weight</div>
+            <div>Size</div>
+            <div>Qty</div>
+            <div></div>
+            <div></div>
+        </div>
+        {{#each containedItems}}
+        <div class="contained-item">
+            <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+            <div>Weight: {{round this.system.weight 2}}</div>
+            <div>Size: {{lookup ../objectSizeLabels this.system.size}}</div>
+            <input type="number" name="system.quantity" value="{{this.system.quantity}}" data-item-id="{{this.id}}">
+            <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
+            <button type="button" data-action="transferItem" data-item-id="{{this.id}}">Transfer</button>
+        </div>
+        {{/each}}
 
-            {{#each containedItems}}
-                <div class="contained-item">
-                     <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                    <div>Weight: {{round this.system.weight 2}}</div>
-                    <div>Size: {{lookup ../objectSizeLabels this.system.size}}</div>
-                    <input type="number"
-                           name="system.quantity"
-                           value="{{this.system.quantity}}"
-                           data-item-id="{{this.id}}">
-                    <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
-                    <button type="button" data-action="transferItem" data-item-id="{{this.id}}">Transfer</button>
-                </div>
-            {{/each}}
-
-            <div class="add-void-item">
-                <button type="button" data-action="addVoidItem">Create void item</button>
-            </div>
+        <div class="add-void-item">
+            <button type="button" data-action="addVoidItem">Create void item</button>
+        </div>
         {{/if}}
     </section>
 
