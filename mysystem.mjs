@@ -868,15 +868,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         if (weaponLinked.id.length === 0) return;
         const weaponSkill = weaponLinked.skill;
         target.dataset.itemSkillkey = weaponSkill;
-
+        let content;
         if (schoolOfManeuver.system.skillsAllowed.includes(weaponSkill)) {
-            const content = `
+            content = `
         <form class = "maneuver-roll-confirmation-form">
         </form>
         `;
         }
         else {
-            const content = `
+            content = `
         <form class = "maneuver-roll-confirmation-form">
             <div class = "maneuver-roll-confirmation-group" >
                 <label>Your weapon is not appropriate for this kind of maneuver. Are you certain you want to try it?</label>
