@@ -482,7 +482,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     _onAttack(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
-        const vigorCost =  target.dataset.vigorCost;
+        const vigorCost =  target.dataset.vigorcost;
         const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
@@ -763,7 +763,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     _onDefense(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
-        const vigorCost = target.dataset.vigorCost;
+        const vigorCost = target.dataset.vigorcost;
         const options =
             Object.entries(AttackTypes)
                 .map(([key, value]) =>
@@ -1143,7 +1143,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const skillKey = target.dataset.skillkey;
         const skillCategory = target.dataset.category;
-        const vigorCost = target.dataset.vigorCost;
+        const vigorCost = target.dataset.vigorcost;
         const content = `
         <form class = "difficulty-Modifier-form">
             <div clas<ps = "difficulty-Modifier-group" >
