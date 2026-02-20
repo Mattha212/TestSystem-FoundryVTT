@@ -337,7 +337,7 @@
 
                                 <div class="item-actions">
                                     {{#if this.system.rollable}}
-                                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}">
+                                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}" data-vigorCost="{{this.system.cost}}">
                                         Perform
                                     </button>
                                     {{/if}}
@@ -394,7 +394,7 @@
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"
-                        data-skillkey="{{this.system.spellType}}">
+                        data-skillkey="{{this.system.spellType}}" data-vigorCost="{{this.system.vigorCost}}">
                         Cast
                     </button>
                     <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send
@@ -409,7 +409,7 @@
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"
-                        data-skillkey="{{this.system.spellType}}">
+                        data-skillkey="{{this.system.spellType}}" data-vigorCost="{{this.system.vigorCost}}">
                         Cast
                     </button>
                     <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send
@@ -417,8 +417,8 @@
                     <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                 </div>
                 {{/each}}
-                <div class="spell-category">Thaumarturge Spells</div>
-                {{#each thaumarturgeSpells}}
+                <div class="spell-category">Thaumaturge Spells</div>
+                {{#each thaumaturgeSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                     <span class="spell-reach">{{this.system.reach}}</span>
@@ -439,7 +439,7 @@
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"
-                        data-skillkey="{{this.system.spellType}}">
+                        data-skillkey="{{this.system.spellType}}" data-vigorCost="{{this.system.vigorCost}}">
                         Cast
                     </button>
                     <button type="button" data-action="printDescription" data-item-id="{{this.id}}">Send

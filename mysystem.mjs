@@ -295,7 +295,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         context.catalystSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Catalysme");
         context.runesmithSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Forgerune");
-        context.thaumarturgeSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Thaumaturgie");
+        context.thaumaturgeSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Thaumaturgie");
         context.wordsOfPowerSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "WordsOfPower");
 
         this.getLifepathData();
@@ -482,7 +482,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     _onAttack(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
-
+        const vigorCost =  target.dataset.vigorCost;
         const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
@@ -497,7 +497,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             buttons: {
                 roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmAttack(html, skillKey)
+                    callback: html => this._onConfirmAttack(html, skillKey, vigorCost)
                 },
                 cancel: {
                     label: "Cancel"
@@ -712,7 +712,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
 
 
-    async _onConfirmAttack(html, skillKey) {
+    async _onConfirmAttack(html, skillKey, vigorCost = 0) {
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
         const values = statsSkill.map(s => this.document.system.stats[s].CurrentValue || 0);
@@ -720,6 +720,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const form = html[0].querySelector("form");
         const levelModifierValue = skillLevel * 5;
         const modifier = 10 * (Number(form.modifier.value) || 0);
+
+        if (vigorCost > 0) {
+            const update = {};
+            update[`system.stats.Vigor.CurrentValue`] = this.document.system.stats["Vigor"].CurrentValue - vigorCost;
+            await this.document.update(update);
+        }
 
         const statDetails = statsSkill.map(s => {
             const val = this.document.system.stats[s]?.CurrentValue ?? 0;
@@ -757,6 +763,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     _onDefense(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
+        const vigorCost = target.dataset.vigorCost;
         const options =
             Object.entries(AttackTypes)
                 .map(([key, value]) =>
@@ -784,7 +791,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             buttons: {
                 roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmDefense(html, skillKey)
+                    callback: html => this._onConfirmDefense(html, skillKey, vigorCost)
                 },
                 cancel: {
                     label: "Cancel"
@@ -794,7 +801,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }).render(true);
     }
 
-    async _onConfirmDefense(html, skillKey) {
+    async _onConfirmDefense(html, skillKey, vigorCost = 0) {
         const statsSkill = this.document.system.skills["Fighting"][skillKey].stats;
         const skillLevel = this.document.system.skills["Fighting"][skillKey].level;
         const values = statsSkill.map(s => this.document.system.stats[s].CurrentValue || 0);
@@ -803,6 +810,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const levelModifierValue = skillLevel * 5;
         const modifier = 10 * (Number(form.modifier.value) || 0);
 
+        if (vigorCost > 0) {
+            const update = {};
+            update[`system.stats.Vigor.CurrentValue`] = this.document.system.stats["Vigor"].CurrentValue - vigorCost;
+            await this.document.update(update);
+        }
+        
         const statDetails = statsSkill.map(s => {
             const val = this.document.system.stats[s]?.CurrentValue ?? 0;
             return `${s}(${val})`;
@@ -1130,7 +1143,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const skillKey = target.dataset.skillkey;
         const skillCategory = target.dataset.category;
-
+        const vigorCost = target.dataset.vigorCost;
         const content = `
         <form class = "difficulty-Modifier-form">
             <div clas<ps = "difficulty-Modifier-group" >
@@ -1145,7 +1158,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             buttons: {
                 roll: {
                     label: "Roll",
-                    callback: html => this._onConfirmRollSkill(html, skillKey, skillCategory)
+                    callback: html => this._onConfirmRollSkill(html, skillKey, skillCategory, vigorCost)
                 },
                 cancel: {
                     label: "Cancel"
@@ -1155,10 +1168,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }).render(true);
     }
 
-    async _onConfirmRollSkill(html, skillKey, skillCategory) {
+    async _onConfirmRollSkill(html, skillKey, skillCategory, vigorCost = 0) {
         const statsSkill = this.document.system.skills[skillCategory][skillKey].stats;
         const skillLevel = this.document.system.skills[skillCategory][skillKey].level;
-        const values = statsSkill.map(s => this.document.system.stats[s].CurrentValue || 0);
+        const values = statsSkill.map(s => {
+            if (skillKey === "Thaumaturgy" && s == "Constitution") {
+                return this.document.system.stats[s].MaxValue || 0;
+            }
+            return this.document.system.stats[s].CurrentValue || 0;
+        });
+
         const average = values.reduce((a, b) => a + b, 0) / values.length;
         const form = html[0].querySelector("form");
         const levelModifierValue = skillLevel * 5;
@@ -1178,6 +1197,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const testSign = Math.sign(valueTested - valueRolled);
         const testDegree = testSign * Math.floor(Math.abs(valueTested - valueRolled) / 10);
         const stringResponse = test ? "Success" : "Failure";
+
+        if (vigorCost > 0) {
+            const update = {};
+            update[`system.stats.Vigor.CurrentValue`] = this.document.system.stats["Vigor"].CurrentValue - vigorCost;
+            await this.document.update(update);
+        }
+
+
 
         const message = `
         <div class= "custom-skill-roll">
