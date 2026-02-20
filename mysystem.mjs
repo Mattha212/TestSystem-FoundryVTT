@@ -956,8 +956,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                     update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
                     update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength - 20;
                 }
-                update[`system.stats.${statKey}.CurrentValue`] = newValue;
-            }
+                
+            }update[`system.stats.${statKey}.CurrentValue`] = newValue;
         }
         await this.document.update(update);
     }
