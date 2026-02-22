@@ -994,7 +994,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.culture`] = culture;
         if (existingCultures.length > 0) {
             const updateCulture = {};
-            const existingCultureItem = game.items.find(i => i.name === existingCultures.name).toObject();
+            const existingCultureItem = game.items.find(i => i.name === existingCultures[0].name).toObject();
             existingCultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
@@ -1008,7 +1008,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         if (existingSubCulture.length > 0) {
             const updateSubCulture = {};
-            const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject();
+            const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture[0].name).toObject();
             existingSubCultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
@@ -1069,7 +1069,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         update[`system.subculture`] = subCulture;
         if (existingSubCulture.length > 0) {
             const updateSubCulture = {};
-            const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject();
+            const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture[0].name).toObject();
             existingSubCultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
