@@ -990,6 +990,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const culture = event.target.value;
         const existingCultures = this.document.items.filter(i => i.type === "Culture");
         const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
+        const update = {};
+        update[`system.culture`] = culture;
         if (existingCultures.length > 0) {
             await this.document.deleteEmbeddedDocuments("Item", existingCultures.map(i => i.id));
         }
@@ -1001,17 +1003,19 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             const cultureItem = game.items.find(i => i.name === culture).toObject();
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
-                this.document.system.stats[element.name].MaxValue -= statObject.BonusValue;
-                this.document.system.stats[element.name].CurrentValue -= statObject.BonusValue;
-                this.document.system.stats[element.name].BonusValue = element.changes[0].value;
-                this.document.system.stats[element.name].MaxValue += element.changes[0].value;
-                this.document.system.stats[element.name].CurrentValue += element.changes[0].value;
+                const newBonusValue = element.changes[0].value;
+                const newMaxValue = statObject.MaxValue - statObject.BonusValue + newBonusValue;
+                const newCurrentValue = statObject.CurrentValue - statObject.BonusValue + newBonusValue;
+
+                update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
+                update[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
+                update[`system.stats.${element.name}.BonusValue`] = newBonusValue;
 
             });
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
 
-        await this.document.update({ "system.culture": culture });
+        await this.document.update(update);
 
         const root = this.element;
         const subSelect = root.querySelector('select[name="system.subculture"]');
@@ -1038,6 +1042,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const subCulture = event.target.value;
         const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
+        const update = {};
+        update[`system.subculture`] = subCulture;
         if (existingSubCulture.length > 0) {
             await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i => i.id));
         }
@@ -1045,16 +1051,18 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             const cultureItem = game.items.find(i => i.name === subCulture).toObject();
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
-                this.document.system.stats[element.name].MaxValue -= statObject.BonusValue;
-                this.document.system.stats[element.name].CurrentValue -= statObject.BonusValue;
-                this.document.system.stats[element.name].BonusValue = element.changes[0].value;
-                this.document.system.stats[element.name].MaxValue += element.changes[0].value;
-                this.document.system.stats[element.name].CurrentValue += element.changes[0].value;
+                const newBonusValue = element.changes[0].value;
+                const newMaxValue = statObject.MaxValue - statObject.BonusValue + newBonusValue;
+                const newCurrentValue = statObject.CurrentValue - statObject.BonusValue + newBonusValue;
+
+                update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
+                update[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
+                update[`system.stats.${element.name}.BonusValue`] = newBonusValue;
 
             });
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
-        await this.document.update({ "system.subculture": subCulture });
+        await this.document.update(update);
     }
 
     async _OnModifyManeuverWeaponLinked(event) {
