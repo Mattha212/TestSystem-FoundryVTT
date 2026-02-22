@@ -990,11 +990,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const culture = event.target.value;
         const existingCultures = this.document.items.filter(i => i.type === "Culture");
         const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
+        const existingCultureItem = game.items.find(i => i.name === existingCultures.name).toObject(); 
+        const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject(); 
         const update = {};
         update[`system.culture`] = culture;
         if (existingCultures.length > 0) {
             const updateCulture = {};
-            existingCultures.effects.forEach(element =>{
+            existingCultureItem.effects.forEach(element =>{
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
@@ -1007,7 +1009,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         if (existingSubCulture.length > 0) {
             const updateSubCulture = {};
-            existingSubCulture.effects.forEach(element =>{
+            existingSubCultureItem.effects.forEach(element =>{
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
@@ -1062,11 +1064,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const subCulture = event.target.value;
         const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
+        const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject(); 
+
         const update = {};
         update[`system.subculture`] = subCulture;
         if (existingSubCulture.length > 0) {
             const updateSubCulture = {};
-            existingSubCulture.effects.forEach(element =>{
+            existingSubCultureItem.effects.forEach(element =>{
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
