@@ -1003,9 +1003,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             const cultureItem = game.items.find(i => i.name === culture).toObject();
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
-                const newBonusValue = element.changes[0].value;
-                const newMaxValue = statObject.MaxValue - statObject.BonusValue + newBonusValue;
-                const newCurrentValue = statObject.CurrentValue - statObject.BonusValue + newBonusValue;
+                const newBonusValue = Number(element.changes[0].value);
+                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue) + Number(newBonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue) + Number(newBonusValue);
 
                 update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
                 update[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
@@ -1051,9 +1051,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             const cultureItem = game.items.find(i => i.name === subCulture).toObject();
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
-                const newBonusValue = element.changes[0].value;
-                const newMaxValue = statObject.MaxValue - statObject.BonusValue + newBonusValue;
-                const newCurrentValue = statObject.CurrentValue - statObject.BonusValue + newBonusValue;
+                const newBonusValue = Number(element.changes[0].value);
+                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue) + Number(newBonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue) + Number(newBonusValue);
 
                 update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
                 update[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
