@@ -993,9 +993,29 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const update = {};
         update[`system.culture`] = culture;
         if (existingCultures.length > 0) {
+            const updateCulture = {};
+            existingCultures.effects.forEach(element =>{
+                const statObject = this.document.system.stats[element.name];
+                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
+                updateCulture[`system.stats.${element.name}.MaxValue`] = newMaxValue;
+                updateCulture[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
+                updateCulture[`system.stats.${element.name}.BonusValue`] = 0;
+            });
+            await this.document.update(updateCulture);
             await this.document.deleteEmbeddedDocuments("Item", existingCultures.map(i => i.id));
         }
         if (existingSubCulture.length > 0) {
+            const updateSubCulture = {};
+            existingSubCulture.effects.forEach(element =>{
+                const statObject = this.document.system.stats[element.name];
+                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
+                updateSubCulture[`system.stats.${element.name}.MaxValue`] = newMaxValue;
+                updateSubCulture[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
+                updateSubCulture[`system.stats.${element.name}.BonusValue`] = 0;
+            });
+            await this.document.update(updateSubCulture);
             await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i => i.id));
         }
 
@@ -1004,8 +1024,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newBonusValue = Number(element.changes[0].value);
-                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue) + Number(newBonusValue);
-                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue) + Number(newBonusValue);
+                const newMaxValue = Number(statObject.MaxValue)+Number(newBonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) + Number(newBonusValue);
 
                 update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
                 update[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
@@ -1045,6 +1065,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const update = {};
         update[`system.subculture`] = subCulture;
         if (existingSubCulture.length > 0) {
+            const updateSubCulture = {};
+            existingSubCulture.effects.forEach(element =>{
+                const statObject = this.document.system.stats[element.name];
+                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
+                updateSubCulture[`system.stats.${element.name}.MaxValue`] = newMaxValue;
+                updateSubCulture[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
+                updateSubCulture[`system.stats.${element.name}.BonusValue`] = 0;
+            });
+            await this.document.update(updateSubCulture);
             await this.document.deleteEmbeddedDocuments("Item", existingSubCulture.map(i => i.id));
         }
         if (subCulture.length > 0) {
@@ -1052,8 +1082,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newBonusValue = Number(element.changes[0].value);
-                const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue) + Number(newBonusValue);
-                const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue) + Number(newBonusValue);
+                const newMaxValue = Number(statObject.MaxValue)+ Number(newBonusValue);
+                const newCurrentValue = Number(statObject.CurrentValue) + Number(newBonusValue);
 
                 update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
                 update[`system.stats.${element.name}.CurrentValue`] = newCurrentValue;
