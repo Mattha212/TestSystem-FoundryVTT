@@ -1003,9 +1003,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 const statObject = this.document.system.stats[element.name];
                 this.document.system.stats[element.name].MaxValue -= statObject.BonusValue;
                 this.document.system.stats[element.name].CurrentValue -= statObject.BonusValue;
-                this.document.system.stats[element.name].BonusValue = element.changes.value;
-                this.document.system.stats[element.name].MaxValue += element.changes.value;
-                this.document.system.stats[element.name].CurrentValue += element.changes.value;
+                this.document.system.stats[element.name].BonusValue = element.changes[0].value;
+                this.document.system.stats[element.name].MaxValue += element.changes[0].value;
+                this.document.system.stats[element.name].CurrentValue += element.changes[0].value;
 
             });
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
@@ -1047,9 +1047,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 const statObject = this.document.system.stats[element.name];
                 this.document.system.stats[element.name].MaxValue -= statObject.BonusValue;
                 this.document.system.stats[element.name].CurrentValue -= statObject.BonusValue;
-                this.document.system.stats[element.name].BonusValue = element.changes.value;
-                this.document.system.stats[element.name].MaxValue += element.changes.value;
-                this.document.system.stats[element.name].CurrentValue += element.changes.value;
+                this.document.system.stats[element.name].BonusValue = element.changes[0].value;
+                this.document.system.stats[element.name].MaxValue += element.changes[0].value;
+                this.document.system.stats[element.name].CurrentValue += element.changes[0].value;
 
             });
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
