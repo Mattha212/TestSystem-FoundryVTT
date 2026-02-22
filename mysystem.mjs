@@ -482,7 +482,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     _onAttack(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.itemSkillkey;
-        const vigorCost =  target.dataset.vigorcost;
+        const vigorCost = target.dataset.vigorcost;
         const content = `
         <form class = "difficulty-Modifier-form">
             <div class = "difficulty-Modifier-group" >
@@ -815,7 +815,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             update[`system.stats.Vigor.CurrentValue`] = this.document.system.stats["Vigor"].CurrentValue - vigorCost;
             await this.document.update(update);
         }
-        
+
         const statDetails = statsSkill.map(s => {
             const val = this.document.system.stats[s]?.CurrentValue ?? 0;
             return `${s}(${val})`;
@@ -956,8 +956,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                     update[`system.stats.${"Agility"}.CurrentValue`] = MaxValueAgility - 20;
                     update[`system.stats.${"Strength"}.CurrentValue`] = MaxValueStrength - 20;
                 }
-                
-            }update[`system.stats.${statKey}.CurrentValue`] = newValue;
+
+            } update[`system.stats.${statKey}.CurrentValue`] = newValue;
         }
         await this.document.update(update);
     }
@@ -999,6 +999,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         if (culture.length > 0) {
             const cultureItem = game.items.find(i => i.name === culture).toObject();
+            cultureItem.effects.forEach(element => {
+                const statObject = this.document.system.stats[element.name];
+                this.document.system.stats[element.name].MaxValue -= statObject.BonusValue;
+                this.document.system.stats[element.name].CurrentValue -= statObject.BonusValue;
+                this.document.system.stats[element.name].BonusValue = element.changes.value;
+                this.document.system.stats[element.name].MaxValue += element.changes.value;
+                this.document.system.stats[element.name].CurrentValue += element.changes.value;
+
+            });
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
 
@@ -1018,6 +1027,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             subSelect.appendChild(opt);
         }
 
+
+
         this.getLifepathData();
     }
 
@@ -1032,6 +1043,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         if (subCulture.length > 0) {
             const cultureItem = game.items.find(i => i.name === subCulture).toObject();
+            cultureItem.effects.forEach(element => {
+                const statObject = this.document.system.stats[element.name];
+                this.document.system.stats[element.name].MaxValue -= statObject.BonusValue;
+                this.document.system.stats[element.name].CurrentValue -= statObject.BonusValue;
+                this.document.system.stats[element.name].BonusValue = element.changes.value;
+                this.document.system.stats[element.name].MaxValue += element.changes.value;
+                this.document.system.stats[element.name].CurrentValue += element.changes.value;
+
+            });
             await this.document.createEmbeddedDocuments("Item", [cultureItem]);
         }
         await this.document.update({ "system.subculture": subCulture });

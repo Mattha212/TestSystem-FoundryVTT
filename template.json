@@ -13,47 +13,56 @@
         "Strength": {
           "Label": "Strength",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Agility": {
           "Label": "Agility",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Dexterity": {
           "Label": "Dexterity",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Constitution": {
           "Label": "Constitution",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Charisme": {
           "Label": "Charisme",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Intelligence": {
           "Label": "Intelligence",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Perception": {
           "Label": "Perception",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Bravery": {
           "Label": "Bravery",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         },
         "Vigor": {
           "Label": "Vigor",
           "CurrentValue": 0,
-          "MaxValue": 0
+          "MaxValue": 0,
+          "BonusValue": 0
         }
       },
       "background": {
