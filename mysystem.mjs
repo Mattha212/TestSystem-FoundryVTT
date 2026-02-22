@@ -990,13 +990,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const culture = event.target.value;
         const existingCultures = this.document.items.filter(i => i.type === "Culture");
         const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
-        const existingCultureItem = game.items.find(i => i.name === existingCultures.name).toObject(); 
-        const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject(); 
         const update = {};
         update[`system.culture`] = culture;
         if (existingCultures.length > 0) {
             const updateCulture = {};
-            existingCultureItem.effects.forEach(element =>{
+            const existingCultureItem = game.items.find(i => i.name === existingCultures.name).toObject();
+            existingCultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
@@ -1009,7 +1008,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         }
         if (existingSubCulture.length > 0) {
             const updateSubCulture = {};
-            existingSubCultureItem.effects.forEach(element =>{
+            const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject();
+            existingSubCultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
@@ -1026,7 +1026,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newBonusValue = Number(element.changes[0].value);
-                const newMaxValue = Number(statObject.MaxValue)+Number(newBonusValue);
+                const newMaxValue = Number(statObject.MaxValue) + Number(newBonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) + Number(newBonusValue);
 
                 update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
@@ -1064,13 +1064,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const subCulture = event.target.value;
         const existingSubCulture = this.document.items.filter(i => i.type === "Subculture");
-        const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject(); 
 
         const update = {};
         update[`system.subculture`] = subCulture;
         if (existingSubCulture.length > 0) {
             const updateSubCulture = {};
-            existingSubCultureItem.effects.forEach(element =>{
+            const existingSubCultureItem = game.items.find(i => i.name === existingSubCulture.name).toObject();
+            existingSubCultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newMaxValue = Number(statObject.MaxValue) - Number(statObject.BonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) - Number(statObject.BonusValue)
@@ -1086,7 +1086,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             cultureItem.effects.forEach(element => {
                 const statObject = this.document.system.stats[element.name];
                 const newBonusValue = Number(element.changes[0].value);
-                const newMaxValue = Number(statObject.MaxValue)+ Number(newBonusValue);
+                const newMaxValue = Number(statObject.MaxValue) + Number(newBonusValue);
                 const newCurrentValue = Number(statObject.CurrentValue) + Number(newBonusValue);
 
                 update[`system.stats.${element.name}.MaxValue`] = newMaxValue;
