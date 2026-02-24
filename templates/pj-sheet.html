@@ -180,7 +180,6 @@
                         <li class="item" data-item-id="{{this.id}}">
                             <span>Bare Hands</span>
                             <span>0</span>
-
                             <span class="weapon-efficiency">
                                 <div>Textile: 0</div>
                                 <div>Fluide: 0</div>
@@ -192,9 +191,13 @@
                             <span>0</span>
                             <div class="item-actions">
                                 <button type="button" data-action="attack"
-                                    data-item-skillkey="Brawling">Attack</button>
+                                    data-item-skillkey="{{this.system.skill}}">Attack</button>
                                 <button type="button" data-action="defense"
-                                    data-item-skillkey="Brawling">Defense</button>
+                                    data-item-skillkey="{{this.system.skill}}">Defense</button>
+                                <button type="button" data-action="equipWeapon"
+                                    data-item-id="{{this.id}}">Equip</button>
+                                <button type="button" data-action="unequipWeapon"
+                                    data-item-id="{{this.id}}">Unequip</button>
                             </div>
                         </li>
 
@@ -359,7 +362,8 @@
 
                                 <div class="item-actions">
                                     {{#if this.system.rollable}}
-                                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}" data-vigorCost="{{this.system.cost}}">
+                                    <button type="button" data-action="maneuver" data-item-id="{{this.id}}"
+                                        data-vigorCost="{{this.system.cost}}">
                                         Perform
                                     </button>
                                     {{/if}}
