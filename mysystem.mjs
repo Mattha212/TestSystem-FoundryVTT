@@ -69,7 +69,7 @@ class PJActorAPI extends Actor {
 
     static async onUnequipWeapon(actor) {
         const update = {};
-        update[`system.equipment.Weapon`] = { "id": "", "efficiency": { "textile": 0, "fluide": 0, "solid": 0 }, "bulk": 0, "reach": 0 };
+        update[`system.equipment.Weapon`] = { "id": "", "efficiency": { "textile": 0, "fluide": 0, "solid": 0 }, "bulk": 0, "reach": 0, "skill": "Brawling" };
         await actor.update(update);
         await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
@@ -878,8 +878,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const maneuverId = target.dataset.itemId;
         const maneuver = this.document.items.get(maneuverId);
         const schoolOfManeuver = game.items.filter(i => i.type === "Fighting School" && i.name === maneuver.system.school)[0];
-
-        if (weaponLinked.id.length === 0) return;
         const weaponSkill = weaponLinked.skill;
         target.dataset.itemSkillkey = weaponSkill;
         let content;
