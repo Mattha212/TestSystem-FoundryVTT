@@ -91,6 +91,17 @@ border-radius: 8px;
   gap: 20px 0;
 }
 
+.testsystem.actor.sheet .trait-list {
+  display: grid;
+  grid-template-rows: repeat(5, auto); 
+  grid-auto-flow: column;             
+  grid-auto-columns: max-content;
+  gap: 4px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .testsystem.actor.sheet .sheet-stats{
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
