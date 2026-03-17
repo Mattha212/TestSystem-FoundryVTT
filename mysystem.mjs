@@ -120,6 +120,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             skillRoll: this.#_OnRollSkill,
             printItem: this.#_OnPrintItem,
             changeTab: this._onClickTab,
+            editImage: this._onEditImage,
             deleteItem: function (event, target) { this._onDeleteItem(event, target); },
             equipArmor: function (event, target) { this._onEquipArmor(event, target); },
             unequipArmor: function (event, target) { PJActorAPI.onUnEquipArmor(target, this.actor); },
@@ -247,6 +248,17 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         this.tabGroups[group] = tab;
         this.render();
+    }
+
+    static async _onEditImage(event, target) {
+        if (!this.isEditable) return;
+
+        const fp = new FilePicker({
+            type: "image",
+            current: this.actor.img,
+            callback: path => this.actor.update({ img: path }),
+        });
+        fp.browse();
     }
 
     async _prepareContext(options) {
