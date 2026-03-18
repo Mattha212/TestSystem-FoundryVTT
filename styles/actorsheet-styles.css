@@ -380,6 +380,7 @@ width: 50px;
 
 .testsystem.actor.sheet .beginning,
 .testsystem.actor.sheet .highlight,
+.testsystem.actor.sheet .experience,
 .testsystem.actor.sheet .background {
   padding: 8px;
   border: 1px solid #aaa5;

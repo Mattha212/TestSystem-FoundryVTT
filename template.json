@@ -9,6 +9,7 @@
       "age": 0,
       "culture": "",
       "subculture": "",
+      "experience": 0,
       "stats": {
         "Strength": {
           "Label": "Strength",
@@ -72,6 +73,7 @@
         "familyFate": "",
         "CrucialChildhoodEvent": "",
         "ChildhoodMemory": "",
+        "religion": "",
         "highlights": [],
         "story": ""
       },
