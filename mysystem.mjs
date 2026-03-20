@@ -2321,8 +2321,11 @@ class SpellSystemSheet extends NonObjectItemsSheet {
 class SpellSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 800,
+        position: {
+            width: 400,
+            height: 800
+        }
+        ,
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
