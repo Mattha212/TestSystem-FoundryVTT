@@ -101,8 +101,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "actor"],
         position: {
-            width: 1000,
-            height: 600,
+            width: 1330,
+            height: 1230,
         },
         tag: 'form',
         form: {
