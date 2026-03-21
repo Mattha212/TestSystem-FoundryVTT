@@ -1,7 +1,10 @@
 <div class="fightingSchool-sheet">
+    <section class="object-header">
     <h2>
         <input type="text" name="name" value="{{item.name}}" />
     </h2>
+    </section>
+    <section class="object-body">
     <button type="button" data-action="addSkills">Add skill</button>
     {{#each system.skillsAllowed as |allowed index|}}
         <li class="item">
@@ -17,4 +20,5 @@
         </select>
         <button type="button" data-action="removeSkill" data-skill-name="{{this}}">Remove Skill</button>
     {{/each}}
+    </section>
     </div>

@@ -1,20 +1,24 @@
 <div class="culture-sheet">
-    <h2>
-        <input type="text" name="name" value="{{item.name}}" />
-    </h2>
-    <div>
-        <label>System</label>
-        <textarea name="system.description">{{system.description}}</textarea>
-    </div>
-    <div>
-        <label>Effects</label>
-        <button type="button" class="add-effect">Add effect</button>
-        {{#each effects}}
-        <li>
-            <span>{{this.name}}</span>
-            <button type="button" class="edit-effect" data-effect-id="{{this.id}}">Edit effect</button>
-            <button type="button" class="remove-effect" data-effect-id="{{this.id}}">Remove effect</button>
-        </li>
-        {{/each}}
-    </div>
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+    <section class="object-body">
+        <div>
+            <label>System</label>
+            <textarea name="system.description">{{system.description}}</textarea>
+        </div>
+        <div>
+            <label>Effects</label>
+            <button type="button" class="add-effect">Add effect</button>
+            {{#each effects}}
+            <li>
+                <span>{{this.name}}</span>
+                <button type="button" class="edit-effect" data-effect-id="{{this.id}}">Edit effect</button>
+                <button type="button" class="remove-effect" data-effect-id="{{this.id}}">Remove effect</button>
+            </li>
+            {{/each}}
+        </div>
+    </section>
 </div>

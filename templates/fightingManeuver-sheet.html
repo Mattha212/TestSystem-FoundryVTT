@@ -1,30 +1,31 @@
 <div class="fightingManeuver-sheet">
-    <h2>
-        <input type="text" name="name" value="{{item.name}}" />
-    </h2>
-    <div>
-        <label>School</label>
-        <select name="system.school">
-            <option value="">Select a fighting school</option>
-            {{#each schools}}
-                <option value="{{this.name}}" {{#if (eq ../system.school this.name)}}selected{{/if}}>{{this.name}}</option>
-            {{/each}}
-        </select>
-    </div>
-    <div>
-        <label>Cost</label>
-        <input type ="number" name="system.cost" value="{{system.cost}}"/>
-    </div>
-    <div>
-        <label>System</label>
-         <textarea name="system.functionnement">{{system.functionnement}}</textarea>
-    </div>
-    <div>
-        <label>Rollable</label>
-        <input
-        type="checkbox"
-        name="system.rollable"
-        data-dtype="Boolean"
-        {{checked system.rollable}}>
-    </div>
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+    <section class="object-body">
+        <div>
+            <label>School</label>
+            <select name="system.school">
+                <option value="">Select a fighting school</option>
+                {{#each schools}}
+                <option value="{{this.name}}" {{#if (eq ../system.school this.name)}}selected{{/if}}>{{this.name}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div>
+            <label>Cost</label>
+            <input type="number" name="system.cost" value="{{system.cost}}" />
+        </div>
+        <div>
+            <label>System</label>
+            <textarea name="system.functionnement">{{system.functionnement}}</textarea>
+        </div>
+        <div>
+            <label>Rollable</label>
+            <input type="checkbox" name="system.rollable" data-dtype="Boolean" {{checked system.rollable}}>
+        </div>
+    </section>
 </div>
