@@ -1856,8 +1856,8 @@ class ContainerSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         position: {
-            width: 400,
-            height: 300
+            width: 670,
+            height: 680
         },
         tag: 'form',
         form: {
@@ -2268,7 +2268,7 @@ class ContainerSheet extends ObjectsItemsSheet {
                 "system.contents": targetContents
             });
         }
-        await actor.deleteEmbeddedDocuments("item", originTransfer);
+        await actor.deleteEmbeddedDocuments("Item", [originTransfer]);
         await PJActorAPI.UpdateAllContainers(actor);
 
     }
