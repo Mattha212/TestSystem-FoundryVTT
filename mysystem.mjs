@@ -2268,6 +2268,7 @@ class ContainerSheet extends ObjectsItemsSheet {
                 "system.contents": targetContents
             });
         }
+        await actor.deleteEmbeddedDocuments("item", originTransfer);
         await PJActorAPI.UpdateAllContainers(actor);
 
     }
