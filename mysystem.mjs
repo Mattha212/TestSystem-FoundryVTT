@@ -1526,8 +1526,10 @@ class SubcultureSheet extends NonObjectItemsSheet {
 class FightingSchoolSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1600,8 +1602,10 @@ class FightingSchoolSheet extends NonObjectItemsSheet {
 class FightingManeuverSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 500
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1632,8 +1636,10 @@ class ObjectSheet extends ObjectsItemsSheet {
 
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1655,8 +1661,10 @@ class ObjectSheet extends ObjectsItemsSheet {
 class AmmunitionSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1678,8 +1686,10 @@ class AmmunitionSheet extends ObjectsItemsSheet {
 class ShieldSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1702,8 +1712,10 @@ class ShieldSheet extends ObjectsItemsSheet {
 class ArmorSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1726,8 +1738,10 @@ class ArmorSheet extends ObjectsItemsSheet {
 class WeaponSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1773,8 +1787,10 @@ class WeaponSheet extends ObjectsItemsSheet {
 class RangedWeaponSheet extends WeaponSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1797,8 +1813,10 @@ class RangedWeaponSheet extends WeaponSheet {
 class ThrownWeaponSheet extends WeaponSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1837,8 +1855,10 @@ class ContainerItemAPI extends Item {
 class ContainerSheet extends ObjectsItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -2256,8 +2276,10 @@ class ContainerSheet extends ObjectsItemsSheet {
 class SpellSystemSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2431,8 +2453,10 @@ class LifePathInfoSheet extends InfoSheet {
 class FamilyStandingSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2457,8 +2481,10 @@ class FamilyStandingSheet extends LifePathInfoSheet {
 class ParentMishapsSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2482,8 +2508,10 @@ class ParentMishapsSheet extends LifePathInfoSheet {
 class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2507,8 +2535,10 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
 class ChildhoodMemorySheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2532,8 +2562,10 @@ class ChildhoodMemorySheet extends LifePathInfoSheet {
 class StrokeofFortuneSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2557,8 +2589,10 @@ class StrokeofFortuneSheet extends LifePathInfoSheet {
 class StrokeofTragedySheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2582,8 +2616,10 @@ class StrokeofTragedySheet extends LifePathInfoSheet {
 class FatefulEncounterSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2607,8 +2643,10 @@ class FatefulEncounterSheet extends LifePathInfoSheet {
 class DramaticEncounterSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
@@ -2632,8 +2670,10 @@ class DramaticEncounterSheet extends LifePathInfoSheet {
 class RomanceSheet extends LifePathInfoSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
-        width: 400,
-        height: 300,
+        position: {
+            width: 400,
+            height: 300
+        },
         tag: 'form',
         form: {
             submitOnChange: false,
