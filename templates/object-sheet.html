@@ -8,10 +8,6 @@
 
     <section class="object-body">
         <div>
-            <label>Description</label>
-            <textarea name="system.description">{{system.description}}</textarea>
-        </div>
-        <div>
             <label>Weight</label>
             <input type="number" name="system.weight" value="{{system.weight}}"/>
             <label>Cost</label>
@@ -23,5 +19,9 @@
                 <option value="{{value}}" {{#if (eq ../system.size (toNumber value))}}selected{{/if}}>{{label}}</option>
             {{/each}}
         </select>
+                <div>
+            <label>Description</label>
+            <textarea name="system.description">{{system.description}}</textarea>
+        </div>
     </section>
 </div>

@@ -1663,7 +1663,7 @@ class AmmunitionSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 360
         },
         tag: 'form',
         form: {
@@ -1714,7 +1714,7 @@ class ArmorSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 650
         },
         tag: 'form',
         form: {
@@ -1740,7 +1740,7 @@ class WeaponSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1000
         },
         tag: 'form',
         form: {
