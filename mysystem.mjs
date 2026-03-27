@@ -2456,7 +2456,7 @@ class FamilyStandingSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2484,7 +2484,7 @@ class ParentMishapsSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2511,7 +2511,7 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 660
         },
         tag: 'form',
         form: {
@@ -2538,7 +2538,7 @@ class ChildhoodMemorySheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2565,7 +2565,7 @@ class StrokeofFortuneSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2592,7 +2592,7 @@ class StrokeofTragedySheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2619,7 +2619,7 @@ class FatefulEncounterSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2646,7 +2646,7 @@ class DramaticEncounterSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 1070
         },
         tag: 'form',
         form: {
@@ -2673,7 +2673,7 @@ class RomanceSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 660
         },
         tag: 'form',
         form: {
