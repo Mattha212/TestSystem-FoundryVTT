@@ -1450,7 +1450,7 @@ class TraitSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300,
+        height: "auto",
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1473,7 +1473,7 @@ class CultureSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300,
+        height: "auto",
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1496,7 +1496,7 @@ class SubcultureSheet extends NonObjectItemsSheet {
     static DEFAULT_OPTIONS = {
         classes: ["testsystem", "sheet", "item"],
         width: 400,
-        height: 300,
+        height: "auto",
         tag: 'form',
         form: {
             handler: this.onSubmitForm,
@@ -1528,7 +1528,7 @@ class FightingSchoolSheet extends NonObjectItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1604,7 +1604,7 @@ class FightingManeuverSheet extends NonObjectItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 500
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1638,7 +1638,7 @@ class ObjectSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1663,7 +1663,7 @@ class AmmunitionSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 360
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1688,7 +1688,7 @@ class ShieldSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1714,7 +1714,7 @@ class ArmorSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 650
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1740,7 +1740,7 @@ class WeaponSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 1000
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1789,7 +1789,7 @@ class RangedWeaponSheet extends WeaponSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1815,7 +1815,7 @@ class ThrownWeaponSheet extends WeaponSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -1857,7 +1857,7 @@ class ContainerSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 670,
-            height: 680
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2279,7 +2279,7 @@ class SpellSystemSheet extends NonObjectItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2346,7 +2346,7 @@ class SpellSheet extends NonObjectItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 800
+            height: "auto"
         }
         ,
         tag: 'form',
@@ -2456,7 +2456,7 @@ class FamilyStandingSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2484,7 +2484,7 @@ class ParentMishapsSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2511,7 +2511,7 @@ class CrucialChildhoodMomentSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2538,7 +2538,7 @@ class ChildhoodMemorySheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2565,7 +2565,7 @@ class StrokeofFortuneSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2592,7 +2592,7 @@ class StrokeofTragedySheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2619,7 +2619,7 @@ class FatefulEncounterSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2646,7 +2646,7 @@ class DramaticEncounterSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
@@ -2673,7 +2673,7 @@ class RomanceSheet extends LifePathInfoSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: "auto"
         },
         tag: 'form',
         form: {
