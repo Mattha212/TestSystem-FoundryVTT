@@ -1688,7 +1688,7 @@ class ShieldSheet extends ObjectsItemsSheet {
         classes: ["testsystem", "sheet", "item"],
         position: {
             width: 400,
-            height: 300
+            height: 600
         },
         tag: 'form',
         form: {
