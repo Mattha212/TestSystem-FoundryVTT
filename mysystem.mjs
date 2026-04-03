@@ -765,11 +765,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         </div>
         `;
         const rollMode = game.settings.get("core", "rollMode");
-        
+
         const messageData = ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-
             content: message,
             rolls: [roll],
         },
@@ -887,8 +885,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const messageData = ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-
             content: message,
             rolls: [roll],
         },
@@ -1212,8 +1208,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const messageData = ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-
             content: message,
             rolls: [roll],
         }, rollMode)
@@ -1302,8 +1296,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const messageData = ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-
             content: message,
             rolls: [roll],
         }, rollMode)
@@ -1325,7 +1317,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         const messageData = ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             content: message,
         }, rollMode)
 
