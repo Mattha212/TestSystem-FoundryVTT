@@ -764,12 +764,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
-
-        await ChatMessage.create({
+        const rollMode = game.settings.get("core","rollMode");
+        await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             content: message,
             rolls: [roll],
-        })
+        },
+        rollMode);
     }
 
     _onDefense(event, target) {
@@ -877,12 +878,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
+        const rollMode = game.settings.get("core", "rollMode");
 
-        await ChatMessage.create({
+        await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             content: message,
             rolls: [roll],
-        })
+        },
+        rollMode);
     }
 
     _onPerformManeuver(event, target) {
@@ -1196,12 +1199,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
+        const rollMode = game.settings.get("core", "rollMode");
 
-        await ChatMessage.create({
+        await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             content: message,
             rolls: [roll],
-        })
+        },rollMode)
 
         if (test) {
             ui.notifications.info(`il se passe des trucs`);
@@ -1288,12 +1292,13 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
+        const rollMode = game.settings.get("core", "rollMode");
 
-        await ChatMessage.create({
+        await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             content: message,
             rolls: [roll],
-        })
+        }, rollMode)
 
         if (test) {
             ui.notifications.info(`il se passe des trucs`);
@@ -1313,11 +1318,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>${item.system.description}</p>
         </div>
         `;
+        const rollMode = game.settings.get("core", "rollMode");
 
-        await ChatMessage.create({
+        await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             content: message,
-        })
+        }, rollMode)
     }
 
     async _onAddHighlight(event, target) {
