@@ -31,7 +31,7 @@
             <ol class="trait-list">
                 {{#each traits}}
                 <li class="trait" data-item-id="{{this.id}}">
-                    <span class="trait-name">{{this.name}}</span>
+                    <span class="trait-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                     <button type="button" class="delete-trait" data-action="deleteTrait"
                         data-trait-id="{{this.id}}">Remove trait</button>
                 </li>
@@ -194,10 +194,6 @@
                                     data-item-skillkey="Brawling">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
-                                <button type="button" data-action="equipWeapon"
-                                    data-item-id="{{this.id}}">Equip</button>
-                                <button type="button" data-action="unequipWeapon"
-                                    data-item-id="{{this.id}}">Unequip</button>
                             </div>
                         </li>
 

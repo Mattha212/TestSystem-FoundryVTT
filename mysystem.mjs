@@ -116,11 +116,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         },
         actions: {
             deleteTrait: this.#_onRemoveTrait,
-            statRoll: this.#_onRollStat,
-            skillRoll: this.#_OnRollSkill,
-            printItem: this.#_OnPrintItem,
-            changeTab: this._onClickTab,
-            editImage: this._onEditImage,
+            statRoll: function (event, target) { this._onRollStat(event, target); },
+            skillRoll: function (event, target) { this._OnRollSkill(event, target); },
+            printItem: function (event, target) { this._OnPrintItem(event, target); },
+            changeTab: function (event, target) { this._onClickTab(event, target); },
+            editImage: function (event, target) { this._onEditImage(event, target); },
             deleteItem: function (event, target) { this._onDeleteItem(event, target); },
             equipArmor: function (event, target) { this._onEquipArmor(event, target); },
             unequipArmor: function (event, target) { PJActorAPI.onUnEquipArmor(target, this.actor); },
@@ -1141,7 +1141,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await item.update(update);
     }
 
-    static async #_OnPrintItem(event, target) {
+    static async _OnPrintItem(event, target) {
         event.preventDefault();
 
         const itemId = target.dataset.itemId;
@@ -1149,7 +1149,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         itemDoc.sheet.render(true);
     }
 
-    static async #_onRollStat(event, target) {
+    static async _onRollStat(event, target) {
         event.preventDefault();
         const statKey = target.dataset.stat;
         const stat = this.document.system.stats[statKey];
@@ -1215,7 +1215,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await ChatMessage.create(messageData);
     }
 
-    static async #_OnRollSkill(event, target) {
+    static async _OnRollSkill(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.skillkey;
         const skillCategory = target.dataset.category;
