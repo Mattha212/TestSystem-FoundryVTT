@@ -764,13 +764,15 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         <p>Success Degree: ${testDegree} </p>
         </div>
         `;
-        const rollMode = game.settings.get("core","rollMode");
+        const rollMode = game.settings.get("core", "rollMode");
         await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+
             content: message,
             rolls: [roll],
         },
-        rollMode);
+            rollMode);
     }
 
     _onDefense(event, target) {
@@ -882,10 +884,12 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+
             content: message,
             rolls: [roll],
         },
-        rollMode);
+            rollMode);
     }
 
     _onPerformManeuver(event, target) {
@@ -1203,9 +1207,11 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+
             content: message,
             rolls: [roll],
-        },rollMode)
+        }, rollMode)
 
         if (test) {
             ui.notifications.info(`il se passe des trucs`);
@@ -1296,6 +1302,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
         await ChatMessage.applyRollMode({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+
             content: message,
             rolls: [roll],
         }, rollMode)
@@ -1321,7 +1329,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const rollMode = game.settings.get("core", "rollMode");
 
         await ChatMessage.applyRollMode({
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }), 
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             content: message,
         }, rollMode)
     }
