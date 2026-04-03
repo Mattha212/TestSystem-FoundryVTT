@@ -239,7 +239,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     }
 
 
-    static _onClickTab(event) {
+    _onClickTab(event) {
         event.preventDefault();
 
         const target = event.target;
@@ -250,7 +250,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this.render();
     }
 
-    static async _onEditImage(event, target) {
+    async _onEditImage(event, target) {
         if (!this.isEditable) return;
 
         const fp = new FilePicker({
@@ -1141,7 +1141,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await item.update(update);
     }
 
-    static async _OnPrintItem(event, target) {
+    async _OnPrintItem(event, target) {
         event.preventDefault();
 
         const itemId = target.dataset.itemId;
@@ -1149,7 +1149,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         itemDoc.sheet.render(true);
     }
 
-    static async _onRollStat(event, target) {
+    async _onRollStat(event, target) {
         event.preventDefault();
         const statKey = target.dataset.stat;
         const stat = this.document.system.stats[statKey];
@@ -1215,7 +1215,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await ChatMessage.create(messageData);
     }
 
-    static async _OnRollSkill(event, target) {
+    async _OnRollSkill(event, target) {
         event.preventDefault();
         const skillKey = target.dataset.skillkey;
         const skillCategory = target.dataset.category;
