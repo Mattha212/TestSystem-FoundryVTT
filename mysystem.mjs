@@ -447,7 +447,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 await this.document.deleteEmbeddedDocuments("Item", [elementId]);
             }
         }
-
         await this.document.deleteEmbeddedDocuments("Item", [itemToRemoveId]);
         await PJActorAPI.onUpdateWeight(this.actor);
     }
@@ -460,16 +459,18 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemtoObject = this.document.items.get(itemId).toObject();
         const oldObjectId = this.document.system.equipment[itemType].id;
         const oldObject = this.document.items.get(oldObjectId);
-        const update = {};  const updateArmor = {}; const updateOlArmor = {}; 
+        const update = {}; const updateArmor = {}; const updateOlArmor = {};
         update[`system.equipment.${itemType}.id`] = itemId;
         update[`system.equipment.${itemType}.protection`] = itemtoObject.system.protection;
         update[`system.equipment.${itemType}.bulk`] = itemtoObject.system.bulk;
         update[`system.equipment.${itemType}.type`] = itemtoObject.system.type;
         updateArmor[`system.equipped`] = true;
-        updateOlArmor[`system.equipped`] =false;
+        updateOlArmor[`system.equipped`] = false;
         await this.document.update(update);
         await item.update(updateArmor);
-        await oldObject.update(updateOlArmor);
+        if (oldObject) {
+            await oldObject.update(updateOlArmor);
+        }
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
@@ -491,7 +492,9 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         updateOldWeapon[`system.equipped`] = false;
         await this.document.update(update);
         await item.update(updateWeapon);
-        await oldWeapon.update(updateOldWeapon);
+        if (oldWeapon) {
+            await oldWeapon.update(updateOldWeapon);
+        }
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
