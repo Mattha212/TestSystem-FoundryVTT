@@ -410,6 +410,7 @@
                 <div class="spell-category">Catalyst Spells
                     <div class="categories">
                         <span>Name</span>
+                        <span>Level</span>
                         <span>Reach</span>
                         <span>Cost</span>
                     </div>
@@ -417,6 +418,7 @@
                 {{#each catalystSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-level">{{this.system.level}}</span>
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"
@@ -431,6 +433,7 @@
                 <div class="spell-category">Runesmith Spells
                     <div class="categories">
                         <span>Name</span>
+                        <span>Level</span>
                         <span>Reach</span>
                         <span>Cost</span>
                     </div>
@@ -438,6 +441,7 @@
                 {{#each runesmithSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-level">{{this.system.level}}</span>
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"
@@ -452,6 +456,7 @@
                 <div class="spell-category">Thaumaturge Spells
                     <div class="categories">
                         <span>Name</span>
+                        <span>Level</span>
                         <span>Reach</span>
                         <span>Cost</span>
                     </div>
@@ -459,6 +464,7 @@
                 {{#each thaumaturgeSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-level">{{this.system.level}}</span>
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"
@@ -473,6 +479,7 @@
                 <div class="spell-category">Words of Power Spells
                     <div class="categories">
                         <span>Name</span>
+                        <span>Level</span>
                         <span>Reach</span>
                         <span>Cost</span>
                     </div>
@@ -480,6 +487,7 @@
                 {{#each wordsOfPowerSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span class="spell-level">{{this.system.level}}</span>
                     <span class="spell-reach">{{this.system.reach}}</span>
                     <span class="spell-cost">{{this.system.vigorCost}}</span>
                     <button type="button" data-action="skillRoll" data-category="Restricted"

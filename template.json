@@ -245,6 +245,7 @@
       "spellType": "",
       "school": "",
       "prerequisite": "",
+      "level":0,
       "reach": 0,
       "vigorCost": 0,
       "description": ""
