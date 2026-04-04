@@ -70,7 +70,7 @@ class PJActorAPI extends Actor {
     static async onUnequipWeapon(actor, target) {
         const update = {}; const updateWeapon = {};
         const weaponId = target.dataset.itemId;
-        const weaponObject = actor.items.filter(i => i.id === weaponId);
+        const weaponObject = actor.items.get(weaponId);
         update[`system.equipment.Weapon`] = { "id": "", "efficiency": { "textile": 0, "fluide": 0, "solid": 0 }, "bulk": 0, "reach": 0, "skill": "Brawling", "equipped": false };
         updateWeapon[`system.equipped`] = false;
         await actor.update(update);
@@ -82,7 +82,7 @@ class PJActorAPI extends Actor {
         const itemType = target.dataset.itemType;
         const update = {};
         const armorId = target.dataset.itemId;
-        const weaponObject = actor.items.filter(i => i.id === armorId);
+        const weaponObject = actor.items.get(armorId);
         update[`system.equipment.${itemType}`] = { "id": "", "protection": 0, "bulk": 0, "type": "" };
         updateWeapon[`system.equipped`] = false;
         await actor.update(update);
