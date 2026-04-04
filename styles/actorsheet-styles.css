@@ -600,27 +600,31 @@ width: 50px;
     cursor: pointer;
 }
 
-.testsystem.actor.sheet .derangement {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.derangement {
+  padding: 8px;
+  border: 1px solid #aaa5;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-
-.testsystem.actor.sheet .derangement h3 {
-    font-weight: bold;
-    margin-bottom: 4px;
+.derangement-row input {
+    width: 100%;
+    text-align: center;
 }
-
-.testsystem.actor.sheet .derangement-row {
+.derangement .derangement-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 60px;
+    grid-template-columns: 0.18fr 0.1fr 0.1fr;
     align-items: center;
     gap: 8px;
     padding: 3px 0;
     border-bottom: 1px solid #aaa5;
 }
-
-.testsystem.actor.sheet .derangement-row input {
-    width: 100%;
-    text-align: center;
+.derangement .category{
+    display: grid;
+    grid-template-columns: 0.18fr 0.1fr 0.1fr;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
 }
