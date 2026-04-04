@@ -456,18 +456,19 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
-        const object = this.document.items.get(itemId).toObject();
+        const item = this.document.items.get(itemId);
+        const itemtoObject = this.document.items.get(itemId).toObject();
         const oldObjectId = this.document.system.equipment[itemType].id;
-        const oldObject = this.document.items.get(oldObjectId).toObject();
+        const oldObject = this.document.items.get(oldObjectId);
         const update = {};  const updateArmor = {}; const updateOlArmor = {}; 
         update[`system.equipment.${itemType}.id`] = itemId;
-        update[`system.equipment.${itemType}.protection`] = object.system.protection;
-        update[`system.equipment.${itemType}.bulk`] = object.system.bulk;
-        update[`system.equipment.${itemType}.type`] = object.system.type;
+        update[`system.equipment.${itemType}.protection`] = itemtoObject.system.protection;
+        update[`system.equipment.${itemType}.bulk`] = itemtoObject.system.bulk;
+        update[`system.equipment.${itemType}.type`] = itemtoObject.system.type;
         updateArmor[`system.equipped`] = true;
         updateOlArmor[`system.equipped`] =false;
         await this.document.update(update);
-        await object.update(updateArmor);
+        await item.update(updateArmor);
         await oldObject.update(updateOlArmor);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
@@ -475,21 +476,22 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
     async _onEquipWeapon(event, target) {
         event.preventDefault();
         const itemId = target.dataset.itemId;
-        const object = this.document.items.get(itemId).toObject();
+        const item = this.document.items.get(itemId);
+        const itemtoObject = this.document.items.get(itemId).toObject();
         const update = {}; const updateWeapon = {}; const updateOldWeapon = {};
         const oldWeaponId = this.document.system.equipment.Weapon.id;
-        const oldWeaponObject = this.document.items.get(oldWeaponId).toObject();
+        const oldWeapon = this.document.items.get(oldWeaponId);
         update[`system.equipment.Weapon.id`] = itemId;
-        update[`system.equipment.Weapon.efficiency`] = object.system.efficiency;
-        update[`system.equipment.Weapon.bulk`] = object.system.bulk;
-        update[`system.equipment.Weapon.type`] = object.system.type;
-        update[`system.equipment.Weapon.reach`] = object.system.reach;
-        update[`system.equipment.Weapon.skill`] = object.system.skill;
+        update[`system.equipment.Weapon.efficiency`] = itemtoObject.system.efficiency;
+        update[`system.equipment.Weapon.bulk`] = itemtoObject.system.bulk;
+        update[`system.equipment.Weapon.type`] = itemtoObject.system.type;
+        update[`system.equipment.Weapon.reach`] = itemtoObject.system.reach;
+        update[`system.equipment.Weapon.skill`] = itemtoObject.system.skill;
         updateWeapon[`system.equipped`] = true;
         updateOldWeapon[`system.equipped`] = false;
         await this.document.update(update);
-        await object.update(updateWeapon);
-        await oldWeaponObject.update(updateOldWeapon);
+        await item.update(updateWeapon);
+        await oldWeapon.update(updateOldWeapon);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
