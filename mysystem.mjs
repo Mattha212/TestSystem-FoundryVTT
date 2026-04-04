@@ -80,7 +80,7 @@ class PJActorAPI extends Actor {
 
     static async onUnEquipArmor(target, actor) {
         const itemType = target.dataset.itemType;
-        const update = {};
+        const update = {}; const updateWeapon = {};
         const armorId = target.dataset.itemId;
         const weaponObject = actor.items.get(armorId);
         update[`system.equipment.${itemType}`] = { "id": "", "protection": 0, "bulk": 0, "type": "" };
