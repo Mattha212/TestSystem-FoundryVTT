@@ -67,18 +67,26 @@ class PJActorAPI extends Actor {
         await actor.update(update);
     }
 
-    static async onUnequipWeapon(actor) {
-        const update = {};
-        update[`system.equipment.Weapon`] = { "id": "", "efficiency": { "textile": 0, "fluide": 0, "solid": 0 }, "bulk": 0, "reach": 0, "skill": "Brawling" };
+    static async onUnequipWeapon(actor, target) {
+        const update = {}; const updateWeapon = {};
+        const weaponId = target.dataset.itemId;
+        const weaponObject = actor.items.filter(i => i.id === weaponId);
+        update[`system.equipment.Weapon`] = { "id": "", "efficiency": { "textile": 0, "fluide": 0, "solid": 0 }, "bulk": 0, "reach": 0, "skill": "Brawling", "equipped": false };
+        updateWeapon[`system.equipped`] = false;
         await actor.update(update);
+        await weaponObject.update(updateWeapon);
         await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
 
     static async onUnEquipArmor(target, actor) {
         const itemType = target.dataset.itemType;
         const update = {};
+        const armorId = target.dataset.itemId;
+        const weaponObject = actor.items.filter(i => i.id === armorId);
         update[`system.equipment.${itemType}`] = { "id": "", "protection": 0, "bulk": 0, "type": "" };
+        updateWeapon[`system.equipped`] = false;
         await actor.update(update);
+        await weaponObject.update(updateWeapon);
         await PJActorAPI.onUpdateProtectionAndBulk(actor);
     }
 
@@ -125,7 +133,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             equipArmor: function (event, target) { this._onEquipArmor(event, target); },
             unequipArmor: function (event, target) { PJActorAPI.onUnEquipArmor(target, this.actor); },
             equipWeapon: function (event, target) { this._onEquipWeapon(event, target); },
-            unequipWeapon: function (event, target) { PJActorAPI.onUnequipWeapon(this.actor); },
+            unequipWeapon: function (event, target) { PJActorAPI.onUnequipWeapon(this.actor, target); },
             attack: function (event, target) { this._onAttack(event, target); },
             rangedAttack: function (event, target) { this._onRangedAttack(event, target); },
             defense: function (event, target) { this._onDefense(event, target); },
@@ -317,7 +325,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.crucialChildhoodEvents = this._CrucialChildhoodEvents;
         context.childhoodMemory = this._ChildhoodMemory;
 
-        context.derangements = this.document.items.filter(i=> i.type === "Derangement");
+        context.derangements = this.document.items.filter(i => i.type === "Derangement");
 
         const highlightOptionsByType = {
             "Romance": this._RomanceHighlights.flatMap(i => i.system.possibilities),
@@ -449,12 +457,18 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemType = target.dataset.itemType;
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
-        const update = {};
+        const oldObjectId = this.document.system.equipment[itemType].id;
+        const oldObject = this.document.items.get(oldObjectId).toObject();
+        const update = {};  const updateArmor = {}; const updateOlArmor = {}; 
         update[`system.equipment.${itemType}.id`] = itemId;
         update[`system.equipment.${itemType}.protection`] = object.system.protection;
         update[`system.equipment.${itemType}.bulk`] = object.system.bulk;
         update[`system.equipment.${itemType}.type`] = object.system.type;
+        updateArmor[`system.equipped`] = true;
+        updateOlArmor[`system.equipped`] =false;
         await this.document.update(update);
+        await object.update(updateArmor);
+        await oldObject.update(updateOlArmor);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 
@@ -462,14 +476,20 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         event.preventDefault();
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
-        const update = {};
+        const update = {}; const updateWeapon = {}; const updateOldWeapon = {};
+        const oldWeaponId = system.equipment.Weapon.id;
+        const oldWeaponObject = this.document.items.get(oldWeaponId).toObject();
         update[`system.equipment.Weapon.id`] = itemId;
         update[`system.equipment.Weapon.efficiency`] = object.system.efficiency;
         update[`system.equipment.Weapon.bulk`] = object.system.bulk;
         update[`system.equipment.Weapon.type`] = object.system.type;
         update[`system.equipment.Weapon.reach`] = object.system.reach;
         update[`system.equipment.Weapon.skill`] = object.system.skill;
+        updateWeapon[`system.equipped`] = true;
+        updateOldWeapon[`system.equipped`] = false;
         await this.document.update(update);
+        await object.update(updateWeapon);
+        await oldWeaponObject.update(updateOldWeapon);
         await PJActorAPI.onUpdateProtectionAndBulk(this.actor);
     }
 

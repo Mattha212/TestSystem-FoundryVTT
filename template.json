@@ -159,7 +159,8 @@
       "weight": 0,
       "bulk": 0,
       "cost": "",
-      "size": 0
+      "size": 0,
+      "equipped":false
     },
     "Armor": {
       "traits": "",
@@ -168,7 +169,8 @@
       "bulk": 0,
       "type": "",
       "cost": "",
-      "size": 0
+      "size": 0,
+      "equipped":false
     },
     "Weapon": {
       "traits": "",
@@ -183,7 +185,8 @@
       "reach": 0,
       "cost": "",
       "skill": "",
-      "size": 0
+      "size": 0,
+      "equipped":false
     },
     "Ranged Weapon": {
       "traits": "",
@@ -198,7 +201,8 @@
       "reach": 0,
       "cost": "",
       "skill": "",
-      "size": 0
+      "size": 0,
+      "equipped":false
     },
     "Thrown Weapon": {
       "traits": "",
@@ -213,7 +217,8 @@
       "reach": 0,
       "cost": "",
       "skill": "",
-      "size": 0
+      "size": 0,
+      "equipped":false
     },
     "Ammunition": {
       "traits": "",

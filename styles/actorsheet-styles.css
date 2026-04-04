@@ -291,6 +291,12 @@ width: 50px;
 .armor-block li {
     grid-template-columns: repeat(7, 1fr) auto;
 }
+
+.armor-block li.equipped {
+    background: rgba(80, 180, 80, 0.15);
+    border-left: 3px solid rgba(80, 180, 80, 0.6);
+}
+
 .shields-block li{
       grid-template-columns: repeat(5, 1fr) auto;
 
