@@ -317,6 +317,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.crucialChildhoodEvents = this._CrucialChildhoodEvents;
         context.childhoodMemory = this._ChildhoodMemory;
 
+        context.derangements = this.doument.items.filter(i=> i.type === "Derangement");
+
         const highlightOptionsByType = {
             "Romance": this._RomanceHighlights.flatMap(i => i.system.possibilities),
             "Fateful Encounter": this._FatefulHighlights.flatMap(i => i.system.possibilities),
@@ -2697,6 +2699,28 @@ class RomanceSheet extends LifePathInfoSheet {
         }
     }
 }
+class DerangementSheet extends NonObjectItemsSheet {
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        width: 400,
+        height: 300,
+        tag: 'form',
+        form: {
+            handler: this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        window: {
+            resizable: true
+        }
+    }
+    static PARTS = {
+        main: {
+            template: "systems/testsystem/templates/derangement-sheet.html",
+            scrollable: ["", ".tab"],
+        }
+    }
+}
 
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
     if (data.type !== "PJ") return;
@@ -2918,6 +2942,10 @@ Hooks.once("init", async () => {
         makeDefault: true
     });
 
+    foundry.documents.collections.Items.registerSheet("testsystem", DerangementSheet, {
+        types: ["Derangement"],
+        makeDefault: true
+    });
 
     Handlebars.registerHelper("handleNames", function (str) {
         if (typeof str !== "string") return "";

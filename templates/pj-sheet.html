@@ -197,7 +197,6 @@
                             </div>
                         </li>
 
-
                         {{#each weapons}}
                         <li class="item" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
@@ -587,6 +586,14 @@
                 <div class="experience">
                     <h3>Current Experience</h3>
                     <input type="number" name="system.experience" value="{{system.experience}}" />
+                </div>
+                <div class="derangement">
+                    <h3>Derangement</h3>
+                    {{each derangement}}
+                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    <span>{{this.system.gravity}}</span>
+                    <input type="number" name="this.system.recovery" value="{{this.system.recovery}}"/>
+                    {{/each}}
                 </div>
                 <div class="background">
                     <h3>Story</h3>

@@ -133,7 +133,8 @@
       "Lifepath - Stroke of Tragedy",
       "Lifepath - Fateful Encounter",
       "Lifepath - Dramatic Encounter",
-      "Lifepath - Romance"
+      "Lifepath - Romance",
+      "Derangement"
     ],
     "Object": {
       "description": "",
@@ -283,6 +284,11 @@
     "Lifepath - Romance": {
       "culture": "",
       "possibilities": []
+    },
+    "Derangement":{
+      "effect":"",
+      "gravity":"",
+      "recoverySteps": 0
     }
   }
 }

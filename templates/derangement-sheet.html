@@ -1,0 +1,27 @@
+<div class="derangement-sheet">
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+    <section class="object-body">
+        <div>
+            <label>Effect</label>
+            <textarea name="system.effect">{{system.effect}}</textarea>
+        </div>
+        <div>
+            <select name="system.gravity">
+                <option value="">Select a gravity</option>
+                <option value="lesser" {{#if (eq system.gravity lesser)}}selected{{/if}}>
+                    Lesser
+                </option>
+                <option value="middling" {{#if (eq system.gravity middling)}}selected{{/if}}>
+                    Middling
+                </option>
+                <option value="greater" {{#if (eq system.gravity greater)}}selected{{/if}}>
+                    Greater
+                </option>
+            </select>
+        </div>
+    </section>
+</div>
