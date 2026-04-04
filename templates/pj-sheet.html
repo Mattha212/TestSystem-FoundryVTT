@@ -407,7 +407,13 @@
         <div class="tab {{tabs.magicTab.cssClass}}" data-tab="{{tabs.magicTab.id}}" data-group="{{tabs.magicTab.group}}"
             data-part="{{tabs.magicTab.id}}">
             <div class="magic-list">
-                <div class="spell-category">Catalyst Spells</div>
+                <div class="spell-category">Catalyst Spells
+                    <div class="categories">
+                        <span>Name</span>
+                        <span>Reach</span>
+                        <span>Cost</span>
+                    </div>
+                </div>
                 {{#each catalystSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
@@ -422,7 +428,13 @@
                     <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                 </div>
                 {{/each}}
-                <div class="spell-category">Runesmith Spells</div>
+                <div class="spell-category">Runesmith Spells
+                    <div class="categories">
+                        <span>Name</span>
+                        <span>Reach</span>
+                        <span>Cost</span>
+                    </div>
+                </div>
                 {{#each runesmithSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
@@ -437,7 +449,13 @@
                     <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                 </div>
                 {{/each}}
-                <div class="spell-category">Thaumaturge Spells</div>
+                <div class="spell-category">Thaumaturge Spells
+                    <div class="categories">
+                        <span>Name</span>
+                        <span>Reach</span>
+                        <span>Cost</span>
+                    </div>
+                </div>
                 {{#each thaumaturgeSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
@@ -452,7 +470,13 @@
                     <button type="button" data-action="deleteItem" data-item-id="{{this.id}}">Remove</button>
                 </div>
                 {{/each}}
-                <div class="spell-category">Words of Power Spells</div>
+                <div class="spell-category">Words of Power Spells
+                    <div class="categories">
+                        <span>Name</span>
+                        <span>Reach</span>
+                        <span>Cost</span>
+                    </div>
+                </div>
                 {{#each wordsOfPowerSpells}}
                 <div class="spell-row">
                     <span class="spell-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
@@ -592,12 +616,12 @@
                         <span>Name</span>
                         <span>Gravity Level</span>
                         <span>Recovery steps remaining</span>
-                    </div>                
+                    </div>
                     {{#each derangements}}
                     <div class="derangement-row">
                         <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                         <span>{{this.system.gravity}}</span>
-                        <input type="number" name="this.system.recovery" value="{{this.system.recovery}}" />
+                        <input type="number" name="this.system.recoverySteps" value="{{this.system.recoverySteps}}" />
                     </div>
                     {{/each}}
                 </div>
