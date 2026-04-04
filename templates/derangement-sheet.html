@@ -12,13 +12,13 @@
         <div>
             <select name="system.gravity">
                 <option value="">Select a gravity</option>
-                <option value="lesser" {{#if (eq system.gravity lesser)}}selected{{/if}}>
+                <option value="lesser" {{#if (eq system.gravity "lesser")}}selected{{/if}}>
                     Lesser
                 </option>
-                <option value="middling" {{#if (eq system.gravity middling)}}selected{{/if}}>
+                <option value="middling" {{#if (eq system.gravity "middling")}}selected{{/if}}>
                     Middling
                 </option>
-                <option value="greater" {{#if (eq system.gravity greater)}}selected{{/if}}>
+                <option value="greater" {{#if (eq system.gravity "greater")}}selected{{/if}}>
                     Greater
                 </option>
             </select>
