@@ -124,10 +124,13 @@
                             <span>{{this.system.bulk}}</span>
                             <span>{{this.system.cost}}</span>
                             <div class="item-actions">
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}"
                                     data-item-type="{{this.type}}">Unequip</button>
+                                {{else}}
                                 <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
                                     data-item-type="{{this.type}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
@@ -154,10 +157,13 @@
                             <span>{{this.system.cost}}</span>
                             <span>{{this.system.type}}</span>
                             <div class="item-actions">
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}"
                                     data-item-type="{{this.type}}">Unequip</button>
+                                {{else}}
                                 <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
                                     data-item-type="{{this.type}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
@@ -215,10 +221,13 @@
                                     data-item-skillkey="{{this.system.skill}}">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="{{this.system.skill}}">Defense</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipWeapon"
                                     data-item-id="{{this.id}}">Unequip</button>
+                                {{else}}
                                 <button type="button" data-action="equipWeapon"
                                     data-item-id="{{this.id}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
@@ -276,10 +285,13 @@
                                     data-item-skillkey="{{this.system.skill}}">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipWeapon"
                                     data-item-id="{{this.id}}">Unequip</button>
+                                {{else}}
                                 <button type="button" data-action="equipWeapon"
                                     data-item-id="{{this.id}}">Equip</button>
+                                {{/if}}
 
                             </div>
                         </li>
@@ -319,10 +331,13 @@
                                     data-thrown="true">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipWeapon"
                                     data-item-id="{{this.id}}">Unequip</button>
+                                {{else}}
                                 <button type="button" data-action="equipWeapon"
                                     data-item-id="{{this.id}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
