@@ -117,17 +117,20 @@
                     </div>
                     <ul>
                         {{#each shields}}
-                        <li class="item" data-item-id="{{this.id}}">
+                        <li class="item {{#if this.system.equipped}}equipped{{/if}}" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                             <span>{{round this.system.weight 2}} kg</span>
                             <span>{{this.system.protection}}</span>
                             <span>{{this.system.bulk}}</span>
                             <span>{{this.system.cost}}</span>
                             <div class="item-actions">
-                                <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
-                                    data-item-type="{{this.type}}">Equip</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}"
                                     data-item-type="{{this.type}}">Unequip</button>
+                                {{else}}
+                                <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
+                                    data-item-type="{{this.type}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
@@ -154,10 +157,13 @@
                             <span>{{this.system.cost}}</span>
                             <span>{{this.system.type}}</span>
                             <div class="item-actions">
-                                <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
-                                    data-item-type="{{this.type}}">Equip</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipArmor" data-item-id="{{this.id}}"
                                     data-item-type="{{this.type}}">Unequip</button>
+                                {{else}}
+                                <button type="button" data-action="equipArmor" data-item-id="{{this.id}}"
+                                    data-item-type="{{this.type}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
@@ -197,7 +203,7 @@
                         </li>
 
                         {{#each weapons}}
-                        <li class="item" data-item-id="{{this.id}}">
+                        <li class="item {{#if this.system.equipped}}equipped{{/if}}" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                             <span>{{round this.system.weight 2}} kg</span>
 
@@ -215,10 +221,13 @@
                                     data-item-skillkey="{{this.system.skill}}">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="{{this.system.skill}}">Defense</button>
-                                <button type="button" data-action="equipWeapon"
-                                    data-item-id="{{this.id}}">Equip</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipWeapon"
                                     data-item-id="{{this.id}}">Unequip</button>
+                                {{else}}
+                                <button type="button" data-action="equipWeapon"
+                                    data-item-id="{{this.id}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
@@ -258,7 +267,7 @@
                     </div>
                     <ul>
                         {{#each rangedWeapons}}
-                        <li class="item" data-item-id="{{this.id}}">
+                        <li class="item {{#if this.system.equipped}}equipped{{/if}}" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                             <span>{{round this.system.weight 2}} kg</span>
 
@@ -276,10 +285,14 @@
                                     data-item-skillkey="{{this.system.skill}}">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
-                                <button type="button" data-action="equipWeapon"
-                                    data-item-id="{{this.id}}">Equip</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipWeapon"
                                     data-item-id="{{this.id}}">Unequip</button>
+                                {{else}}
+                                <button type="button" data-action="equipWeapon"
+                                    data-item-id="{{this.id}}">Equip</button>
+                                {{/if}}
+
                             </div>
                         </li>
                         {{/each}}
@@ -300,7 +313,7 @@
                     </div>
                     <ul>
                         {{#each thrownWeapons}}
-                        <li class="item" data-item-id="{{this.id}}">
+                        <li class="item {{#if this.system.equipped}}equipped{{/if}}" data-item-id="{{this.id}}">
                             <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
                             <span>{{round this.system.weight 2}} kg</span>
 
@@ -318,10 +331,13 @@
                                     data-thrown="true">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
-                                <button type="button" data-action="equipWeapon"
-                                    data-item-id="{{this.id}}">Equip</button>
+                                {{#if this.system.equipped}}
                                 <button type="button" data-action="unequipWeapon"
                                     data-item-id="{{this.id}}">Unequip</button>
+                                {{else}}
+                                <button type="button" data-action="equipWeapon"
+                                    data-item-id="{{this.id}}">Equip</button>
+                                {{/if}}
                             </div>
                         </li>
                         {{/each}}
