@@ -599,3 +599,28 @@ width: 50px;
     padding: 2px 6px;
     cursor: pointer;
 }
+
+.testsystem.actor.sheet .derangement {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.testsystem.actor.sheet .derangement h3 {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.testsystem.actor.sheet .derangement-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 60px;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    border-bottom: 1px solid #aaa5;
+}
+
+.testsystem.actor.sheet .derangement-row input {
+    width: 100%;
+    text-align: center;
+}

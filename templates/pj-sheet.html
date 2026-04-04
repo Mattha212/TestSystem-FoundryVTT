@@ -190,8 +190,7 @@
                             <span>0</span>
                             <span>0</span>
                             <div class="item-actions">
-                                <button type="button" data-action="attack"
-                                    data-item-skillkey="Brawling">Attack</button>
+                                <button type="button" data-action="attack" data-item-skillkey="Brawling">Attack</button>
                                 <button type="button" data-action="defense"
                                     data-item-skillkey="Brawling">Defense</button>
                             </div>
@@ -544,7 +543,7 @@
                     </div>
                     <div class="Religion">
                         <h3>Religion</h3>
-                        <input type="text" name="system.background.religion" value="{{system.background.religion}}"/>
+                        <input type="text" name="system.background.religion" value="{{system.background.religion}}" />
                     </div>
                 </div>
                 <div class="highlight">
@@ -590,9 +589,11 @@
                 <div class="derangement">
                     <h3>Derangement</h3>
                     {{#each derangements}}
-                    <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
-                    <span>{{this.system.gravity}}</span>
-                    <input type="number" name="this.system.recovery" value="{{this.system.recovery}}"/>
+                    <div class="derangement-row">
+                        <span data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                        <span>{{this.system.gravity}}</span>
+                        <input type="number" name="this.system.recovery" value="{{this.system.recovery}}" />
+                    </div>
                     {{/each}}
                 </div>
                 <div class="background">
