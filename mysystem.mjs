@@ -477,7 +477,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         const itemId = target.dataset.itemId;
         const object = this.document.items.get(itemId).toObject();
         const update = {}; const updateWeapon = {}; const updateOldWeapon = {};
-        const oldWeaponId = system.equipment.Weapon.id;
+        const oldWeaponId = this.document.system.equipment.Weapon.id;
         const oldWeaponObject = this.document.items.get(oldWeaponId).toObject();
         update[`system.equipment.Weapon.id`] = itemId;
         update[`system.equipment.Weapon.efficiency`] = object.system.efficiency;
