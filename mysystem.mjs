@@ -317,7 +317,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.crucialChildhoodEvents = this._CrucialChildhoodEvents;
         context.childhoodMemory = this._ChildhoodMemory;
 
-        context.derangements = this.doument.items.filter(i=> i.type === "Derangement");
+        context.derangements = this.document.items.filter(i=> i.type === "Derangement");
 
         const highlightOptionsByType = {
             "Romance": this._RomanceHighlights.flatMap(i => i.system.possibilities),
