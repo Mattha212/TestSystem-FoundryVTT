@@ -85,16 +85,9 @@ border-radius: 8px;
   text-align: center;
 }
 
-.testsystem.actor.sheet .traits {
-  display: grid;
-  width: 100%;
-  gap: 20px 0;
-}
-
 .testsystem.actor.sheet .traits-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 3.5fr 1fr;
 }
 
 .testsystem.actor.sheet .trait-list {
@@ -104,9 +97,10 @@ border-radius: 8px;
   grid-auto-columns: max-content;
   gap: 4px 16px;
   list-style: none;
-  padding: 0;
+  padding: 0px 2.5px;
   margin: 0;
 }
+
 
 .testsystem.actor.sheet .sheet-stats{
 display: grid;
