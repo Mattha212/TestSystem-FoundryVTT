@@ -1034,7 +1034,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
 
     async _onToggleTraitMode(){
         this._editTraits = !this._editTraits;
-        this.render();
+        this.render(true);
     }
     async _onChangeCulture(event) {
         event.preventDefault();
