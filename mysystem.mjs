@@ -123,7 +123,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             resizable: true,
         },
         actions: {
-            deleteTrait: this.#_onRemoveTrait,
+            deleteTrait: function(event, target){ this._onRemoveTrait(event, target)},
+            toggleTraitModification: function(){ this._onToggleTraitMode()},
             statRoll: function (event, target) { this._onRollStat(event, target); },
             skillRoll: function (event, target) { this._OnRollSkill(event, target); },
             printItem: function (event, target) { this._OnPrintItem(event, target); },
@@ -211,6 +212,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         this._ParentMishaps = [];
         this._CrucialChildhoodEvents = [];
         this._ChildhoodMemory = [];
+
+        this._editTraits = false;
     }
 
     getLifepathData() {
@@ -303,7 +306,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             })
         );
 
-
         context.protection = this.document.system.protection;
         context.bulk = this.document.system.bulk;
 
@@ -347,8 +349,10 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             label: k.charAt(0).toUpperCase() + k.slice(1)
         }));
 
+        context.editTraitMode = this._editTraits;
         return context;
     }
+
     _onRender(context, options) {
         this.element.querySelectorAll('select[name="system.culture"]').forEach(sel =>
             sel.addEventListener("change", this._onChangeCultureBound)
@@ -1022,12 +1026,16 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.actor.update(update);
     }
 
-    static async #_onRemoveTrait(event, target, sheet) {
+    async _onRemoveTrait(event, target) {
         event.preventDefault();
         const traitToRemoveId = target.dataset.traitId;
         await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
     }
 
+    async _onToggleTraitMode(){
+        this._editTraits = !this._editTraits;
+        this.render();
+    }
     async _onChangeCulture(event) {
         event.preventDefault();
         event.stopPropagation();

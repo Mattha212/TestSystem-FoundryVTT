@@ -346,7 +346,7 @@ li.equipped {
 /* Ligne d’un sort */
 .spell-row {
   display: grid;
-  grid-template-columns: 1.0fr 0.2fr 0.1fr 0.4fr 0.5fr 0.75fr 0.5fr 1fr;
+  grid-template-columns: 0.95fr 0.2fr 0.1fr 0.4fr 0.5fr 0.75fr 0.5fr 1fr;
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.25rem;

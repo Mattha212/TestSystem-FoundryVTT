@@ -28,12 +28,18 @@
             </select>
         </div>
         <div class="traits">
+            <div>
+                <button type="button" class="toggle-trait-modification" data-action="toggleTraitModification">Modify
+                    traits</button>
+            </div>
             <ol class="trait-list">
                 {{#each traits}}
                 <li class="trait" data-item-id="{{this.id}}">
                     <span class="trait-name" data-action="printItem" data-item-id="{{this.id}}">{{this.name}}</span>
+                    {{#if editTraitMode}}
                     <button type="button" class="delete-trait" data-action="deleteTrait"
                         data-trait-id="{{this.id}}">Remove trait</button>
+                    {{/if}}
                 </li>
                 {{/each}}
             </ol>
