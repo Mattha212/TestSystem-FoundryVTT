@@ -91,6 +91,12 @@ border-radius: 8px;
   gap: 20px 0;
 }
 
+.testsystem.actor.sheet .traits-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .testsystem.actor.sheet .trait-list {
   display: grid;
   grid-template-rows: repeat(5, auto); 
