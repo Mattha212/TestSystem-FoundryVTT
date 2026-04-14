@@ -2830,8 +2830,11 @@ Hooks.on("preUpdateItem", (item, data, options, userId) => {
 })
 
 Hooks.on("updateItem", async (item, data, option, userId) => {
+    if (userId !== game.user.id) return;
+
     const actor = item.actor;
     if (!actor) return;
+    if (!actor.isOwner) return;
 
     const containers = actor.items.filter(i => i.type === "Container");
 
