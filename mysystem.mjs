@@ -123,8 +123,8 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             resizable: true,
         },
         actions: {
-            deleteTrait: function(event, target){ this._onRemoveTrait(event, target)},
-            toggleTraitModification: function(){ this._onToggleTraitMode()},
+            deleteTrait: function (event, target) { this._onRemoveTrait(event, target) },
+            toggleTraitModification: function () { this._onToggleTraitMode() },
             statRoll: function (event, target) { this._onRollStat(event, target); },
             skillRoll: function (event, target) { this._OnRollSkill(event, target); },
             printItem: function (event, target) { this._OnPrintItem(event, target); },
@@ -315,10 +315,14 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.cultures = allCultures;
         context.subcultures = allSubcultures.filter(i => i.system.parentCulture === context.system.culture)
 
-        context.catalystSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Catalysme");
-        context.runesmithSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Forgerune");
-        context.thaumaturgeSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Thaumaturgie");
-        context.wordsOfPowerSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "WordsOfPower");
+        context.catalystSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Catalysme")
+            .sort((a, b) => a.system.level - b.system.level);
+        context.runesmithSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Forgerune")
+            .sort((a, b) => a.system.level - b.system.level);
+        context.thaumaturgeSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "Thaumaturgie")
+            .sort((a, b) => a.system.level - b.system.level);
+        context.wordsOfPowerSpells = this.document.items.filter(i => i.type === "Spell" && i.system.spellType === "WordsOfPower")
+            .sort((a, b) => a.system.level - b.system.level);
 
         this.getLifepathData();
 
@@ -1032,7 +1036,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         await this.document.deleteEmbeddedDocuments("Item", [traitToRemoveId]);
     }
 
-    async _onToggleTraitMode(){
+    async _onToggleTraitMode() {
         this._editTraits = !this._editTraits;
         this.render(true);
     }
