@@ -58,6 +58,8 @@
         <div class="tab {{tabs.skillsTab.cssClass}}" data-tab="{{tabs.skillsTab.id}}"
             data-group="{{tabs.skillsTab.group}}" data-part="{{tabs.skillsTab.id}}">
             <section class="sheet-stats">
+    
+        <div class="CategoryTitle">Statistiques</div>
         {{#each system.stats as |stat key|}}
         <div class="stat-block">
             <button type="button" class="stat-roll" data-action="statRoll" data-stat="{{key}}">{{stat.Label}}</button>
