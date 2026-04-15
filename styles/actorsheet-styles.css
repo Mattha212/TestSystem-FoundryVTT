@@ -181,7 +181,7 @@ width: 50px;
 .testsystem.actor.sheet .skills-header {
     grid-column: span 1;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 4.7fr 2fr 1.25fr;
     font-weight: bold;
     margin-bottom: 5px;
     gap: 5px;

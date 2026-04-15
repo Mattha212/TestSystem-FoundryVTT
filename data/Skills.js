@@ -3,10 +3,10 @@ export const CATEGORYSKILLS = {
   Social: ["Intimidation", "Seduction", "Psychology", "Representation", "Gambling", "Persuasion", "Deceit", 
     "Leadership", "ResistCoercion", "Bargaining"],
   Stealth: ["Stealth", "Disguise", "SleightOfHand", "Picklocking"],
-  Crafting: ["Blacksmithing", "Trapping", "Bowying", "Leatherwork", "Forgery", "Medecine"],
+  Crafting: ["Blacksmithing", "TrapMaking", "Bowying", "Leatherwork", "Forgery", "Medecine"],
   Knowledge: ["Survival", "Examinate", "Diplomacy", "Deduction", "History", "Language", "Tracking", "Strategy", "Geography",
      "Identify", "Religion"],
-  Athletic: ["Running", "Swimming", "Resistance", "Climbing", "Riding", "Navigation"],
+  Athletic: ["Running", "Swimming", "Resistance", "Climbing", "Riding", "Sailing"],
   Restricted: ["Thaumaturgie", "Forgerune", "Catalysme", "WordsOfPower"]
 }
 
