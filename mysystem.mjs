@@ -280,6 +280,23 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.stats = this.document.system.stats;
         context.skills = this.document.system.skills;
 
+        for (const [categoryName, category] of Object.entries(context.skills)) {
+            for (const [skillKey, skill] of category) {
+                const skillLevel = this.document.system.skills[categoryName][skillKey].level;
+                const statsSkill = this.document.system.skills[categoryName][skillKey].stats;
+                const values = statsSkill.map(s => {
+                    if (skillKey === "Thaumaturgy" && s == "Constitution") {
+                        return this.document.system.stats[s].MaxValue || 0;
+                    }
+                    return this.document.system.stats[s].CurrentValue || 0;
+                });
+                const levelModifierValue = skillLevel * 5;
+
+                const average = values.reduce((a, b) => a + b, 0) / values.length;
+                context.skills[categoryName][skillKey].sum = average+levelModifierValue;
+            }
+        }
+
         context.traits = this.document.items.filter(i => i.type === "Trait");
         context.containers = this.document.items.filter(i => i.type === "Container");
         context.shields = this.document.items.filter(i => i.type === "Shield");
@@ -1318,8 +1335,6 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
             update[`system.stats.Vigor.CurrentValue`] = this.document.system.stats["Vigor"].CurrentValue - vigorCost;
             await this.document.update(update);
         }
-
-
 
         const message = `
         <div class= "custom-skill-roll">

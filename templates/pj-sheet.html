@@ -79,7 +79,7 @@
                 <div class="skills-header">
                     <span></span>
                     <span>Level</span>
-                    <span>Learning Points</span>
+                    <span>Score</span>
                 </div>
                 <div class="skills-header-filler"></div>
                 {{#each category as |skill skillname|}}
@@ -93,8 +93,7 @@
                             value="{{skill.level}}" />
                     </div>
                     <div class="skill-input">
-                        <input type="number" name="system.skills.{{categoryName}}.{{skillname}}.learningPoints"
-                            value="{{skill.learningPoints}}" />
+                        <span>{{skill.sum}}</span>
                     </div>
                 </div>
                 {{/each}}
