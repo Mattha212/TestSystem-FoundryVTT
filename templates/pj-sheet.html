@@ -46,7 +46,18 @@
             </ol>
         </div>
     </header>
-    <section class="sheet-stats">
+    <nav class="tabs sheet-tabs" data-group="primary">
+        <a class="item" data-tab="skillsTab" data-action="changeTab">Skills</a>
+        <a class="item" data-tab="fightingTab" data-action="changeTab">Fighting</a>
+        <a class="item" data-tab="inventoryTab" data-action="changeTab">Inventory</a>
+        <a class="item" data-tab="magicTab" data-action="changeTab">Magic</a>
+        <a class="item" data-tab="historyTab" data-action="changeTab">History</a>
+    </nav>
+
+    <section class="sheet-body" data-application-part="body">
+        <div class="tab {{tabs.skillsTab.cssClass}}" data-tab="{{tabs.skillsTab.id}}"
+            data-group="{{tabs.skillsTab.group}}" data-part="{{tabs.skillsTab.id}}">
+            <section class="sheet-stats">
         {{#each system.stats as |stat key|}}
         <div class="stat-block">
             <button type="button" class="stat-roll" data-action="statRoll" data-stat="{{key}}">{{stat.Label}}</button>
@@ -62,17 +73,6 @@
         </div>
         {{/each}}
     </section>
-    <nav class="tabs sheet-tabs" data-group="primary">
-        <a class="item" data-tab="skillsTab" data-action="changeTab">Skills</a>
-        <a class="item" data-tab="fightingTab" data-action="changeTab">Fighting</a>
-        <a class="item" data-tab="inventoryTab" data-action="changeTab">Inventory</a>
-        <a class="item" data-tab="magicTab" data-action="changeTab">Magic</a>
-        <a class="item" data-tab="historyTab" data-action="changeTab">History</a>
-    </nav>
-
-    <section class="sheet-body" data-application-part="body">
-        <div class="tab {{tabs.skillsTab.cssClass}}" data-tab="{{tabs.skillsTab.id}}"
-            data-group="{{tabs.skillsTab.group}}" data-part="{{tabs.skillsTab.id}}">
             {{#each skills as |category categoryName|}}
             <div class="CategoryTitle">{{handleNames categoryName}}</div>
             <div class="skills">
