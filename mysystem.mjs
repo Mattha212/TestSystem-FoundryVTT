@@ -281,7 +281,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
         context.skills = this.document.system.skills;
 
         for (const [categoryName, category] of Object.entries(context.skills)) {
-            for (const [skillKey, skill] of category) {
+            for (const [skillKey, skill] of Object.entries(category)) {
                 const skillLevel = this.document.system.skills[categoryName][skillKey].level;
                 const statsSkill = this.document.system.skills[categoryName][skillKey].stats;
                 const values = statsSkill.map(s => {
