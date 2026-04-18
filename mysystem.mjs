@@ -293,7 +293,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 const levelModifierValue = skillLevel * 5;
 
                 const average = values.reduce((a, b) => a + b, 0) / values.length;
-                context.skills[categoryName][skillKey].sum = average+levelModifierValue;
+                context.skills[categoryName][skillKey].sum = roundTo(average+levelModifierValue);
             }
         }
 
