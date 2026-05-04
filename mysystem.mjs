@@ -2843,7 +2843,7 @@ class RecipeSheet extends ObjectsItemsSheet {
 
     async _removeIngredients(event, target) {
         event.preventDefault();
-        const data = target.dataset.itemIndex;
+        const index = target.dataset.itemIndex;
         const ingredients = Array.from(this.document.system.ingredients);
         ingredients.splice(index, 1)
         const update = {};

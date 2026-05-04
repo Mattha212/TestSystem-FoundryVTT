@@ -307,7 +307,7 @@
       "cost":""
     },
     "Recipe":{
-      "successNecessary":"",
+      "successNecessary":0,
       "time":0,
       "ingredients":[],
       "weight":0,
