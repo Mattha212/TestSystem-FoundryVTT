@@ -17,7 +17,7 @@
         <label>Ingredients</label>
         {{#each system.ingredients as |ingredient index|}}
         <span>{{ingredient.name}}</span>
-        <input type="number" name="system.ingredients.{{index}}.quantity value={{ingredient.quantity}}">
+        <input type="number" name="system.ingredients.{{index}}.quantity" value={{ingredient.quantity}}">
         <button type="button" data-action="removeIngredients" data-item-index="{{index}}">Remove ingredient</button>
         {{/each}}
     </section>
