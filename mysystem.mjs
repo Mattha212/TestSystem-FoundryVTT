@@ -3117,7 +3117,7 @@ Hooks.once("init", async () => {
     });
 
     foundry.documents.collections.Items.registerSheet("testsystem", RecipeSheet, {
-        types: ["Recipe Component"],
+        types: ["Recipe"],
         makeDefault: true
     });
 
