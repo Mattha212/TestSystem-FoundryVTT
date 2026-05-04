@@ -14,6 +14,14 @@
             <label>Time necessary</label>
             <input type="number" name="system.time" value="{{system.time}}" />
         </div>
+        <div>
+            <label>Weigth</label>
+            <input type="number" name="system.weight" value="{{system.weight}}" />
+        </div>
+        <div>
+            <label>Cost</label>
+            <input type="text" name="system.cost" value="{{system.cost}}"/>
+        </div>
         <label>Ingredients</label>
         {{#each system.ingredients as |ingredient index|}}
         <span>{{ingredient.name}}</span>
