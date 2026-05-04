@@ -2329,6 +2329,9 @@ class ContainerSheet extends ObjectsItemsSheet {
         await PJActorAPI.UpdateAllContainers(actor);
 
     }
+    _onClose(options) {
+        this._dropListenerBound = false;
+    }
 }
 
 class SpellSystemSheet extends NonObjectItemsSheet {
@@ -2882,6 +2885,9 @@ class RecipeSheet extends ObjectsItemsSheet {
             update[`system.ingredients`] = ingredients;
         }
         await this.document.update(update);
+    }
+    _onClose(options) {
+        this._dropListenerBound = false;
     }
 }
 
