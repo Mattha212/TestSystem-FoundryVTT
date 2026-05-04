@@ -1,0 +1,43 @@
+<div class="object-sheet" data-application-part="main">
+
+    <header class="object-header">
+        <h2>
+            <input type="text" name="name" value="{{item.name}}" />
+        </h2>
+    </header>
+    <section class="object-body">
+        <div>
+            <label>Native Environment</label>
+            <input type="text" name="system.nativeEnvironment" value="{{system.nativeEnvironment}}" />
+        </div>
+        <div>
+            <label>type</label>
+            <select name="system.type">
+                <option value="">Select a type</option>
+                <option value="Mineral" {{#if (eq system.type "Mineral" )}}selected{{/if}}>Mineral</option>
+                <option value="Plant" {{#if (eq system.type "Plant" )}}selected{{/if}}>Plant</option>
+                <option value="Organic" {{#if (eq system.type "Organic" )}}selected{{/if}}>Organic</option>
+            </select>
+        </div>
+        <div>
+            <label>Success degree necessary</label>
+            <input type="number" name="system.successNecessary" value="{{system.successNecessary}}" />
+        </div>
+        <div>
+            <label>Weight</label>
+            <input type="number" name="system.weight" value="{{system.weight}}" />
+        </div>
+        <div>
+            <label>Weight</label>
+            <input type="number" name="system.weight" value="{{system.weight}}" />
+        </div>
+        <div>
+            <label>Quantity Retrieved</label>
+            <input type="text" name="system.quantityRetrieved" value="{{system.quantityRetrieved}}" />
+        </div>
+        <div>
+            <label>Cost</label>
+            <input type="number" name="system.cost" value="{{system.cost}}" />
+        </div>
+    </section>
+</div>

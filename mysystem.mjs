@@ -293,7 +293,7 @@ class PJSheet extends foundry.applications.api.HandlebarsApplicationMixin(foundr
                 const levelModifierValue = skillLevel * 5;
 
                 const average = values.reduce((a, b) => a + b, 0) / values.length;
-                context.skills[categoryName][skillKey].sum = roundTo(average+levelModifierValue);
+                context.skills[categoryName][skillKey].sum = roundTo(average + levelModifierValue);
             }
         }
 
@@ -2774,6 +2774,115 @@ class DerangementSheet extends NonObjectItemsSheet {
     }
 }
 
+class CraftingComponentSheet extends ObjectsItemsSheet {
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        position: {
+            width: 400,
+            height: 700
+        },
+        tag: 'form',
+        form: {
+            handler: this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false,
+        },
+        window: {
+            resizable: true,
+        }
+    }
+    static PARTS = {
+        main: {
+            template: "systems/testsystem/templates/craftingComponent-sheet.html",
+            scrollable: [".object-body"],
+        }
+    }
+
+}
+
+class RecipeSheet extends ObjectsItemsSheet {
+    static DEFAULT_OPTIONS = {
+        classes: ["testsystem", "sheet", "item"],
+        position: {
+            width: 400,
+            height: 700
+        },
+        tag: 'form',
+        form: {
+            handler: this.onSubmitForm,
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        window: {
+            resizable: true,
+        },
+        actions: {
+            removeIngredients: function (event, target) { this._removeIngredients(event, target); }
+        }
+    }
+    static PARTS = {
+        main: {
+            template: "systems/testsystem/templates/craftingComponent-sheet.html",
+            scrollable: [".object-body"],
+        }
+    }
+
+    constructor(...args) {
+        super(...args);
+        this._onDropBound = this._onDropItems.bind(this);
+    }
+
+
+    _onRender(context, options) {
+        if (!this._dropListenerBound) {
+            this.element.addEventListener("drop", this._onDropBound);
+            this.element.addEventListener("dragover", event => event.preventDefault());
+            this._dropListenerBound = true;
+        }
+    }
+
+    async _removeIngredients(event, target) {
+        event.preventDefault();
+        const data = target.dataset.itemIndex;
+        const ingredients = Array.from(this.document.system.ingredients);
+        ingredients.splice(index, 1)
+        const update = {};
+        update[`system.ingredients`] = ingredients;
+        await this.document.update(update);
+    }
+
+    async _onDropItems(event) {
+        event.preventDefault();
+        const dataTransfer = event.dataTransfer;
+        if (!dataTransfer) return;
+        const dataString = dataTransfer.getData("text/plain");
+        if (!dataString) return;
+
+        let itemData;
+
+        const parsed = JSON.parse(dataString);
+        const item = await fromUuid(parsed.uuid);
+        if (!item) return;
+        itemData = {
+            name: item.name || "Unnamed Item",
+            type: item.system.type || "no type",
+        };
+        const ingredients = Array.from(this.document.system.ingredients);
+        const alreadyExistingObject = ingredients.find(obj => obj.name == itemData.name);
+        const update = {};
+        if (alreadyExistingObject) {
+            alreadyExistingObject.quantity += 1;
+            update[`system.ingredients`] = ingredients;
+        }
+        else {
+            itemData.quantity = 1;
+            ingredients.push(itemData);
+            update[`system.ingredients`] = ingredients;
+        }
+        await this.document.update(update);
+    }
+}
+
 Hooks.on("preCreateActor", (actor, data, options, userId) => {
     if (data.type !== "PJ") return;
 
@@ -2999,6 +3108,16 @@ Hooks.once("init", async () => {
 
     foundry.documents.collections.Items.registerSheet("testsystem", DerangementSheet, {
         types: ["Derangement"],
+        makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", CraftingComponentSheet, {
+        types: ["Crafting Component"],
+        makeDefault: true
+    });
+
+    foundry.documents.collections.Items.registerSheet("testsystem", RecipeSheet, {
+        types: ["Recipe Component"],
         makeDefault: true
     });
 

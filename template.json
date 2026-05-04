@@ -134,7 +134,8 @@
       "Lifepath - Fateful Encounter",
       "Lifepath - Dramatic Encounter",
       "Lifepath - Romance",
-      "Derangement"
+      "Derangement",
+      "Crafting Component"
     ],
     "Object": {
       "description": "",
@@ -295,6 +296,21 @@
       "effect":"",
       "gravity":"",
       "recoverySteps": 0
+    },
+    "Crafting Component":{
+      "nativeEnvironment":"",
+      "type":"",
+      "successNecessary":0,
+      "weight":0,
+      "quantityRetrieved":"",
+      "cost":""
+    },
+    "Recipe":{
+      "successNecessary":"",
+      "time":0,
+      "ingredients":[],
+      "weight":0,
+      "cost":""
     }
   }
 }
