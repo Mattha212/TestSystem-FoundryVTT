@@ -2863,6 +2863,8 @@ class RecipeSheet extends ObjectsItemsSheet {
         const parsed = JSON.parse(dataString);
         const item = await fromUuid(parsed.uuid);
         if (!item) return;
+        if (item.type != "Crafting Component") return;
+
         itemData = {
             name: item.name || "Unnamed Item",
             type: item.system.type || "no type",
