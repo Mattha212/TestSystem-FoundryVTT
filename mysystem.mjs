@@ -2822,7 +2822,7 @@ class RecipeSheet extends ObjectsItemsSheet {
     }
     static PARTS = {
         main: {
-            template: "systems/testsystem/templates/craftingComponent-sheet.html",
+            template: "systems/testsystem/templates/recipe-sheet.html",
             scrollable: [".object-body"],
         }
     }
