@@ -2868,7 +2868,9 @@ class RecipeSheet extends ObjectsItemsSheet {
         const index = input.name.split(".")[2];
         const newValue = Number(input.value);
         const update = {};
-        update[`system.ingredients.${index}.quantity`] = newValue;
+        const ingredients = Array.from(this.document.system.ingredients);
+        ingredients[index].quantity = newValue
+        update[`system.ingredients`] = ingredients;
         await this.document.update(update);
 
     }
