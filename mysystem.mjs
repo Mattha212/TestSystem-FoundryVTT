@@ -2833,10 +2833,15 @@ class RecipeSheet extends ObjectsItemsSheet {
     constructor(...args) {
         super(...args);
         this._onDropBound = this._onDropItems.bind(this);
+        this._onChangeQuantity = this._onChangeQuantity.bind(this);
     }
 
 
     _onRender(context, options) {
+        this.element.querySelectorAll('input[name*="system.ingredients"]').forEach(inp =>
+            inp.addEventListener("change", this._onChangeQuantity)
+        );
+
         if (!this._dropListenerBound) {
             this.element.addEventListener("drop", this._onDropBound);
             this.element.addEventListener("dragover", event => event.preventDefault());
@@ -2854,6 +2859,18 @@ class RecipeSheet extends ObjectsItemsSheet {
         await this.document.update(update);
     }
 
+    async _OnChangeQuantity(event)
+    {
+        event.preventDefault();
+        
+        const input = event.target;
+        const index = input.name.split(".")[2];
+        const newValue = Number(input.value);
+        const update = {};
+        update[`system.ingredients.${index}$.quantity`] = newValue;
+        await this.document.update(update);
+
+    }
     async _onDropItems(event) {
         event.preventDefault();
         const dataTransfer = event.dataTransfer;
