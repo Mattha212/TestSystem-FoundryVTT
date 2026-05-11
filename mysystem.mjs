@@ -2833,7 +2833,7 @@ class RecipeSheet extends ObjectsItemsSheet {
     constructor(...args) {
         super(...args);
         this._onDropBound = this._onDropItems.bind(this);
-        this._onChangeQuantity = this._onChangeQuantity.bind(this);
+        this._onChangeQuantity = this._OnChangeQuantityOfIngredient.bind(this);
     }
 
 
@@ -2859,7 +2859,7 @@ class RecipeSheet extends ObjectsItemsSheet {
         await this.document.update(update);
     }
 
-    async _OnChangeQuantity(event)
+    async _OnChangeQuantityOfIngredient(event)
     {
         event.preventDefault();
         
