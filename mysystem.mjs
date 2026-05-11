@@ -2862,7 +2862,8 @@ class RecipeSheet extends ObjectsItemsSheet {
     async _OnChangeQuantityOfIngredient(event)
     {
         event.preventDefault();
-        
+        event.stopPropagation();
+
         const input = event.target;
         const index = input.name.split(".")[2];
         const newValue = Number(input.value);
